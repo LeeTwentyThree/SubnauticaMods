@@ -51,10 +51,10 @@ If you want your name changed/removed/added to the Patreon list, please message 
 
 <div>
   <a href="https://patreon.com/user?u=71441969&utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator">
-    <img src="https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/raw/main/Downloads/Images/PatreonImage.png" width=300px alt="Become a Patron">
+    <img src="https://github.com/LeeTwentyThree/SubnauticaMods/raw/main/Pages/PatreonImage.png" width=300px alt="Become a Patron">
   </a>
 </div>
 
 ### Other ⚠️
 
-You can leave feedback or report an issue on the [Issues tab](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/issues). If you are unable to make an account or want to ask in private, you can fill out [this form](https://forms.gle/MAa7Kovx6CRodsd77).
+You can leave feedback or report an issue on the [Issues tab](https://github.com/LeeTwentyThree/SubnauticaMods/issues). If you are unable to make an account or want to ask in private, you can fill out [this form](https://forms.gle/MAa7Kovx6CRodsd77).
