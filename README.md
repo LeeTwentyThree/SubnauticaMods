@@ -1,5 +1,5 @@
 <div>
-  <img src="https://github.com/LeeTwentyThree/SubnauticaMods/raw/main/Downloads/Images/MainPageHeader.png" width=1000px alt="Lee23's Subnautica Mods">
+  <img src="https://github.com/LeeTwentyThree/SubnauticaMods/raw/main/Pages/MainPageHeader.png" width=1000px alt="Lee23's Subnautica Mods">
 </div>
 
 # Mod lists
@@ -16,7 +16,7 @@
 ### Discord 💬
 
 <div>
-  <img src="https://github.com/LeeTwentyThree/SubnauticaMods/raw/main/Downloads/Images/Discord.png" alt="Discord" width=50px>
+  <img src="https://github.com/LeeTwentyThree/SubnauticaMods/raw/main/Pages/Discord.png" alt="Discord" width=50px>
 </div>
 
 Join the Subnautica Modding Discord server to discuss mods & receive support: https://discord.gg/UpWuWwq
