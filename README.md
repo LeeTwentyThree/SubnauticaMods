@@ -1,5 +1,5 @@
 <div>
-  <img src="https://github.com/LeeTwentyThree/SubnauticaMods/raw/main/Pages/MainPageHeader.png" width=1000px alt="Lee23's Subnautica Mods">
+  <img src="https://github.com/LeeTwentyThree/SubnauticaMods/raw/main/Pages/MainHeader.png" width=1000px alt="Lee23's Subnautica Mods">
 </div>
 
 # Mod lists
