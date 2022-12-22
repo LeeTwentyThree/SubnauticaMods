@@ -6,7 +6,7 @@
 
 ### [Click here for a list of my mods for the first Subnautica game!](https://github.com/LeeTwentyThree/SubnauticaMods/blob/main/Pages/ModDownloads-Subnautica.md)
 - While I host mods in various places, all of my publicly released mods have been listed here.
-### [Click here to access my repository for the legacy branch of Subnautica](https://github.com/LeeTwentyThree/LegacySubnauticaMods/blob/main/README.md)
+### [Click here to access my repository for the legacy branch of Subnautica](https://github.com/LeeTwentyThree/Lee23-LegacySubnauticaMods/blob/main/README.md)
 - These mods are not compatible with any mods in this repository.
 
 ---
