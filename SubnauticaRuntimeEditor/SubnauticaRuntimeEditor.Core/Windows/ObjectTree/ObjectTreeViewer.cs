@@ -56,7 +56,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
         protected override void Initialize(InitSettings initSettings)
         {
-            Title = "Object Browser";
+            Title = "Object browser";
             _gameObjectSearcher = new RootGameObjectSearcher();
         }
 

@@ -351,6 +351,33 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
                 return;
             }
 
+            InstanceStackEntry instanceStackEntry = tab.CurrentStackItem as InstanceStackEntry;
+            if (instanceStackEntry != null)
+            {
+                Material material = null;
+                object instance = instanceStackEntry.Instance;
+                Material material2 = instance as Material;
+                if (material2 == null)
+                {
+                    Renderer renderer = instance as Renderer;
+                    if (renderer != null)
+                    {
+                        material = renderer.material;
+                    }
+                }
+                else
+                {
+                    material = material2;
+                }
+                if (material && GUILayout.Button("Open In Material Editor", new GUILayoutOption[]
+                {
+                            GUILayout.ExpandWidth(true)
+                }))
+                {
+                    MaterialEditor.MaterialEditorViewer.StartEditing(material);
+                }
+            }
+
             var currentItem = tab.CurrentStackItem;
             currentItem.ScrollPosition = GUILayout.BeginScrollView(currentItem.ScrollPosition);
             {
