@@ -62,12 +62,21 @@ namespace SubnauticaRuntimeEditor.Core
                 {
                     if (firstFeature)
                     {
+                        // stuff at the end of the windows
                         GUI.color = Styling.Colors.resetWindowsButtonColor;
                         if (GUILayout.Button("Reset"))
                         {
                             foreach (var window in _orderedFeatures.OfType<IWindow>())
                                 window.ResetWindowRect();
                         }
+
+                        if (GUILayout.Button("X"))
+                        {
+                            foreach (var featureToDisable in _orderedFeatures)
+                                if (featureToDisable.DisplayType == FeatureDisplayType.Window)
+                                    featureToDisable.Enabled = false;
+                        }
+                        // separator
                         firstFeature = false;
                         GUI.color = Styling.Colors.defaultColor;
                         GUILayout.Label("|");
