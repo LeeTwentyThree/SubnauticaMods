@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using System.Collections.Generic;
 using HarmonyLib;
 using SubnauticaRuntimeEditor.Core.Gizmos.lib;
@@ -234,3 +235,4 @@ namespace SubnauticaRuntimeEditor.Core.Gizmos
         }
     }
 }
+*/
