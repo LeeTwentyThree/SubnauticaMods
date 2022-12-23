@@ -75,22 +75,22 @@ namespace SubnauticaRuntimeEditor.Core.Utils.Abstractions
             return (GameObject[])objects;
         }
         
+        private static bool TryOpenFile(string path)
+        {
+            if (path == null) return false;
+            try
+            {
+                Process.Start(path);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static void OpenLog()
         {
-            bool TryOpen(string path)
-            {
-                if (path == null) return false;
-                try
-                {
-                    Process.Start(path);
-                    return true;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-
             var candidates = new List<string>();
 
             // Redirected by preloader to game root
@@ -115,7 +115,7 @@ namespace SubnauticaRuntimeEditor.Core.Utils.Abstractions
             }
 
             var latestLog = candidates.Where(File.Exists).OrderByDescending(File.GetLastWriteTimeUtc).FirstOrDefault();
-            if (TryOpen(latestLog)) return;
+            if (TryOpenFile(latestLog)) return;
 
             candidates.Clear();
             // Fall back to more aggresive brute search
@@ -123,9 +123,14 @@ namespace SubnauticaRuntimeEditor.Core.Utils.Abstractions
             candidates.AddRange(Directory.GetFiles(rootDir,"LogOutput.log*", SearchOption.AllDirectories));
             candidates.AddRange(Directory.GetFiles(rootDir,"output_log.txt", SearchOption.AllDirectories));
             latestLog = candidates.Where(File.Exists).OrderByDescending(File.GetLastWriteTimeUtc).FirstOrDefault();
-            if (TryOpen(latestLog)) return;
+            if (TryOpenFile(latestLog)) return;
 
             throw new FileNotFoundException("No log files were found");
+        }
+
+        public static void OpenTempSaveFolder()
+        {
+            TryOpenFile(SaveLoadManager.temporarySavePath);
         }
 
         public static Texture2D LoadTexture(byte[] texData)

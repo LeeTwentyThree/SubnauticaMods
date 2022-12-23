@@ -26,6 +26,7 @@
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>embedded</DebugType>
@@ -43,6 +44,14 @@
     <Reference Include="0Harmony, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\HarmonyX.2.6.0\lib\net35\0Harmony.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp_publicized.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Cecil, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.dll</HintPath>
@@ -100,6 +109,17 @@
     <Compile Include="Features\Gizmos\lib\Element.cs" />
     <Compile Include="Features\Gizmos\lib\Gizmos.cs" />
     <Compile Include="Features\Gizmos\lib\GizmosInstance.cs" />
+    <Compile Include="MaterialEditor\CodeGenerator.cs" />
+    <Compile Include="MaterialEditor\MaterialEditorViewer.cs" />
+    <Compile Include="MaterialEditor\MaterialEditorPropertyTypes.cs" />
+    <Compile Include="MaterialEditor\MaterialEditorPropertyKeywords.cs" />
+    <Compile Include="MaterialEditor\MaterialEditorProperties.cs" />
+    <Compile Include="MaterialEditor\Keywords.cs" />
+    <Compile Include="MaterialEditor\PropertyTypeVector4.cs" />
+    <Compile Include="MaterialEditor\PropertyTypeToggle.cs" />
+    <Compile Include="MaterialEditor\PropertyTypeFloat.cs" />
+    <Compile Include="MaterialEditor\PropertyTypeColor.cs" />
+    <Compile Include="MaterialEditor\PropertyType.cs" />
     <Compile Include="Styling\Colors.cs" />
     <Compile Include="Utils\Abstractions\InitSettings.cs" />
     <Compile Include="Utils\MovingAverage.cs" />

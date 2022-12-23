@@ -122,7 +122,7 @@ namespace SubnauticaRuntimeEditor.Core.REPL
                 var typeBlacklist = new[] { typeof(bool) };
 
                 foreach (var prop in type.GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                    .Where(x => x.CanRead && !nameBlacklist.Contains(x.Name) && !typeBlacklist.Contains(x.PropertyType)))
+                    .Where(x => x.CanRead && !Enumerable.Contains(nameBlacklist, x.Name) && !typeBlacklist.Contains(x.PropertyType)))
                 {
                     try
                     {
@@ -135,7 +135,7 @@ namespace SubnauticaRuntimeEditor.Core.REPL
                     catch { }
                 }
                 foreach (var field in type.GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-                    .Where(x => !nameBlacklist.Contains(x.Name) && !typeBlacklist.Contains(x.FieldType)))
+                    .Where(x => !Enumerable.Contains(nameBlacklist, x.Name) && !typeBlacklist.Contains(x.FieldType)))
                 {
                     try
                     {

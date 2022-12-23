@@ -24,6 +24,16 @@ namespace SubnauticaRuntimeEditor.Core.Utils
             return (arr.Length == j) ? arr[0] : arr[j];
         }
 
+        public static bool IsEqualApprox(this Color u, Color v, float eps)
+        {
+            bool flag = u.ApproxEquals(v, eps);
+            bool flag2 = Mathf.Abs(u.a - v.a) < eps;
+            return flag && flag2;
+        }
+        public static bool ApproxEquals(this Color u, Color v, float eps)
+        {
+            return Mathf.Abs(u.r - v.r) < eps && Mathf.Abs(u.g - v.g) < eps && Mathf.Abs(u.b - v.b) < eps;
+        }
         public static object GetPrivateExplicit<T>(this T self, string name)
         {
             return typeof(T).GetField(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy).GetValue(self);

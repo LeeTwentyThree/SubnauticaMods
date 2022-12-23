@@ -106,6 +106,9 @@ namespace SubnauticaRuntimeEditor.Core
             if (GUILayout.Button("Log", GUILayout.ExpandWidth(false)))
                 UnityFeatureHelper.OpenLog();
 
+            if (!string.IsNullOrEmpty(SaveLoadManager.temporarySavePath) && GUILayout.Button("Temp save", GUILayout.ExpandWidth(false)))
+                UnityFeatureHelper.OpenTempSaveFolder();
+
             AssetBundleManagerHelper.DrawButtonIfAvailable();
 
             GUILayout.EndHorizontal();
