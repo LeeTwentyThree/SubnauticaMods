@@ -63,6 +63,9 @@ namespace SubnauticaRuntimeEditor.Core
                     if (firstFeature)
                     {
                         // stuff at the end of the windows
+                        GUI.color = Styling.Colors.defaultColor;
+                        GUILayout.Label("|");
+
                         GUI.color = Styling.Colors.resetWindowsButtonColor;
                         if (GUILayout.Button("Reset"))
                         {
@@ -106,7 +109,7 @@ namespace SubnauticaRuntimeEditor.Core
             if (GUILayout.Button("Log", GUILayout.ExpandWidth(false)))
                 UnityFeatureHelper.OpenLog();
 
-            if (!string.IsNullOrEmpty(SaveLoadManager.temporarySavePath) && GUILayout.Button("Temp save", GUILayout.ExpandWidth(false)))
+            if (!string.IsNullOrEmpty(SaveLoadManager.temporarySavePath) && GUILayout.Button("Temp save folder", GUILayout.ExpandWidth(false)))
                 UnityFeatureHelper.OpenTempSaveFolder();
 
             AssetBundleManagerHelper.DrawButtonIfAvailable();
