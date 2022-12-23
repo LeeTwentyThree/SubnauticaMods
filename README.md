@@ -4,7 +4,7 @@
 
 # Mod lists
 
-### [Subnautica Mod List](https://github.com/LeeTwentyThree/SubnauticaMods/blob/main/Pages/ModDownloads-Subnautica.md)
+### [Subnautica Mod List (v2.0+)](https://github.com/LeeTwentyThree/SubnauticaMods/blob/main/Pages/ModDownloads-Subnautica.md)
 - While I host mods in various places, all of my publicly released mods have been listed here.
 ### [Subnautica LEGACY BRANCH Mod List](https://github.com/LeeTwentyThree/Lee23-LegacySubnauticaMods/blob/main/README.md)
 - These mods are not compatible with any mods in this repository.
