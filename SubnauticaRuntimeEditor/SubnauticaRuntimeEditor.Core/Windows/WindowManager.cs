@@ -62,7 +62,7 @@ namespace SubnauticaRuntimeEditor.Core
                 {
                     if (firstFeature)
                     {
-                        GUI.color = Styling.Colors.defaultTranparentColor;
+                        GUI.color = Styling.Colors.resetWindowsButtonColor;
                         if (GUILayout.Button("Reset"))
                         {
                             foreach (var window in _orderedFeatures.OfType<IWindow>())
@@ -88,9 +88,9 @@ namespace SubnauticaRuntimeEditor.Core
             if (float.TryParse(GUILayout.TextField(Time.timeScale.ToString("F2", CultureInfo.InvariantCulture), GUILayout.Width(38)), NumberStyles.Any, CultureInfo.InvariantCulture, out var newVal))
                 Time.timeScale = newVal;
 
-            GUI.changed = false;
+            /*GUI.changed = false;
             var n = GUILayout.Toggle(Application.runInBackground, "in BG");
-            if (GUI.changed) Application.runInBackground = n;
+            if (GUI.changed) Application.runInBackground = n;**/
 
             GUILayout.Label("|");
 

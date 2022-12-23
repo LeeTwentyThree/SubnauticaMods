@@ -5,8 +5,8 @@ namespace SubnauticaRuntimeEditor.Core.Styling
     internal static class Colors
     {
         public static Color defaultColor = Color.white;
-        public static Color defaultBackgroundColor = Color.white;
         public static Color defaultTranparentColor = new Color(1, 1, 1, 0.75f);
+        public static Color resetWindowsButtonColor = Color.yellow;
         public static Color windowManagerSelectedColor = Color.cyan;
         public static Color inspectorTabSelectedColor = Color.cyan;
         public static Color gizmosColor = new Color(1, 0, 0.6f);

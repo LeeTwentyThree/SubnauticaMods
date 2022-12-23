@@ -9,10 +9,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SubnauticaRuntimeEditor.Core</RootNamespace>
     <AssemblyName>SubnauticaRuntimeEditor.Core</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,6 +25,7 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>embedded</DebugType>
@@ -35,6 +37,7 @@
     <CodeAnalysisRuleSet>
     </CodeAnalysisRuleSet>
     <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -103,7 +106,6 @@
     <Compile Include="Utils\ObjectDumper\Dumper.cs" />
     <Compile Include="Utils\ObjectDumper\ObjectDumperExtensions.cs" />
     <Compile Include="WindowBase.cs" />
-    <Compile Include="Features\WireframeFeature.cs" />
     <Compile Include="Windows\Clipboard\ClipboardWindow.cs" />
     <Compile Include="Windows\Inspector\Entries\Contents\EventCacheEntry.cs" />
     <Compile Include="Utils\OrderedSet.cs" />

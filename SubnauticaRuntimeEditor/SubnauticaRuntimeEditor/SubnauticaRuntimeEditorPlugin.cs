@@ -5,8 +5,10 @@ using BepInEx.Logging;
 using SubnauticaRuntimeEditor.Core;
 using SubnauticaRuntimeEditor.Core.Utils.Abstractions;
 using UnityEngine;
+using HarmonyLib;
+using System.Reflection;
 
-namespace SubnauticaRuntimeEditor.Bepin5
+namespace SubnauticaRuntimeEditor.Plugin
 {
     [BepInPlugin(SubnauticaRuntimeEditorCore.GUID, "Subnautica Runtime Editor", SubnauticaRuntimeEditorCore.Version)]
     public class SubnauticaRuntimeEditorPlugin : BaseUnityPlugin
@@ -22,6 +24,9 @@ namespace SubnauticaRuntimeEditor.Bepin5
             }
 
             Instance = new SubnauticaRuntimeEditorCore(new SubnauticaRuntimeEditorSettings(this));
+
+            var harmony = new Harmony("Lee23.SubnauticaRuntimeEditor");
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 
         private void Update()
@@ -41,9 +46,9 @@ namespace SubnauticaRuntimeEditor.Bepin5
 
         private sealed class SubnauticaRuntimeEditorSettings : InitSettings
         {
-            private readonly Bepin5.SubnauticaRuntimeEditorPlugin _instance;
+            private readonly Plugin.SubnauticaRuntimeEditorPlugin _instance;
 
-            public SubnauticaRuntimeEditorSettings(Bepin5.SubnauticaRuntimeEditorPlugin instance)
+            public SubnauticaRuntimeEditorSettings(Plugin.SubnauticaRuntimeEditorPlugin instance)
             {
                 _instance = instance;
                 LoggerWrapper = new Logger5(_instance.Logger);
