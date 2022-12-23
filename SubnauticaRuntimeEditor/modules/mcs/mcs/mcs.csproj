@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E4989E4C-0875-4528-9031-08E2C0E70103}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mcs</RootNamespace>
+    <AssemblyName>mcs</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_2_0</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET_2_0,PERMISSIVE;BOOTSTRAP_BASIC</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET_2_0,PERMISSIVE;BOOTSTRAP_BASIC</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NET_2_0,PERMISSIVE;BOOTSTRAP_BASIC</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Cecil, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>..\..\..\packages\MonoMod.RuntimeDetour.20.1.1.4\lib\net35\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>..\..\..\packages\MonoMod.Utils.20.1.1.4\lib\net35\MonoMod.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="anonymous.cs" />
+    <Compile Include="argument.cs" />
+    <Compile Include="assembly.cs" />
+    <Compile Include="assign.cs" />
+    <Compile Include="async.cs" />
+    <Compile Include="attribute.cs" />
+    <Compile Include="cfold.cs" />
+    <Compile Include="class.cs" />
+    <Compile Include="codegen.cs" />
+    <Compile Include="Compat\outline.cs" />
+    <Compile Include="Compat\Tuple.cs" />
+    <Compile Include="complete.cs" />
+    <Compile Include="const.cs" />
+    <Compile Include="constant.cs" />
+    <Compile Include="context.cs" />
+    <Compile Include="convert.cs" />
+    <Compile Include="crypto.cs" />
+    <Compile Include="cs-parser.cs" />
+    <Compile Include="cs-tokenizer.cs" />
+    <Compile Include="decl.cs" />
+    <Compile Include="delegate.cs" />
+    <Compile Include="doc-bootstrap.cs" />
+    <Compile Include="doc.cs" />
+    <Compile Include="driver.cs" />
+    <Compile Include="dynamic.cs" />
+    <Compile Include="ecore.cs" />
+    <Compile Include="enum.cs" />
+    <Compile Include="eval.cs" />
+    <Compile Include="expression.cs" />
+    <Compile Include="field.cs" />
+    <Compile Include="flowanalysis.cs" />
+    <Compile Include="generic.cs" />
+    <Compile Include="import.cs" />
+    <Compile Include="iterators.cs" />
+    <Compile Include="lambda.cs" />
+    <Compile Include="linq.cs" />
+    <Compile Include="literal.cs" />
+    <Compile Include="location.cs" />
+    <Compile Include="membercache.cs" />
+    <Compile Include="method.cs" />
+    <Compile Include="modifiers.cs" />
+    <Compile Include="module.cs" />
+    <Compile Include="namespace.cs" />
+    <Compile Include="nullable.cs" />
+    <Compile Include="parameter.cs" />
+    <Compile Include="pending.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="property.cs" />
+    <Compile Include="reflection.cs" />
+    <Compile Include="report.cs" />
+    <Compile Include="settings.cs" />
+    <Compile Include="statement.cs" />
+    <Compile Include="support.cs" />
+    <Compile Include="SymbolWriter\MonoSymbolFile.cs" />
+    <Compile Include="SymbolWriter\MonoSymbolTable.cs" />
+    <Compile Include="SymbolWriter\MonoSymbolWriter.cs" />
+    <Compile Include="SymbolWriter\SourceMethodBuilder.cs" />
+    <Compile Include="SymbolWriter\SymbolWriterImpl.cs" />
+    <Compile Include="tuples.cs" />
+    <Compile Include="typemanager.cs" />
+    <Compile Include="typespec.cs" />
+    <Compile Include="Visibility\skip-visibility.cs" />
+    <Compile Include="visit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
