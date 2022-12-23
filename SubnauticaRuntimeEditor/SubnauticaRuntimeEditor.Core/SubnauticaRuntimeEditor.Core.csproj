@@ -39,7 +39,7 @@
     </CodeAnalysisRuleSet>
     <DebugSymbols>true</DebugSymbols>
     <Prefer32Bit>false</Prefer32Bit>
-	<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -206,7 +206,21 @@
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\UI\guisharp-button-hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\UI\guisharp-button-onhover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\UI\guisharp-button-active.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\UI\guisharp-button-normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Utils\UI\guisharp-button-on.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -64,7 +64,7 @@ namespace SubnauticaRuntimeEditor.Core
                     {
                         // stuff at the end of the windows
                         GUI.color = Styling.Colors.defaultColor;
-                        GUILayout.Label("|");
+                        GUILayout.Label("-");
 
                         GUI.color = Styling.Colors.resetWindowsButtonColor;
                         if (GUILayout.Button("Reset"))

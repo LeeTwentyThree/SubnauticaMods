@@ -14,6 +14,8 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         public static readonly string MARMOSETUBER_SHADER_NAME = "MarmosetUBER";
 
+        private static readonly string NO_MATERIAL_SELECTED = "No material selected!\nSelect the 'Open in Material Editor' button on a valid Renderer or Material.";
+
         private const float SHADER_EDITOR_WIDTH = 500f;
 
         private readonly GUILayoutOption _propertyColumnWidth = GUILayout.Width(75f);
@@ -21,6 +23,8 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
         private readonly GUILayoutOption _informationColumnWidth = GUILayout.Width(30f);
 
         private readonly GUILayoutOption _keywordColumnWidth = GUILayout.Width(400f);
+
+        private readonly GUILayoutOption _textLabelWidth = GUILayout.Width(400f);
 
         private Vector2 scrollPosition = Vector2.zero;
 
@@ -39,14 +43,16 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
         public static void StartEditing(Material material)
         {
             main.Enabled = true;
-            if (material == null)
+            main.editingMaterial = material;
+            main.Title = main.CurrentTitle;
+        }
+
+        public string CurrentTitle
+        {
+            get
             {
-                main.Title = DEFAULT_TITLE;
-            }
-            else
-            {
-                main.editingMaterial = material;
-                main.Title = material.name + " - " + material.shader.name;
+                if (editingMaterial == null) return DEFAULT_TITLE;
+                return editingMaterial.name + " - " + editingMaterial.shader.name;
             }
         }
 
@@ -57,21 +63,33 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         protected override void DrawContents()
         {
+            // scroll view
             scrollPosition = GUILayout.BeginScrollView(this.scrollPosition, new GUILayoutOption[]
             {
                 GUILayout.Width(SHADER_EDITOR_WIDTH),
-                GUILayout.ExpandHeight(true)
+                GUILayout.ExpandHeight(true),
             });
+            // no material selected warning
             if (editingMaterial == null)
             {
                 GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
-                GUILayout.Label("No material selected!", new GUILayoutOption[]
+                GUILayout.Label(NO_MATERIAL_SELECTED, new GUILayoutOption[]
                 {
-                    GUILayout.Width(SHADER_EDITOR_WIDTH)
-                });
+                    _textLabelWidth,
+                }) ;
+                GUILayout.EndVertical();
+                GUILayout.EndScrollView();
                 return;
             }
-            if (editingMaterial.shader.name.Equals(MaterialEditorViewer.MARMOSETUBER_SHADER_NAME))
+            // title
+            GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
+            GUILayout.Label("Selected: " + CurrentTitle, new GUILayoutOption[]
+            {
+                _textLabelWidth
+            });
+            GUILayout.EndVertical();
+            // keywords
+            if (editingMaterial.shader.name.Equals(MARMOSETUBER_SHADER_NAME))
             {
                 GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
                 if (GUILayout.Button("Keywords", new GUILayoutOption[]
@@ -87,6 +105,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
                 }
                 GUILayout.EndVertical();
             }
+            // properties
             GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
             if (GUILayout.Button("Properties", new GUILayoutOption[]
             {
