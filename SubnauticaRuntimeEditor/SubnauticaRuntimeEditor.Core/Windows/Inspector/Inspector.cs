@@ -131,7 +131,7 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
 
         protected override Rect GetDefaultWindowRect(Rect screenRect)
         {
-            return MakeDefaultWindowRect(screenRect, TextAlignment.Center);
+            return MakeDefaultWindowRect(screenRect, Alignment.Center);
         }
 
         protected override void OnGUI()
@@ -268,7 +268,7 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
                             var stackEntry = stackEntries[i];
 
                             if (stackEntry == currentTab.CurrentStackItem)
-                                GUI.backgroundColor = Color.cyan;
+                                GUI.backgroundColor = Styling.Colors.inspectorHierarchySelectedColor;
 
                             if (GUILayout.Button(LimitStringLengthForPreview(stackEntry.Name, 90), GUILayout.ExpandWidth(false)))
                             {

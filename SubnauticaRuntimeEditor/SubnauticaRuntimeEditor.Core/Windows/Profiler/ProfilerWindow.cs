@@ -59,7 +59,7 @@ namespace SubnauticaRuntimeEditor.Core.Profiler
 
         protected override Rect GetDefaultWindowRect(Rect screenRect)
         {
-            return MakeDefaultWindowRect(screenRect, TextAlignment.Center);
+            return MakeDefaultWindowRect(screenRect, Alignment.Center);
         }
 
         protected override void DrawContents()

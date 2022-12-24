@@ -35,6 +35,8 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
         private readonly GUILayoutOption _drawVector3SliderHeight = GUILayout.Height(10);
         private readonly GUILayoutOption _drawVector3SliderWidth = GUILayout.Width(33);
 
+        private readonly GUILayoutOption[] _drawTextureOptions = new GUILayoutOption[] { GUILayout.MaxWidth(50), GUILayout.MaxHeight(50) };
+
         public event Action<Transform> TreeSelectionChanged;
 
         public void SelectAndShowObject(Transform target)
@@ -118,7 +120,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
                 var c = GUI.color;
                 if (SelectedTransform == go.transform)
                 {
-                    GUI.color = Color.cyan;
+                    GUI.color = Styling.Colors.objectViewerSelectedColor;
                     if (_scrollTreeToSelected && Event.current.type == EventType.Repaint)
                         _scrollTarget = (int)(GUILayoutUtility.GetLastRect().y - 250);
                 }
@@ -349,7 +351,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
                                 if (tex != null)
                                 {
-                                    if (GUILayout.Button(tex, GUI.skin.box)) SubnauticaRuntimeEditorCore.Instance.PreviewWindow.SetShownObject(tex, imgSprite.name);
+                                    if (GUILayout.Button(tex, GUI.skin.box, _drawTextureOptions)) SubnauticaRuntimeEditorCore.Instance.PreviewWindow.SetShownObject(tex, imgSprite.name);
                                 }
                                 else
                                 {
@@ -378,7 +380,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
                         var rMainTexture = r.mainTexture;
                         if (!ReferenceEquals(rMainTexture, null))
                         {
-                            GUILayout.Label(rMainTexture);
+                            GUILayout.Label(rMainTexture, _drawTextureOptions);
                             GUILayout.FlexibleSpace();
                             if (GUILayout.Button("S")) rMainTexture.SaveTextureToFileWithDialog();
                         }
@@ -395,7 +397,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
                         if (reMaterial != null && reMaterial.mainTexture != null)
                         {
                             var rendTex = reMaterial.mainTexture;
-                            GUILayout.Label(rendTex);
+                            GUILayout.Label(rendTex, GUI.skin.box, _drawTextureOptions);
                             GUILayout.FlexibleSpace();
                             if (GUILayout.Button("S")) rendTex.SaveTextureToFileWithDialog();
                         }
@@ -581,7 +583,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
         protected override Rect GetDefaultWindowRect(Rect screenRect)
         {
-            return MakeDefaultWindowRect(screenRect, TextAlignment.Right);
+            return MakeDefaultWindowRect(screenRect, Alignment.Right);
         }
 
         protected override void VisibleChanged(bool visible)

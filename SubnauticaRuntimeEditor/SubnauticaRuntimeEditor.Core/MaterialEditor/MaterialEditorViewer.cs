@@ -58,7 +58,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         protected override Rect GetDefaultWindowRect(Rect screenRect)
         {
-            return MakeDefaultWindowRect(screenRect, TextAlignment.Left);
+            return MakeDefaultWindowRect(screenRect, Alignment.LowerLeft);
         }
 
         protected override void DrawContents()

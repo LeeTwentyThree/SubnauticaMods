@@ -186,26 +186,34 @@ namespace SubnauticaRuntimeEditor.Core
 
         protected abstract Rect GetDefaultWindowRect(Rect screenRect);
 
-        public static Rect MakeDefaultWindowRect(Rect screenRect, TextAlignment side)
+        public static Rect MakeDefaultWindowRect(Rect screenRect, Alignment side)
         {
             switch (side)
             {
-                case TextAlignment.Left:
+                case Alignment.UpperLeft:
                     return new Rect(screenRect.xMin, screenRect.yMin, SideWidth, screenRect.height / 2);
 
-                case TextAlignment.Center:
+                case Alignment.LowerLeft:
+                    return new Rect(screenRect.xMin, screenRect.yMin + screenRect.height / 2, SideWidth, screenRect.height / 2);
+
+                case Alignment.Center:
                     var centerWidth = (int)Mathf.Min(850, screenRect.width);
                     var centerX = (int)(screenRect.xMin + screenRect.width / 2 - Mathf.RoundToInt((float)centerWidth / 2));
 
                     var inspectorHeight = (int)(screenRect.height / 4) * 3;
                     return new Rect(centerX, screenRect.yMin, centerWidth, inspectorHeight);
 
-                case TextAlignment.Right:
+                case Alignment.Right:
                     return new Rect(screenRect.xMax - SideWidth, screenRect.yMin, SideWidth, screenRect.height);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(side), side, null);
             }
+        }
+
+        public enum Alignment
+        {
+            Center, Right, LowerLeft, UpperLeft
         }
         
         protected abstract void DrawContents();

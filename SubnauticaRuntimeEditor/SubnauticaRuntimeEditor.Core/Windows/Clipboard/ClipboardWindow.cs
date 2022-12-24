@@ -21,7 +21,7 @@ namespace SubnauticaRuntimeEditor.Core.Clipboard
 
         protected override Rect GetDefaultWindowRect(Rect screenRect)
         {
-            return MakeDefaultWindowRect(screenRect, TextAlignment.Left);
+            return MakeDefaultWindowRect(screenRect, Alignment.UpperLeft);
         }
 
         protected override void DrawContents()
