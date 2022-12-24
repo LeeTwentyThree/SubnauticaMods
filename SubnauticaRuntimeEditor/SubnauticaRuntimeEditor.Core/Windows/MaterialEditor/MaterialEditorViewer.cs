@@ -20,7 +20,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         private readonly GUILayoutOption _propertyColumnWidth = GUILayout.Width(75f);
 
-        private readonly GUILayoutOption _informationColumnWidth = GUILayout.Width(30f);
+        private readonly GUILayoutOption _pinColumnWidth = GUILayout.Width(30f);
 
         private readonly GUILayoutOption _keywordColumnWidth = GUILayout.Width(400f);
 
@@ -207,36 +207,23 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
             GUILayout.Label(type.Property, new GUILayoutOption[]
             {
-                this._propertyColumnWidth
+                _propertyColumnWidth
             });
-            type.DrawGUI(this.editingMaterial);
+            type.DrawGUI(editingMaterial);
             GUILayout.FlexibleSpace();
-            if (GUILayout.Button("?", new GUILayoutOption[]
+            if (GUILayout.Button(UI.InterfaceMaker.PinIcon, new GUILayoutOption[]
             {
-                this._informationColumnWidth
+                _pinColumnWidth
             }))
             {
-                this.ShowHelp(property, type);
+                Pin(property, type);
             }
             GUILayout.EndHorizontal();
         }
 
-        private void ShowHelp(MaterialEditorProperties property, PropertyType type)
+        private void Pin(MaterialEditorProperties property, PropertyType type)
         {
-            /*new Dialog("Keywords for " + type.Property, delegate ()
-			{
-				GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
-				GUILayout.FlexibleSpace();
-				GUILayout.Label("For the following property to work, you may need to enable these following keywords:", Array.Empty<GUILayoutOption>());
-				GUILayout.FlexibleSpace();
-				GUILayout.EndHorizontal();
-				GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
-				GUILayout.FlexibleSpace();
-				MaterialEditorKeywords[] orDefault = MaterialEditorPropertyKeywords.KEYWORDS.GetOrDefault(property, Array.Empty<MaterialEditorKeywords>());
-				GUILayout.Label((orDefault.Length == 0) ? "No Keywords" : string.Join<MaterialEditorKeywords>(", ", orDefault), Array.Empty<GUILayoutOption>());
-				GUILayout.FlexibleSpace();
-				GUILayout.EndHorizontal();
-			});*/
+            
         }
     }
 }

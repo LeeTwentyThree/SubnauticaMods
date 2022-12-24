@@ -18,9 +18,15 @@ namespace SubnauticaRuntimeEditor.Core.UI
         private static Texture2D _buttonBackgroundActive;
         private static Texture2D _buttonBackgroundOnHover;
         private static Texture2D _materialIcon;
+        private static Texture2D _saveIcon;
+        private static Texture2D _pinIcon;
+        private static Texture2D _unpinIcon;
+
         private static GUISkin _customSkin;
 
         public static Texture2D MaterialIcon => _materialIcon;
+        public static Texture2D SaveIcon => _saveIcon;
+        public static Texture2D PinIcon => _pinIcon;
 
         public static void EatInputInRect(Rect eatRect)
         {
@@ -87,6 +93,18 @@ namespace SubnauticaRuntimeEditor.Core.UI
             texData = ResourceUtils.GetEmbeddedResource("guisharp-material.png");
             _materialIcon = UnityFeatureHelper.LoadTexture(texData);
             Object.DontDestroyOnLoad(_materialIcon);
+
+            texData = ResourceUtils.GetEmbeddedResource("guisharp-save.png");
+            _saveIcon = UnityFeatureHelper.LoadTexture(texData);
+            Object.DontDestroyOnLoad(_saveIcon);
+
+            texData = ResourceUtils.GetEmbeddedResource("guisharp-pin.png");
+            _pinIcon = UnityFeatureHelper.LoadTexture(texData);
+            Object.DontDestroyOnLoad(_pinIcon);
+
+            texData = ResourceUtils.GetEmbeddedResource("guisharp-unpin.png");
+            _unpinIcon = UnityFeatureHelper.LoadTexture(texData);
+            Object.DontDestroyOnLoad(_unpinIcon);
         }
 
         private static GUISkin CreateSkin()

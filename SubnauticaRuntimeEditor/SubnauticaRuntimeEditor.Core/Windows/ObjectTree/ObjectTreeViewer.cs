@@ -35,7 +35,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
         private readonly GUILayoutOption _drawVector3SliderHeight = GUILayout.Height(10);
         private readonly GUILayoutOption _drawVector3SliderWidth = GUILayout.Width(33);
 
-        private readonly GUILayoutOption[] _drawTextureOptions = new GUILayoutOption[] { GUILayout.MaxWidth(50), GUILayout.MaxHeight(50) };
+        private readonly GUILayoutOption[] _drawTextureOptions = new GUILayoutOption[] { GUILayout.MaxWidth(40), GUILayout.MaxHeight(40) };
 
         public event Action<Transform> TreeSelectionChanged;
 
@@ -380,9 +380,9 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
                         var rMainTexture = r.mainTexture;
                         if (!ReferenceEquals(rMainTexture, null))
                         {
-                            GUILayout.Label(rMainTexture, _drawTextureOptions);
+                            GUILayout.Label(rMainTexture, GUI.skin.box, _drawTextureOptions);
                             GUILayout.FlexibleSpace();
-                            if (GUILayout.Button("S")) rMainTexture.SaveTextureToFileWithDialog();
+                            if (GUILayout.Button(UI.InterfaceMaker.SaveIcon, GUILayout.MaxWidth(32), GUILayout.MaxHeight(32))) rMainTexture.SaveTextureToFileWithDialog();
                         }
                         else
                         {
@@ -392,22 +392,28 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
                         break;
                     case Renderer re:
                         var reMaterial = re.material;
-                        GUILayout.Label(reMaterial != null ? reMaterial.shader.name : "[No material]");
+                        if (re.materials != null && re.materials.Length > 1)
+                            GUILayout.Label("[Has " + re.materials.Length + " materials]");
+                        else
+                            GUILayout.Label(reMaterial != null ? reMaterial.shader.name : "[No material]");
                         GUILayout.FlexibleSpace();
                         if (reMaterial != null && reMaterial.mainTexture != null)
                         {
                             var rendTex = reMaterial.mainTexture;
                             GUILayout.Label(rendTex, GUI.skin.box, _drawTextureOptions);
                             GUILayout.FlexibleSpace();
-                            if (GUILayout.Button("S")) rendTex.SaveTextureToFileWithDialog();
                         }
-                        if (reMaterial && GUILayout.Button(UI.InterfaceMaker.MaterialIcon, new GUILayoutOption[]
+                        if (reMaterial)
                         {
-                            GUILayout.MaxWidth(20),
-                            GUILayout.MaxHeight(20),
-                        }))
-                        {
-                            MaterialEditor.MaterialEditorViewer.StartEditing(reMaterial);
+                            if (GUILayout.Button(UI.InterfaceMaker.MaterialIcon))
+                            {
+                                MaterialEditor.MaterialEditorViewer.StartEditing(reMaterial);
+                                GUILayout.FlexibleSpace();
+                            }
+                            if (reMaterial.mainTexture != null)
+                            {
+                                if (GUILayout.Button(UI.InterfaceMaker.SaveIcon)) reMaterial.mainTexture.SaveTextureToFileWithDialog();
+                            }
                         }
                         break;
                     case Button b:
@@ -608,7 +614,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
             ClearCaches();
 
-            if (visible)
+            if (RefreshObjectList.main.Enabled && visible)
                 _gameObjectSearcher.Refresh(true, null);
         }
     }
