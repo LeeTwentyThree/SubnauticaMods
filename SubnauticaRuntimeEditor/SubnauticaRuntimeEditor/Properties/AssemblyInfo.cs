@@ -8,7 +8,7 @@ using SubnauticaRuntimeEditor.Core;
 [assembly: AssemblyTitle("SubnauticaRuntimeEditor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Lee23")]
 [assembly: AssemblyProduct("SubnauticaRuntimeEditor")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]

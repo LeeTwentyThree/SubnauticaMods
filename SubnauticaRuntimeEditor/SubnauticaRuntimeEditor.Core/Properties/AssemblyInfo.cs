@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RuntimeUnityEditor.Core")]
+[assembly: AssemblyTitle("SubnauticaRuntimeEditor.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ManlyMarco")]
-[assembly: AssemblyProduct("RuntimeUnityEditor.Core")]
+[assembly: AssemblyProduct("SubnauticaRuntimeEditor.Core")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -20,8 +20,8 @@ using System.Runtime.InteropServices;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("a66a97b4-f32f-4748-8332-48f0876f0aac")]
 
-[assembly: InternalsVisibleTo("RuntimeUnityEditor.Bepin4")]
-[assembly: InternalsVisibleTo("RuntimeUnityEditor.Bepin5")]
+[assembly: InternalsVisibleTo("SubnauticaRuntimeEditor.Bepin4")]
+[assembly: InternalsVisibleTo("SubnauticaRuntimeEditor.Bepin5")]
 
 // Version information for an assembly consists of the following four values:
 //
