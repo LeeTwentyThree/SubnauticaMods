@@ -11,12 +11,12 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
 		protected override void Draw(Material material)
 		{
-			bool flag = material.GetFloat(base.Property) > 0f;
+			bool flag = material.GetFloat(Property) > 0f;
 			bool flag2 = GUILayout.Toggle(flag, "Enable", Array.Empty<GUILayoutOption>());
 			if (flag != flag2)
 			{
-				material.SetFloat(base.Property, flag2 ? 1f : 0f);
-				base.PrintLog(flag, flag2);
+				material.SetFloat(Property, flag2 ? 1f : 0f);
+				PrintLog(flag, flag2);
 			}
 		}
 

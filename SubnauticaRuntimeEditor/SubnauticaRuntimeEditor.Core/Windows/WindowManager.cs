@@ -106,6 +106,13 @@ namespace SubnauticaRuntimeEditor.Core
 
             GUILayout.Label("|");
 
+            DrawButtons();
+
+            GUILayout.EndHorizontal();
+        }
+
+        private void DrawButtons()
+        {
             if (GUILayout.Button("Log", GUILayout.ExpandWidth(false)))
                 UnityFeatureHelper.OpenLog();
 
@@ -113,8 +120,6 @@ namespace SubnauticaRuntimeEditor.Core
                 UnityFeatureHelper.OpenTempSaveFolder();
 
             AssetBundleManagerHelper.DrawButtonIfAvailable();
-
-            GUILayout.EndHorizontal();
         }
 
         public bool Enabled { get; set; }
