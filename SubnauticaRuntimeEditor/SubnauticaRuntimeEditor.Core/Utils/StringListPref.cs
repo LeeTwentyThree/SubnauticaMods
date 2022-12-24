@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SubnauticaRuntimeEditor.Core.Utils
 {
-    internal class StringListPref : IEnumerable
+    internal class StringListPref : IEnumerable<string>
     {
         public readonly StringArrayPref array;
 
@@ -27,9 +27,14 @@ namespace SubnauticaRuntimeEditor.Core.Utils
             array[array.Length - 1] = entry;
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<string> GetEnumerator()
         {
-            yield return array.GetEnumerator();
+            return array.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public int IndexOf(string entry)

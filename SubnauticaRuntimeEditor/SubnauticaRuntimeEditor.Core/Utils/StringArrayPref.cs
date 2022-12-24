@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace SubnauticaRuntimeEditor.Core.Utils
 {
-    internal class StringArrayPref : IEnumerable
+    internal class StringArrayPref : IEnumerable<string>
     {
         public string Key { get; private set; }
 
@@ -20,12 +21,17 @@ namespace SubnauticaRuntimeEditor.Core.Utils
 
         private string KeyAtIndex(int index) => Key + index;
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<string> GetEnumerator()
         {
             for (int i = 0; i < Length; i++)
             {
                 yield return this[i];
             }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public void SetLength(int newLength)

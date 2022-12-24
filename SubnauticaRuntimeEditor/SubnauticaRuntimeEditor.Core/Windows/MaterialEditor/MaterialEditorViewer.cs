@@ -143,7 +143,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
             GUILayout.Label("Keyword", GUI.skin.box, new GUILayoutOption[]
             {
-                this._keywordColumnWidth
+                _keywordColumnWidth
             });
             GUILayout.Label("Toggled", GUI.skin.box, new GUILayoutOption[]
             {
@@ -157,7 +157,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
             GUILayout.Label(keyword.ToString(), new GUILayoutOption[]
             {
-                this._keywordColumnWidth
+                _keywordColumnWidth
             });
             bool flag = shaderKeywords.Contains(keyword.ToString());
             bool flag2 = GUILayout.Toggle(flag, "", new GUILayoutOption[]
@@ -168,11 +168,11 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             {
                 if (flag2)
                 {
-                    this.editingMaterial.EnableKeyword(keyword.ToString());
+                    editingMaterial.EnableKeyword(keyword.ToString());
                 }
                 else
                 {
-                    this.editingMaterial.DisableKeyword(keyword.ToString());
+                    editingMaterial.DisableKeyword(keyword.ToString());
                 }
             }
             GUILayout.EndHorizontal();
@@ -180,13 +180,13 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         private void DrawProperties()
         {
-            this.DrawPropertiesTableHeader();
+            DrawPropertiesTableHeader();
             foreach (KeyValuePair<MaterialEditorProperties, PropertyType> keyValuePair in from possibleProperty in MaterialEditorPropertyTypes.TYPES
-                                                                                          where this.editingMaterial.HasProperty(possibleProperty.Value.Property)
+                                                                                          where editingMaterial.HasProperty(possibleProperty.Value.Property)
                                                                                           select possibleProperty)
             {
                 GUILayout.BeginHorizontal(GUI.skin.box, Array.Empty<GUILayoutOption>());
-                this.DrawPropertiesTableRow(keyValuePair.Key, keyValuePair.Value);
+                DrawPropertiesTableRow(keyValuePair.Key, keyValuePair.Value);
                 GUILayout.EndHorizontal();
             }
         }
@@ -226,7 +226,21 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         private void Pin(MaterialEditorProperties property, PropertyType type)
         {
-            
+            var propertyId = property.ToString();
+            if (!pinnedProperties.Contains(propertyId))
+            {
+                pinnedProperties.Add(propertyId);
+            }
+            else
+            {
+                pinnedProperties.Remove(propertyId);
+            }
+
+            SubnauticaRuntimeEditorCore.Logger.Log(LogLevel.Message, "Printing pinned properties!");
+            foreach (string p in pinnedProperties)
+            {
+                SubnauticaRuntimeEditorCore.Logger.Log(LogLevel.Message, p);
+            }
         }
     }
 }
