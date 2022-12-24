@@ -20,14 +20,24 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
         private Predicate<GameObject> _lastObjectFilter;
         private string _lastSearchString;
         private bool _lastSearchProperties;
+        private bool _lastSearchResources;
 
         public bool IsSearching() => _searchResults != null;
 
-        public static IEnumerable<GameObject> FindAllRootGameObjects()
+        public static IEnumerable<GameObject> FindAllRootGameObjects(bool resources)
         {
-            return Resources.FindObjectsOfTypeAll<Transform>()
+            if (resources)
+            {
+                return Resources.FindObjectsOfTypeAll<Transform>()
+                   .Where(t => t.parent == null)
+                   .Select(x => x.gameObject);
+            }
+            else
+            {
+                return UnityEngine.Object.FindObjectsOfType<Transform>()
                 .Where(t => t.parent == null)
                 .Select(x => x.gameObject);
+            }
         }
 
         public IEnumerable<GameObject> GetRootObjects()
@@ -61,7 +71,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
             {
                 sw = Stopwatch.StartNew();
                 _cachedRootGameObjects = new OrderedSet<GameObject>();
-                foreach (var gameObject in FindAllRootGameObjects().OrderBy(x => x.name, StringComparer.InvariantCultureIgnoreCase))
+                foreach (var gameObject in FindAllRootGameObjects(_lastSearchResources).OrderBy(x => x.name, StringComparer.InvariantCultureIgnoreCase))
                     _cachedRootGameObjects.AddLast(gameObject);
             }
             else
@@ -84,13 +94,14 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
                 // _lastSearchProperties==true takes too long to open the editor
                 if (_searchResults != null && !_lastSearchProperties && _lastSearchString != null)
-                    Search(_lastSearchString, _lastSearchProperties, false);
+                    Search(_lastSearchString, _lastSearchProperties, _lastSearchResources, false);
             }
         }
 
-        public void Search(string searchString, bool searchProperties, bool refreshObjects = true)
+        public void Search(string searchString, bool searchProperties, bool searchResources, bool refreshObjects = true)
         {
             _lastSearchProperties = searchProperties;
+            _lastSearchResources = searchResources;
             _lastSearchString = null;
             _searchResults = null;
             if (!string.IsNullOrEmpty(searchString))

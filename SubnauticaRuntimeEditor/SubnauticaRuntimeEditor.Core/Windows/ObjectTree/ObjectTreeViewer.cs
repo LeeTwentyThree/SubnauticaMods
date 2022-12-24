@@ -401,6 +401,14 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
                             GUILayout.FlexibleSpace();
                             if (GUILayout.Button("S")) rendTex.SaveTextureToFileWithDialog();
                         }
+                        if (reMaterial && GUILayout.Button(UI.InterfaceMaker.MaterialIcon, new GUILayoutOption[]
+                        {
+                            GUILayout.MaxWidth(20),
+                            GUILayout.MaxHeight(20),
+                        }))
+                        {
+                            MaterialEditor.MaterialEditorViewer.StartEditing(reMaterial);
+                        }
                         break;
                     case Button b:
                         {
@@ -509,7 +517,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
                 if (GUILayout.Button("Clear", GUILayout.ExpandWidth(false)))
                 {
                     _searchText = string.Empty;
-                    _gameObjectSearcher.Search(_searchText, false);
+                    _gameObjectSearcher.Search(_searchText, false, false);
                     SelectAndShowObject(SelectedTransform);
                 }
 
@@ -526,23 +534,31 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
             {
                 if (GUILayout.Button("Search scene"))
                 {
-                    _gameObjectSearcher.Search(_searchText, false);
+                    _gameObjectSearcher.Search(_searchText, false, false);
                     //_searchTextComponents = _searchText;
                 }
 
                 if (Event.current.isKey && (Event.current.keyCode == KeyCode.Return || Event.current.keyCode == KeyCode.KeypadEnter) && GUI.GetNameOfFocusedControl() == "searchbox")
                 {
-                    _gameObjectSearcher.Search(_searchText, false);
+                    _gameObjectSearcher.Search(_searchText, false, false);
                     //_searchTextComponents = _searchText;
                     Event.current.Use();
                 }
 
-                if (GUILayout.Button("Deep scene"))
+                if (GUILayout.Button("Search all"))
                 {
-                    _gameObjectSearcher.Search(_searchText, true);
+                    _gameObjectSearcher.Search(_searchText, false, true);
                     //_searchTextComponents = _searchText;
                 }
 
+                GUI.color = Color.red;
+                if (GUILayout.Button("Deep search"))
+                {
+                    _gameObjectSearcher.Search(_searchText, true, true);
+                    //_searchTextComponents = _searchText;
+                }
+
+                GUI.color = Color.white;
                 if (GUILayout.Button("Search static"))
                 {
                     if (string.IsNullOrEmpty(_searchText))

@@ -17,7 +17,10 @@ namespace SubnauticaRuntimeEditor.Core.UI
         private static Texture2D _buttonBackgroundHover;
         private static Texture2D _buttonBackgroundActive;
         private static Texture2D _buttonBackgroundOnHover;
+        private static Texture2D _materialIcon;
         private static GUISkin _customSkin;
+
+        public static Texture2D MaterialIcon => _materialIcon;
 
         public static void EatInputInRect(Rect eatRect)
         {
@@ -81,7 +84,11 @@ namespace SubnauticaRuntimeEditor.Core.UI
             _buttonBackgroundOnHover = UnityFeatureHelper.LoadTexture(texData);
             Object.DontDestroyOnLoad(_buttonBackgroundOnHover);
 
+            texData = ResourceUtils.GetEmbeddedResource("guisharp-material.png");
+            _materialIcon = UnityFeatureHelper.LoadTexture(texData);
+            Object.DontDestroyOnLoad(_materialIcon);
         }
+
         private static GUISkin CreateSkin()
         {
             CreateTextures();
