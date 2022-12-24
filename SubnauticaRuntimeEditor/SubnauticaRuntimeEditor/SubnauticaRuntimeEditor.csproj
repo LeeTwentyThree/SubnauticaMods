@@ -66,7 +66,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SubnauticaRuntimeEditor.Core\SubnauticaRuntimeEditor.Core.csproj">
       <Project>{a66a97b4-f32f-4748-8332-48f0876f0aac}</Project>
-      <Name>RuntimeUnityEditor.Core</Name>
+      <Name>SubnauticaRuntimeEditor.Core</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
