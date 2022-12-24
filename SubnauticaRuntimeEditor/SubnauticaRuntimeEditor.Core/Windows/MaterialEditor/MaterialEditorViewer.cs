@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using SubnauticaRuntimeEditor.Core.Utils;
 
 namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 {
@@ -25,6 +26,8 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
         private readonly GUILayoutOption _keywordColumnWidth = GUILayout.Width(400f);
 
         private readonly GUILayoutOption _textLabelWidth = GUILayout.Width(400f);
+
+        private readonly StringListPref pinnedProperties = StringListPref.Get("PINNEDMATERIALPROPERTIES");
 
         private Vector2 scrollPosition = Vector2.zero;
 

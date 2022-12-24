@@ -112,6 +112,8 @@
     <Compile Include="Features\Gizmos\lib\GizmosInstance.cs" />
     <Compile Include="Features\RefreshObjectList.cs" />
     <Compile Include="MaterialEditor\CodeGenerator.cs" />
+    <Compile Include="Utils\StringArrayPref.cs" />
+    <Compile Include="Utils\StringListPref.cs" />
     <Compile Include="Windows\MaterialEditor\MaterialEditorViewer.cs" />
     <Compile Include="MaterialEditor\MaterialEditorPropertyTypes.cs" />
     <Compile Include="MaterialEditor\MaterialEditorPropertyKeywords.cs" />
