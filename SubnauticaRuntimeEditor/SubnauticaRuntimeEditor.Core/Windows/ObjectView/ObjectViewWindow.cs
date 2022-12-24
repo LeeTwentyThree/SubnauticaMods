@@ -65,6 +65,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectView
         {
             Title = "Object viewer - Empty";
             DisplayName = "Viewer";
+            DisplayType = FeatureDisplayType.Hidden;
         }
     }
 }
