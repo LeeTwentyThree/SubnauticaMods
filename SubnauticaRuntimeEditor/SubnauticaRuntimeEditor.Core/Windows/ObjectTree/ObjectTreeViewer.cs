@@ -39,6 +39,8 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
         public event Action<Transform> TreeSelectionChanged;
 
+        private bool openedBefore;
+
         public void SelectAndShowObject(Transform target)
         {
             SelectedTransform = target;
@@ -614,7 +616,9 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
             ClearCaches();
 
-            if (RefreshObjectList.main.Enabled && visible)
+            if (visible) openedBefore = true;
+
+            if (visible && (RefreshObjectList.main.Enabled || !openedBefore))
                 _gameObjectSearcher.Refresh(true, null);
         }
     }
