@@ -11,20 +11,24 @@ namespace SubnauticaRuntimeEditor.Core.Utils
     {
         public readonly StringArrayPref array;
 
-        public StringListPref(StringArrayPref array)
+        private bool _cleanEmptyEntries;
+
+        public StringListPref(StringArrayPref array, bool allowEmptyEntries)
         {
             this.array = array;
+            _cleanEmptyEntries = !allowEmptyEntries;
         }
 
-        public static StringListPref Get(string key)
+        public static StringListPref Get(string key, bool allowEmptyEntries)
         {
-            return new StringListPref(new StringArrayPref(key));
+            return new StringListPref(new StringArrayPref(key), allowEmptyEntries);
         }
 
         public void Add(string entry)
         {
             array.SetLength(array.Length + 1);
             array[array.Length - 1] = entry;
+            if (_cleanEmptyEntries) RemoveUnused();
         }
 
         public IEnumerator<string> GetEnumerator()
@@ -37,39 +41,39 @@ namespace SubnauticaRuntimeEditor.Core.Utils
             return GetEnumerator();
         }
 
-        public int IndexOf(string entry)
-        {
-            for (int i = 0; i < entry.Length; i++)
-            {
-                if (array[i].Equals(entry))
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        public bool Contains(string entry) => IndexOf(entry) >= 0;
+        public bool Contains(string entry) => array.IndexOf(entry) >= 0;
 
         public bool Remove(int index)
         {
-            if (index < 0 || index >= array.Length)
+            int length = array.Length;
+            if (index < 0 || index >= length)
             {
                 return false;
             }
-            for (int i = index; i < array.Length; i++)
+            for (int i = index; i < length - 1; i++)
             {
-                array[i - 1] = array[i];
+                array[i] = array[i + 1];
             }
-            array.SetLength(array.Length - 1);
+            array.SetLength(length - 1);
+            if (_cleanEmptyEntries) RemoveUnused();
             return true;
         }
 
         public bool Remove(string entry)
         {
-            var index = IndexOf(entry);
+            var index = array.IndexOf(entry);
             if (index < 0) return false;
             return Remove(index);
+        }
+
+        private void RemoveUnused()
+        {
+            while (true)
+            {
+                int next = array.IndexOf(null);
+                if (next < 0) return;
+                Remove(next);
+            }
         }
     }
 }
