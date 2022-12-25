@@ -27,7 +27,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         private readonly GUILayoutOption _textLabelWidth = GUILayout.Width(400f);
 
-        private readonly StringListPref pinnedProperties = StringListPref.Get("PINNEDMATERIALPROPERTIES");
+        private readonly StringListPref pinnedProperties = StringListPref.Get("PINNEDMATERIALPROPERTIES", false);
 
         private Vector2 scrollPosition = Vector2.zero;
 
@@ -36,6 +36,8 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
         private bool materialKeywordsExpanded;
 
         private bool materialPropertiesExpanded = true;
+
+        private bool pinnedMaterialPropertiesExpanded = true;
 
         protected override void Initialize(InitSettings initSettings)
         {
@@ -108,7 +110,36 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
                 }
                 GUILayout.EndVertical();
             }
-            // properties
+            // properties (pinned)
+
+            GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
+
+            GUILayout.BeginHorizontal(GUI.skin.box);
+            if (GUILayout.Button("Pinned properties", new GUILayoutOption[]
+            {
+                GUILayout.ExpandWidth(true)
+            }))
+            {
+                pinnedMaterialPropertiesExpanded = !pinnedMaterialPropertiesExpanded;
+            }
+
+            if (GUILayout.Button("Unpin all", new GUILayoutOption[]
+            {
+                GUILayout.Width(100)
+            }))
+            {
+                pinnedProperties.array.Clear();
+            }
+            GUILayout.EndHorizontal();
+
+            if (pinnedMaterialPropertiesExpanded)
+            {
+                DrawProperties(true);
+            }
+            GUILayout.EndVertical();
+
+            // properties (normal)
+
             GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
             if (GUILayout.Button("Properties", new GUILayoutOption[]
             {
@@ -119,9 +150,10 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             }
             if (materialPropertiesExpanded)
             {
-                DrawProperties();
+                DrawProperties(false);
             }
             GUILayout.EndVertical();
+
             GUILayout.EndScrollView();
         }
 
@@ -178,15 +210,17 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             GUILayout.EndHorizontal();
         }
 
-        private void DrawProperties()
+        private void DrawProperties(bool pinnedOnly)
         {
             DrawPropertiesTableHeader();
             foreach (KeyValuePair<MaterialEditorProperties, PropertyType> keyValuePair in from possibleProperty in MaterialEditorPropertyTypes.TYPES
                                                                                           where editingMaterial.HasProperty(possibleProperty.Value.Property)
                                                                                           select possibleProperty)
             {
+                bool pinned = pinnedProperties.Contains(keyValuePair.Key.ToString());
+                if (!pinned && pinnedOnly) continue;
                 GUILayout.BeginHorizontal(GUI.skin.box, Array.Empty<GUILayoutOption>());
-                DrawPropertiesTableRow(keyValuePair.Key, keyValuePair.Value);
+                DrawPropertiesTableRow(keyValuePair.Key, keyValuePair.Value, pinned);
                 GUILayout.EndHorizontal();
             }
         }
@@ -205,7 +239,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             GUILayout.EndHorizontal();
         }
 
-        private void DrawPropertiesTableRow(MaterialEditorProperties property, PropertyType type)
+        private void DrawPropertiesTableRow(MaterialEditorProperties property, PropertyType type, bool pinned)
         {
             GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
             GUILayout.Label(type.Property, new GUILayoutOption[]
@@ -214,17 +248,21 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             });
             type.DrawGUI(editingMaterial);
             GUILayout.FlexibleSpace();
+            if (pinned) GUI.color = Styling.Colors.genericSelectionColorButton;
             if (GUILayout.Button(UI.InterfaceMaker.PinIcon, new GUILayoutOption[]
             {
                 _pinColumnWidth
             }))
             {
-                Pin(property, type);
+                TogglePropertyPinned(property, type);
             }
+            GUI.color = Styling.Colors.defaultColor;
             GUILayout.EndHorizontal();
         }
 
-        private void Pin(MaterialEditorProperties property, PropertyType type)
+        private void IsPinned(MaterialEditorProperties property) => pinnedProperties.Contains(property.ToString());
+
+        private void TogglePropertyPinned(MaterialEditorProperties property, PropertyType type)
         {
             var propertyId = property.ToString();
             if (!pinnedProperties.Contains(propertyId))
@@ -234,12 +272,6 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             else
             {
                 pinnedProperties.Remove(propertyId);
-            }
-
-            SubnauticaRuntimeEditorCore.Logger.Log(LogLevel.Message, "Printing pinned properties!");
-            foreach (string p in pinnedProperties)
-            {
-                SubnauticaRuntimeEditorCore.Logger.Log(LogLevel.Message, p);
             }
         }
     }
