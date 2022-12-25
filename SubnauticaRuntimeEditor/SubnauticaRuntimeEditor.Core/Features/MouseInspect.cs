@@ -113,7 +113,7 @@ namespace SubnauticaRuntimeEditor.Core
             var hits = Object.FindObjectsOfType<RectTransform>().Where(rt =>
             {
                 // Only RTs that are visible on screen
-                if (rt && rt.sizeDelta.x > 0 && rt.sizeDelta.y > 0 && rt.gameObject.activeInHierarchy)
+                if (rt && rt.sizeDelta.x > 0 && rt.sizeDelta.y > 0 && rt.gameObject.activeInHierarchy && (rt.parent == null || !rt.parent.name.Equals("FPSCounter(Clone)")))
                 {
                     var canvas = rt.GetComponentInParent<Canvas>();
                     if (canvas != null && canvas.enabled && rt.GetComponentsInParent<CanvasGroup>().All(x => x.alpha > 0.1f))
