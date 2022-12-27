@@ -52,7 +52,7 @@ namespace DebugHelper.Systems
 
         private void LateUpdate()
         {
-            if (!Main.config.DebugOverlayEnabled || uGUI.isLoading)
+            if (!Main.config.DebugOverlayEnabled || (uGUI.main.loading != null && uGUI.main.loading.isLoading))
             {
                 rawImage.enabled = false;
                 return;

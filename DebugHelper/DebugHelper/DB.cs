@@ -1,7 +1,8 @@
 ﻿using HarmonyLib;
 using System.Collections.Generic;
 using System.Reflection;
-using QModManager.API;
+using System.IO;
+using BepInEx.Bootstrap;
 using UnityEngine;
 
 /* Global namespace and short name to make it as accessible as possible
@@ -22,12 +23,18 @@ public static class DB
         echoWithArgs = AccessTools.Method(typeof(DB), nameof(EchoArgs));
         echoWithReturn = AccessTools.Method(typeof(DB), nameof(EchoReturn));
 
-        var allMods = QModServices.Main.GetAllMods();
+        var allMods = Chainloader.PluginInfos;
         foreach (var mod in allMods)
         {
-            if (mod.IsLoaded)
+            if (mod.Value != null)
             {
-                knownAssemblyNames.Add(mod.Id);
+                var pluginPath = mod.Value.Location;
+                if (!string.IsNullOrEmpty(pluginPath) && File.Exists(pluginPath))
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(pluginPath);
+                    if (string.IsNullOrEmpty(fileName)) continue;
+                    knownAssemblyNames.Add(fileName);
+                }
             }
         }
     }

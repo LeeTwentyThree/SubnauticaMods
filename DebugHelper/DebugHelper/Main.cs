@@ -1,15 +1,15 @@
-﻿using QModManager.API.ModLoading;
-using SMLHelper.V2.Handlers;
+﻿using SMLHelper.V2.Handlers;
 using DebugHelper.Commands;
 using DebugHelper.Systems;
 using UnityEngine;
 using System.Reflection;
 using HarmonyLib;
+using BepInEx;
 
 namespace DebugHelper
 {
-    [QModCore()]
-    public static class Main
+    [BepInPlugin("DebugHelper", "Debug Helper", "1.2.0")]
+    public class Main : BaseUnityPlugin
     {
         public static Config config;
         public static Assembly assembly = Assembly.GetExecutingAssembly();
@@ -17,8 +17,7 @@ namespace DebugHelper
 
         internal static AssetBundle assetBundle;
 
-        [QModPatch()]
-        public static void Patch()
+        private void Awake()
         {
             config = OptionsPanelHandler.RegisterModOptions<Config>();
 
@@ -38,11 +37,9 @@ namespace DebugHelper
 
             harmony = new Harmony("Subnautica.DebugHelper");
             harmony.PatchAll(assembly);
-        }
 
-        [QModPostPatch()]
-        public static void PostPatch()
-        {
+            gameObject.EnsureComponent<SceneCleanerPreserve>();
+
             DB.Setup();
         }
     }
