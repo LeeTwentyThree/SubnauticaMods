@@ -11,9 +11,7 @@ namespace ShipMod.Ship
     {
         SeaVoyager sub;
         Transform entrancePosition;
-
-        static FMODAsset useDoorSound = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_door_close");
-
+        
         void Start()
         {
             sub = GetComponentInParent<SeaVoyager>();
@@ -23,11 +21,11 @@ namespace ShipMod.Ship
         {
             Player.main.SetCurrentSub(null);
             Player.main.SetPosition(entrancePosition.position);
+            GetComponent<AudioSource>().Play();
             if(Random.value > 0.5f)
             {
                 sub.skyraySpawner.SpawnSkyrays(Random.Range(3, 6));
             }
-            Utils.PlayFMODAsset(useDoorSound, transform.position);
         }
 
         public void OnHandHover(GUIHand hand)

@@ -16,7 +16,7 @@ namespace ShipMod.Ship
 		public void Initialize()
 		{
 			powerSource = gameObject.AddComponent<PowerSource>();
-			powerSource.maxPower = QPatch.config.MaxPower;
+			powerSource.maxPower = QPatch.ShipMaxPower;
 
 			relay = gameObject.AddComponent<PowerRelay>();
 			relay.maxOutboundDistance = 20;
@@ -43,7 +43,7 @@ namespace ShipMod.Ship
 
 		private void Update()
 		{
-			powerSource.power = Mathf.Clamp(powerSource.power + (GetSunScalar() * DayNightCycle.main.deltaTime * 6f * QPatch.config.PowerProductionScale), 0f, powerSource.maxPower);
+			powerSource.power = Mathf.Clamp(powerSource.power + (GetSunScalar() * DayNightCycle.main.deltaTime * QPatch.ShipMaxPowerGenerationRate), 0f, powerSource.maxPower);
 		}
 
 		public void OnProtoSerialize(ProtobufSerializer serializer)

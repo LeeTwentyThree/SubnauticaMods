@@ -11,35 +11,29 @@ namespace ShipMod.Ship
 {
     public class SeaVoyager : SubRoot
     {
-        private ShipLadder embarkLadder;
-        private ShipLadder exitLadder;
-        private ShipLadder descendLadder;
-        private ShipLadder loftLadder;
-        private ShipLadder disembarkLadder;
-        private ShipLadder engineRoomLadderUp;
-        private ShipLadder engineRoomLadderDown;
-        private ShipExitDoor exitHatch;
-        private ShipSlidingDoor slidingDoor1;
-        private ShipSlidingDoor slidingDoor2;
-        private SuspendedDock dock;
-        private SuspendedDock dock2;
+        ShipLadder embarkLadder;
+        ShipLadder exitLadder;
+        ShipLadder descendLadder;
+        ShipLadder loftLadder;
+        ShipLadder disembarkLadder;
+        ShipLadder engineRoomLadderUp;
+        ShipLadder engineRoomLadderDown;
+        ShipExitDoor exitHatch;
+        ShipSlidingDoor slidingDoor1;
+        ShipSlidingDoor slidingDoor2;
+        SuspendedDock dock;
+        SuspendedDock dock2;
 
         public SkyraySpawner skyraySpawner;
         public ShipSolarPanel solarPanel;
         public ShipHUD hud;
         public ShipPropeller propeller;
         public ShipMove shipMove;
-        public ShipVoice voice;
-        private float oldHPPercent;
+        float oldHPPercent;
 
         public ShipState currentState;
         public ShipMoveDirection moveDirection;
         public ShipRotateDirection rotateDirection;
-        public ShipSpeedSetting speedSetting = ShipSpeedSetting.Medium;
-
-        private static FMODAsset climbUpLongSound = Helpers.GetFmodAsset("event:/sub/cyclops/climb_front_up");
-        private static FMODAsset climbUpShortSound = Helpers.GetFmodAsset("event:/sub/cyclops/climb_back_up");
-        private static FMODAsset slideDownSound = Helpers.GetFmodAsset("event:/sub/rocket/ladders/innerRocketShip_ladder_down");
 
         public float MoveAmount
         {
@@ -47,29 +41,13 @@ namespace ShipMod.Ship
             {
                 if(moveDirection == ShipMoveDirection.Forward)
                 {
-                    return 25f * SpeedMultiplier;
+                    return 20f;
                 }
                 if(moveDirection == ShipMoveDirection.Reverse)
                 {
-                    return -20f * SpeedMultiplier;
+                    return -20f;
                 }
                 return 0f;
-            }
-        }
-
-        public bool IsOccupiedByPlayer
-        {
-            get
-            {
-                return Player.main.GetCurrentSub() == this;
-            }
-        }
-
-        public bool Idle
-        {
-            get
-            {
-                return currentState == ShipState.Idle;
             }
         }
 
@@ -89,32 +67,6 @@ namespace ShipMod.Ship
             }
         }
 
-        public float SpeedMultiplier
-        {
-            get
-            {
-                switch (speedSetting)
-                {
-                    default:
-                        return 1f;
-                    case ShipSpeedSetting.Slow:
-                        return 0.2f;
-                    case ShipSpeedSetting.Medium:
-                        return 0.5f;
-                    case ShipSpeedSetting.Fast:
-                        return 1f;
-
-                }
-            }
-        }
-
-        public bool HasPower
-        {
-            get
-            {
-                return powerRelay.GetPower() >= 1f;
-            }
-        }
 
         public override void Awake()
         {
@@ -137,57 +89,23 @@ namespace ShipMod.Ship
 
             lightControl = GetComponentInChildren<LightingController>();
 
-            // embark ladder
             embarkLadder = Helpers.FindChild(gameObject, "EmbarkLadder").AddComponent<ShipLadder>();
-            embarkLadder.interactText = "Embark Sea Voyager";
-            embarkLadder.SetAsMainEmbarkLadder(this);
+            embarkLadder.interactText = "Embark";
 
-            var embarkCinematic = Helpers.FindChild(gameObject, "EmbarkCinematic").AddComponent<ShipCinematic>();
-            embarkCinematic.Initialize("cyclops_ladder_long_up", "cinematic", 1.9f, climbUpLongSound, embarkLadder.transform.GetChild(0));
-
-            embarkLadder.cinematic = embarkCinematic;
-
-            // disembark ladder
             disembarkLadder = Helpers.FindChild(gameObject, "DisembarkLadder").AddComponent<ShipLadder>();
             disembarkLadder.interactText = "Disembark";
 
-            // exit lower area ladder
             exitLadder = Helpers.FindChild(gameObject, "ExitLadder").AddComponent<ShipLadder>();
             exitLadder.interactText = "Ascend";
 
-            var exitCinematic = Helpers.FindChild(gameObject, "ExitCinematic").AddComponent<ShipCinematic>();
-            exitCinematic.Initialize("cyclops_ladder_long_up", "cinematic", 1.9f, climbUpLongSound, exitLadder.transform.GetChild(0));
-
-            exitLadder.cinematic = exitCinematic;
-
-            // access cockpit loft ladder
             loftLadder = Helpers.FindChild(gameObject, "LoftLadder").AddComponent<ShipLadder>();
             loftLadder.interactText = "Ascend";
 
-            var loftCinematic = Helpers.FindChild(gameObject, "LoftLadderCinematic").AddComponent<ShipCinematic>();
-            loftCinematic.Initialize("cyclops_ladder_short_up", "cinematic", 1f, climbUpShortSound, loftLadder.transform.GetChild(0));
-
-            loftLadder.cinematic = loftCinematic;
-
-            // access lower area ladder
             descendLadder = Helpers.FindChild(gameObject, "EntranceLadder").AddComponent<ShipLadder>();
             descendLadder.interactText = "Descend";
 
-            var slideCinematic = Helpers.FindChild(gameObject, "SlideDownCinematic").AddComponent<ShipCinematic>();
-            slideCinematic.Initialize("rockethsip_cockpitLadderDown", "cinematic", 5f, slideDownSound, descendLadder.transform.GetChild(0));
-
-            descendLadder.cinematic = slideCinematic;
-
-            // engine room ladder (up)
             engineRoomLadderUp = Helpers.FindChild(gameObject, "EngineRoomLadderUp").AddComponent<ShipLadder>();
             engineRoomLadderUp.interactText = "Ascend";
-            
-            var engineRoomUpCinematic = Helpers.FindChild(gameObject, "EngineRoomUpCinematic").AddComponent<ShipCinematic>();
-            engineRoomUpCinematic.Initialize("cyclops_ladder_short_up", "cinematic", 0.9f, climbUpShortSound, engineRoomLadderUp.transform.GetChild(0));
-
-            engineRoomLadderUp.cinematic = engineRoomUpCinematic;
-
-            // engine room ladder (down)
             engineRoomLadderDown = Helpers.FindChild(gameObject, "EngineRoomLadderDown").AddComponent<ShipLadder>();
             engineRoomLadderDown.interactText = "Descend";
 
@@ -202,6 +120,13 @@ namespace ShipMod.Ship
 
             voiceNotificationManager = Helpers.FindChild(gameObject, "VoiceSource").AddComponent<VoiceNotificationManager>();
             voiceNotificationManager.subRoot = this;
+
+            welcomeNotification = AddNotification(QPatch.welcomeSoundAsset, "Welcome aboard captain. All systems online.");
+            welcomeNotification.minInterval = 7f;
+            noPowerNotification = AddNotification(QPatch.noPowerSoundAsset, "No power. Wait for solar panels to active in the daytime.");
+            noPowerNotification.minInterval = 7f;
+            enginePowerDownNotification = AddNotification(QPatch.powerDownSoundAsset, "Engine powering down due to emergency.");
+            enginePowerDownNotification.minInterval = 5f;
 
             slidingDoor1 = Helpers.FindChild(gameObject, "KeyPadDoor1").AddComponent<ShipSlidingDoor>();
             slidingDoor2 = Helpers.FindChild(gameObject, "KeyPadDoor2").AddComponent<ShipSlidingDoor>();
@@ -240,6 +165,14 @@ namespace ShipMod.Ship
             worldForces.underwaterGravity = 10f;
             Destroy(this);
         }
+
+        VoiceNotification AddNotification(FMODAsset asset, string text)
+        {
+            var component = voiceNotificationManager.gameObject.AddComponent<VoiceNotification>();
+            component.sound = asset;
+            component.text = text;
+            return component;
+        }
     }
 
     public enum ShipState
@@ -261,11 +194,5 @@ namespace ShipMod.Ship
         Idle,
         Left,
         Right
-    }
-    public enum ShipSpeedSetting
-    {
-        Slow,
-        Medium,
-        Fast
     }
 }

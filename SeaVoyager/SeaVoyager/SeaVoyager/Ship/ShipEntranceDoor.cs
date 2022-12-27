@@ -12,17 +12,24 @@ namespace ShipMod.Ship
     {
         SeaVoyager sub;
         Transform entrancePosition;
+
+        static FMODAsset useDoorSound = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_door_open");
         
-        void Start()
+        private void Start()
         {
             sub = GetComponentInParent<SeaVoyager>();
             entrancePosition = transform.GetChild(0);
         }
+
         public void OnHandClick(GUIHand hand)
         {
             Player.main.SetCurrentSub(sub);
             Player.main.SetPosition(entrancePosition.position);
-            GetComponent<AudioSource>().Play();
+            Utils.PlayFMODAsset(useDoorSound, transform.position);
+            if (sub.HasPower)
+            {
+                sub.voice.PlayVoiceLine(ShipVoice.VoiceLine.WelcomeAboard);
+            }
         }
 
         public void OnHandHover(GUIHand hand)

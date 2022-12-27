@@ -18,10 +18,7 @@ namespace ShipMod.Ship
 
         public ShipPrefab(string classId, string friendlyName, string description) : base(classId, friendlyName, description)
         {
-            OnFinishedPatching += () =>
-            {
-                KnownTechHandler.SetAnalysisTechEntry(TechType, new TechType[0]);
-            };
+
         }
 
         protected override TechData GetBlueprintRecipe()
@@ -30,7 +27,7 @@ namespace ShipMod.Ship
             {
                 Ingredients = new List<Ingredient>()
                 {
-                    new Ingredient(TechType.TitaniumIngot, 2),
+                    new Ingredient(TechType.TitaniumIngot, 3),
                     new Ingredient(TechType.Lubricant, 1),
                     new Ingredient(TechType.Floater, 2),
                     new Ingredient(TechType.WiringKit, 1),
@@ -56,8 +53,7 @@ namespace ShipMod.Ship
                 GameObject rocketPlatformReference = CraftData.GetPrefabForTechType(TechType.RocketBase);
 
                 //Apply materials. It got so long and ugly that I made it its own method.
-                Helpers.ApplyMaterials(prefab);
-                prefab.SearchChild("Window").GetComponent<MeshRenderer>().material = QPatch.glassMaterial;
+                ApplyMaterials();
 
                 //Get the Transform of the models
                 Transform interiorModels = Helpers.FindChild(prefab, "Interior").transform;
@@ -118,9 +114,9 @@ namespace ShipMod.Ship
                 lmData.destroyOnDeath = false;
                 lmData.explodeOnDestroy = false;
                 lmData.invincibleInCreative = true;
-                lmData.weldable = true;
+                lmData.weldable = false;
                 lmData.minDamageForSound = 20f;
-                lmData.maxHealth = 2500f;
+                lmData.maxHealth = float.MaxValue;
                 liveMixin.data = lmData;
 
                 //I don't know if this does anything at all as ships float above the surface, but I'm keeping it.
@@ -208,44 +204,11 @@ namespace ShipMod.Ship
                 var audiosources = prefab.GetComponentsInChildren<AudioSource>();
                 foreach(var source in audiosources)
                 {
-                    source.volume *= QPatch.config.NormalizedAudioVolume;
+                    source.volume *= QPatch.config.AudioVolume;
                 }
 
                 //Add a respawn point
                 var respawnPoint = Helpers.FindChild(prefab, "RespawnPoint").AddComponent<RespawnPoint>();
-
-                // Motor sound
-                var motorSound = Helpers.FindChild(prefab, "EngineLoop").AddComponent<ShipMotorSound>();
-                motorSound.emitter = motorSound.gameObject.AddComponent<FMOD_CustomLoopingEmitter>();
-                motorSound.emitter.followParent = true;
-                motorSound.seaVoyager = shipBehaviour;
-
-                // Voice
-                var shipVoice = prefab.AddComponent<ShipVoice>();
-                var voiceSource = prefab.AddComponent<AudioSource>();
-                voiceSource.volume = QPatch.config.NormalizedAudioVolume;
-                shipVoice.source = voiceSource;
-                shipBehaviour.voice = shipVoice;
-
-                // Shallow water scanner
-                var shallowWaterScanner = Helpers.FindChild(prefab, "ShallowWaterScanner").AddComponent<ShipShallowWaterScanner>();
-                shallowWaterScanner.seaVoyager = shipBehaviour;
-
-                // Power depletion notification
-                var shipPowerWarning = prefab.AddComponent<ShipPowerWarning>();
-                shipPowerWarning.ship = shipBehaviour;
-
-                // Auto-stop for when you fall off
-                var autoStop = prefab.AddComponent<ShipAutoStop>();
-                autoStop.ship = shipBehaviour;
-
-                // Cool window in the bedroom
-                var bedRoomWindow = Helpers.FindChild(prefab, "BedRoomWindow").AddComponent<BedRoomWindow>();
-                bedRoomWindow.SetupPrefab(shipBehaviour);
-
-                // Make sure you don't walk on the seafloor
-                var walkableAreaBounds = prefab.AddComponent<ShipWalkableAreaBounds>();
-                walkableAreaBounds.ship = shipBehaviour;
             }
             return prefab;
         }
@@ -255,8 +218,7 @@ namespace ShipMod.Ship
         public override string[] StepsToFabricatorTab => new[] { "Vehicles" };
         public override CraftTree.Type FabricatorType => CraftTree.Type.Constructor;
         public override float CraftingTime => 10f;
-        public override bool UnlockedAtStart => false;
-        public override TechType RequiredForUnlock => QPatch.seaVoyagerFragmentTechType;
+        public override TechType RequiredForUnlock => TechType.Constructor;
 
         public override PDAEncyclopedia.EntryData EncyclopediaEntryData
         {
@@ -280,6 +242,75 @@ namespace ShipMod.Ship
                 comp.points[i] = parent.GetChild(i);
             }
             return comp;
+        }
+
+        Material GetGlassMaterial()
+        {
+            var reference = GameObject.Instantiate(CraftData.GetPrefabForTechType(TechType.Aquarium));
+
+            Renderer[] renderers = reference.GetComponentsInChildren<Renderer>(true);
+
+            foreach (Renderer renderer in renderers)
+            {
+                foreach (Material material in renderer.materials)
+                {
+                    if (material.name.ToLower().Contains("glass"))
+                    {
+                        return material;
+                    }
+                }
+            }
+            Resources.UnloadAsset(reference);
+            return null;
+        }
+
+        //I know this is horribly messy, I don't know what half the properties here do, but it works.
+        void ApplyMaterials()
+        {
+            var renderers = prefab.GetComponentsInChildren<Renderer>();
+            var shader = Shader.Find("MarmosetUBER");
+
+            foreach (var renderer in renderers)
+            {
+                for (int i = 0; i < renderer.materials.Length; i++)
+                {
+                    Material mat = renderer.materials[i];
+                    mat.shader = shader;
+                    mat.SetFloat("_Glossiness", 0.6f);
+                    Texture specularTexture = mat.GetTexture("_SpecGlossMap");
+                    if (specularTexture != null)
+                    {
+                        mat.SetTexture("_SpecTex", specularTexture);
+                        mat.SetFloat("_SpecInt", 1f);
+                        mat.SetFloat("_Shininess", 3f);
+                        mat.EnableKeyword("MARMO_SPECMAP");
+                        mat.SetColor("_SpecColor", new Color(0.796875f, 0.796875f, 0.796875f, 0.796875f));
+                        mat.SetFloat("_Fresnel", 0f);
+                        mat.SetVector("_SpecTex_ST", new Vector4(1.0f, 1.0f, 0.0f, 0.0f));
+                    }
+
+                    if (mat.GetTexture("_BumpMap"))
+                    {
+                        mat.EnableKeyword("_NORMALMAP");
+                    }
+                    if (mat.name.StartsWith("Decal4"))
+                    {
+                        mat.SetTexture("_SpecTex", QPatch.bundle.LoadAsset<Texture>("Console_spec.png"));
+                    }
+                    if (mat.name.StartsWith("Decal"))
+                    {
+                        mat.EnableKeyword("MARMO_ALPHA_CLIP");
+                    }
+                    Texture emissionTexture = mat.GetTexture("_EmissionMap");
+                    if (emissionTexture || mat.name.Contains("illum"))
+                    {
+                        mat.EnableKeyword("MARMO_EMISSION");
+                        mat.SetFloat("_EnableGlow", 1f);
+                        mat.SetTexture("_Illum", emissionTexture);
+                    }
+                }
+            }
+            prefab.SearchChild("Window").GetComponent<MeshRenderer>().material = GetGlassMaterial();
         }
 
         protected override Atlas.Sprite GetItemSprite()

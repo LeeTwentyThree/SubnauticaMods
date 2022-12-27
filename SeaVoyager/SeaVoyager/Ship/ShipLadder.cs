@@ -1,61 +1,31 @@
-﻿using UnityEngine;
-using Story;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace ShipMod.Ship
 {
     public class ShipLadder : HandTarget, IHandTarget
     {
         public string interactText;
-        public ShipCinematic cinematic;
+        Transform entrancePosition;
 
-        private Transform _entrancePosition;
-        private SeaVoyager _ship;
-        private bool _isMainEmbarkLadder;
-
-        private static string _firstUseStoryGoal = "SeaVoyagerFirstUse";
-
-        private void Start()
+        void Start()
         {
-            _entrancePosition = transform.GetChild(0);
+            entrancePosition = transform.GetChild(0);
         }
 
         public void OnHandClick(GUIHand hand)
         {
-            if (cinematic == null)
-            {
-                SetPlayerPosition();
-            }
-            else
-            {
-                if (!cinematic.PlayCinematic(SetPlayerPosition))
-                {
-                    SetPlayerPosition();
-                }
-            }
+            Player.main.SetPosition(entrancePosition.position);
         }
 
         public void OnHandHover(GUIHand hand)
         {
             HandReticle.main.SetIcon(HandReticle.IconType.Interact);
             HandReticle.main.SetInteractText(interactText);
-        }
-
-        public void SetAsMainEmbarkLadder(SeaVoyager ship)
-        {
-            _isMainEmbarkLadder = true;
-            _ship = ship;
-        }
-
-        private void SetPlayerPosition()
-        {
-            Player.main.SetPosition(_entrancePosition.position);
-            if (_isMainEmbarkLadder)
-            {
-                if (StoryGoalManager.main.OnGoalComplete(_firstUseStoryGoal))
-                {
-                    _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.FirstUse);
-                }
-            }
         }
     }
 }

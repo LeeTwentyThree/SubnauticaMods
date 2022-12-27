@@ -15,7 +15,6 @@ namespace ShipMod.Ship
         Animator animator;
         AudioSource openSource;
         AudioSource closeSource;
-        private List<ShipUITooltip> tooltips = new List<ShipUITooltip>();
 
         void Awake()
         {
@@ -23,9 +22,6 @@ namespace ShipMod.Ship
             foreach(var button in buttons)
             {
                 button.onClick.AddListener(OnToggle);
-                var tooltip = button.gameObject.AddComponent<ShipUITooltip>();
-                tooltip.Init("Open door", true);
-                tooltips.Add(tooltip);
             }
 
             animator = GetComponent<Animator>();
@@ -48,22 +44,6 @@ namespace ShipMod.Ship
                 }
                 timeCanOpenAgain = Time.time + 1f;
                 animator.SetBool("open", isOpen);
-            }
-        }
-
-        void Update()
-        {
-            foreach (var tooltip in tooltips)
-            {
-                if (Time.time < timeCanOpenAgain)
-                {
-                    tooltip.showTooltip = false;
-                }
-                else
-                {
-                    tooltip.showTooltip = true;
-                    tooltip.displayText = isOpen ? "Close door" : "Open door";
-                }
             }
         }
     }
