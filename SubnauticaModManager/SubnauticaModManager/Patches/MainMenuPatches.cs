@@ -5,7 +5,7 @@ internal class MainMenuPatches
 {
     [HarmonyPatch(nameof(uGUI_MainMenu.Awake))]
     [HarmonyPostfix]
-    private void AwakePatch(uGUI_MainMenu __instance)
+    private static void AwakePatch(uGUI_MainMenu __instance)
     {
         var playButton = __instance.gameObject.GetComponentInChildren<MainMenuPrimaryOptionsMenu>().transform.Find("MenuButtons/ButtonPlay").gameObject;
         var modManagerButton = Object.Instantiate(playButton, playButton.transform.parent);
