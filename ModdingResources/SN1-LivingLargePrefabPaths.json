@@ -1,0 +1,17 @@
+{
+  "1a52e705-f0bb-42f0-bddb-13e01118f605": "Base/Ghosts/BaseGlassDome",
+  "1bbd2475-f344-44c4-8208-bcbf0462b587": "WorldEntities/Environment/Precursor/LostRiverBase/Precursor_LostRiverBase_Lights",
+  "4056741d-4f41-448a-88f9-eae9bd5f2ad0": "WorldEntities/Doodads/Precursor/PrecursorTeleporter_exit",
+  "46ac6a59-01fb-42d6-9ddb-dbd58abd270b": "WorldEntities/Doodads/Precursor/Precursor_Prison_Interior_Aquarium_Floor",
+  "55a804aa-5438-4f59-ab0c-f66dde5d1072": "WorldEntities/Doodads/Precursor/Precursor_Pipes_Aquarium02",
+  "84a4aac7-f4dd-481e-8f48-f23194f4bb09": "WorldEntities/Doodads/Coral_reef/JeweledDiskPieceGreen",
+  "97a82ef5-4556-49ec-a6d8-8831453e7690": "Base/Ghosts/BaseLargeGlassDome",
+  "97d2f059-f102-40a8-9201-a920102cb193": "WorldEntities/Natural/TreeMushroomPiece",
+  "a0825052-f63c-41b2-b2f6-cc78c8fdda31": "Base/Ghosts/BasePartitionDoor",
+  "b8703ddc-532c-4c8c-952b-4c38bde4db61": "WorldEntities/Doodads/Coral_reef/JeweledDiskPieceRed",
+  "c2a91864-0f0f-4d8a-99b8-9867571763dd": "Submarine/Build/WaterParkLarge",
+  "c4eb1c3e-76c1-49b0-9ba3-e7f3c9a21e32": "WorldEntities/Doodads/Coral_reef/JeweledDiskPieceBlue",
+  "f33e76ae-dc41-4189-afa6-381a3b222426": "Base/Ghosts/BaseLargeRoom",
+  "fc7bf200-f18d-4ed0-9df6-161bd8f2d34b": "WorldEntities/Doodads/Precursor/Precursor_Pipes_Aquarium01",
+  "fd01db86-7adc-4895-a076-2410b2350d1e": "Base/Ghosts/BasePartition"
+}
