@@ -161,35 +161,127 @@
       "probability": 1.2
     }
   ],
-  "BaseBioReactorFragment": [
+  "BaseBioReactor_Fragment": [
     {
-      "biome": "fragmentBaseBioReactor",
+      "biome": "grassyPlateaus_Grass",
       "count": 1,
-      "probability": 1.0
+      "probability": 0.015
+    },
+    {
+      "biome": "grassyPlateaus_Sand",
+      "count": 1,
+      "probability": 0.015
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Scattered",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "kelp_TechSite_Scattered",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "sparseReef_Techsite_Scatter",
+      "count": 1,
+      "probability": 0.04
     }
   ],
-  "BaseBulkheadFragment": [
+  "basebulkheadfragment1": [
     {
       "biome": "fragmentBaseBulkhead",
       "count": 1,
       "probability": 1.0
     }
   ],
-  "BaseNuclearReactorFragment": [
+  "BaseMapRoomFragment": [
     {
-      "biome": "fragmentBaseNuclearReactor",
+      "biome": "grassyPlateaus_Sand",
       "count": 1,
-      "probability": 1.0
+      "probability": 0.015
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Scattered",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "kooshZone_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "grandReef_TechSite_Scattered",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "deepGrandReef_AbandonedBase_Exterior",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "bloodKelp_TrenchFloor",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "cragField_Sand",
+      "count": 1,
+      "probability": 0.03
     }
   ],
-  "BaseRoomFragment": [
+  "BaseNuclearReactor_Fragment": [
+    {
+      "biome": "bloodKelp_TechSite",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "bloodKelp_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "bloodKelp_TrenchFloor",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "jellyShroomCaves_AbandonedBase_Outside",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "bloodKelp_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "mountains_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "seaTreaderPath_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "mountains_Sand",
+      "count": 1,
+      "probability": 0.01
+    }
+  ],
+  "baseroomfragment1": [
     {
       "biome": "fragmentBaseRoom",
       "count": 1,
       "probability": 1.0
     }
   ],
-  "BaseUpgradeConsoleFragment": [
+  "BaseUpgradeConsole_Fragment": [
     {
       "biome": "crashZone_Sand",
       "count": 1,
@@ -243,14 +335,33 @@
       "probability": 0.0
     }
   ],
-  "BatteryChargerFragment": [
+  "battery_charging_station_damaged_base": [
     {
       "biome": "fragmentBatteryCharger",
       "count": 1,
       "probability": 1.0
     }
   ],
-  "BeaconFragment": [
+  "battery_charging_station_damaged_cover": [
+    {
+      "biome": "fragmentBatteryCharger",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "BatteryCharger_Fragment": [
+    {
+      "biome": "grassyPlateaus_TechSite",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.15
+    }
+  ],
+  "Beacon_Fragment": [
     {
       "biome": "safeShallows_TechSite",
       "count": 1,
@@ -275,6 +386,34 @@
       "biome": "kelp_TechSite_Scattered",
       "count": 1,
       "probability": 0.07
+    }
+  ],
+  "Bio_reactor_damaged_01": [
+    {
+      "biome": "fragmentBaseBioReactor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "Bio_reactor_damaged_02": [
+    {
+      "biome": "fragmentBaseBioReactor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "Bio_reactor_damaged_03": [
+    {
+      "biome": "fragmentBaseBioReactor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "Bio_reactor_damaged_04": [
+    {
+      "biome": "fragmentBaseBioReactor",
+      "count": 1,
+      "probability": 1.0
     }
   ],
   "Biter": [
@@ -740,6 +879,168 @@
       "probability": 0.15
     }
   ],
+  "BoomerangFishSchool": [
+    {
+      "biome": "safeShallows_Grass",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "kelp_Wall",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "grassyPlateaus_Wall",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "grassyPlateaus_Tower",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "mushroomForest_MushroomTreeTrunk",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "mushroomForest_GiantTreeExterior",
+      "count": 1,
+      "probability": 10.0
+    },
+    {
+      "biome": "mushroomForest_GiantTreeExteriorBase",
+      "count": 1,
+      "probability": 10.0
+    },
+    {
+      "biome": "mushroomForest_Grass",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "kooshZone_Sand",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "kooshZone_Grass",
+      "count": 1,
+      "probability": 0.6
+    },
+    {
+      "biome": "crashZone_Sand",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "crashZone_Rock",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "underwaterIslands_IslandTop",
+      "count": 1,
+      "probability": 0.7
+    },
+    {
+      "biome": "sparseReef_Coral",
+      "count": 1,
+      "probability": 1.0
+    },
+    {
+      "biome": "dunes_SandDune",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "dunes_Grass",
+      "count": 1,
+      "probability": 1.0
+    },
+    {
+      "biome": "deepGrandReef_Wall",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "deepGrandReef_Ground",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "seaTreaderPath_Sand",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "seaTreaderPath_Rock",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "cragField_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "cragField_Sand",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "prisonAquarium_Coral",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "prisonAquarium_Grass",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "prisonAquarium_DeadCoral",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "prisonAquarium_Open_CreatureOnly",
+      "count": 1,
+      "probability": 0.07
+    },
+    {
+      "biome": "grassyPlateaus_OpenDeep_CreatureOnly",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "grassyPlateaus_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.075
+    },
+    {
+      "biome": "kooshZone_OpenDeep_CreatureOnly",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "kooshZone_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "dunes_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "dunes_OpenDeep_CreatureOnly",
+      "count": 1,
+      "probability": 0.05
+    }
+  ],
   "CaveCrawler": [
     {
       "biome": "shipInterior_Platform",
@@ -787,7 +1088,74 @@
       "probability": 0.2
     }
   ],
-  "ConstructorFragment": [
+  "CompassDataBox": [
+    {
+      "biome": 129,
+      "count": 1,
+      "probability": 10.0
+    }
+  ],
+  "Constructor_Fragment": [
+    {
+      "biome": "grassyPlateaus_TechSite",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "kelp_TechSite",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "kelp_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "safeShallows_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    }
+  ],
+  "Constructor_Fragment_InCrate": [
+    {
+      "biome": "kelp_GrassDense",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "kelp_Sand",
+      "count": 1,
+      "probability": 0.1
+    }
+  ],
+  "constructorfragment1": [
+    {
+      "biome": "fragmentConstructor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "constructorfragment2": [
+    {
+      "biome": "fragmentConstructor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "constructorfragment3": [
+    {
+      "biome": "fragmentConstructor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "constructorfragment4": [
     {
       "biome": "fragmentConstructor",
       "count": 1,
@@ -880,23 +1248,280 @@
       "probability": 1.5
     }
   ],
-  "CyclopsBridgeFragment": [
+  "CyclopsBridge_Fragment": [
+    {
+      "biome": "crashZone_TrenchSand",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "mushroomForest_TechSite",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "mushroomForest_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.16
+    },
+    {
+      "biome": "seaTreaderPath_TechSite",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "seaTreaderPath_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "mushroomForest_Sand",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "mushroomForest_Grass",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "seaTreaderPath_Sand",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "seaTreaderPath_Grass",
+      "count": 1,
+      "probability": 0.08
+    }
+  ],
+  "cyclopsbridgefragment1": [
     {
       "biome": "fragmentCyclopsBridge",
       "count": 1,
       "probability": 1.0
     }
   ],
-  "CyclopsEngineFragment": [
+  "cyclopsbridgefragment2": [
+    {
+      "biome": "fragmentCyclopsBridge",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopsbridgefragment3": [
+    {
+      "biome": "fragmentCyclopsBridge",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "CyclopsEngine_Fragment": [
+    {
+      "biome": "underwaterIslands_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "mountains_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "mountains_Sand",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "mountains_Grass",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "shipInterior_Cargo_Crate",
+      "count": 1,
+      "probability": 1.0
+    },
+    {
+      "biome": "crashZone_TrenchSand",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "cragField_Grass",
+      "count": 1,
+      "probability": 0.04
+    }
+  ],
+  "cyclopsenginefragment1": [
     {
       "biome": "fragmentCyclopsEngine",
       "count": 1,
       "probability": 1.0
     }
   ],
-  "CyclopsHullFragment": [
+  "cyclopsenginefragment2": [
+    {
+      "biome": "fragmentCyclopsEngine",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopsenginefragment3": [
+    {
+      "biome": "fragmentCyclopsEngine",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "CyclopsHull_Fragment_Large": [
+    {
+      "biome": "mushroomForest_TechSite",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "mushroomForest_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "mushroomForest_Sand",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "mushroomForest_Grass",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "crashZone_Sand",
+      "count": 1,
+      "probability": 0.01
+    },
+    {
+      "biome": "seaTreaderPath_Sand",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "seaTreaderPath_Grass",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "seaTreaderPath_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.08
+    }
+  ],
+  "CyclopsHull_Fragment_Medium": [
+    {
+      "biome": "mushroomForest_TechSite",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "mushroomForest_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.16
+    },
+    {
+      "biome": "mushroomForest_Sand",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "mushroomForest_Grass",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "seaTreaderPath_Sand",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "seaTreaderPath_Grass",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "seaTreaderPath_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "seaTreaderPath_TechSite",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "seaTreaderPath_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.5
+    }
+  ],
+  "cyclopshullfragment1": [
     {
       "biome": "fragmentCyclopsHullMedium",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment2": [
+    {
+      "biome": "fragmentCyclopsHullMedium",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment3": [
+    {
+      "biome": "fragmentCyclopsHullMedium",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment4": [
+    {
+      "biome": "fragmentCyclopsHullMedium",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment5": [
+    {
+      "biome": "fragmentCyclopsHullLarge",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment6": [
+    {
+      "biome": "fragmentCyclopsHullMedium",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment7": [
+    {
+      "biome": "fragmentCyclopsHullLarge",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment8": [
+    {
+      "biome": "fragmentCyclopsHullLarge",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "cyclopshullfragment9": [
+    {
+      "biome": "fragmentCyclopsHullLarge",
       "count": 1,
       "probability": 1.0
     }
@@ -1050,6 +1675,50 @@
       "biome": "bonesField_Cave_Ground",
       "count": 1,
       "probability": 0.3
+    }
+  ],
+  "DrillableKyanite": [
+    {
+      "biome": "activeLavaZone_Falls_Floor_Far",
+      "count": 1,
+      "probability": 0.035
+    },
+    {
+      "biome": "inactiveLavaZone_Chamber_Floor_Far",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "inactiveLavaZone_CastleTunnel_Floor",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "activeLavaZone_Chamber_Floor_Far",
+      "count": 1,
+      "probability": 0.035
+    }
+  ],
+  "DrillableKyanite_Large": [
+    {
+      "biome": "activeLavaZone_Chamber_Floor_Far",
+      "count": 1,
+      "probability": 0.015
+    },
+    {
+      "biome": "activeLavaZone_Falls_Floor_Far",
+      "count": 1,
+      "probability": 0.015
+    },
+    {
+      "biome": "inactiveLavaZone_Chamber_Floor_Far",
+      "count": 1,
+      "probability": 0.015
+    },
+    {
+      "biome": "inactiveLavaZone_CastleTunnel_Floor",
+      "count": 1,
+      "probability": 0.015
     }
   ],
   "DrillableLead": [
@@ -1517,7 +2186,35 @@
       "probability": 0.06
     }
   ],
-  "ExosuitFragment": [
+  "exosuitfragment1": [
+    {
+      "biome": "fragmentExosuit",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "exosuitfragment2": [
+    {
+      "biome": "fragmentExosuit",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "exosuitfragment3": [
+    {
+      "biome": "fragmentExosuit",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "exosuitfragment4": [
+    {
+      "biome": "fragmentExosuit",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "exosuitfragment5": [
     {
       "biome": "fragmentExosuit",
       "count": 1,
@@ -1876,7 +2573,7 @@
       "probability": 0.3
     }
   ],
-  "GravSphereFragment": [
+  "GravSphere_Fragment": [
     {
       "biome": "safeShallows_TechSite",
       "count": 1,
@@ -2042,7 +2739,7 @@
       "probability": 0.7
     }
   ],
-  "HoopfishSchool": [
+  "HoopFish_02_School": [
     {
       "biome": "bloodKelp_Roots",
       "count": 1,
@@ -2147,6 +2844,143 @@
       "biome": "lostRiverCorridor_Open_CreatureOnly",
       "count": 1,
       "probability": 0.15
+    }
+  ],
+  "HoopfishSchool": [
+    {
+      "biome": "kelp_DenseVine",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "kelp_Wall",
+      "count": 1,
+      "probability": 0.25
+    },
+    {
+      "biome": "grassyPlateaus_Grass",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "mushroomForest_MushroomTreeTrunk",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "mushroomForest_GiantTreeExterior",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "mushroomForest_GiantTreeExteriorBase",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "mushroomForest_Grass",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "kooshZone_RockWall",
+      "count": 1,
+      "probability": 0.8
+    },
+    {
+      "biome": "underwaterIslands_ValleyWall",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "sparseReef_Coral",
+      "count": 1,
+      "probability": 1.0
+    },
+    {
+      "biome": "dunes_SandDune",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "dunes_Grass",
+      "count": 1,
+      "probability": 1.0
+    },
+    {
+      "biome": "grandReef_PurpleCoral",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "mountains_Grass",
+      "count": 1,
+      "probability": 1.0
+    },
+    {
+      "biome": "mountains_Rock",
+      "count": 1,
+      "probability": 0.75
+    },
+    {
+      "biome": "seaTreaderPath_Sand",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "prisonAquarium_DeadCoral",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "prisonAquarium_Grass",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "prisonAquarium_Coral",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "prisonAquarium_Open_CreatureOnly",
+      "count": 1,
+      "probability": 0.07
+    },
+    {
+      "biome": "mesas_Top",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "mountains_OpenDeep_CreatureOnly",
+      "count": 1,
+      "probability": 0.075
+    },
+    {
+      "biome": "mountains_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "underwaterIslands_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "underwaterIslands_OpenDeep_CreatureOnly",
+      "count": 1,
+      "probability": 0.075
+    },
+    {
+      "biome": "grandReef_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "bloodKelp_OpenShallow_CreatureOnly",
+      "count": 1,
+      "probability": 0.1
     }
   ],
   "Hoverfish": [
@@ -2476,6 +3310,13 @@
       "biome": "grassyPlateaus_TechSite_Barrier",
       "count": 1,
       "probability": 0.15
+    }
+  ],
+  "LaserCutterFragment_InCrate": [
+    {
+      "biome": "grassyPlateaus_Sand",
+      "count": 1,
+      "probability": 0.05
     }
   ],
   "LavaBoomerang": [
@@ -3173,6 +4014,34 @@
       "probability": 0.1
     }
   ],
+  "Nuclear_reactor_damaged_01": [
+    {
+      "biome": "fragmentBaseNuclearReactor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "Nuclear_reactor_damaged_02": [
+    {
+      "biome": "fragmentBaseNuclearReactor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "Nuclear_reactor_damaged_03": [
+    {
+      "biome": "fragmentBaseNuclearReactor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "Nuclear_reactor_damaged_04": [
+    {
+      "biome": "fragmentBaseNuclearReactor",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
   "Oculus": [
     {
       "biome": "jellyshroomCaves_CaveFloor",
@@ -3342,11 +4211,70 @@
       "probability": 0.1
     }
   ],
-  "PowerCellChargerFragment": [
+  "Power_Cell_Charging_Station_damaged_base": [
     {
       "biome": "fragmentPowerCellCharger",
       "count": 1,
       "probability": 1.0
+    }
+  ],
+  "Power_Cell_Charging_Station_damaged_cover": [
+    {
+      "biome": "fragmentPowerCellCharger",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "PowerCellCharger_Fragment": [
+    {
+      "biome": "sparseReef_DeepFloor",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "mushroomForest_TechSite",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "mushroomForest_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.12
+    },
+    {
+      "biome": "underwaterIslands_TechSite",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "underwaterIslands_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "jellyShroomCaves_AbandonedBase_Outside",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "sparseReef_Techsite",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "sparseReef_Techsite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "dunes_TechSite",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "dunes_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.12
     }
   ],
   "PowerTransmitterFragment": [
@@ -3386,6 +4314,53 @@
       "biome": "aurora_UpgradeConsole",
       "count": 1,
       "probability": 1000.0
+    }
+  ],
+  "PropulsionCannonJunkFragment": [
+    {
+      "biome": "crashZone_Sand",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "grassyPlateaus_TechSite",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.15
+    },
+    {
+      "biome": "underwaterIslands_TechSite",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "underwaterIslands_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "underwaterIslands_ValleyFloor",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "underwaterIslands_ValleyLedge",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "mushroomForest_TechSite",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "mushroomForest_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
     }
   ],
   "Quartz": [
@@ -3711,6 +4686,33 @@
       "biome": "lostRiverCorridor_Open_CreatureOnly",
       "count": 1,
       "probability": 0.3
+    }
+  ],
+  "ReinforcedDiveSuitFragment_old": [
+    {
+      "biome": "mountains_Sand",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "mountains_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "bloodKelp_TechSite",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "grandReef_TechSite",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "deepGrandReef_AbandonedBase_Exterior",
+      "count": 1,
+      "probability": 0.0
     }
   ],
   "ReinforceHullFragment": [
@@ -4080,86 +5082,141 @@
       "probability": 0.3
     }
   ],
-  "ScannerRoomFragment": [
+  "ScrapMetal": [
+    {
+      "biome": "safeShallows_SandFlat",
+      "count": 4,
+      "probability": 0.1
+    },
+    {
+      "biome": "crashZone_Sand",
+      "count": 4,
+      "probability": 0.2
+    },
+    {
+      "biome": "crashZone_TrenchSand",
+      "count": 4,
+      "probability": 0.2
+    },
+    {
+      "biome": "kelp_Sand",
+      "count": 4,
+      "probability": 0.21125
+    },
+    {
+      "biome": "dunes_SandDune",
+      "count": 4,
+      "probability": 0.06
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Scattered",
+      "count": 4,
+      "probability": 0.075
+    },
+    {
+      "biome": "cragField_Sand",
+      "count": 4,
+      "probability": 0.1
+    },
+    {
+      "biome": "kooshZone_Grass",
+      "count": 4,
+      "probability": 0.1
+    }
+  ],
+  "SeaglideJunkFragment": [
+    {
+      "biome": "safeShallows_Grass",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "safeShallows_SandFlat",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "kelp_GrassDense",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "kelp_GrassSparse",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "kelp_TechSite",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "bloodKelp_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "safeShallows_TechSite_Scattered",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "safeShallows_TechSite",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "safeShallows_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    }
+  ],
+  "Seamoth_Fragment": [
     {
       "biome": "grassyPlateaus_Sand",
       "count": 1,
       "probability": 0.015
     },
     {
-      "biome": "grassyPlateaus_TechSite_Scattered",
+      "biome": "grassyPlateaus_Grass",
       "count": 1,
-      "probability": 0.06
-    },
-    {
-      "biome": "kooshZone_TechSite_Scatter",
-      "count": 1,
-      "probability": 0.1
-    },
-    {
-      "biome": "grandReef_TechSite_Scattered",
-      "count": 1,
-      "probability": 0.1
-    },
-    {
-      "biome": "deepGrandReef_AbandonedBase_Exterior",
-      "count": 1,
-      "probability": 0.1
-    },
-    {
-      "biome": "bloodKelp_TrenchFloor",
-      "count": 1,
-      "probability": 0.04
-    },
-    {
-      "biome": "cragField_Sand",
-      "count": 1,
-      "probability": 0.03
-    }
-  ],
-  "ScrapMetal": [
-    {
-      "biome": "safeShallows_SandFlat",
-      "count": 1,
-      "probability": 0.1
-    },
-    {
-      "biome": "crashZone_Sand",
-      "count": 1,
-      "probability": 0.2
-    },
-    {
-      "biome": "crashZone_TrenchSand",
-      "count": 1,
-      "probability": 0.2
-    },
-    {
-      "biome": "kelp_Sand",
-      "count": 1,
-      "probability": 0.22
-    },
-    {
-      "biome": "dunes_SandDune",
-      "count": 1,
-      "probability": 0.06
+      "probability": 0.015
     },
     {
       "biome": "grassyPlateaus_TechSite_Scattered",
       "count": 1,
-      "probability": 0.075
-    },
-    {
-      "biome": "cragField_Sand",
-      "count": 1,
-      "probability": 0.1
-    },
-    {
-      "biome": "kooshZone_Grass",
-      "count": 1,
-      "probability": 0.1
+      "probability": 0.05
     }
   ],
-  "SeamothFragment": [
+  "seamoth_fragment_01": [
+    {
+      "biome": "fragmentSeamoth",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "seamoth_fragment_02": [
+    {
+      "biome": "fragmentSeamoth",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "seamoth_fragment_03": [
+    {
+      "biome": "fragmentSeamoth",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "seamoth_fragment_04": [
+    {
+      "biome": "fragmentSeamoth",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "seamoth_fragment_05": [
     {
       "biome": "fragmentSeamoth",
       "count": 1,
@@ -4552,6 +5609,27 @@
       "probability": 0.1
     }
   ],
+  "Spawn_Skyray_Decontaminated": [
+    {
+      "biome": "shipSpecial_RoostBirds",
+      "count": 1,
+      "probability": 0.5
+    }
+  ],
+  "Spawn_Skyray_Decontaminated_NoRoost": [
+    {
+      "biome": "shipSpecial_Birds",
+      "count": 1,
+      "probability": 0.5
+    }
+  ],
+  "Spawn_Skyray_NoRoost": [
+    {
+      "biome": "floatingIslands_Birds",
+      "count": 1,
+      "probability": 0.3
+    }
+  ],
   "SpineEel": [
     {
       "biome": "ghostTree_Open_Big_CreatureOnly",
@@ -4735,31 +5813,72 @@
       "probability": 0.3
     }
   ],
-  "StillsuitFragment": [
+  "StasisRifleJunkFragment": [
     {
-      "biome": "seaTreaderPath_TechSite",
+      "biome": "safeShallows_TechSite_Barrier",
       "count": 1,
-      "probability": 0.0
+      "probability": 0.04
     },
     {
-      "biome": "dunes_TechSite",
+      "biome": "underwaterIslands_TechSite",
       "count": 1,
-      "probability": 0.0
+      "probability": 0.04
     },
     {
-      "biome": "grassyPlateaus_TechSite",
+      "biome": "underwaterIslands_TechSite_Barrier",
       "count": 1,
-      "probability": 0.0
+      "probability": 0.06
     },
     {
-      "biome": "mountains_TechSite",
+      "biome": "kooshZone_TechSite",
       "count": 1,
-      "probability": 0.0
+      "probability": 0.08
     },
     {
       "biome": "kooshZone_TechSite_Barrier",
       "count": 1,
-      "probability": 0.0
+      "probability": 0.15
+    },
+    {
+      "biome": "underwaterIslands_IslandTop",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "underwaterIslands_ValleyFloor",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "floatingIslands_AbandonedBase_Outside",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "kelp_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.06
+    }
+  ],
+  "submarine_Workbench_damaged_01": [
+    {
+      "biome": "fragmentWorkbench",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "submarine_Workbench_damaged_02": [
+    {
+      "biome": "fragmentWorkbench",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "submarine_Workbench_damaged_03": [
+    {
+      "biome": "fragmentWorkbench",
+      "count": 1,
+      "probability": 1.0
     }
   ],
   "Sulphur": [
@@ -4844,11 +5963,342 @@
       "probability": 0.4
     }
   ],
-  "ThermalPlantFragment": [
+  "SupplyCrate_Battery": [
+    {
+      "biome": "shipSpecial_SupplyCrate",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "shipInterior_Platform",
+      "count": 1,
+      "probability": 0.075
+    },
+    {
+      "biome": "shipSpecial_WreckInterior_Obsolete",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "crashZone_TrenchSand",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "shipInterior_Corridor",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "shipInterior_Corridor_Barrier",
+      "count": 1,
+      "probability": 0.6
+    },
+    {
+      "biome": "kooshZone_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    }
+  ],
+  "SupplyCrate_DisinfectedWater": [
+    {
+      "biome": "shipSpecial_SupplyCrate",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "shipInterior_Platform",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "shipSpecial_WreckInterior_Obsolete",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "crashZone_TrenchSand",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "shipInterior_LivingArea",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "shipInterior_LivingArea_Barrier",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "shipInterior_GenericRoom",
+      "count": 1,
+      "probability": 0.5
+    },
+    {
+      "biome": "shipInterior_GenericRoom_Barrier",
+      "count": 1,
+      "probability": 0.7
+    },
+    {
+      "biome": "shipInterior_Cargo",
+      "count": 1,
+      "probability": 0.8
+    },
+    {
+      "biome": "grassyPlateaus_TechSite",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "mountains_TechSite",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "dunes_TechSite",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "kooshZone_TechSite",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "sparseReef_Techsite",
+      "count": 1,
+      "probability": 0.06
+    },
+    {
+      "biome": "mountains_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.04
+    }
+  ],
+  "SupplyCrate_FirstAidKit": [
+    {
+      "biome": "shipSpecial_SupplyCrate",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "shipInterior_Platform",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "shipSpecial_WreckInterior_Obsolete",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "crashZone_TrenchSand",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "safeShallows_EscapePod",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "kelp_EscapePod",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "shipInterior_LivingArea",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "shipInterior_LivingArea_Barrier",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "safeShallows_TechSite",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "underwaterIslands_TechSite",
+      "count": 1,
+      "probability": 0.03
+    },
+    {
+      "biome": "underwaterIslands_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.03
+    }
+  ],
+  "SupplyCrate_PowerCell": [
+    {
+      "biome": "shipSpecial_WreckInterior_Obsolete",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "crashZone_TrenchSand",
+      "count": 1,
+      "probability": 0.025
+    },
+    {
+      "biome": "shipInterior_AuxPowerRoom",
+      "count": 1,
+      "probability": 0.3
+    },
+    {
+      "biome": "shipInterior_AuxPowerRoom_Barrier",
+      "count": 1,
+      "probability": 0.4
+    },
+    {
+      "biome": "shipInterior_ExoRoom",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "shipInterior_ExoRoomPipes_Barrier",
+      "count": 1,
+      "probability": 0.4
+    }
+  ],
+  "SupplyCrate_Ration": [
+    {
+      "biome": "shipInterior_Cargo",
+      "count": 1,
+      "probability": 0.6
+    },
+    {
+      "biome": "shipInterior_LivingArea",
+      "count": 1,
+      "probability": 0.6
+    },
+    {
+      "biome": "mountains_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "dunes_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "grandReef_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "bloodKelp_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "kooshZone_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "sparseReef_Techsite_Barrier",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "underwaterIslands_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "underwaterIslands_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.03
+    }
+  ],
+  "Thermal_reactor_damaged_01": [
     {
       "biome": "fragmentThermalPlant",
       "count": 1,
       "probability": 1.0
+    }
+  ],
+  "Thermal_reactor_damaged_02": [
+    {
+      "biome": "fragmentThermalPlant",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "Thermal_reactor_damaged_03": [
+    {
+      "biome": "fragmentThermalPlant",
+      "count": 1,
+      "probability": 1.0
+    }
+  ],
+  "ThermalPlant_Fragment": [
+    {
+      "biome": "dunes_TechSite",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "dunes_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "dunes_TechSite_Scatter",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "dunes_SandDune",
+      "count": 1,
+      "probability": 0.025
+    },
+    {
+      "biome": "grandReef_TechSite",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "grandReef_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.0
+    },
+    {
+      "biome": "grandReef_TechSite_Scattered",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "grandReef_Ground",
+      "count": 1,
+      "probability": 0.01
+    },
+    {
+      "biome": "grandReef_Grass",
+      "count": 1,
+      "probability": 0.02
+    },
+    {
+      "biome": "sparseReef_Techsite_Scatter",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "jellyShroomCaves_AbandonedBase_Outside",
+      "count": 1,
+      "probability": 0.1
     }
   ],
   "TimeCapsule": [
@@ -5064,11 +6514,66 @@
       "probability": 0.025
     }
   ],
-  "WorkbenchFragment": [
+  "Workbench_Fragment": [
     {
-      "biome": "fragmentWorkbench",
+      "biome": "bloodKelp_TechSite",
       "count": 1,
-      "probability": 1.0
+      "probability": 0.05
+    },
+    {
+      "biome": "mountains_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "kooshZone_TechSite",
+      "count": 1,
+      "probability": 0.08
+    },
+    {
+      "biome": "kooshZone_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.2
+    },
+    {
+      "biome": "jellyShroomCaves_AbandonedBase_Outside",
+      "count": 1,
+      "probability": 0.12
+    },
+    {
+      "biome": "mushroomForest_TechSite",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "mushroomForest_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.12
+    },
+    {
+      "biome": "mushroomForest_Grass",
+      "count": 1,
+      "probability": 0.05
+    },
+    {
+      "biome": "cragField_Ground",
+      "count": 1,
+      "probability": 0.04
+    },
+    {
+      "biome": "sparseReef_Techsite",
+      "count": 1,
+      "probability": 0.1
+    },
+    {
+      "biome": "sparseReef_Techsite_Barrier",
+      "count": 1,
+      "probability": 0.12
+    },
+    {
+      "biome": "grassyPlateaus_TechSite_Barrier",
+      "count": 1,
+      "probability": 0.12
     }
   ]
 }
