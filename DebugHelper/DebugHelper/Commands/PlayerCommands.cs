@@ -58,7 +58,7 @@ namespace DebugHelper.Commands
             }
             else
             {
-                ErrorMessage.AddMessage("Copying the position of the player camera to clipboard.");
+                ErrorMessage.AddMessage("Copying the position of the player's camera to clipboard.");
                 position = cam.position;
             }
             var formatted = Helpers.FormatVector3Constructor(position, 2);

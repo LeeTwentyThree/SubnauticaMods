@@ -10,8 +10,6 @@ namespace DebugHelper.Commands
 {
     public static class PrefabCommands
     {
-        private static GameObject signPrefab;
-
         [ConsoleCommand("spawnp")]
         public static void SpawnByPath(string path)
         {
@@ -77,59 +75,6 @@ namespace DebugHelper.Commands
                     }
                 }
             }
-        }
-
-        [ConsoleCommand("entgal")]
-        public static void EntityGallery()
-        {
-            CoroutineHost.StartCoroutine(EntgalCoroutine());
-        }
-
-        private static IEnumerator EntgalCoroutine()
-        {
-            if (signPrefab == null)
-            {
-                IPrefabRequest request = PrefabDatabase.GetPrefabAsync("19524fc9-f1cc-4bc9-9404-94aaaf3e81a0");
-                yield return request;
-                request.TryGetPrefab(out signPrefab);
-            }
-
-            Vector3 offset = new Vector3(-1250f, -10f, -1250f);
-            Player.main.SetPosition(offset);
-            GameObject[] objects = Resources.LoadAll<GameObject>("WorldEntities");
-            const float verticalSpacing = 10f;
-            const float horizontalSpacing = 30f;
-            Vector3 vertical = Vector3.forward;
-            Vector3 horizontal = Vector3.right;
-            int verticalOffset = 0;
-            int horizontalIterations = 0;
-            for (int i = 0; i < objects.Length; i++)
-            {
-                SpawnEntgalEntity(objects[i], offset + (vertical * (verticalSpacing * verticalOffset)) + (horizontal * (horizontalSpacing * horizontalIterations)));
-                if (verticalOffset < 400)
-                {
-                    verticalOffset++;
-                }
-                else
-                {
-                    verticalOffset = 0;
-                    horizontalIterations++;
-                }
-                yield return null;
-            }
-            ErrorMessage.AddMessage("Successfully spawned " + objects.Length.ToString() + " entities.");
-        }
-
-        static void SpawnEntgalEntity(GameObject prefab, Vector3 position)
-        {
-            if (prefab.name == "Cold") return;
-            GameObject spawnedPrefab = Object.Instantiate(prefab, position, Quaternion.identity);
-            Rigidbody rb = spawnedPrefab.GetComponent<Rigidbody>();
-            if (rb != null) rb.isKinematic = true;
-            GameObject signGameObject = Object.Instantiate(signPrefab, position + (Vector3.right * 2f), Quaternion.LookRotation(Vector3.right));
-            GenericSign sign = signGameObject.GetComponent<GenericSign>();
-            sign.key = prefab.name;
-            sign.UpdateCanvas();
         }
 
         private static List<ClassIDButton> classIDButtons = new List<ClassIDButton>();
