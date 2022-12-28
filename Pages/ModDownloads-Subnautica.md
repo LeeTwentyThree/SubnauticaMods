@@ -1,7 +1,7 @@
 ### [Back to homepage](https://github.com/LeeTwentyThree/SubnauticaMods/blob/main/README.md)
 
 # Lee23's Subnautica Mods - Download Page
-Mods are sorted alphabetically. Work in progress!
+Mods are sorted alphabetically. All mods require the correct [BepInEx package for Subnautica](https://www.nexusmods.com/subnautica/mods/1108).
 
 # 🐠 Normal Mods 🐟
 
@@ -11,7 +11,7 @@ These mods were not designed for regular playthroughs, but I am uploading them h
 
 # 🖥️ Mods for testing 📊
 
-### [SubnauticaRuntimeEditor](https://www.submodica.xyz/mods/sn1/109)
+## [SubnauticaRuntimeEditor](https://www.submodica.xyz/mods/sn1/109)
 RuntimeUnityEditor modification, designed to be the ultimate tool for Subnautica modding.
 
 ---
