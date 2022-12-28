@@ -12,9 +12,8 @@ Mods are sorted alphabetically. Work in progress!
 🖥️  **Mods for testing**  📊
 ---
 
-# SubnauticaRuntimeEditor
-
-https://www.submodica.xyz/mods/sn1/109
+### [SubnauticaRuntimeEditor](https://www.submodica.xyz/mods/sn1/109)
+RuntimeUnityEditor modification, designed to be the ultimate tool for Subnautica modding.
 
 # Recently updated! 🎉 (MM/DD/YY)
 
