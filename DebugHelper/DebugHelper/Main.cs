@@ -8,7 +8,7 @@ using BepInEx;
 
 namespace DebugHelper
 {
-    [BepInPlugin("DebugHelper", "Debug Helper", "1.2.0")]
+    [BepInPlugin("DebugHelper", "Debug Helper", "1.0.0")]
     public class Main : BaseUnityPlugin
     {
         public static Config config;
