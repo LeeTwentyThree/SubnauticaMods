@@ -11,6 +11,9 @@ These mods were not designed for regular playthroughs, but I am uploading them h
 
 # 🖥️ Mods for testing 📊
 
+## [DebugHelper](https://www.submodica.xyz/mods/sn1/133)
+Adds over 30 console commands, many in-game options and a new class designed for use with the REPL console.
+
 ## [SubnauticaRuntimeEditor](https://www.submodica.xyz/mods/sn1/109)
 RuntimeUnityEditor modification, designed to be the ultimate tool for Subnautica modding.
 
