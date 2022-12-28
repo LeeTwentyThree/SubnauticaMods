@@ -11,6 +11,10 @@ Mods are sorted alphabetically. Work in progress!
 
 🖥️  **Mods for testing**  📊
 
+### SubnauticaRuntimeEditor
+
+https://www.submodica.xyz/mods/sn1/109
+
 ---
 # Recently updated! 🎉 (MM/DD/YY)
 
