@@ -8,8 +8,11 @@ public class SubnauticaModManagerPlugin : BaseUnityPlugin
 
     private static readonly Harmony harmony = new Harmony(GUID);
 
+    new internal static ManualLogSource Logger { get; private set; }
+
     private void Awake()
     {
+        Logger = base.Logger;
         harmony.PatchAll();
     }
 }
