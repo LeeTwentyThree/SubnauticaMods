@@ -3,7 +3,6 @@
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
 		<RootNamespace>SubnauticaModManager</RootNamespace>
 		<AssemblyName>SubnauticaModManager</AssemblyName>
@@ -49,10 +48,6 @@
 	<ItemGroup>
 		<Using Remove="System" />
 		<Using Remove="System.Net.Http" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Mono\" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">

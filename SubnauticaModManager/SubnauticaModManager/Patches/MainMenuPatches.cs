@@ -15,9 +15,8 @@ internal class MainMenuPatches
         text.text = "Mod Manager";
         Object.DestroyImmediate(text.gameObject.GetComponent<TranslationLiveUpdate>());
         modManagerButton.transform.SetSiblingIndex(1);
-        var button = modManagerButton.GetComponentInParent<Button>();
+        var button = modManagerButton.GetComponent<Button>();
         button.onClick = new Button.ButtonClickedEvent();
-
-        //button.onClick.AddListener(AchievementsMenu.Show);
+        button.onClick.AddListener(MenuCreator.ShowMenu);
     }
 }
