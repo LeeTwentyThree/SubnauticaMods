@@ -24,7 +24,7 @@ internal class QuitGameButton : MonoBehaviour
         }
         menu.prompt.Ask(
                 "Quit to desktop?",
-                new PromptChoice("Yes", true, () => QuitGame()),
+                new PromptChoice("Yes", false, () => QuitGame()),
                 new PromptChoice("No")
             );
     }
