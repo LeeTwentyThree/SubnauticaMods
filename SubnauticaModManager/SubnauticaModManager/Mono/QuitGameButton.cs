@@ -22,7 +22,11 @@ internal class QuitGameButton : MonoBehaviour
             );
             return;
         }
-        QuitGame();
+        menu.prompt.Ask(
+                "Quit to desktop?",
+                new PromptChoice("Yes", true, () => QuitGame()),
+                new PromptChoice("No")
+            );
     }
 
     private void QuitGame()
