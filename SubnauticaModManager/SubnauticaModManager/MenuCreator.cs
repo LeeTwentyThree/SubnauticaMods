@@ -37,6 +37,8 @@ internal static class MenuCreator
         menuComponent.footer = menuObject.SearchChild("Footer").AddComponent<Footer>();
         menuComponent.prompt = menuObject.SearchChild("Prompt").AddComponent<PromptMenu>();
 
+        menuObject.SearchChild("TestArrangement").AddComponent<TestArrangementButton>();
+
         // tabs
         menuComponent.tabManager = menuObject.SearchChild("TabRoot").AddComponent<TabManager>();
         menuObject.SearchChild("InstallTab").AddComponent<Tab>().type = Tab.Type.Install;

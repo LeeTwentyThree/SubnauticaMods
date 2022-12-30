@@ -41,11 +41,11 @@ internal class PromptMenu : MonoBehaviour
         spawned.GetComponentInChildren<TextMeshProUGUI>().text = choice.text;
         var button = spawned.GetComponent<Button>();
         button.onClick = new Button.ButtonClickedEvent();
+        button.onClick.AddListener(OnAnyChoiceSelected);
         if (choice.action != null)
         {
             button.onClick.AddListener(new UnityAction(choice.action));
         }
-        button.onClick.AddListener(OnAnyChoiceSelected);
         if (choice.dangerous)
         {
             button.image.sprite = warningSprite;
