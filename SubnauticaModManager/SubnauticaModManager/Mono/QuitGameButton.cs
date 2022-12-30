@@ -6,7 +6,7 @@ internal class QuitGameButton : MonoBehaviour
     {
         var button = GetComponent<Button>();
         button.onClick = new Button.ButtonClickedEvent();
-        button.onClick.AddListener(() => OnClick() );
+        button.onClick.AddListener(() => OnClick());
     }
 
     private void OnClick()
