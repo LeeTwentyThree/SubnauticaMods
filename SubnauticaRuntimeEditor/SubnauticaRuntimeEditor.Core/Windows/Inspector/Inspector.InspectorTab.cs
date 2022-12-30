@@ -155,6 +155,7 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
 
                     _fieldCache.AddRange(type.GetAllProperties(false)
                         .Where(f => !f.IsDefined(typeof(CompilerGeneratedAttribute), false))
+                        .Where(f => !f.Name.Equals("renderingDisplaySize") && !f.Name.Equals("renderingDisplaySize_Injected")) // if you remove this line, the game crashes when inspecting a Canvas
                         .Select(p => new PropertyCacheEntry(objectToOpen, p, type, parent)).Cast<ICacheEntry>());
 
                     _fieldCache.AddRange(type.GetAllEvents(false)
