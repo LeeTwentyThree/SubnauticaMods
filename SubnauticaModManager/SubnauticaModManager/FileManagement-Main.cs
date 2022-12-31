@@ -10,9 +10,23 @@ namespace SubnauticaModManager;
 
 internal static partial class FileManagement
 {
-    public static void UnzipFile(string path, string intoDirectory)
+    public static void UnzipContents(string path, string intoDirectory, bool deleteZipFile)
     {
+        if (string.IsNullOrEmpty(path) || string.IsNullOrEmpty(intoDirectory))
+        {
+            Plugin.Logger.LogError($"Empty path(s) detected while trying to unzip a file.");
+            return;
+        }
+        if (!File.Exists(path) || !File.Exists(intoDirectory))
+        {
+            Plugin.Logger.LogError($"Invalid path(s) detected while trying to unzip a file.");
+            return;
+        }
         ZipFile.ExtractToDirectory(path, intoDirectory);
+        if (deleteZipFile)
+        {
+            File.Delete(path);
+        }
     }
 
     public static bool RestartRequired => _restartRequired;

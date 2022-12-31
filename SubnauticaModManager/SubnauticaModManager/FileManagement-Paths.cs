@@ -80,7 +80,7 @@ internal static partial class FileManagement
         {
             if (string.IsNullOrEmpty(_disabledModsFolderPath))
             {
-                _disabledModsFolderPath = Path.Combine(PluginFolder, kDisabledModsFolderName);
+                _disabledModsFolderPath = Path.Combine(SubnauticaFolder, kDisabledModsFolderName);
                 if (!Directory.Exists(_disabledModsFolderPath))
                 {
                     Directory.CreateDirectory(_disabledModsFolderPath);

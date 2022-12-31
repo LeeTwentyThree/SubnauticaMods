@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<OutputType>Exe</OutputType>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<RootNamespace>ModManagerFileArranger</RootNamespace>
+		<AssemblyName>ModManagerFileArranger</AssemblyName>
+		<LangVersion>10.0</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Remove="System" />
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\FileArrangement\FileArranger.csproj" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\SubnauticaModManager&quot;" />
+	</Target>
+</Project>

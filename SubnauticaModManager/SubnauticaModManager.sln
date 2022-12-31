@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubnauticaModManager", "SubnauticaModManager\SubnauticaModManager.csproj", "{994489A0-68F6-497A-AA75-83F113F811E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileArrangement", "FileArrangement\FileArrangement.csproj", "{191C0087-283C-4B5D-8AB8-A7C29FE2BA67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileArranger", "FileArrangement\FileArranger.csproj", "{191C0087-283C-4B5D-8AB8-A7C29FE2BA67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModManagerFileArranger", "ModManagerFileArranger\ModManagerFileArranger.csproj", "{CFA29EDD-93C3-487F-B66E-D191AADC56CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{191C0087-283C-4B5D-8AB8-A7C29FE2BA67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{191C0087-283C-4B5D-8AB8-A7C29FE2BA67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{191C0087-283C-4B5D-8AB8-A7C29FE2BA67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFA29EDD-93C3-487F-B66E-D191AADC56CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA29EDD-93C3-487F-B66E-D191AADC56CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA29EDD-93C3-487F-B66E-D191AADC56CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA29EDD-93C3-487F-B66E-D191AADC56CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

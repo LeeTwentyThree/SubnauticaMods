@@ -4,14 +4,20 @@
 		<TargetFramework>net472</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<RootNamespace>FileArrangement</RootNamespace>
-		<AssemblyName>FileArrangement</AssemblyName>
+		<RootNamespace>FileArranger</RootNamespace>
+		<AssemblyName>FileArranger</AssemblyName>
 		<LangVersion>10.0</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Using Remove="System" />
 		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Newtonsoft.Json">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\Subnautica_Data\Managed\Newtonsoft.Json.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
