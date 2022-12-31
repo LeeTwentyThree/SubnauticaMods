@@ -10,7 +10,7 @@
 - Mods that are NO LONGER WORKING on current versions can be accessed [here](https://github.com/LeeTwentyThree/Lee23-LegacySubnauticaMods/blob/main/README.md).
 - These mods are not compatible with any mods in this repository.
 
-You can find a list of releases [here](https://github.com/LeeTwentyThree/SubnauticaMods/releases), but I do not advise looking through it yourself because it is extremely user-unfriendly. This is due to GitHub limitations.
+You can access this repository's unorganized releases page [here](https://github.com/LeeTwentyThree/SubnauticaMods/releases), but I do not advise looking through it yourself because it is extremely user-unfriendly. This is due to GitHub limitations.
 
 ---
 
