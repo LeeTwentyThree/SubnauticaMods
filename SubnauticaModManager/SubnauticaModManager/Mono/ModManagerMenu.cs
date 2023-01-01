@@ -12,6 +12,7 @@ internal class ModManagerMenu : MonoBehaviour
     public Footer footer;
     public TabManager tabManager;
     public PromptMenu prompt;
+    public LoadingPrompt loadingPrompt;
 
     public bool UnappliedChanges { get; private set; }
 

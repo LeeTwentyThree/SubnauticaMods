@@ -9,15 +9,25 @@ public class LoadingProgress
 
     public LoadingProgress()
     {
-        if (current != null)
+        SetActive();
+    }
+
+    public void Complete()
+    {
+        current = null;
+    }
+
+    public void SetActive()
+    {
+        if (current != null && current != this)
         {
             Plugin.Logger.LogError("TWO INSTANCES OF THE LOADINGPROGRESS CLASS EXIST AT ONCE!");
         }
         current = this;
     }
 
-    public void Complete()
+    public void SetStatusForError(string error)
     {
-        current = null;
+        Status = error;
     }
 }

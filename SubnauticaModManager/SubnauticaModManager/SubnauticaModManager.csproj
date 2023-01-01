@@ -46,6 +46,9 @@
 	  <Reference Include="UnityEngine.UnityWebRequestModule">
 	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
 	  </Reference>
+	  <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+	  </Reference>
 	</ItemGroup>
 
 	<ItemGroup>

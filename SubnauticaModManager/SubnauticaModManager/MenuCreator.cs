@@ -36,6 +36,7 @@ internal static class MenuCreator
         menuComponent.restartRequiredText = menuObject.SearchChild("RestartRequiredText").AddComponent<RestartRequiredText>();
         menuComponent.footer = menuObject.SearchChild("Footer").AddComponent<Footer>();
         menuComponent.prompt = menuObject.SearchChild("Prompt").AddComponent<PromptMenu>();
+        menuComponent.loadingPrompt = menuObject.SearchChild("LoadingPrompt").AddComponent<LoadingPrompt>();
 
         menuObject.SearchChild("TestArrangement").AddComponent<TestArrangementButton>();
 
@@ -43,7 +44,7 @@ internal static class MenuCreator
         menuComponent.tabManager = menuObject.SearchChild("TabRoot").AddComponent<TabManager>();
         menuObject.SearchChild("InstallTab").AddComponent<Tab>().type = Tab.Type.Install;
         menuObject.SearchChild("ManageTab").AddComponent<TabModManagement>().type = Tab.Type.Manage;
-        menuObject.SearchChild("DownloadTab").AddComponent<Tab>().type = Tab.Type.Download;
+        menuObject.SearchChild("DownloadTab").AddComponent<TabDownloadMods>().type = Tab.Type.Download;
 
         // tab buttons
         menuObject.SearchChild("InstallTabButton").AddComponent<TabButton>().tabType = Tab.Type.Install;

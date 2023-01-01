@@ -13,6 +13,8 @@ public static class SubmodicaAPI
 
     private const float search_fakeLoadDuration = 1f;
 
+    public const float errorDisplayDuration = 3f;
+
     public static class Game
     {
         public static string Subnautica = "sn1";
@@ -39,19 +41,42 @@ public static class SubmodicaAPI
         return string.Format(urlFormat, Game.Current, key, UnityWebRequest.EscapeURL(query.ToLower()));
     }
 
+    public static IEnumerator SearchRecentlyUpdated(LoadingProgress loadingProgress)
+    {
+        yield return Search("recently_updated", loadingProgress);
+    }
+
+    public static IEnumerator SearchMostDownloaded(LoadingProgress loadingProgress)
+    {
+        yield return Search(string.Empty, loadingProgress);
+    }
+
     public static IEnumerator Search(string query, LoadingProgress loadingProgress)
     {
         var url = GetSearchURL(query);
         using (var request = UnityWebRequest.Get(url))
         {
-            loadingProgress.Status = "Fetching search results";
+            loadingProgress.Status = "Fetching search results...";
             while (!request.isDone)
             {
                 yield return null;
                 loadingProgress.Progress = request.downloadProgress;
             }
+            if (request.error != null)
+            {
+                loadingProgress.SetStatusForError(request.error);
+                yield return new WaitForSeconds(errorDisplayDuration);
+                loadingProgress.Complete();
+                yield break;
+            }
             yield return new WaitForSeconds(search_fakeLoadDuration);
-            loadingProgress.Complete();
         }
+
+        loadingProgress.Complete();
+    }
+
+    private static IEnumerator DisplayMod(SubmodicaMod mod, LoadingProgress progress)
+    {
+
     }
 }
