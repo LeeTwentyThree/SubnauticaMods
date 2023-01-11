@@ -25,4 +25,7 @@
     <Delete Files="$(OutputPath)\0Harmony.xml" />
     <Delete Files="$(OutputPath)\mcs.pdb" />
   </Target>
+  <Target Name="CopyToCorrectFolder" AfterTargets="ILRepacker">
+    <Copy SourceFiles="$(OutputPath)\$(AssemblyName).dll" DestinationFiles="..\bin\BepInEx\plugins\SubnauticaRuntimeEditor\$(AssemblyName).dll" />
+  </Target>
 </Project>
