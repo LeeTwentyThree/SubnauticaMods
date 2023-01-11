@@ -120,8 +120,8 @@
     <Compile Include="MaterialEditor\MaterialEditorProperties.cs" />
     <Compile Include="MaterialEditor\Keywords.cs" />
     <Compile Include="MaterialEditor\PropertyTypeVector4.cs" />
-    <Compile Include="MaterialEditor\PropertyTypeToggle.cs" />
     <Compile Include="MaterialEditor\PropertyTypeFloat.cs" />
+    <Compile Include="MaterialEditor\PropertyTypeToggle.cs" />
     <Compile Include="MaterialEditor\PropertyTypeColor.cs" />
     <Compile Include="MaterialEditor\PropertyType.cs" />
     <Compile Include="Styling\Colors.cs" />
