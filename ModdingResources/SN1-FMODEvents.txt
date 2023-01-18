@@ -1,3 +1,7 @@
+event:/bz/ui/pda/blueprint_toggle_all
+event:/bz/ui/pda/blueprint_toggle_off
+event:/bz/ui/pda/blueprint_toggle_on
+event:/bz/ui/pda/pda_pause_snapshot
 event:/creature/andi/1
 event:/creature/andi/2
 event:/creature/andi/a
@@ -844,6 +848,8 @@ event:/sub/pod/radio/radioSunbeamEvent03
 event:/sub/pod/radio/radioSunbeamEvent04
 event:/sub/pod/radio/radioSunbeamEvent05
 event:/sub/pod/radio/radioSunbeamEvent05_PDA
+event:/sub/pod/radio/radioSunbeamEvent05_withPause
+event:/sub/pod/radio/radioSunbeamEvent05_withPause_noVoice
 event:/sub/rocket/all_systems_go
 event:/sub/rocket/auxilery_on
 event:/sub/rocket/call_lift_loop
@@ -944,6 +950,11 @@ event:/sub_module/workbench/build_long_loop
 event:/sub_module/workbench/close
 event:/sub_module/workbench/open
 event:/sub_module/workbench/working
+event:/tools/airbladder/2.0/equip
+event:/tools/airbladder/2.0/equip_fill_air
+event:/tools/airbladder/2.0/first_use
+event:/tools/airbladder/2.0/put_away
+event:/tools/airbladder/2.0/use
 event:/tools/airbladder/airbladder_deflate
 event:/tools/airbladder/airbladder_deflate_surface
 event:/tools/airbladder/airbladder_hold_loop
