@@ -1,247 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A66A97B4-F32F-4748-8332-48F0876F0AAC}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>net472</TargetFramework>
+    <DebugType>embedded</DebugType>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+    <Authors>Lee23, ManlyMarco</Authors>
+    <Version>1.0.0</Version>
+    <Platforms>AnyCPU</Platforms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <RootNamespace>SubnauticaRuntimeEditor.Core</RootNamespace>
     <AssemblyName>SubnauticaRuntimeEditor.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>embedded</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\BepInEx\plugins\SubnauticaRuntimeEditor\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
-    <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>embedded</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\bin\BepInEx\plugins\SubnauticaRuntimeEditor\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>
-    </CodeAnalysisRuleSet>
-    <DebugSymbols>true</DebugSymbols>
-    <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+  
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HarmonyX.2.6.0\lib\net35\0Harmony.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp-firstpass_publicized.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp_publicized, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\Subnautica_Data\Managed\publicized_assemblies\Assembly-CSharp_publicized.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.10.4\lib\net35\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod.RuntimeDetour, Version=21.11.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoMod.RuntimeDetour.21.11.1.1\lib\net35\MonoMod.RuntimeDetour.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="MonoMod.Utils, Version=21.11.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoMod.Utils.21.11.1.1\lib\net35\MonoMod.Utils.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Core">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.InputSystem, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.InputSystem.1.5.0\lib\net35\Unity.InputSystem.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\IllusionLibs.HoneySelect.UnityEngine.5.3.5\lib\net35\UnityEngine.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\IllusionLibs.HoneySelect.UnityEngine.UI.5.3.5\lib\net35\UnityEngine.UI.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Features\CursorUnlocker.cs" />
-    <Compile Include="FeatureBase.cs" />
-    <Compile Include="Features\Gizmos\lib\Constants.cs" />
-    <Compile Include="Features\Gizmos\lib\Drawer.cs" />
-    <Compile Include="Features\Gizmos\lib\Drawers\CubeDrawer.cs" />
-    <Compile Include="Features\Gizmos\lib\Drawers\LineDrawer.cs" />
-    <Compile Include="Features\Gizmos\lib\Drawers\ArcDrawer.cs" />
-    <Compile Include="Features\Gizmos\lib\Drawers\PolygonDrawer.cs" />
-    <Compile Include="Features\Gizmos\lib\Drawers\SquareDrawer.cs" />
-    <Compile Include="Features\Gizmos\lib\Element.cs" />
-    <Compile Include="Features\Gizmos\lib\Gizmos.cs" />
-    <Compile Include="Features\Gizmos\lib\GizmosInstance.cs" />
-    <Compile Include="Features\RefreshObjectList.cs" />
-    <Compile Include="MaterialEditor\CodeGenerator.cs" />
-    <Compile Include="Utils\StringArrayPref.cs" />
-    <Compile Include="Utils\StringListPref.cs" />
-    <Compile Include="Windows\MaterialEditor\MaterialEditorViewer.cs" />
-    <Compile Include="MaterialEditor\MaterialEditorPropertyTypes.cs" />
-    <Compile Include="MaterialEditor\MaterialEditorPropertyKeywords.cs" />
-    <Compile Include="MaterialEditor\MaterialEditorProperties.cs" />
-    <Compile Include="MaterialEditor\Keywords.cs" />
-    <Compile Include="MaterialEditor\PropertyTypeVector4.cs" />
-    <Compile Include="MaterialEditor\PropertyTypeToggle.cs" />
-    <Compile Include="MaterialEditor\PropertyTypeFloat.cs" />
-    <Compile Include="MaterialEditor\PropertyTypeColor.cs" />
-    <Compile Include="MaterialEditor\PropertyType.cs" />
-    <Compile Include="Styling\Colors.cs" />
-    <Compile Include="Utils\Abstractions\InitSettings.cs" />
-    <Compile Include="Utils\MovingAverage.cs" />
-    <Compile Include="Utils\ObjectDumper\Dumper.cs" />
-    <Compile Include="Utils\ObjectDumper\ObjectDumperExtensions.cs" />
-    <Compile Include="WindowBase.cs" />
-    <Compile Include="Windows\Clipboard\ClipboardWindow.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\EventCacheEntry.cs" />
-    <Compile Include="Utils\OrderedSet.cs" />
-    <Compile Include="Windows\WindowManager.cs" />
-    <Compile Include="Windows\Profiler\ProfilerWindow.cs" />
-    <Compile Include="Utils\Abstractions\UnityInput.cs" />
-    <Compile Include="Utils\Abstractions\DnSpyHelper.cs" />
-    <Compile Include="Windows\Inspector\VariableFieldDrawer.cs" />
-    <Compile Include="Windows\Inspector\Inspector.InspectorTab.cs" />
-    <Compile Include="Windows\ObjectView\ObjectViewWindow.cs" />
-    <Compile Include="Utils\Abstractions\AssetBundleManagerHelper.cs" />
-    <Compile Include="Windows\ObjectTree\RootGameObjectSearcher.cs" />
-    <Compile Include="Utils\Abstractions\ILoggerWrapper.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\CallbackCacheEntey.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\ReadonlyListCacheEntry.cs" />
-    <Compile Include="Windows\Inspector\Entries\Inspector\InstanceStackEntry.cs" />
-    <Compile Include="Windows\Inspector\Entries\Inspector\StaticStackEntry.cs" />
-    <Compile Include="Windows\Inspector\Inspector.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\CacheEntryBase.cs" />
-    <Compile Include="Windows\Inspector\InspectorHelpObject.cs" />
-    <Compile Include="Utils\Abstractions\LogLevel.cs" />
-    <Compile Include="Features\Gizmos\GizmoDrawer.cs" />
-    <Compile Include="Windows\ObjectTree\ObjectTreeViewer.cs" />
-    <Compile Include="Windows\REPL\MCS\ScriptEvaluator.cs" />
-    <Compile Include="Windows\REPL\REPL.cs" />
-    <Compile Include="Windows\REPL\ReplHelper.cs" />
-    <Compile Include="Windows\REPL\Suggestion.cs" />
-    <Compile Include="Windows\REPL\SuggestionKind.cs" />
-    <Compile Include="Windows\REPL\TypeHelper.cs" />
-    <Compile Include="Windows\REPL\REPLWindow.cs" />
-    <Compile Include="SubnauticaRuntimeEditorCore.cs" />
-    <Compile Include="Utils\TextureUtils.cs" />
-    <Compile Include="Utils\Abstractions\OpenFileDialog.cs" />
-    <Compile Include="Utils\IMGUIUtils.cs" />
-    <Compile Include="Utils\Abstractions\DataUtility.cs" />
-    <Compile Include="Features\MouseInspect.cs" />
-    <Compile Include="Utils\ComboBox.cs" />
-    <Compile Include="Utils\ReflectionUtils.cs" />
-    <Compile Include="Utils\TomlTypeConverter.cs" />
-    <Compile Include="Utils\EditorUtilities.cs" />
-    <Compile Include="Utils\Extensions.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\FieldCacheEntry.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\ICacheEntry.cs" />
-    <Compile Include="Windows\Inspector\Entries\Inspector\InspectorStackEntryBase.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\ListCacheEntry.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\MethodCacheEntry.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\PropertyCacheEntry.cs" />
-    <Compile Include="Windows\Inspector\Entries\Contents\ReadonlyCacheEntry.cs" />
-    <Compile Include="Utils\UI\InterfaceMaker.cs" />
-    <Compile Include="Utils\ResourceUtils.cs" />
-    <Compile Include="Utils\SceneDumper.cs" />
-    <Compile Include="Windows\Inspector\ToStringConverter.cs" />
-    <Compile Include="Utils\TypeNameExtensions.cs" />
-    <Compile Include="Utils\Abstractions\UnityFeatureHelper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\LICENSE">
-      <Link>LICENSE</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="..\README.md">
-      <Link>README.md</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="ILRepack.targets" />
-    <None Include="packages.config" />
   </ItemGroup>
+  
   <ItemGroup>
     <EmbeddedResource Include="Utils\UI\guisharp-box.png" />
     <EmbeddedResource Include="Utils\UI\guisharp-window.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-button-hover.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-button-onhover.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-button-active.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-button-normal.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-button-on.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-material.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-save.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-pin.png" />
+    <EmbeddedResource Include="Utils\UI\guisharp-unpin.png" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\modules\mcs\mcs\mcs.csproj">
       <Project>{e4989e4c-0875-4528-9031-08e2c0e70103}</Project>
       <Name>mcs</Name>
       <Private>True</Private>
     </ProjectReference>
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+    <PackageReference Include="Subnautica.GameLibs" Version="71137.0.0.1-r.0" />
+    <PackageReference Include="Unity.InputSystem" Version="1.5.0" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-button-hover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-button-onhover.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-button-active.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-button-normal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-button-on.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-material.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-pin.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Utils\UI\guisharp-unpin.png" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets" Condition="Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets')" />
+
+  <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets'))" />
   </Target>
+  <Import Project="ILRepack.targets" />
 </Project>

@@ -7,8 +7,14 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 {
 	public class PropertyTypeColor : PropertyType
 	{
-		public PropertyTypeColor(string property) : base(property)
+		// Some colors are actually Vector4 in the code.
+		// So we have this to determine whether this color property is Vector4 and if so, we set it properly
+		// While still displaying it as a color.
+		private readonly bool _isVector4;
+
+		public PropertyTypeColor(string property, bool isVector4 = false) : base(property)
 		{
+			_isVector4 = isVector4;
 		}
 
 		protected override void Draw(Material material)
@@ -66,7 +72,11 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 			GUI.color = color3;
 			if (!color.IsEqualApprox(color2, 0.1f))
 			{
-				material.SetColor(Property, color2);
+				if (_isVector4)
+					material.SetVector(Property, color2);
+				else
+					material.SetColor(Property, color2);
+				
                 PrintLog(color, color2);
 			}
 		}

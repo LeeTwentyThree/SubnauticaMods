@@ -1,4 +1,4 @@
-# Runtime Unity Editor / Debugging Tools
+# Runtime Unity Editor / Debugging Tools (written by [ManlyMarco](https://github.com/ManlyMarco))
 In-game inspector, editor and interactive console for applications made with Unity3D game engine. It's designed for debugging and modding Unity games, but can also be used as a universal trainer.
 
 ### Features
