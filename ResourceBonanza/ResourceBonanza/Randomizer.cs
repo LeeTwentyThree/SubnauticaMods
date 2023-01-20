@@ -6,41 +6,11 @@ internal class Randomizer
 
     internal static Randomizer resourceRandomizer = new();
 
-    private List<TechType> validTechTypes;
-
-    private void UpdateTechTypeList()
-    {
-        validTechTypes = new List<TechType>();
-        var techMapping = CraftData.techMapping;
-        if (techMapping != null)
-        {
-            foreach (var entry in techMapping)
-            {
-                validTechTypes.Add(entry.Key);
-            }
-        }
-    }
-
     public TechType GetRandomTechType()
     {
         if (validTechTypes == null) UpdateTechTypeList();
         if (validTechTypes == null || validTechTypes.Count == 0) return TechType.Unobtanium;
         return validTechTypes[Random.Range(0, validTechTypes.Count)];
-    }
-
-    public int GetRandomAmount(bool isForCreatures)
-    {
-        if (isForCreatures) return Random.Range(1, 4);  // creatures: 1 to 3 spawn
-        var value = Random.value;
-        if (value < 0.05f) return 0;                    // 5% chance to return 0 items (trolled)
-        if (value < 0.15f) return 1;                    // 10% chance to return 1 item
-        if (value < 0.5f) return Random.Range(1, 51);   // 35% chance to return 1 to 50 items
-        return Random.Range(1, 13);                     // 50% chance to return 1 to 12 items
-    }
-
-    internal static bool IsTechTypeForCreature(TechType techType)
-    {
-        return CreatureData.behaviourTypeList.ContainsKey(techType);
     }
 }
 
@@ -71,5 +41,21 @@ internal class OutcropRandomizer : Randomizer
         rigidbody.AddTorque(Vector3.right * Random.Range(3, 6));
         rigidbody.AddForce(up * 0.1f);
         yield break;
+    }
+
+    public int GetRandomAmount(SpawnType spawnType)
+    {
+        if (spawnType == SpawnType.Crazy) return Random.Range(1, 4); // 1 to 3 for crazy spawns
+        var value = Random.value;
+        if (value < 0.05f) return 0;                    // 5% chance to return 0 items (trolled)
+        if (value < 0.15f) return 1;                    // 10% chance to return 1 item
+        if (value < 0.5f) return Random.Range(1, 51);   // 35% chance to return 1 to 50 items
+        return Random.Range(1, 13);                     // 50% chance to return 1 to 12 items
+    }
+
+    private enum SpawnType
+    {
+        Item,
+        Crazy
     }
 }

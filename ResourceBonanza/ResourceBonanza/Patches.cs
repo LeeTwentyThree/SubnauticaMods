@@ -11,4 +11,12 @@ internal static class Patches
         UWE.CoroutineHost.StartCoroutine(Randomizer.outcropRandomizer.SpawnOutcropItems(__instance, breakPrefab));
         return false;
     }
+
+    [HarmonyPatch(typeof(Player), nameof(Player.Start))]
+    [HarmonyPostfix]
+    public static void PlayerStartPatch()
+    {
+        Plugin.log.LogInfo("BreakIntoResourcesPatch");
+        UWE.CoroutineHost.StartCoroutine(TechTypeRandomizer.InitializeAll());
+    }
 }
