@@ -3,6 +3,9 @@
 # Lee23's Subnautica Mods - Download Page
 Mods are sorted alphabetically. All mods require the correct [BepInEx package for Subnautica](https://www.nexusmods.com/subnautica/mods/1108).
 
+# Subnautica Mod Manager
+[Download here](https://github.com/LeeTwentyThree/SubnauticaModManager)
+
 # 🐠 Normal Mods 🐟
 
 # 🎲 Challenge Mods & uncategorized commissions 👽
