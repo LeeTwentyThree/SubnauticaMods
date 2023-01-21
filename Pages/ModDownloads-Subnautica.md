@@ -8,10 +8,6 @@ Mods are sorted alphabetically. All mods require the correct [BepInEx package fo
 ## [Subnautica Mod Manager](https://www.submodica.xyz/mods/sn1/168)
 Adds an in-game menu that makes it easier to install, update, and manage your mods.
 
-# 🎲 Challenge Mods & uncategorized commissions 👽
-
-These mods were not designed for regular playthroughs, but I am uploading them here for people who are curious to try them.
-
 # 🖥️ Mods for testing 📊
 
 ## [DebugHelper](https://www.submodica.xyz/mods/sn1/133)
