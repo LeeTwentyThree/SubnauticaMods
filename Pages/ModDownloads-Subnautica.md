@@ -5,8 +5,8 @@ Mods are sorted alphabetically. All mods require the correct [BepInEx package fo
 
 # 🐠 Normal Mods 🐟
 
-## Subnautica Mod Manager
-[Download here](https://github.com/LeeTwentyThree/SubnauticaModManager)
+## [Subnautica Mod Manager](https://www.submodica.xyz/mods/sn1/168)
+Adds an in-game menu that makes it easier to install, update, and manage your mods.
 
 # 🎲 Challenge Mods & uncategorized commissions 👽
 
