@@ -376,6 +376,16 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
                 {
                     MaterialEditor.MaterialEditorViewer.StartEditing(material);
                 }
+
+                Animator animator = instance as Animator;
+
+                if (animator && GUILayout.Button("Open In Animation Controller", new GUILayoutOption[]
+                {
+                            GUILayout.ExpandWidth(true)
+                }))
+                {
+                    AnimationController.AnimationController.StartEditing(animator);
+                }
             }
 
             var currentItem = tab.CurrentStackItem;
