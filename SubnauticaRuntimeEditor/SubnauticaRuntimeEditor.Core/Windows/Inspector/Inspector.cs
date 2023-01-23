@@ -485,7 +485,10 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
                 }
                 catch (Exception ex)
                 {
+#if RELEASE
+#else
                     SubnauticaRuntimeEditorCore.Logger.Log(LogLevel.Error, $"[{Title}] Failed to draw setting {entry?.Name()} - {ex.Message}");
+#endif
                     GUILayout.TextArea(ex.Message, GUI.skin.label, GUILayout.ExpandWidth(true));
                 }
             }
