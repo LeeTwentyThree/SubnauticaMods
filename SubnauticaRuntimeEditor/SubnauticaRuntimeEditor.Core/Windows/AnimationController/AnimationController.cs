@@ -15,15 +15,19 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
 
         private static readonly string NO_ANIMATOR_SELECTED = "No animator selected!\nSelect the 'Open In Animator Controller' button on a valid Animator component.";
 
-        private const float ANIMATOR_CONTROLLER_WIDTH = 600f;
+        private const float ANIMATOR_CONTROLLER_WIDTH = 500f;
 
-        private readonly GUILayoutOption _propertyColumnWidth = GUILayout.Width(600f);
+        private readonly GUILayoutOption _propertyColumnWidth = GUILayout.Width(150f);
 
-        private readonly GUILayoutOption _textLabelWidth = GUILayout.Width(600f);
+        private readonly GUILayoutOption _textLabelWidth = GUILayout.Width(400f);
 
         private Vector2 scrollPosition = Vector2.zero;
 
         private Animator editingAnimator;
+
+        private bool layersExpanded = true;
+
+        private bool parametersExpanded = true;
 
         protected override void Initialize(InitSettings initSettings)
         {
@@ -80,18 +84,75 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
                 _textLabelWidth
             });
             GUILayout.EndVertical();
-            
-            // properties (normal)
+
+            // model viewer
 
             GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
-            GUILayout.Label("Properties", new GUILayoutOption[]
+            if (GUILayout.Button("Show in model viewer", new GUILayoutOption[]
             {
                 GUILayout.ExpandWidth(true)
-            });
-            DrawProperties();
+            }))
+            {
+                StartEditing(ObjectView.ObjectViewWindow.Instance.RenderModel(editingAnimator.gameObject, true).GetComponent<Animator>());
+            }
+            GUILayout.EndVertical();
+
+            GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
+            if (GUILayout.Button("Show in model viewer (no TrailManagers)", new GUILayoutOption[]
+            {
+                GUILayout.ExpandWidth(true)
+            }))
+            {
+                StartEditing(ObjectView.ObjectViewWindow.Instance.RenderModel(editingAnimator.gameObject, false).GetComponent<Animator>());
+            }
+            GUILayout.EndVertical();
+
+            // properties
+
+            DrawMainProperties();
+
+            // layers
+
+            GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
+            if (GUILayout.Button("Layers", new GUILayoutOption[]
+            {
+                GUILayout.ExpandWidth(true)
+            }))
+            {
+                layersExpanded = !layersExpanded;
+            }
+            if (layersExpanded)
+            {
+                DrawLayers();
+            }
+            GUILayout.EndVertical();
+
+            // parameters
+
+            GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
+            if (GUILayout.Button("Parameters", new GUILayoutOption[]
+            {
+                GUILayout.ExpandWidth(true)
+            }))
+            {
+                parametersExpanded = !parametersExpanded;
+            }
+            if (parametersExpanded)
+            {
+                DrawParameters();
+            }
             GUILayout.EndVertical();
 
             GUILayout.EndScrollView();
+        }
+
+        private void DrawMainProperties()
+        {
+            GUILayout.BeginHorizontal(GUI.skin.box, Array.Empty<GUILayoutOption>());
+
+            editingAnimator.speed = DrawFloatField("Time scale", editingAnimator.speed);
+
+            GUILayout.EndHorizontal();
         }
 
         private void DrawToggleTableRow(string id, bool enabled)
@@ -131,6 +192,23 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
             GUILayout.EndHorizontal();
         }
 
+        private float DrawFloatField(string name, float value)
+        {
+            GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
+            GUILayout.Label(name, new GUILayoutOption[]
+            {
+                _propertyColumnWidth
+            });
+            float oldValue = value;
+            string text = GUILayout.TextField(oldValue.ToString("0.0000"), new GUILayoutOption[]
+            {
+                GUILayout.ExpandWidth(true)
+            });
+            float.TryParse(text, out float newValue);
+            GUILayout.EndHorizontal();
+            return newValue;
+        }
+
         private void DrawFloatTableRow(string id, float value)
         {
             GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
@@ -139,7 +217,7 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
                 _propertyColumnWidth
             });
             float oldValue = value;
-            string text = GUILayout.TextField(oldValue.ToString(), new GUILayoutOption[]
+            string text = GUILayout.TextField(oldValue.ToString("0.0000"), new GUILayoutOption[]
             {
                 GUILayout.ExpandWidth(true)
             });
@@ -171,9 +249,9 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
             GUILayout.EndHorizontal();
         }
 
-        private void DrawProperties()
+        private void DrawParameters()
         {
-            DrawPropertiesTableHeader();
+            DrawPropertiesTableHeader("Name", "Value");
             foreach (var parameter in editingAnimator.parameters)
             {
                 DrawParameter(parameter);
@@ -207,17 +285,47 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
             GUILayout.EndHorizontal();
         }
 
-        private void DrawPropertiesTableHeader()
+        private void DrawPropertiesTableHeader(string s1, string s2)
         {
             GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
-            GUILayout.Label("Name", GUI.skin.box, new GUILayoutOption[]
+            GUILayout.Label(s1, GUI.skin.box, new GUILayoutOption[]
             {
                 _propertyColumnWidth
             });
-            GUILayout.Label("Value", GUI.skin.box, new GUILayoutOption[]
+            GUILayout.Label(s2, GUI.skin.box, new GUILayoutOption[]
             {
                 GUILayout.ExpandWidth(true)
             });
+            GUILayout.EndHorizontal();
+        }
+
+        private void DrawLayers()
+        {
+            DrawPropertiesTableHeader("Index - Name", "Weight");
+            for (int i = 0; i < editingAnimator.layerCount; i++)
+            {
+                DrawLayer(i);
+            }
+        }
+
+        private void DrawLayer(int index)
+        {
+            GUILayout.BeginHorizontal(GUI.skin.box, Array.Empty<GUILayoutOption>());
+            GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
+
+            GUILayout.Label(index + " " + editingAnimator.GetLayerName(index), new GUILayoutOption[]
+            {
+                _propertyColumnWidth
+            });
+            float oldValue = editingAnimator.GetLayerWeight(index);
+            string text = GUILayout.TextField(oldValue.ToString("0.0"), new GUILayoutOption[]
+            {
+                GUILayout.ExpandWidth(true)
+            });
+            float.TryParse(text, out float newValue);
+            if (oldValue != newValue) editingAnimator.SetLayerWeight(index, newValue);
+
+            GUILayout.EndHorizontal();
             GUILayout.EndHorizontal();
         }
     }
