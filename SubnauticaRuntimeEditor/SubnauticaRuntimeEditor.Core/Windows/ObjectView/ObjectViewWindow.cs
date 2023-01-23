@@ -9,7 +9,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectView
     {
         private object _objToDisplay;
         private Vector2 _scrollPos;
-        private GameObject _model;
+        private static GameObject _model;
         private Type[] _typesToPreserve = new Type[] { typeof(Transform), typeof(MeshFilter), typeof(Renderer), typeof(Animator), typeof(LODGroup) };
 
         public void SetShownObject(object objToDisplay, string objName, bool isModel = false)

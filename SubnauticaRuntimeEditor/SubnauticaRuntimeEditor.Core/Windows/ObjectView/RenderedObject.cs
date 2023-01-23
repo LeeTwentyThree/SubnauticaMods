@@ -24,7 +24,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectView
             _renderCamera.backgroundColor = Color.clear;
             var wboit = _renderCamera.gameObject.AddComponent<WBOIT>();
             wboit.compositeShader = Shader.Find("Hidden/WBOIT Composite");
-            viewAngle = new Vector3(1, 1, 1).normalized;
+            viewAngle = new Vector3(-0.1f, 0.1f, 1).normalized;
             objectSize = DetermineObjectSize();
             cameraDistance = DetermineCameraDistance(objectSize);
 
