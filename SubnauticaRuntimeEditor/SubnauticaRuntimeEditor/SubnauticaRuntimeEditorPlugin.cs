@@ -28,7 +28,7 @@ namespace SubnauticaRuntimeEditor.Plugin
             var harmony = new Harmony("Lee23.SubnauticaRuntimeEditor");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-            gameObject.AddComponent(typeof(SceneCleanerPreserve));
+            gameObject.EnsureComponent(typeof(SceneCleanerPreserve));
         }
 
         private void Update()

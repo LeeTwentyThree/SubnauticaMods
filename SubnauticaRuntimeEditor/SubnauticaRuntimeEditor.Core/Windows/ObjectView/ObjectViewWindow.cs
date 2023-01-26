@@ -53,6 +53,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectView
             return renderedObject;
         }
 
+        /*
         protected override void OnVisibleChanged(bool visible)
         {
             base.OnVisibleChanged(visible);
@@ -61,6 +62,7 @@ namespace SubnauticaRuntimeEditor.Core.ObjectView
                 Object.Destroy(_model);
             }
         }
+        */
 
         protected override Rect GetDefaultWindowRect(Rect screenRect)
         {

@@ -87,25 +87,26 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
 
             // model viewer
 
-            GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
-            if (GUILayout.Button("Show in model viewer", new GUILayoutOption[]
+            if (!editingAnimator.gameObject.GetComponent<ObjectView.RenderedObject>())
             {
+                GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
+                if (GUILayout.Button("Show in model viewer", new GUILayoutOption[]
+                {
                 GUILayout.ExpandWidth(true)
-            }))
-            {
-                StartEditing(ObjectView.ObjectViewWindow.Instance.RenderModel(editingAnimator.gameObject, true).GetComponent<Animator>());
-            }
-            GUILayout.EndVertical();
+                }))
+                {
+                    StartEditing(ObjectView.ObjectViewWindow.Instance.RenderModel(editingAnimator.gameObject, true).GetComponent<Animator>());
+                }
 
-            GUILayout.BeginVertical(GUI.skin.box, Array.Empty<GUILayoutOption>());
-            if (GUILayout.Button("Show in model viewer (no TrailManagers)", new GUILayoutOption[]
-            {
+                if (GUILayout.Button("Show in model viewer (no TrailManagers)", new GUILayoutOption[]
+                {
                 GUILayout.ExpandWidth(true)
-            }))
-            {
-                StartEditing(ObjectView.ObjectViewWindow.Instance.RenderModel(editingAnimator.gameObject, false).GetComponent<Animator>());
+                }))
+                {
+                    StartEditing(ObjectView.ObjectViewWindow.Instance.RenderModel(editingAnimator.gameObject, false).GetComponent<Animator>());
+                }
+                GUILayout.EndVertical();
             }
-            GUILayout.EndVertical();
 
             // properties
 
@@ -317,13 +318,16 @@ namespace SubnauticaRuntimeEditor.Core.AnimationController
             {
                 _propertyColumnWidth
             });
-            float oldValue = editingAnimator.GetLayerWeight(index);
-            string text = GUILayout.TextField(oldValue.ToString("0.0"), new GUILayoutOption[]
+            if (index != 0)
             {
+                float oldValue = editingAnimator.GetLayerWeight(index);
+                string text = GUILayout.TextField(oldValue.ToString("0.0"), new GUILayoutOption[]
+                {
                 GUILayout.ExpandWidth(true)
-            });
-            float.TryParse(text, out float newValue);
-            if (oldValue != newValue) editingAnimator.SetLayerWeight(index, newValue);
+                });
+                float.TryParse(text, out float newValue);
+                if (oldValue != newValue) editingAnimator.SetLayerWeight(index, newValue);
+            }
 
             GUILayout.EndHorizontal();
             GUILayout.EndHorizontal();

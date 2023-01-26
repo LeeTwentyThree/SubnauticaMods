@@ -259,6 +259,9 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
 
                     if (GUILayout.Button("X"))
                         Object.Destroy(selectedGameObject);
+
+                    if (GUILayout.Button("V"))
+                        ObjectView.ObjectViewWindow.Instance.RenderModel(selectedGameObject, true);
                 }
                 GUILayout.EndHorizontal();
 
