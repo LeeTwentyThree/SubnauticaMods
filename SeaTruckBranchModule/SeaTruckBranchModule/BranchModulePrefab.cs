@@ -52,11 +52,11 @@ internal class BranchModulePrefab : Craftable
 
         var backConnection = prefab.transform.Find("rearConnection");
         var rightConnection = Clone(backConnection);
-        rightConnection.transform.localPosition = new Vector3(-3.5f, 0, 1.65f);
-        rightConnection.transform.localEulerAngles = Vector3.up * 90;
+        rightConnection.transform.localPosition = new Vector3(6.7f, 0, 1.65f);
+        rightConnection.transform.localEulerAngles = Vector3.up * -90;
         var leftConnection = Clone(backConnection);
-        leftConnection.transform.localPosition = new Vector3(3.5f, 0, 1.65f);
-        leftConnection.transform.localEulerAngles = Vector3.up * -90;
+        leftConnection.transform.localPosition = new Vector3(6.7f, 0, 1.65f);
+        leftConnection.transform.localEulerAngles = Vector3.up * 90;
         rightConnection.name = "rightConnection";
         leftConnection.name = "leftConnection";
         leftConnection.gameObject.GetComponent<ChildObjectIdentifier>().ClassId = "LeftConnection";

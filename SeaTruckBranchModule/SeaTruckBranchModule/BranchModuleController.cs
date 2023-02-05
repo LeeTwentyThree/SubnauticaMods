@@ -31,7 +31,7 @@ internal class BranchModuleController : MonoBehaviour
         {
             right.connection.truckSegment.updateDockedPosition = false;
             right.connection.truckSegment.transform.parent = transform;
-            right.connection.truckSegment.transform.localPosition = new Vector3(5.34f, 0, 1.66f);
+            right.connection.truckSegment.transform.localPosition = new Vector3(6.2f, 0, 1.66f);
             right.connection.truckSegment.transform.localEulerAngles = Vector3.up * 270;
         }
         foreach (var relay in gameObject.GetComponentsInChildren<PowerRelay>())
