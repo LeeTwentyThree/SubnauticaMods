@@ -22,8 +22,6 @@ namespace DebugHelper
         public float DebugUpdateInterval = 1f;
         [Toggle("Debug Light component", Tooltip = "Automatically runs the 'showlights' command.")]
         public bool ShowLights = false;
-        [Toggle("Debug SkyApplier component", Tooltip = "Automatically runs the 'showskyappliers' command. When enabled, this option can be EXTREMELY slow.")]
-        public bool ShowSkyAppliers = false;
         [Toggle("Debug FMOD emitters", Tooltip = "Automatically runs the 'showemitters' command.")]
         public bool ShowEmitters = false;
         [Toggle("Debug creature actions", Tooltip = "Automatically runs the 'creatureactions' command.")]

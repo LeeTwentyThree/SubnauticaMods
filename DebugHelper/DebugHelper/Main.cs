@@ -25,7 +25,6 @@ namespace DebugHelper
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(AudioCommands));
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ColliderCommands));
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(LightCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(SkyApplierCommands));
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(GeneralCommands));
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(CreatureCommands));
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(LiveMixinCommands));

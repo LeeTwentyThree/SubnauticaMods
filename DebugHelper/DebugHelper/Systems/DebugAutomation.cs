@@ -6,7 +6,6 @@ namespace DebugHelper.Systems
     internal class DebugAutomation : MonoBehaviour
     {
         private bool automatedLights;
-        private bool automatedSkyAppliers;
         private bool automatedEmitters;
         private bool automatedCreatureActions;
         private bool automatedHealth;
@@ -15,7 +14,6 @@ namespace DebugHelper.Systems
         private bool automatedSpawnInfo;
 
         private bool lightsLastFrame;
-        private bool skyAppliersLastFrame;
         private bool emittersLastFrame;
         private bool creatureActionsLastFrame;
         private bool healthLastFrame;
@@ -39,7 +37,6 @@ namespace DebugHelper.Systems
             bool necessary = false;
             var config = Main.config;
             if (lightsLastFrame != config.ShowLights) necessary = true;
-            if (skyAppliersLastFrame != config.ShowSkyAppliers) necessary = true;
             if (emittersLastFrame != config.ShowEmitters) necessary = true;
             if (creatureActionsLastFrame != config.ShowCreatureActions) necessary = true;
             if (healthLastFrame != config.ShowHealth) necessary = true;
@@ -47,7 +44,6 @@ namespace DebugHelper.Systems
             if (classIDsLastFrame != config.ShowClassIDs) necessary = true;
             if (spawnInfoLastFrame != config.ShowSpawnInfo) necessary = true;
             lightsLastFrame = config.ShowLights;
-            skyAppliersLastFrame = config.ShowSkyAppliers;
             emittersLastFrame = config.ShowEmitters;
             creatureActionsLastFrame = config.ShowCreatureActions;
             healthLastFrame = config.ShowHealth;
@@ -65,11 +61,6 @@ namespace DebugHelper.Systems
             {
                 LightCommands.HideLights();
                 automatedLights = false;
-            }
-            if (automatedSkyAppliers && !config.ShowSkyAppliers)
-            {
-                SkyApplierCommands.HideSkyAppliers();
-                automatedSkyAppliers = false;
             }
             if (automatedEmitters && !config.ShowEmitters)
             {
@@ -108,11 +99,6 @@ namespace DebugHelper.Systems
             {
                 LightCommands.ShowLights(range, true);
                 automatedLights = true;
-            }
-            if (config.ShowSkyAppliers)
-            {
-                SkyApplierCommands.ShowSkyAppliers(range, true);
-                automatedSkyAppliers = true;
             }
             if (config.ShowEmitters)
             {
