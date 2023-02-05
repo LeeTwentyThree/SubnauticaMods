@@ -22,13 +22,13 @@ internal class BranchModuleController : MonoBehaviour
     {
         if (left.connection != null)
         {
-            left.connection.transform.localPosition = new Vector3(-5.3f, 0, 0);
-            left.connection.transform.localEulerAngles = Vector3.up * 90;
+            left.connection.truckSegment.transform.localPosition = new Vector3(-5.3f, 0, 0);
+            left.connection.truckSegment.transform.localEulerAngles = Vector3.up * 90;
         }
         if (right.connection != null)
         {
-            right.connection.transform.localPosition = new Vector3(5.34f, 0, 0);
-            right.connection.transform.localEulerAngles = Vector3.up * 270;
+            right.connection.truckSegment.transform.localPosition = new Vector3(5.34f, 0, 0);
+            right.connection.truckSegment.transform.localEulerAngles = Vector3.up * 270;
         }
         foreach (var relay in gameObject.GetComponentsInChildren<PowerRelay>())
         {
