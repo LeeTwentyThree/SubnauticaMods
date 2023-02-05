@@ -50,35 +50,19 @@ internal class BranchModulePrefab : PdaItem
         prefab.transform.Find("StorageContainer (1)").gameObject.SetActive(false);
         prefab.transform.Find("Label (4)").gameObject.SetActive(false);
 
-        var skyAppliers = prefab.GetComponents<SkyApplier>();
-        var interiorSkyApplier = skyAppliers[0];
-        var glassSkyApplier = skyAppliers[1];
-        var exteriorSkyApplier = skyAppliers[2];
-
-        interiorSkyApplier.renderers[2] = interiorRenderer;
-
-        exteriorSkyApplier.renderers[0] = exteriorRenderer;
-
-        var lightingController = prefab.GetComponent<LightingController>();
-        var hashset = lightingController.emissiveController.renderers;
-        hashset.Remove(interiorOld.GetComponent<Renderer>());
-        hashset.Add(interiorRenderer);
-        hashset.Remove(exteriorOld.GetComponent<Renderer>());
-        hashset.Add(exteriorRenderer);
-
-        var colorCustomizer = prefab.GetComponent<ColorCustomizer>();
-        colorCustomizer.colorDatas[0].renderer = exteriorRenderer;
-        colorCustomizer.colorDatas[1].renderer = interiorRenderer;
-        colorCustomizer.colorDatas[2].renderer = interiorRenderer;
-        colorCustomizer.colorDatas[2].materialIndex = 2;
-
-        var frontConnection = prefab.transform.Find("frontConnection");
-        var rightConnection = Clone(frontConnection);
+        var backConnection = prefab.transform.Find("backConnection");
+        var rightConnection = Clone(backConnection);
         rightConnection.transform.localPosition = new Vector3(-1.9f, 0, 1.65f);
         rightConnection.transform.localEulerAngles = Vector3.up * 90;
-        var leftConnection = Clone(frontConnection);
+        var leftConnection = Clone(backConnection);
         leftConnection.transform.localPosition = new Vector3(1.9f, 0, 1.65f);
         leftConnection.transform.localEulerAngles = Vector3.up * -90;
+        rightConnection.name = "rightConnection";
+        leftConnection.name = "leftConnection";
+        leftConnection.gameObject.GetComponent<ChildObjectIdentifier>().ClassId = "LeftConnection";
+        rightConnection.gameObject.GetComponent<ChildObjectIdentifier>().ClassId = "RightConnection";
+        var rightConnectionComponent = rightConnection.GetComponent<SeaTruckConnection>();
+        var leftConnectionComponent = leftConnection.GetComponent<SeaTruckConnection>();
 
         var collision = prefab.transform.Find("collision");
         collision.Find("Cube (5)").gameObject.SetActive(false);
@@ -86,8 +70,60 @@ internal class BranchModulePrefab : PdaItem
         var entranceRef = collision.Find("entrance").gameObject;
         var leftEntrance = Clone(entranceRef, collision.transform).transform;
         var rightEntrance = Clone(entranceRef, collision.transform).transform;
+        leftEntrance.transform.localPosition = new Vector3(-8, -1.39f, 6.85f);
+        leftEntrance.transform.localEulerAngles = Vector3.up * 90;
+        rightEntrance.transform.localPosition = new Vector3(-5.20f, -1.39f, 6.85f);
+        rightEntrance.transform.localEulerAngles = Vector3.up * 90;
+
+        var colorCustomizer = prefab.GetComponent<ColorCustomizer>();
+        colorCustomizer.colorDatas[0].renderer = exteriorRenderer;
+        colorCustomizer.colorDatas[1].renderer = interiorRenderer;
+        colorCustomizer.colorDatas[2].renderer = interiorRenderer;
+        colorCustomizer.colorDatas[2].materialIndex = 2;
+        colorCustomizer.colorDatas=  colorCustomizer.colorDatas.AddRangeToArray(new ColorCustomizer.ColorData[]
+        {
+             new ColorCustomizer.ColorData(leftConnection.transform.GetChild(0).GetChild(0).GetComponent<Renderer>(), 0),
+             new ColorCustomizer.ColorData(leftConnection.transform.GetChild(0).GetChild(1).GetComponent<Renderer>(), 0),
+             new ColorCustomizer.ColorData(rightConnection.transform.GetChild(0).GetChild(0).GetComponent<Renderer>(), 0),
+             new ColorCustomizer.ColorData(rightConnection.transform.GetChild(0).GetChild(1).GetComponent<Renderer>(), 0)
+        });
 
         gameObject.Set(prefab);
+
+        var skyAppliers = prefab.GetComponents<SkyApplier>();
+        var interiorSkyApplier = skyAppliers[0];
+        var glassSkyApplier = skyAppliers[1];
+        var exteriorSkyApplier = skyAppliers[2];
+
+        interiorSkyApplier.renderers[2] = interiorRenderer;
+        interiorSkyApplier.renderers = interiorSkyApplier.renderers.AddRangeToArray(new Renderer[] {
+            leftConnection.transform.GetChild(0).GetChild(1).GetComponent<Renderer>(),
+            rightConnection.transform.GetChild(0).GetChild(1).GetComponent<Renderer>()
+        });
+
+        glassSkyApplier.renderers = glassSkyApplier.renderers.AddRangeToArray(new Renderer[] {
+            leftConnection.transform.GetChild(0).GetChild(2).GetComponent<Renderer>(),
+            leftConnection.transform.GetChild(0).GetChild(3).GetComponent<Renderer>(),
+            rightConnection.transform.GetChild(0).GetChild(2).GetComponent<Renderer>(),
+            rightConnection.transform.GetChild(0).GetChild(3).GetComponent<Renderer>()
+        });
+
+        exteriorSkyApplier.renderers[0] = exteriorRenderer;
+        exteriorSkyApplier.renderers = exteriorSkyApplier.renderers.AddRangeToArray(new Renderer[] {
+            leftConnection.transform.GetChild(0).GetChild(2).GetComponent<Renderer>(),
+            leftConnection.transform.GetChild(0).GetChild(3).GetComponent<Renderer>(),
+            rightConnection.transform.GetChild(0).GetChild(2).GetComponent<Renderer>(),
+            rightConnection.transform.GetChild(0).GetChild(3).GetComponent<Renderer>()
+        });
+
+        var lightingController = prefab.GetComponent<LightingController>();
+        var hashset = lightingController.emissiveController.renderers;
+        hashset.Remove(interiorOld.GetComponent<Renderer>());
+        hashset.Add(interiorRenderer);
+        hashset.Remove(exteriorOld.GetComponent<Renderer>());
+        hashset.Add(exteriorRenderer);
+        hashset.AddRange(leftConnection.transform.GetChild(0).gameObject.GetComponentsInChildren<Renderer>());
+        hashset.AddRange(rightConnection.transform.GetChild(0).gameObject.GetComponentsInChildren<Renderer>());
     }
 
     private GameObject Clone(GameObject original, Transform newParent = null)
