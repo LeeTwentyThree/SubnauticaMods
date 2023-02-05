@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net472</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<RootNamespace>SeaTruckBranchModule</RootNamespace>
+		<AssemblyName>SeaTruckBranchModule</AssemblyName>
+		<LangVersion>10.0</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="Assembly-CSharp">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\SubnauticaZero_Data\Managed\publicized_assemblies\Assembly-CSharp_publicized.dll</HintPath>
+	  </Reference>
+	  <Reference Include="Assembly-CSharp-firstpass">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\SubnauticaZero_Data\Managed\publicized_assemblies\Assembly-CSharp-firstpass_publicized.dll</HintPath>
+	  </Reference>
+	  <Reference Include="SMLHelper">
+	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\QMods\SMLHelper_BZ\SMLHelper.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Remove="System" />
+		<Using Remove="System.Net.Http" />
+	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="mkdir &quot;C:\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\BepInEx\plugins\$(TargetName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\BepInEx\plugins\$(TargetName)&quot;" />
+	</Target>
+	
+</Project>
