@@ -11,7 +11,7 @@ namespace DebugHelper
     [BepInPlugin("DebugHelper", "Debug Helper", "1.0.0")]
     public class Main : BaseUnityPlugin
     {
-        public static Config config;
+        public static DebugHelperConfig config;
         public static Assembly assembly = Assembly.GetExecutingAssembly();
         public static Harmony harmony;
 
@@ -19,7 +19,7 @@ namespace DebugHelper
 
         private void Awake()
         {
-            config = OptionsPanelHandler.RegisterModOptions<Config>();
+            config = null;
 
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(PrefabCommands));
             ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(AudioCommands));
@@ -35,7 +35,7 @@ namespace DebugHelper
             assetBundle = Helpers.LoadAssetBundleFromAssetsFolder(assembly, "debughelper");
             DebugIconManager.Icons.LoadIcons(assetBundle);
 
-            harmony = new Harmony("Subnautica.DebugHelper");
+            harmony = new Harmony("com.lee23.debughelper");
             harmony.PatchAll(assembly);
 
             gameObject.EnsureComponent<SceneCleanerPreserve>();

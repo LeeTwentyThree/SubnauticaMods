@@ -46,8 +46,8 @@ namespace DebugHelper.Systems
             float x = screenPoint.x - Screen.width / 2;
             float y = screenPoint.y - Screen.height / 2;
             transform.localPosition = new Vector3(x, y, 0f);
-            var renderedScale = Vector3.one * scale * DetermineScaleFactor() * Main.config.DebugIconScale;
-            if (Main.config.DebugIconsAre3D && distance > kMinDistance)
+            var renderedScale = Vector3.one * scale * DetermineScaleFactor() * DebugHelperConfig.DebugIconScale;
+            if (DebugHelperConfig.DebugIconsAre3D && distance > kMinDistance)
             {
                 renderedScale /= distance;
             }
@@ -56,7 +56,7 @@ namespace DebugHelper.Systems
 
         private static float DetermineScaleFactor()
         {
-            if (Main.config.DebugIconsAre3D) return kScaleFactor3D;
+            if (DebugHelperConfig.DebugIconsAre3D) return kScaleFactor3D;
             return kScaleFactor2D;
         }
 

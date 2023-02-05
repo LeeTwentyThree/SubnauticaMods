@@ -11,8 +11,7 @@ namespace DebugHelper.Patches
         [HarmonyPostfix()]
         public static void PlayerStartPostfix(Player __instance)
         {
-            __instance.gameObject.EnsureComponent<DebugAutomation>();
-            DebugOverlay.CreateInstance();
+            //__instance.gameObject.EnsureComponent<DebugAutomation>();
             DebugCollidersManager.CreateInstance();
         }
     }
