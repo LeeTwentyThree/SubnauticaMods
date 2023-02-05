@@ -13,6 +13,7 @@ namespace DebugHelper.Patches
         {
             //__instance.gameObject.EnsureComponent<DebugAutomation>();
             DebugCollidersManager.CreateInstance();
+            __instance.gameObject.EnsureComponent<ShowCollidersOnPress>();
         }
     }
 }
