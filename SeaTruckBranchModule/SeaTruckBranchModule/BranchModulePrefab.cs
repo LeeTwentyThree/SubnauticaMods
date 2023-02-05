@@ -52,10 +52,10 @@ internal class BranchModulePrefab : PdaItem
 
         var backConnection = prefab.transform.Find("rearConnection");
         var rightConnection = Clone(backConnection);
-        rightConnection.transform.localPosition = new Vector3(-1.9f, 0, 1.65f);
+        rightConnection.transform.localPosition = new Vector3(-3.5f, 0, 1.65f);
         rightConnection.transform.localEulerAngles = Vector3.up * 90;
         var leftConnection = Clone(backConnection);
-        leftConnection.transform.localPosition = new Vector3(1.9f, 0, 1.65f);
+        leftConnection.transform.localPosition = new Vector3(3.5f, 0, 1.65f);
         leftConnection.transform.localEulerAngles = Vector3.up * -90;
         rightConnection.name = "rightConnection";
         leftConnection.name = "leftConnection";
