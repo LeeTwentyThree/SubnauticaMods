@@ -1,4 +1,4 @@
-﻿namespace SeaTruckExpansionModule;
+﻿namespace SeaTruckBranchModule;
 
 public static class PluginInfo
 {

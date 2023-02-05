@@ -1,4 +1,4 @@
-﻿namespace SeaTruckExpansionModule;
+﻿namespace SeaTruckBranchModule;
 
 using SMLHelper.V2.Handlers;
 using System.Reflection;

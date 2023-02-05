@@ -3,9 +3,9 @@ using SMLHelper.V2.Crafting;
 using System.Collections;
 using UWE;
 
-namespace SeaTruckExpansionModule;
+namespace SeaTruckBranchModule;
 
-internal class BranchModulePrefab : PdaItem
+internal class BranchModulePrefab : Craftable
 {
     public BranchModulePrefab() : base("SeaTruckBranchModule", "Seatruck Branch Module", "Attachable sea truck module with 4 connection points that allow for 2-dimensional expansion.")
     {
@@ -127,6 +127,7 @@ internal class BranchModulePrefab : PdaItem
         controller.left = leftConnectionComponent;
         controller.right = rightConnectionComponent;
 
+        prefab.SetActive(true);
         gameObject.Set(prefab);
     }
 
@@ -147,5 +148,17 @@ internal class BranchModulePrefab : PdaItem
         return new RecipeData(
             new Ingredient(TechType.TitaniumIngot, 1), new Ingredient(TechType.Lead, 3)
             );
+    }
+
+    public override TechGroup GroupForPDA => TechGroup.Constructor;
+    public override TechCategory CategoryForPDA => TechCategory.Constructor;
+    public override string[] StepsToFabricatorTab => new[] { "Modules" };
+    public override CraftTree.Type FabricatorType => CraftTree.Type.Constructor;
+    public override float CraftingTime => 15f;
+
+
+    protected override Sprite GetItemSprite()
+    {
+        return Plugin.assetBundle.LoadAsset<Sprite>("SeaTruckBranchModule_Icon");
     }
 }
