@@ -55,7 +55,7 @@ internal class BranchModulePrefab : Craftable
         rightConnection.transform.localPosition = new Vector3(6.7f, 0, 1.65f);
         rightConnection.transform.localEulerAngles = Vector3.up * -90;
         var leftConnection = Clone(backConnection);
-        leftConnection.transform.localPosition = new Vector3(6.7f, 0, 1.65f);
+        leftConnection.transform.localPosition = new Vector3(-6.7f, 0, 1.65f);
         leftConnection.transform.localEulerAngles = Vector3.up * 90;
         rightConnection.name = "rightConnection";
         leftConnection.name = "leftConnection";
@@ -126,6 +126,7 @@ internal class BranchModulePrefab : Craftable
         var controller = prefab.AddComponent<SeaTruckBranchModule.BranchModuleController>();
         controller.left = leftConnectionComponent;
         controller.right = rightConnectionComponent;
+        controller.rear = backConnection.gameObject.GetComponent<SeaTruckConnection>();
 
         prefab.SetActive(true);
         gameObject.Set(prefab);
