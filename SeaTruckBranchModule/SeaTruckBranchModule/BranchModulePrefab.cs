@@ -50,12 +50,12 @@ internal class BranchModulePrefab : PdaItem
         prefab.transform.Find("StorageContainer (1)").gameObject.SetActive(false);
         prefab.transform.Find("Label (4)").gameObject.SetActive(false);
 
-        var backConnection = prefab.transform.Find("backConnection");
+        var backConnection = prefab.transform.Find("rearConnection");
         var rightConnection = Clone(backConnection);
-        rightConnection.transform.localPosition = new Vector3(-1.9f, 0, 1.65f);
+        rightConnection.transform.localPosition = new Vector3(3.5f, 0, 1.65f);
         rightConnection.transform.localEulerAngles = Vector3.up * 90;
         var leftConnection = Clone(backConnection);
-        leftConnection.transform.localPosition = new Vector3(1.9f, 0, 1.65f);
+        leftConnection.transform.localPosition = new Vector3(-3.5f, 0, 1.65f);
         leftConnection.transform.localEulerAngles = Vector3.up * -90;
         rightConnection.name = "rightConnection";
         leftConnection.name = "leftConnection";
@@ -87,8 +87,6 @@ internal class BranchModulePrefab : PdaItem
              new ColorCustomizer.ColorData(rightConnection.transform.GetChild(0).GetChild(0).GetComponent<Renderer>(), 0),
              new ColorCustomizer.ColorData(rightConnection.transform.GetChild(0).GetChild(1).GetComponent<Renderer>(), 0)
         });
-
-        gameObject.Set(prefab);
 
         var skyAppliers = prefab.GetComponents<SkyApplier>();
         var interiorSkyApplier = skyAppliers[0];
@@ -124,6 +122,12 @@ internal class BranchModulePrefab : PdaItem
         hashset.Add(exteriorRenderer);
         hashset.AddRange(leftConnection.transform.GetChild(0).gameObject.GetComponentsInChildren<Renderer>());
         hashset.AddRange(rightConnection.transform.GetChild(0).gameObject.GetComponentsInChildren<Renderer>());
+
+        var controller = prefab.AddComponent<SeaTruckBranchModule.BranchModuleController>();
+        controller.left = leftConnectionComponent;
+        controller.right = rightConnectionComponent;
+
+        gameObject.Set(prefab);
     }
 
     private GameObject Clone(GameObject original, Transform newParent = null)
