@@ -85,7 +85,7 @@ namespace DebugHelper.Commands
             if (original.StartsWith("Assets/AddressableResources/"))
             {
                 if (warn) ErrorMessage.AddMessage("Note: The `Assets/AddressableResources/` prefix should generally NOT exist in addressable paths!");
-                return original.Substring("Assets/AddressableResources/".Length, original.Length);
+                return original.Replace("Assets/AddressableResources/", "");
             }
             return original;
         }
