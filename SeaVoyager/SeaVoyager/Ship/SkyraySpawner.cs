@@ -1,28 +1,28 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Ship
 {
     public class SkyraySpawner : MonoBehaviour
     {
         List<Transform> spawnPoints;
         GameObject prefab;
 
-        void Awake()
+        IEnumerator Start()
         {
             spawnPoints = new List<Transform>();
             foreach(Transform child in transform)
             {
                 spawnPoints.Add(child);
             }
-            prefab = CraftData.GetPrefabForTechType(TechType.Skyray);
+            var task = CraftData.GetPrefabForTechTypeAsync(TechType.Skyray);
+            yield return task;
+            prefab = task.GetResult();
         }
 
         public void SpawnSkyrays(int amount)
         {
+            if (prefab == null) return;
             List<Transform> possibleSpawnPoints = new List<Transform>(spawnPoints);
             int spawned = 0;
             while (possibleSpawnPoints.Count > 0 && spawned < amount)

@@ -1,23 +1,23 @@
 ﻿using SMLHelper.V2.Json;
 using SMLHelper.V2.Options.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShipMod
+using UnityEngine;
+namespace SeaVoyager
 {
-    [Menu("Sea Voyager")]
+    [Menu("Sea Voyager Configuration")]
     public class Config : ConfigFile
     {
-        [Slider("Max power", 100, 2000, DefaultValue = 1250)]
-        public float MaxPower;
-        [Slider("Power production scale", 0f, 2f, Step = 0.05f, DefaultValue = 1f)]
-        public float PowerProductionScale;
-        [Slider("Power depletion rate", 0f, 2f, Step = 0.05f, DefaultValue = 1f)]
-        public float PowerDepletionRate;
-        [Slider("Sound volume", 0f, 1f, Step = 0.02f, DefaultValue = 1f, Tooltip = "Separate to the Master sound setting.")]
-        public float AudioVolume;
+        [Slider("Sound volume", 0f, 100f, Step = 1f, DefaultValue = 100f, Tooltip = "Not linked to the Master sound setting.\nRestart required.")]
+        public float AudioVolumeV2 = 100f;
+
+        public float NormalizedAudioVolume
+        {
+            get
+            {
+                return Mathf.Clamp01(AudioVolumeV2 / 100f);
+            }
+        }
+
+        [Toggle("Enable lower window", Tooltip = "Uncheck this setting if the window in the Pilot's Cabin is lowering your framerate.")]
+        public bool EnableCabinWindow = true;
     }
 }

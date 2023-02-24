@@ -1,31 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
+using Story;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Ship
 {
     public class ShipLadder : HandTarget, IHandTarget
     {
         public string interactText;
-        Transform entrancePosition;
+        public ShipCinematic cinematic;
 
-        void Start()
+        private Transform _entrancePosition;
+        private SeaVoyager _ship;
+        private bool _isMainEmbarkLadder;
+
+        private static string _firstUseStoryGoal = "SeaVoyagerFirstUse";
+
+        private void Start()
         {
-            entrancePosition = transform.GetChild(0);
+            _entrancePosition = transform.GetChild(0);
         }
 
         public void OnHandClick(GUIHand hand)
         {
-            Player.main.SetPosition(entrancePosition.position);
+            if (cinematic == null)
+            {
+                SetPlayerPosition();
+            }
+            else
+            {
+                if (!cinematic.PlayCinematic(SetPlayerPosition))
+                {
+                    SetPlayerPosition();
+                }
+            }
         }
 
         public void OnHandHover(GUIHand hand)
         {
             HandReticle.main.SetIcon(HandReticle.IconType.Interact);
-            HandReticle.main.SetInteractText(interactText);
+            HandReticle.main.SetText(HandReticle.TextType.Hand, interactText, false, GameInput.Button.LeftHand);
+        }
+
+        public void SetAsMainEmbarkLadder(SeaVoyager ship)
+        {
+            _isMainEmbarkLadder = true;
+            _ship = ship;
+        }
+
+        private void SetPlayerPosition()
+        {
+            Player.main.SetPosition(_entrancePosition.position);
+            if (_isMainEmbarkLadder)
+            {
+                if (StoryGoalManager.main.OnGoalComplete(_firstUseStoryGoal))
+                {
+                    _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.FirstUse);
+                }
+            }
         }
     }
 }

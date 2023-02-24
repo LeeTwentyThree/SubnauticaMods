@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Ship
 {
     public class ShipMove : MonoBehaviour
     {
         public SeaVoyager ship;
+        private float _timeCanMoveAgain;
 
         void FixedUpdate()
         {
@@ -18,7 +19,11 @@ namespace ShipMod.Ship
                 Decelerotate();
                 return;
             }
-            if(GameModeUtils.IsInvisible() || ship.powerRelay.ConsumeEnergy(Time.fixedDeltaTime * 2f * QPatch.config.PowerDepletionRate, out float amountConsumed))
+            if (!CanMove())
+            {
+                return;
+            }
+            if(GameModeUtils.IsInvisible() || ship.powerRelay.ConsumeEnergy(Time.fixedDeltaTime * Plugin.ShipMaxPowerConsumptionRate * ship.SpeedMultiplier, out float amountConsumed))
             {
                 switch (ship.currentState)
                 {
@@ -42,10 +47,18 @@ namespace ShipMod.Ship
                 ship.currentState = ShipState.Idle;
                 ship.moveDirection = ShipMoveDirection.Idle;
                 ship.rotateDirection = ShipRotateDirection.Idle;
-                ship.hud.SetButtonImages();
+                ship.hud.UpdateButtonImages();
                 ship.voiceNotificationManager.PlayVoiceNotification(ship.noPowerNotification);
             }
             ship.rb.angularVelocity = new Vector3(ship.rb.angularVelocity.x, Mathf.Clamp(ship.rb.angularVelocity.y, -1f, 1f), ship.rb.angularVelocity.z);
+        }
+        public void StopMovementForSeconds(float seconds)
+        {
+            _timeCanMoveAgain = Time.time + seconds;
+        }
+        private bool CanMove()
+        {
+            return Time.time > _timeCanMoveAgain;
         }
         void Decelerotate()
         {
@@ -63,14 +76,18 @@ namespace ShipMod.Ship
         }
         void OnDeath(Player player)
         {
-            ship.hud.OnStop();
-            ship.rb.velocity = Vector3.zero;
-            ship.rb.angularVelocity = Vector3.zero;
-            ship.rb.isKinematic = true;
+            if (ship.IsOccupiedByPlayer)
+            {
+                ship.currentState = ShipState.Idle;
+                ship.moveDirection = ShipMoveDirection.Idle;
+                ship.rotateDirection = ShipRotateDirection.Idle;
+                ship.rb.velocity = Vector3.zero;
+                ship.rb.angularVelocity = Vector3.zero;
+                ship.rb.isKinematic = true;
+            }
         }
         void OnRespawn(Player player)
         {
-            if(Player.main.GetCurrentSub() == ship) ship.enginePowerDownNotification.Play();
             ship.rb.isKinematic = false;
         }
     }

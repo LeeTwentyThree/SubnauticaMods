@@ -6,23 +6,28 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Ship
 {
     public class SuspendedDock : MonoBehaviour
     {
         public SeaVoyager ship;
-        LineRenderer cableRenderer;
-        Transform cableConnectionPoint;
-        Transform armTransform;
-        SkinnedMeshRenderer dynamicCableModel;
-        Sprite spriteButtonActive;
-        Sprite spriteButtonInactive;
-        Button retractButton;
-        Button extendButton;
-        Image retractButtonImage;
-        Image extendButtonImage;
-        AudioSource moveSound;
-        CableTrigger cableTrigger;
+        private LineRenderer cableRenderer;
+        private Transform cableConnectionPoint;
+        private Transform armTransform;
+        private SkinnedMeshRenderer dynamicCableModel;
+        private Sprite spriteButtonActive;
+        private Sprite spriteButtonInactive;
+        private Button retractButton;
+        private Button extendButton;
+        private Button releaseButton;
+        private Image retractButtonImage;
+        private Image extendButtonImage;
+        private AudioSource moveSound;
+        private CableTrigger cableTrigger;
+        private ShipUITooltip toggleButtonTooltip;
+        private ShipUITooltip releaseVehicleButtonTooltip;
+        private ShipUITooltip extendCableButtonTooltip;
+        private ShipUITooltip retractCableButtonTooltip;
 
         public Vehicle dockedVehicle;
 
@@ -43,6 +48,7 @@ namespace ShipMod.Ship
         const float maxCableDepth = -200f;
         const float maxDivingBellDepth = -400f;
         const float cableSpeed = 10f;
+        const float cableSpeedInAir = 5f;
 
         /// <summary>
         /// Whether the cable is holding an object or not.
@@ -79,6 +85,23 @@ namespace ShipMod.Ship
                 {
                     return Mathf.Abs(maxCableDepth);
                 }
+            }
+        }
+        /// <summary>
+        /// How short the cable can be.
+        /// </summary>
+        public float MinCableLength
+        {
+            get
+            {
+                return 2f;
+            }
+        }
+        public bool CableInWater
+        {
+            get
+            {
+                return CableTargetWorldPosition.y < 0f;
             }
         }
         /// <summary>
@@ -123,6 +146,20 @@ namespace ShipMod.Ship
                 return dockedVehicle is SeaMoth;
             }
         }
+        public float CurrentCableSpeed
+        {
+            get
+            {
+                if (CableInWater)
+                {
+                    return cableSpeed;
+                }
+                else
+                {
+                    return cableSpeedInAir;
+                }
+            }
+        }
 
         public void Initialize()
         {
@@ -131,32 +168,46 @@ namespace ShipMod.Ship
             cableConnectionPoint = gameObject.SearchChild("CableTop").transform;
             armTransform = gameObject.SearchChild("DockArm").transform;
             moveSound = gameObject.SearchComponent<AudioSource>("ArmMoveSound");
-            moveSound.volume = QPatch.config.AudioVolume;
+            moveSound.volume = Plugin.config.NormalizedAudioVolume;
             cableTrigger = gameObject.SearchChild("CableTrigger").AddComponent<CableTrigger>();
             cableTrigger.dock = this;
 
-            gameObject.SearchComponent<Button>("DockToggleButton").onClick.AddListener(OnDockButton);
+            var toggleButton = gameObject.SearchComponent<Button>("DockToggleButton");
+            toggleButton.onClick.AddListener(OnToggleDockButton);
+            toggleButtonTooltip = toggleButton.gameObject.AddComponent<ShipUITooltip>();
+            toggleButtonTooltip.Init("Move arm");
 
-            retractButton = gameObject.SearchComponent<Button>("CabelRaiseButton");
+            var releaseVehicleButton = gameObject.SearchComponent<Button>("ReleaseVehicleButton");
+            releaseVehicleButton.onClick.AddListener(OnReleaseButton);
+            releaseVehicleButtonTooltip = releaseVehicleButton.gameObject.AddComponent<ShipUITooltip>();
+            releaseVehicleButtonTooltip.Init("Release vehicle");
+
+            retractButton = gameObject.SearchComponent<Button>("CableRaiseButton");
             retractButton.onClick.AddListener(OnRetractButton);
             retractButtonImage = retractButton.GetComponent<Image>();
+            retractCableButtonTooltip = retractButton.gameObject.AddComponent<ShipUITooltip>();
+            retractCableButtonTooltip.Init("Retract cable");
 
             extendButton = gameObject.SearchComponent<Button>("CableDropButton");
             extendButton.onClick.AddListener(OnExtendButton);
             extendButtonImage = extendButton.GetComponent<Image>();
+            extendCableButtonTooltip = extendButton.gameObject.AddComponent<ShipUITooltip>();
+            extendCableButtonTooltip.Init("Extend cable");
 
-            spriteButtonActive = QPatch.bundle.LoadAsset<Sprite>("sprite_arrowon.png");
-            spriteButtonInactive = QPatch.bundle.LoadAsset<Sprite>("sprite_arrowoff.png");
+            spriteButtonActive = Plugin.bundle.LoadAsset<Sprite>("ArrowOn");
+            spriteButtonInactive = Plugin.bundle.LoadAsset<Sprite>("ArrowOff");
         }
 
         void Update()
         {
+            UpdateTooltips();
+            AttemptToPlayVehicleDockVoice();
             switch (cableState)
             {
                 case CableState.Retracting:
-                    if (cableTargetLocation < -2f)
+                    if (cableTargetLocation < -MinCableLength)
                     {
-                        cableTargetLocation += Time.deltaTime * cableSpeed;
+                        cableTargetLocation += Time.deltaTime * CurrentCableSpeed;
                     }
                     else
                     {
@@ -186,13 +237,13 @@ namespace ShipMod.Ship
                     }
                     if (cableTargetLocation > -MaxCableLength)
                     {
-                        cableTargetLocation -= Time.deltaTime * cableSpeed;
+                        cableTargetLocation -= Time.deltaTime * CurrentCableSpeed;
                     }
                     break;
                 default:
                     break;
                 case CableState.Default:
-                    cableTargetLocation = -2f;
+                    cableTargetLocation = -MinCableLength;
                     break;
             }
             if (cableState == CableState.Extending && CableLength >= MaxCableLength)
@@ -229,7 +280,7 @@ namespace ShipMod.Ship
             cableTrigger.transform.position = CableEndWorldPosition;
             if (dockedVehicle)
             {
-                dockedVehicle.transform.position = cableTrigger.transform.position + (Vector3.down * (SeamothCurrentlyDocked? 1f : 2f));
+                dockedVehicle.transform.position = cableTrigger.transform.position + (Vector3.down * (SeamothCurrentlyDocked ? 1f : 2f));
                 if (dockedVehicle is Exosuit)
                 {
                     dockedVehicle.useRigidbody.isKinematic = true;
@@ -249,6 +300,82 @@ namespace ShipMod.Ship
             }
         }
 
+        void AttemptToPlayVehicleDockVoice()
+        {
+            if (dockedVehicle == null)
+            {
+                return;
+            }
+            if (cableState != CableState.Retracting)
+            {
+                return;
+            }
+            if (!CableInWater && CableLength > MinCableLength)
+            {
+                if (ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.VehicleDock))
+                {
+                    buttonNextPressTime = Time.time + 2f;
+                }
+            }
+        }
+
+        void UpdateTooltips()
+        {
+            // release vehicles button
+            if (dockedVehicle == null)
+            {
+                releaseVehicleButtonTooltip.displayText = "No vehicle docked";
+                releaseVehicleButtonTooltip.clickable = false;
+            }
+            else if (!dockExtended)
+            {
+                releaseVehicleButtonTooltip.displayText = string.Format("Cannot release vehicles onto the dock.");
+                releaseVehicleButtonTooltip.clickable = false;
+            }
+            else
+            {
+                releaseVehicleButtonTooltip.displayText = string.Format("Release {0}", dockedVehicle.GetName());
+                releaseVehicleButtonTooltip.clickable = true;
+            }
+            releaseVehicleButtonTooltip.showTooltip = Time.time > buttonNextPressTime;
+            // toggle cable extension button
+            if (CableExtendedBeyondDeck)
+            {
+                toggleButtonTooltip.displayText = "Cable not fully retracted";
+                toggleButtonTooltip.clickable = false;
+            }
+            else if (dockedVehicle == null || SeamothCurrentlyDocked)
+            {
+                toggleButtonTooltip.displayText = dockExtended ? "Return docking arm" : "Extend docking arm";
+                toggleButtonTooltip.clickable = true;
+            }
+            else if (dockedVehicle != null)
+            {
+                toggleButtonTooltip.displayText = string.Format("Cannot move arm with {0} attached.", dockedVehicle.GetName());
+                toggleButtonTooltip.clickable = false;
+            }
+            toggleButtonTooltip.showTooltip = Time.time > buttonNextPressTime;
+            // cable buttons
+            if (cableState == CableState.Extending)
+            {
+                extendCableButtonTooltip.displayText = "Stop cable";
+            }
+            else
+            {
+                extendCableButtonTooltip.displayText = "Extend cable";
+            }
+            extendCableButtonTooltip.showTooltip = CableLength < MaxCableLength && dockExtended;
+            if (cableState == CableState.Retracting)
+            {
+                retractCableButtonTooltip.displayText = "Stop cable";
+            }
+            else
+            {
+                retractCableButtonTooltip.displayText = "Retract cable";
+            }
+            retractCableButtonTooltip.showTooltip = CableLength > MinCableLength;
+        }
+
         void ProcessInput()
         {
             if (GameInput.GetButtonDown(GameInput.Button.MoveUp))
@@ -265,7 +392,7 @@ namespace ShipMod.Ship
             }
         }
 
-        void OnDockButton()
+        void OnToggleDockButton()
         {
             if (Time.time > buttonNextPressTime)
             {
@@ -276,9 +403,25 @@ namespace ShipMod.Ship
             }
         }
 
+        void OnReleaseButton()
+        {
+            if (Time.time > buttonNextPressTime)
+            {
+                if (Occupied && dockExtended)
+                {
+                    buttonNextPressTime = Time.time + 1f;
+                    DetatchVehicle();
+                }
+            }
+        }
+
         void IgnorePhysicsWithVehicle(Vehicle vehicle, bool state)
         {
-            foreach(Collider col in ship.gameObject.GetComponentsInChildren<Collider>())
+            if (ship == null)
+            {
+                return;
+            }
+            foreach (Collider col in ship.gameObject.GetComponentsInChildren<Collider>())
             {
                 if (!col.isTrigger)
                 {
@@ -292,17 +435,29 @@ namespace ShipMod.Ship
 
         public bool SetDockExtended(bool newState)
         {
-            if (newState == dockExtended || CableLength > 3f)
+            if (newState == dockExtended || CableExtendedBeyondDeck)
             {
                 return false;
             }
-            if (Occupied && dockExtended)
+            if (Occupied && dockExtended && !SeamothCurrentlyDocked)
             {
-                DetatchVehicle();
+                return false;
+            }
+            if (ship != null && !ship.HasPower)
+            {
+                return false;
             }
             dockExtended = newState;
             moveSound.Play();
             return true;
+        }
+
+        private bool CableExtendedBeyondDeck
+        {
+            get
+            {
+                return CableLength > 3f;
+            }
         }
 
         public bool GetCanDock()
@@ -331,28 +486,36 @@ namespace ShipMod.Ship
         public void AttachVehicle(Vehicle vehicle)
         {
             dockedVehicle = vehicle;
-            ErrorMessage.AddMessage(string.Format("{0} attached.", new object[] { dockedVehicle.GetName()}));
-            if(dockedVehicle is Exosuit) dockedVehicle.useRigidbody.isKinematic = true;
+            ErrorMessage.AddMessage(string.Format("{0} attached.", new object[] { dockedVehicle.GetName() }));
+            if (dockedVehicle is Exosuit) dockedVehicle.useRigidbody.isKinematic = true;
             dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = this;
             cableState = CableState.Stopped;
             SetButtonState(CableButtonsDisplay.Stopped);
             IgnorePhysicsWithVehicle(vehicle, true);
             if (Player.main.GetVehicle() == vehicle)
             {
-                QPatch.PrintExoCustomControls();
+                Plugin.PrintExoCustomControls();
+            }
+            if (ship != null)
+            {
+                ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.VehicleAttached);
             }
         }
 
         public void DetatchVehicle()
         {
-            if(dockedVehicle != null)
+            if (dockedVehicle != null)
             {
-                if(dockedVehicle is Exosuit) dockedVehicle.useRigidbody.isKinematic = false;
+                if (dockedVehicle is Exosuit) dockedVehicle.useRigidbody.isKinematic = false;
                 dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = null;
                 cableState = CableState.Stopped;
                 SetButtonState(CableButtonsDisplay.Stopped);
                 IgnorePhysicsWithVehicle(dockedVehicle, false);
                 dockedVehicle = null;
+                if (ship != null)
+                {
+                    ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.VehicleReleased);
+                }
             }
         }
 
@@ -360,7 +523,7 @@ namespace ShipMod.Ship
         {
             if (CableLength > 1f)
             {
-                if(cableState == CableState.Retracting)
+                if (cableState == CableState.Retracting)
                 {
                     cableState = CableState.Stopped;
                     SetButtonState(CableButtonsDisplay.Stopped);
@@ -376,7 +539,7 @@ namespace ShipMod.Ship
         {
             if (dockExtended && CableLength < MaxCableLength)
             {
-                if(cableState == CableState.Extending)
+                if (cableState == CableState.Extending)
                 {
                     cableState = CableState.Stopped;
                     SetButtonState(CableButtonsDisplay.Stopped);

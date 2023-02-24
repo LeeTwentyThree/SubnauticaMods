@@ -6,17 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Ship
 {
     public class ShipSolarPanel : MonoBehaviour, IProtoEventListener
 	{
 		public PowerSource powerSource;
+		public GameObject solarPanelPrefab;
 		PowerRelay relay;
 
 		public void Initialize()
 		{
 			powerSource = gameObject.AddComponent<PowerSource>();
-			powerSource.maxPower = QPatch.config.MaxPower;
+			powerSource.maxPower = Plugin.ShipMaxPower;
 
 			relay = gameObject.AddComponent<PowerRelay>();
 			relay.maxOutboundDistance = 20;
@@ -26,8 +27,7 @@ namespace ShipMod.Ship
 
 
 			PowerFX powerFXComponent = gameObject.AddComponent<PowerFX>();
-			var solarPanelReference = CraftData.GetPrefabForTechType(TechType.SolarPanel);
-			PowerRelay referenceRelay = solarPanelReference.GetComponent<PowerRelay>();
+			PowerRelay referenceRelay = solarPanelPrefab.GetComponent<PowerRelay>();
 			powerFXComponent.vfxPrefab = referenceRelay.powerFX.vfxPrefab;
 			relay.powerFX = powerFXComponent;
 
@@ -43,7 +43,7 @@ namespace ShipMod.Ship
 
 		private void Update()
 		{
-			powerSource.power = Mathf.Clamp(powerSource.power + (GetSunScalar() * DayNightCycle.main.deltaTime * 6f * QPatch.config.PowerProductionScale), 0f, powerSource.maxPower);
+			powerSource.power = Mathf.Clamp(powerSource.power + (GetSunScalar() * DayNightCycle.main.deltaTime * Plugin.ShipMaxPowerGenerationRate), 0f, powerSource.maxPower);
 		}
 
 		public void OnProtoSerialize(ProtobufSerializer serializer)

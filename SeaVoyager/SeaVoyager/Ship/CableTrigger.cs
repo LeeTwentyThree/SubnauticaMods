@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Ship
 {
     public class CableTrigger : MonoBehaviour 
     {
