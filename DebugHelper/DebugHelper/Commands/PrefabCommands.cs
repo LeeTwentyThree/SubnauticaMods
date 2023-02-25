@@ -1,6 +1,6 @@
 ﻿using DebugHelper.Systems;
 using UnityEngine;
-using SMLHelper.V2.Commands;
+using SMLHelper.Commands;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

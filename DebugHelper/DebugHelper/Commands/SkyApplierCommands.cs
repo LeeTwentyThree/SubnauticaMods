@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using SMLHelper.V2.Commands;
+using SMLHelper.Commands;
 using System.Collections.Generic;
 using UWE;
 using DebugHelper.Systems;

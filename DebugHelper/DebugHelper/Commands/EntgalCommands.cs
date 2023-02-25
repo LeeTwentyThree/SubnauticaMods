@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SMLHelper.V2.Commands;
+using SMLHelper.Commands;
 using UnityEngine;
 using UWE;
 

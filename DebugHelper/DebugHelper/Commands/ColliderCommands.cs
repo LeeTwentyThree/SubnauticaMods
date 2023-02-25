@@ -1,5 +1,5 @@
 ﻿using DebugHelper.Managers;
-using SMLHelper.V2.Commands;
+using SMLHelper.Commands;
 
 namespace DebugHelper.Commands
 {
