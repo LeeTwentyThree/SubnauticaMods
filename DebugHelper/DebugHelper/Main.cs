@@ -9,6 +9,7 @@ using BepInEx;
 namespace DebugHelper
 {
     [BepInPlugin("DebugHelper", "Debug Helper", "1.1.0")]
+    [BepInDependency("com.snmodding.smlhelper")]
     public class Main : BaseUnityPlugin
     {
         public static Config config;
