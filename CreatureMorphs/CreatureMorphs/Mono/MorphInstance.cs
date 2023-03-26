@@ -70,26 +70,9 @@
 
         private List<MorphAbility> abilities = new List<MorphAbility>();
 
-        public MorphAbility AddAbility(MorphAbility ability, KeyCode input)
+        public MorphAbility AddAbility(MorphAbility ability)
         {
             abilities.Add(ability);
-            if (input != KeyCode.None) ability.SetInput(() => Input.GetKeyDown(input));
-            ability.morphController = this;
-            return ability;
-        }
-
-        public MorphAbility AddAbility(MorphAbility ability, GameInput.Button input)
-        {
-            abilities.Add(ability);
-            ability.SetInput(() => GameInput.GetButtonDown(input));
-            ability.morphController = this;
-            return ability;
-        }
-
-        public MorphAbility AddAbility(MorphAbility ability, System.Func<bool> input)
-        {
-            abilities.Add(ability);
-            ability.SetInput(input);
             ability.morphController = this;
             return ability;
         }

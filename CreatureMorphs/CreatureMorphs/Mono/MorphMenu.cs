@@ -41,7 +41,8 @@ internal class MorphMenu : MonoBehaviour
 
     private void AddButton(MorphDatabase.Entry entry)
     {
-        GetSpriteForCreature(entry.MainTechType)
+        var sprite = GetSpriteForCreature(entry.MainTechType);
+        Insantiate(buttonPrefab, buttonsParent.transform, )
     }
 
     private static Sprite GetSpriteForCreature(TechType tt)

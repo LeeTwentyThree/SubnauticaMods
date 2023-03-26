@@ -14,9 +14,8 @@ public static class MorphDatabase
     private static void AddBuiltInEntries()
     {
         AddMorphType(new PeeperMorph(GetClassIdForTechType(TechType.Peeper)), TechType.Peeper);
-        AddMorphType(new HoverfishMorph(GetClassIdForTechType(TechType.Hoverfish)), TechType.Hoverfish);
-        AddMorphType(new BoomerangMorph(GetClassIdForTechType(TechType.Boomerang)), TechType.Boomerang);
-        AddMorphType(new BoomerangMorph(GetClassIdForTechType(TechType.GhostLeviathan)), TechType.GhostLeviathan);
+        AddMorphType(new BoomerangMorph(GetClassIdForTechType(TechType.GhostLeviathan)), TechType.GhostLeviathan, TechType.GhostLeviathanJuvenile,);
+        AddMorphType(new HoverfishMorph(GetClassIdForTechType(TechType.CrabSquid)), TechType.CrabSquid);
 
         if (ModExists("ProjectAncients"))
         {

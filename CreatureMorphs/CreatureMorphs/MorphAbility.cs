@@ -14,22 +14,15 @@ internal abstract class MorphAbility
         Setup();
     }
 
-    protected abstract void Setup();
-    protected abstract void OnInputReceived();
-
-    private System.Func<bool> input;
-
-    public void SetInput(System.Func<bool> input)
+    public void ProcessInput()
     {
-        this.input = input;
-    }
-
-    public void OnUpdate()
-    {
-        if (input.Invoke() == true && Time.time >= timeCooldownEnds)
+        if (Time.time >= timeCooldownEnds)
         {
             OnInputReceived();
             timeCooldownEnds = Time.time + abilityCooldown;
         }
+
     }
+    protected abstract void Setup();
+    protected abstract void OnInputReceived();
 }
