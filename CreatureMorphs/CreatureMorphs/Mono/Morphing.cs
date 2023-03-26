@@ -12,8 +12,6 @@ internal class Morphing : MonoBehaviour
     private MorphInstance _currentMorph;
 
     private GameObject _playerModelRoot;
-    private GameObject _selectorMenu;
-    private GameObject _creatureMenu;
 
     public bool CanMorph { get { return !_morphing && _currentMorph == null; } }
 
@@ -58,6 +56,11 @@ internal class Morphing : MonoBehaviour
     {
         if (_currentMorph != null)
         {
+            var lm = _currentMorph.liveMixin;
+            if (lm)
+            {
+                Player.main.liveMixin.health = Player.main.liveMixin.maxHealth * (lm.health / lm.maxHealth);
+            }
             Destroy(_currentMorph.gameObject);
         }
         TogglePlayerModel(true);
@@ -70,6 +73,7 @@ internal class Morphing : MonoBehaviour
             r.enabled = enabled;
         }
         _player.liveMixin.invincible = !enabled;
+        _player.rigidBody.isKinematic = !enabled;
         if (enabled) _player.FreezeStats();
         else _player.UnfreezeStats();
     }
@@ -89,7 +93,7 @@ internal class Morphing : MonoBehaviour
         spawnedCreature.SetActive(true);
         TogglePlayerModel(false);
         _currentMorph = MorphInstance.ControlCreature(spawnedCreature, morph);
-        var morphMode = MorphModeData.GetData(morph.MorphModeType);
+        var morphMode = MorphModeData.GetData(morph.morphModeType);
         FadingOverlay.PlayFX(Color.black, 0.1f, morphMode.transformationDuration, 1f);
         Utils.PlayFMODAsset(morphMode.soundAsset, Helpers.CameraTransform.position);
         yield return new WaitForSeconds(morphMode.transformationDuration);
@@ -101,14 +105,12 @@ internal class Morphing : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            if (_currentMorph == null && _selectorMenu == null && _creatureMenu == null)
+            if (_currentMorph == null)
             {
                 // spawn menu!
             }
             else
             {
-                Destroy(_selectorMenu);
-                Destroy(_creatureMenu);
                 BecomeHuman();
             }
         }
@@ -124,6 +126,5 @@ internal class Morphing : MonoBehaviour
     private void ChooseMorph(TechType techType)
     {
         InitiateMorph(MorphDatabase.GetMorphType(techType));
-        Destroy(_creatureMenu);
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace CreatureMorphs.Mono
+﻿using static CreatureMorphs.MorphType;
+
+namespace CreatureMorphs.Mono
 {
-    internal class MorphInstance : MonoBehaviour
+    public class MorphInstance : MonoBehaviour
     {
         public MorphType morph;
         public Creature creature;
@@ -21,6 +23,16 @@
             component._swimSpeed = DetermineSwimSpeed(creatureGameObject);
             var newCreatureAction = creatureGameObject.AddComponent<UnderControlCreatureAction>();
             component.creature.actions.Insert(0, newCreatureAction);
+            component.abilities = new List<MorphAbility>();
+            foreach (var ability in morphType.morphAbilities)
+            {
+                var abilityComponent = creatureGameObject.AddComponent(ability.CreatureType);
+                ability.PeformSetup(abilityComponent);
+            }
+            foreach (var onTouch in creatureGameObject.GetComponentsInChildren<OnTouch>())
+            {
+                onTouch.enabled = false;
+            }
             return component;
         }
 
@@ -31,11 +43,6 @@
             var leash = creatureGameObject.GetComponent<StayAtLeashPosition>();
             if (leash) return leash.swimVelocity;
             return 10f;
-        }
-
-        private void Start()
-        {
-            morph.SetupController(this);
         }
 
         public void GainControl()
@@ -55,10 +62,6 @@
         {
             if (!BeingControlled) return;
             swimBehaviour.SwimTo(transform.position + GetInput() * _swimSpeed, _swimSpeed);
-            foreach (var ability in abilities)
-            {
-                ability.OnUpdate();
-            }
         }
 
         private Vector3 GetInput()
@@ -69,13 +72,6 @@
         }
 
         private List<MorphAbility> abilities = new List<MorphAbility>();
-
-        public MorphAbility AddAbility(MorphAbility ability)
-        {
-            abilities.Add(ability);
-            ability.morphController = this;
-            return ability;
-        }
 
         private void OnDestroy()
         {

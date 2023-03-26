@@ -1,18 +1,14 @@
 ﻿using CreatureMorphs.Mono;
 
 namespace CreatureMorphs;
-internal abstract class MorphAbility
+
+public abstract class MorphAbility : MonoBehaviour
 {
     public float abilityCooldown;
 
     protected float timeCooldownEnds;
 
     public MorphInstance morphController;
-
-    public MorphAbility()
-    {
-        Setup();
-    }
 
     public void ProcessInput()
     {
@@ -21,8 +17,7 @@ internal abstract class MorphAbility
             OnInputReceived();
             timeCooldownEnds = Time.time + abilityCooldown;
         }
-
     }
-    protected abstract void Setup();
+
     protected abstract void OnInputReceived();
 }

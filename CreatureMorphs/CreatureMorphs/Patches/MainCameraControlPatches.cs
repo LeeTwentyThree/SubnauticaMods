@@ -19,6 +19,6 @@ internal static class MainCameraControlPatches
         angleY += lookDelta.x;
 
         __instance.transform.eulerAngles = new Vector3(angleX, angleY, 0f);
-        __instance.transform.position = morphedCreature.transform.position + __instance.transform.forward * -morphedCreature.morph.CameraFollowDistance;
+        __instance.transform.position = morphedCreature.transform.position + __instance.transform.forward * -morphedCreature.morph.cameraFollowDistance;
     }
 }

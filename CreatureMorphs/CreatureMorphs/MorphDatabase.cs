@@ -1,5 +1,5 @@
-﻿using CreatureMorphs.Morphs;
-using BepInEx.Bootstrap;
+﻿using BepInEx.Bootstrap;
+using CreatureMorphs.Abilities;
 
 namespace CreatureMorphs;
 public static class MorphDatabase
@@ -13,9 +13,21 @@ public static class MorphDatabase
 
     private static void AddBuiltInEntries()
     {
-        AddMorphType(new PeeperMorph(GetClassIdForTechType(TechType.Peeper)), TechType.Peeper);
-        AddMorphType(new BoomerangMorph(GetClassIdForTechType(TechType.GhostLeviathan)), TechType.GhostLeviathan, TechType.GhostLeviathanJuvenile,);
-        AddMorphType(new HoverfishMorph(GetClassIdForTechType(TechType.CrabSquid)), TechType.CrabSquid);
+        var builder = new MorphBuilder();
+
+        builder.Create(TechType.Biter, MorphModeType.Prey);
+        builder.AddAbility<Bite>((b) => { });
+        builder.Finish();
+
+        builder.Create(TechType.Stalker, MorphModeType.Shark);
+        builder.AddAbility<Bite>((b) => { });
+        builder.Finish();
+
+        builder.Create(TechType.GhostLeviathan, MorphModeType.Leviathan);
+        builder.Finish();
+
+        builder.Create(TechType.CrabSquid, MorphModeType.Shark);
+        builder.Finish();
 
         if (ModExists("ProjectAncients"))
         {
@@ -23,11 +35,10 @@ public static class MorphDatabase
         }
     }
 
-    private static string GetClassIdForTechType(TechType techType) => CraftData.GetClassIdForTechType(techType);
-
     private static bool ModExists(string id) => Chainloader.PluginInfos.Keys.Contains(id);
 
-    public static void AddMorphType(MorphType morph, params TechType[] creatureTechTypes)
+    // automatically called within MorphBuilder!
+    public static void RegisterMorphType(MorphType morph, params TechType[] creatureTechTypes)
     {
         entries.Add(new Entry(morph, creatureTechTypes));
     }
