@@ -6,7 +6,7 @@ using System.IO;
 using BepInEx;
 
 [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
-[BepInDependency("com.ahk1221.smlhelper")]
+[BepInDependency("com.snmodding.smlhelper")]
 public class Main : BaseUnityPlugin
 {
     internal static Assembly assembly = Assembly.GetExecutingAssembly();
