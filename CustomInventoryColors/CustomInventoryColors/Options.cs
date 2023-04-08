@@ -1,6 +1,6 @@
-﻿using SMLHelper.V2.Json;
-using SMLHelper.V2.Options;
-using SMLHelper.V2.Options.Attributes;
+﻿using SMLHelper.Json;
+using SMLHelper.Options;
+using SMLHelper.Options.Attributes;
 using System.Collections.Generic;
 
 namespace InventoryColorCustomization

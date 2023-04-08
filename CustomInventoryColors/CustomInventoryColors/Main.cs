@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using System.Reflection;
 using InventoryColorCustomization;
-using SMLHelper.V2.Handlers;
+using SMLHelper.Handlers;
 using System.IO;
 using BepInEx;
 
