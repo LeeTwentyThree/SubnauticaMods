@@ -22,7 +22,7 @@ namespace InventoryColorCustomization
         {
             logger = Logger;
 
-            logger.LogInfo($"Patching {PluginInfo.Name} ({PluginInfo.GUID}) v{PluginInfo.Version}");
+            logger.LogInfo($"Patching {PluginInfo.Name} ({PluginInfo.GUID}) v{PluginInfo.Version}...");
             CustomColorChoiceManager.LoadCustomFiles(); // must be loaded before the color choices are created
             ColorChoiceManager.Initialize();
             modConfig = new Options(); // must be initialized after the color choices are finalized
@@ -30,7 +30,7 @@ namespace InventoryColorCustomization
             var harmony = new Harmony(PluginInfo.GUID);
             harmony.PatchAll(assembly);
             modConfig.InitOptionItems();
-            logger.LogInfo($"Finished patching successfully!");
+            logger.LogInfo($"Finished patching {PluginInfo.Name}!");
         }
 
         internal static string GetPathInAssetsFolder(string pathRelativeToAssetsFolder)

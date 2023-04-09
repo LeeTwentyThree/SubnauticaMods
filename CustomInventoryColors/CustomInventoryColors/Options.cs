@@ -1,6 +1,7 @@
 ﻿using SMLHelper.Json;
 using SMLHelper.Options;
 using SMLHelper.Options.Attributes;
+using System;
 using System.Collections.Generic;
 
 namespace InventoryColorCustomization
@@ -12,10 +13,7 @@ namespace InventoryColorCustomization
 
         public Options() : base("Inventory Color Customization")
         {
-            // AddBackgroundColorOption(CraftData.BackgroundType.Blueprint, "Blueprint Color (Unused)");
-
-            //ToggleChanged += OnToggleChanged;
-            //ChoiceChanged += OnChoiceChanged;
+            OnChanged += OnAnyOptionChanged;
 
             savedOptions = new SaveOptions();
             savedOptions.Load(true);
@@ -36,6 +34,8 @@ namespace InventoryColorCustomization
             AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantWaterSeed), "Water Seeds Color");
             AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantAirSeed), "Air Seeds Color");
             AddItem(ModToggleOption.Create("SquareIcons", "Use Square Icons", savedOptions.SquareIcons));
+
+            // AddBackgroundColorOption(CraftData.BackgroundType.Blueprint, "Blueprint Color (Unused)");
         }
 
         private void EnsureSettingsAreValid()
@@ -58,7 +58,20 @@ namespace InventoryColorCustomization
             base.BuildModOptions(panel, modsTabIndex, options);
         }
 
-        public void OnToggleChanged(object sender, ToggleChangedEventArgs eventArgs)
+        public void OnAnyOptionChanged(object sender, EventArgs e)
+        {
+            switch (e)
+            {
+                case ToggleChangedEventArgs args:
+                    OnToggleChanged(args);
+                    break;
+                case ChoiceChangedEventArgs<string> args:
+                    OnChoiceChanged(args);
+                    break;
+            }
+        }
+
+        private void OnToggleChanged(ToggleChangedEventArgs eventArgs)
         {
             bool refreshRequired = false;
             switch (eventArgs.Id)
@@ -76,7 +89,7 @@ namespace InventoryColorCustomization
             savedOptions.Save();
         }
 
-        public void OnChoiceChanged(object sender, ChoiceChangedEventArgs<string> eventArgs)
+        private void OnChoiceChanged(ChoiceChangedEventArgs<string> eventArgs)
         {
             var key = eventArgs.Id;
             int value = ColorChoiceManager.ChoiceNameToIndex(key, eventArgs.Value);
