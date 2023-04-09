@@ -12,11 +12,30 @@ namespace InventoryColorCustomization
 
         public Options() : base("Inventory Color Customization")
         {
-            ToggleChanged += OnToggleChanged;
-            ChoiceChanged += OnChoiceChanged;
+            // AddBackgroundColorOption(CraftData.BackgroundType.Blueprint, "Blueprint Color (Unused)");
+
+            //ToggleChanged += OnToggleChanged;
+            //ChoiceChanged += OnChoiceChanged;
+
             savedOptions = new SaveOptions();
             savedOptions.Load(true);
             EnsureSettingsAreValid();
+        }
+
+        public void InitOptionItems()
+        {
+            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.Normal), "Normal Item Color");
+            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.ExosuitArm), "Exosuit Arms Color");
+            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantWater), "Water Flora Color");
+            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantAir), "Air Flora Color");
+            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Creatures), "Creatures Color");
+            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Precursor), "Precursor Items Color");
+            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Tools), "Tools Color");
+            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Deployables), "Deployables Colors");
+            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_FoodDrinks), "Food & Drink Colors");
+            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantWaterSeed), "Water Seeds Color");
+            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantAirSeed), "Air Seeds Color");
+            AddItem(ModToggleOption.Create("SquareIcons", "Use Square Icons", savedOptions.SquareIcons));
         }
 
         private void EnsureSettingsAreValid()
@@ -34,22 +53,9 @@ namespace InventoryColorCustomization
             }
         }
 
-        public override void BuildModOptions()
+        public override void BuildModOptions(uGUI_TabbedControlsPanel panel, int modsTabIndex, IReadOnlyCollection<OptionItem> options)
         {
-            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.Normal), "Normal Item Color");
-            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.ExosuitArm), "Exosuit Arms Color");
-            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantWater), "Water Flora Color");
-            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantAir), "Air Flora Color");
-            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Creatures), "Creatures Color");
-            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Precursor), "Precursor Items Color");
-            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Tools), "Tools Color");
-            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_Deployables), "Deployables Colors");
-            AddBackgroundColorOption(new BackgroundType(BackgroundTypeManager.Category_FoodDrinks), "Food & Drink Colors");
-            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantWaterSeed), "Water Seeds Color");
-            AddBackgroundColorOption(new BackgroundType(CraftData.BackgroundType.PlantAirSeed), "Air Seeds Color");
-            AddToggleOption("SquareIcons", "Use Square Icons", savedOptions.SquareIcons);
-
-            // AddBackgroundColorOption(CraftData.BackgroundType.Blueprint, "Blueprint Color (Unused)");
+            base.BuildModOptions(panel, modsTabIndex, options);
         }
 
         public void OnToggleChanged(object sender, ToggleChangedEventArgs eventArgs)
@@ -70,7 +76,7 @@ namespace InventoryColorCustomization
             savedOptions.Save();
         }
 
-        public void OnChoiceChanged(object sender, ChoiceChangedEventArgs eventArgs)
+        public void OnChoiceChanged(object sender, ChoiceChangedEventArgs<string> eventArgs)
         {
             var key = eventArgs.Id;
             int value = ColorChoiceManager.ChoiceNameToIndex(key, eventArgs.Value);
@@ -92,9 +98,15 @@ namespace InventoryColorCustomization
 
         private void AddBackgroundColorOption(BackgroundType backgroundType, string label)
         {
-            string id = backgroundType.GetData().ID;
+            var data = backgroundType.GetData();
+            if (data == null)
+            {
+                Main.logger.LogError($"BackgroundData '{label}' for '{backgroundType}' is null!");
+                return;
+            }
+            string id = data.ID;
             string[] choices = ColorChoiceManager.GetColorChoiceNames(backgroundType);
-            AddChoiceOption(id, label, choices, savedOptions.GetBackgroundColorChoice(BackgroundDataManager.GetBackgroundData(backgroundType).ID));
+            AddItem(ModChoiceOption<string>.Create(id, label, choices, savedOptions.GetBackgroundColorChoice(BackgroundDataManager.GetBackgroundData(backgroundType).ID)));
         }
 
         public int GetSelectedIndexForBackground(string backgroundType)
