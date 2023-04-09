@@ -23,6 +23,11 @@ namespace InventoryColorCustomization
 
         public static Atlas.Sprite TextureToBGSprite(Texture2D texture)
         {
+            if (texture == null)
+            {
+                Main.logger.LogError("TextureToBGSprite: WHY IS 'texture' NULL?");
+                return new Atlas.Sprite(Sprite.Create(new Texture2D(2, 2), new Rect(0, 0, 2, 2), new Vector2(0.5f, 0.5f)));
+            }
             texture.wrapMode = TextureWrapMode.Clamp;
             texture.filterMode = FilterMode.Bilinear;
             return new Atlas.Sprite(texture) { slice9Grid = !Main.modConfig.SquareIcons };
