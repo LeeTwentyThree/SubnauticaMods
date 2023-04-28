@@ -1,5 +1,5 @@
-﻿using SMLHelper.Json;
-using SMLHelper.Options.Attributes;
+﻿using Nautilus.Json;
+using Nautilus.Options.Attributes;
 using UnityEngine;
 
 namespace DebugHelper

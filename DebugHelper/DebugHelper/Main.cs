@@ -1,4 +1,4 @@
-﻿using SMLHelper.Handlers;
+﻿using Nautilus.Handlers;
 using DebugHelper.Commands;
 using DebugHelper.Systems;
 using UnityEngine;
@@ -9,7 +9,7 @@ using BepInEx;
 namespace DebugHelper
 {
     [BepInPlugin("DebugHelper", "Debug Helper", "1.1.0")]
-    [BepInDependency("com.snmodding.smlhelper")]
+    [BepInDependency("com.snmodding.Nautilus")]
     public class Main : BaseUnityPlugin
     {
         public static Config config;

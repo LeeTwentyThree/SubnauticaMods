@@ -1,4 +1,4 @@
-﻿using SMLHelper.Commands;
+﻿using Nautilus.Commands;
 using UnityEngine;
 
 namespace DebugHelper.Commands

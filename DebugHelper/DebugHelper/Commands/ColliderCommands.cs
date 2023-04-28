@@ -1,5 +1,5 @@
 ﻿using DebugHelper.Managers;
-using SMLHelper.Commands;
+using Nautilus.Commands;
 
 namespace DebugHelper.Commands
 {
