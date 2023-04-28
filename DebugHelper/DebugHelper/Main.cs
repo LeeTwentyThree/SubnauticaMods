@@ -9,7 +9,7 @@ using BepInEx;
 namespace DebugHelper
 {
     [BepInPlugin("DebugHelper", "Debug Helper", "1.1.0")]
-    [BepInDependency("com.snmodding.Nautilus")]
+    [BepInDependency("com.snmodding.nautilus")]
     public class Main : BaseUnityPlugin
     {
         public static Config config;
