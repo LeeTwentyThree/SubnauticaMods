@@ -1,4 +1,4 @@
-﻿using SMLHelper.Json;
+﻿using Nautilus.Json;
 using System.Collections.Generic;
 
 namespace InventoryColorCustomization

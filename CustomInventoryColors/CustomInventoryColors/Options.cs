@@ -1,6 +1,6 @@
-﻿using SMLHelper.Json;
-using SMLHelper.Options;
-using SMLHelper.Options.Attributes;
+﻿using Nautilus.Json;
+using Nautilus.Options;
+using Nautilus.Options.Attributes;
 using System;
 using System.Collections.Generic;
 

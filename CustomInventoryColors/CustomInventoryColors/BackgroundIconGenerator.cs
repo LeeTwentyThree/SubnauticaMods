@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using SMLHelper.Utility;
+using Nautilus.Utility;
 using System.IO;
 
 namespace InventoryColorCustomization
@@ -29,7 +29,7 @@ namespace InventoryColorCustomization
             return new Atlas.Sprite(texture) { slice9Grid = ! sqr};
         }
 
-        // ripped from SMLHelper, thanks modders!
+        // ripped from Nautilus, thanks modders!
         public static Texture2D LoadTextureFromFile(string filePathToImage)
         {
             if (File.Exists(filePathToImage))

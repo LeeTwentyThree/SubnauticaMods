@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using SMLHelper.Utility;
+using Nautilus.Utility;
 using System.Collections.Generic;
 
 namespace InventoryColorCustomization

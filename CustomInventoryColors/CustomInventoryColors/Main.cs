@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
 using System.Reflection;
 using InventoryColorCustomization;
-using SMLHelper.Handlers;
+using Nautilus.Handlers;
 using System.IO;
 using BepInEx;
 using BepInEx.Logging;
@@ -9,7 +9,7 @@ using BepInEx.Logging;
 namespace InventoryColorCustomization
 {
     [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
-    [BepInDependency("com.snmodding.smlhelper")]
+    [BepInDependency("com.snmodding.nautilus")]
     public class Main : BaseUnityPlugin
     {
         internal static Assembly assembly = Assembly.GetExecutingAssembly();
