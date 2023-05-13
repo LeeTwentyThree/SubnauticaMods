@@ -1,4 +1,4 @@
-﻿using SMLHelper.V2.Handlers;
+﻿using Nautilus.Handlers;
 using DebugHelper.Commands;
 using DebugHelper.Systems;
 using UnityEngine;
@@ -8,7 +8,8 @@ using BepInEx;
 
 namespace DebugHelper
 {
-    [BepInPlugin("DebugHelper", "Debug Helper", "1.0.0")]
+    [BepInPlugin("DebugHelper", "Debug Helper", "1.1.0")]
+    [BepInDependency("com.snmodding.nautilus")]
     public class Main : BaseUnityPlugin
     {
         public static Config config;
@@ -21,17 +22,17 @@ namespace DebugHelper
         {
             config = OptionsPanelHandler.RegisterModOptions<Config>();
 
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(PrefabCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(AudioCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(ColliderCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(LightCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(SkyApplierCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(GeneralCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(CreatureCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(LiveMixinCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(RigidbodyCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(PlayerCommands));
-            ConsoleCommandsHandler.Main.RegisterConsoleCommands(typeof(EntgalCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(PrefabCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(AudioCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(ColliderCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(LightCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(SkyApplierCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(GeneralCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(CreatureCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(LiveMixinCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(RigidbodyCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(PlayerCommands));
+            ConsoleCommandsHandler.RegisterConsoleCommands(typeof(EntgalCommands));
 
             assetBundle = Helpers.LoadAssetBundleFromAssetsFolder(assembly, "debughelper");
             DebugIconManager.Icons.LoadIcons(assetBundle);
