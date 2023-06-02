@@ -258,6 +258,8 @@ public static class DB
     }
     #endregion
 
+    #region Method methods
+
     public static MethodInfo Method(string location) // fastest way to reference a method ("Creature.Start")
     {
         var split = location.Split('.');
@@ -288,6 +290,8 @@ public static class DB
         }
         return null;
     }
+
+    #endregion
 
     private static List<string> knownAssemblyNames = new List<string>() { "Assembly-CSharp", "Assembly-CSharp-firstpass", "UnityEngine", "UnityEngine.CoreModule", "UnityEngine.PhysicsModule", "Nautilus" };
 
