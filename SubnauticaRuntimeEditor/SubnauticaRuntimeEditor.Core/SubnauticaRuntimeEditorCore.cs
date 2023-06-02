@@ -15,7 +15,7 @@ namespace SubnauticaRuntimeEditor.Core
 {
     public class SubnauticaRuntimeEditorCore
     {
-        public const string Version = "1.0.2";
+        public const string Version = "1.0.3";
         public const string GUID = "SubnauticaRuntimeEditor";
 
         [Obsolete("Use window Instance instead")] public Inspector.Inspector Inspector => Core.Inspector.Inspector.Initialized ? Core.Inspector.Inspector.Instance : null;
