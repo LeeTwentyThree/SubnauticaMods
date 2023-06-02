@@ -8,7 +8,7 @@ using BepInEx;
 
 namespace DebugHelper
 {
-    [BepInPlugin("DebugHelper", "Debug Helper", "1.1.0")]
+    [BepInPlugin("com.lee23.debughelper", "Debug Helper", "1.1.1")]
     [BepInDependency("com.snmodding.nautilus")]
     public class Main : BaseUnityPlugin
     {
