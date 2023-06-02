@@ -48,8 +48,8 @@ namespace SubnauticaRuntimeEditor.Core
             {
                 if (ObjectTreeViewer.Initialized)
                 {
-                    _hoverTextSb.Append("[ Press Middle Mouse Button to browse to the next object ]");
-                    if (UnityInput.Current.GetMouseButtonDown(2))
+                    _hoverTextSb.Append($"[ Press {SubnauticaRuntimeEditorCore.Instance.BrowseInspectedObjectHotkey} to browse to the next object ]");
+                    if (UnityInput.Current.GetKeyDown(SubnauticaRuntimeEditorCore.Instance.BrowseInspectedObjectHotkey))
                     {
                         var all = Enumerable.Repeat(raycastHit, 1).Concat(canvasHits.Cast<Transform>()).Where(x => x != null).ToList();
 
