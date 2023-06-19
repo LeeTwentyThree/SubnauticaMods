@@ -1,20 +1,26 @@
 ﻿using System.Reflection;
+
 namespace CreatureMorphs;
-[BepInPlugin(PluginData.GUID, PluginData.Name, PluginData.Version)]
+
+[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 public class Plugin : BaseUnityPlugin
 {
     public static AssetBundle bundle;
 
+    public static ManualLogSource logger;
+
     private void Awake()
     {
+        logger = Logger;
+
         Assembly assembly = Assembly.GetExecutingAssembly();
 
-        bundle = AssetBundle.LoadFromFile(Path.Combine(Path.GetDirectoryName(assembly.Location), "Assets", "creaturemorphs"));
+        bundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(assembly, "creaturemorphs");
 
         ModAudio.PatchAudio();
         MorphModeData.Setup();
         MorphDatabase.Setup();
 
-        new Harmony("com.lee23.creaturemorphs").PatchAll(assembly);
+        new Harmony(PluginInfo.PLUGIN_GUID).PatchAll(assembly);
     }
 }

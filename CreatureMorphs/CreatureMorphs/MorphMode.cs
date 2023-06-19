@@ -1,4 +1,5 @@
 ﻿namespace CreatureMorphs;
+
 public class MorphMode
 {
     public float transformationDuration;

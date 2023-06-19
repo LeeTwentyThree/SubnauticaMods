@@ -3,13 +3,14 @@ using UnityEngine.Events;
 using UWE;
 
 namespace CreatureMorphs.Mono;
-internal class Morphing : MonoBehaviour
+
+internal class PlayerMorpher : MonoBehaviour
 {
-    public static Morphing main;
+    public static PlayerMorpher main;
 
     private Player _player;
     private bool _morphing;
-    private MorphInstance _currentMorph;
+    private PossessedCreature _currentMorph;
 
     private GameObject _playerModelRoot;
 
@@ -42,14 +43,22 @@ internal class Morphing : MonoBehaviour
         if (!TechTypeExtensions.FromString(techTypeName, out var techType, true)) return $"TechType '{techTypeName}' not found!";
         if (main == null) return "No instance of the PlayerMorphController was found!";
         if (!main.CanMorph) return "Player is unable to morph at this moment!";
-        main.InitiateMorph(MorphDatabase.GetMorphType(techType));
-        return $"Successfully morphing into '{techType}'";
+        if (main.InitiateMorph(MorphDatabase.GetMorphType(techType)))
+        {
+            return $"Successfully morphing into '{techType}'";
+        }
+        else
+        {
+            return $"Failed to morph into '{techType}'";
+        }
     }
 
-    public void InitiateMorph(MorphType morph)
+    public bool InitiateMorph(MorphType morph)
     {
-        if (!CanMorph) return;
+        if (!CanMorph) return false;
+        if (morph == null) return false;
         StartCoroutine(InitiateMorphCoroutine(morph));
+        return true;
     }
 
     public void BecomeHuman()
@@ -78,7 +87,7 @@ internal class Morphing : MonoBehaviour
         else _player.UnfreezeStats();
     }
 
-    public MorphInstance GetCurrentMorph()
+    public PossessedCreature GetCurrentMorph()
     {
         return _currentMorph;
     }
@@ -92,7 +101,7 @@ internal class Morphing : MonoBehaviour
         var spawnedCreature = Instantiate(prefab, Helpers.CameraTransform.position, Helpers.CameraTransform.rotation);
         spawnedCreature.SetActive(true);
         TogglePlayerModel(false);
-        _currentMorph = MorphInstance.ControlCreature(spawnedCreature, morph);
+        _currentMorph = PossessedCreature.ControlCreature(spawnedCreature, morph);
         var morphMode = MorphModeData.GetData(morph.morphModeType);
         FadingOverlay.PlayFX(Color.black, 0.1f, morphMode.transformationDuration, 1f);
         Utils.PlayFMODAsset(morphMode.soundAsset, Helpers.CameraTransform.position);

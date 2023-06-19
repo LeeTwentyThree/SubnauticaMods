@@ -1,5 +1,7 @@
 ﻿using UnityEngine.UI;
+
 namespace CreatureMorphs.Mono;
+
 public class FadingOverlay : MonoBehaviour
 {
     private Image _image;

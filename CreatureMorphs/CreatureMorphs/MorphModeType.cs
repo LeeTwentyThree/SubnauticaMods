@@ -1,4 +1,5 @@
 ﻿namespace CreatureMorphs;
+
 public enum MorphModeType
 {
     Prey,

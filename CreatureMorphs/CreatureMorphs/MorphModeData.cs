@@ -1,4 +1,5 @@
 ﻿namespace CreatureMorphs;
+
 public static class MorphModeData
 {
     public static void Setup()

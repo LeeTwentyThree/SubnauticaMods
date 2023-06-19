@@ -1,6 +1,4 @@
-﻿using Mono.Cecil;
-
-namespace CreatureMorphs;
+﻿namespace CreatureMorphs;
 
 internal class MorphBuilder
 {
@@ -24,16 +22,12 @@ internal class MorphBuilder
 
     public MorphType Finish(params TechType[] alternateTechTypes)
     {
-        TechType[] all;
+        List<TechType> all = new List<TechType>() { current.MainTechType };
         if (alternateTechTypes != null)
         {
-            all = alternateTechTypes.Add(current.MainTechType);
+            all.AddRange(alternateTechTypes);
         }
-        else
-        {
-            all = new TechType[] { current.MainTechType };
-        }
-        MorphDatabase.RegisterMorphType(current, all);
+        MorphDatabase.RegisterMorphType(current, all.ToArray());
 
         var temp = current;
         current = null;

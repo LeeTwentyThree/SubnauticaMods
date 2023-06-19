@@ -1,33 +1,31 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<RootNamespace>CreatureMorphs</RootNamespace>
 		<AssemblyName>CreatureMorphs</AssemblyName>
-		<LangVersion>10.0</LangVersion>
+		<Version>1.0.0</Version>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>11</LangVersion>
+		<RootNamespace>CreatureMorphs</RootNamespace>
+		<BepInExPluginGuid>com.lee23.creaturemorphs</BepInExPluginGuid>
+
+		<RestoreAdditionalProjectSources>
+			https://api.nuget.org/v3/index.json;
+			https://nuget.bepinex.dev/v3/index.json;
+		</RestoreAdditionalProjectSources>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Using Remove="System" />
-		<Using Remove="System.Net.Http" />
-	</ItemGroup>
-
-	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
 		<PackageReference Include="BepInEx.Core" Version="5.4.21" />
-		<PackageReference Include="Subnautica.GameLibs" Version="71137.0.0.1-r.0" />
-		<PackageReference Include="Unity.InputSystem" Version="1.5.0" />
-		<PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="1.1.0" />
+		<PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile" />
+		<PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
+		<PackageReference Include="PolySharp" Version="1.13.1" />
+		<PackageReference Include="Subnautica.Nautilus" Version="1.*-*" PrivateAssets="all" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Reference Include="SMLHelper">
-	    <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\Modding Helper\SMLHelper.dll</HintPath>
-	  </Reference>
+	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
 	</ItemGroup>
-
-	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="mkdir &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;&#xD;&#xA;copy /Y &quot;$(TargetPath)&quot; &quot;C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\$(TargetName)&quot;" />
-	</Target>
 </Project>

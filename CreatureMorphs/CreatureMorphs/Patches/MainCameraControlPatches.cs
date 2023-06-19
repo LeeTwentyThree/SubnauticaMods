@@ -1,6 +1,7 @@
 ﻿using CreatureMorphs.Mono;
 
 namespace CreatureMorphs.Patches;
+
 [HarmonyPatch(typeof(MainCameraControl))]
 internal static class MainCameraControlPatches
 {
@@ -11,7 +12,7 @@ internal static class MainCameraControlPatches
     [HarmonyPostfix]
     public static void UpdatePostfix(MainCameraControl __instance)
     {
-        var morphedCreature = Morphing.main.GetCurrentMorph();
+        var morphedCreature = PlayerMorpher.main.GetCurrentMorph();
         if (morphedCreature == null || !morphedCreature.BeingControlled) return;
         if (Time.timeScale > 0.01f)
         {

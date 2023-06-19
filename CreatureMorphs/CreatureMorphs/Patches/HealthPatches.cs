@@ -1,7 +1,7 @@
 ﻿using CreatureMorphs.Mono;
-using System;
 
 namespace CreatureMorphs.Patches;
+
 [HarmonyPatch(typeof(uGUI_HealthBar))]
 internal static class HealthPatches
 {
@@ -9,9 +9,9 @@ internal static class HealthPatches
     [HarmonyPostfix]
     public static void LateUpdatePostfix(uGUI_HealthBar __instance)
     {
-        if (Morphing.PlayerCurrentlyMorphed)
+        if (PlayerMorpher.PlayerCurrentlyMorphed)
         {
-            var morph = Morphing.main.GetCurrentMorph();
+            var morph = PlayerMorpher.main.GetCurrentMorph();
             if (morph != null && morph.liveMixin != null)
             {
                 var lm = morph.liveMixin;

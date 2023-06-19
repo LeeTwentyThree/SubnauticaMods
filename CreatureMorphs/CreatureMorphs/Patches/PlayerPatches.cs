@@ -1,6 +1,7 @@
 ﻿using CreatureMorphs.Mono;
 
 namespace CreatureMorphs.Patches;
+
 [HarmonyPatch(typeof(Player))]
 internal static class PlayerPatches
 {
@@ -8,6 +9,6 @@ internal static class PlayerPatches
     [HarmonyPostfix]
     public static void StartPostfix(Player __instance)
     {
-        __instance.gameObject.AddComponent<Morphing>();
+        __instance.gameObject.AddComponent<PlayerMorpher>();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CreatureMorphs.Mono;
 
 namespace CreatureMorphs.Patches;
+
 [HarmonyPatch(typeof(OxygenManager))]
 internal static class OxygenManagerPatches
 {
@@ -8,7 +9,8 @@ internal static class OxygenManagerPatches
     [HarmonyPostfix]
     public static void UpdatePostfix(OxygenManager __instance)
     {
-        if (Morphing.main.GetCurrentMorph().transform.position.y < Ocean.GetOceanLevel())
+        if (PlayerMorpher.main == null || PlayerMorpher.main.GetCurrentMorph() == null) return;
+        if (PlayerMorpher.main.GetCurrentMorph().transform.position.y < Ocean.GetOceanLevel())
         {
             __instance.AddOxygen(15 * Time.deltaTime);
         }

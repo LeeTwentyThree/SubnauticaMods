@@ -1,7 +1,7 @@
 ﻿using BepInEx.Bootstrap;
-using CreatureMorphs.Abilities;
 
 namespace CreatureMorphs;
+
 public static class MorphDatabase
 {
     internal static void Setup()
@@ -35,7 +35,7 @@ public static class MorphDatabase
         }
     }
 
-    private static bool ModExists(string id) => Chainloader.PluginInfos.Keys.Contains(id);
+    private static bool ModExists(string id) => Chainloader.PluginInfos.ContainsKey(id);
 
     // automatically called within MorphBuilder!
     public static void RegisterMorphType(MorphType morph, params TechType[] creatureTechTypes)

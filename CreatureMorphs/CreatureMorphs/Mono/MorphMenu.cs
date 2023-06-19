@@ -1,4 +1,5 @@
 ﻿namespace CreatureMorphs.Mono;
+
 internal class MorphMenu : MonoBehaviour
 {
     public static MorphMenu main;

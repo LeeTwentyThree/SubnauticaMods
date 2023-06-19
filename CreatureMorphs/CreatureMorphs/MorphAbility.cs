@@ -8,7 +8,7 @@ public abstract class MorphAbility : MonoBehaviour
 
     protected float timeCooldownEnds;
 
-    public MorphInstance morphController;
+    public PossessedCreature morphController;
 
     public void ProcessInput()
     {
