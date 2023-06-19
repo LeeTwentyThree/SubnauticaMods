@@ -51,7 +51,6 @@ public class SeaVoyagerFragment
         prefab.SetActive(false);
         PrefabUtils.AddBasicComponents(prefab, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
         MaterialUtils.ApplySNShaders(prefab);
-        prefab.AddComponent<SkyApplier>().renderers = prefab.GetComponentsInChildren<Renderer>(true);
         var rb = prefab.AddComponent<Rigidbody>();
         rb.mass = _mass;
         rb.useGravity = false;
