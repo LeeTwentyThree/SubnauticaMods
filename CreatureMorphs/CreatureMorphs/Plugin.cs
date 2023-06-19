@@ -3,11 +3,13 @@
 namespace CreatureMorphs;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-public class Plugin : BaseUnityPlugin
+internal class Plugin : BaseUnityPlugin
 {
     public static AssetBundle bundle;
 
     public static ManualLogSource logger;
+
+    new public static Config Config = OptionsPanelHandler.RegisterModOptions<Config>();
 
     private void Awake()
     {

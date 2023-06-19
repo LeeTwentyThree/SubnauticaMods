@@ -2,7 +2,7 @@
 
 namespace CreatureMorphs.Mono;
 
-public class FadingOverlay : MonoBehaviour
+internal class FadingOverlay : MonoBehaviour
 {
     private Image _image;
     private Color _color;

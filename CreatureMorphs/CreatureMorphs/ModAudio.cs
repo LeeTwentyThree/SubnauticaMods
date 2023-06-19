@@ -2,7 +2,7 @@
 
 namespace CreatureMorphs;
 
-public static class ModAudio
+internal static class ModAudio
 {
     /// <summary>
     /// 3D sounds

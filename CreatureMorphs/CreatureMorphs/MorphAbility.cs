@@ -2,7 +2,7 @@
 
 namespace CreatureMorphs;
 
-public abstract class MorphAbility : MonoBehaviour
+internal abstract class MorphAbility : MonoBehaviour
 {
     public float abilityCooldown;
 

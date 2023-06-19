@@ -2,7 +2,7 @@
 
 namespace CreatureMorphs;
 
-public static class MorphDatabase
+internal static class MorphDatabase
 {
     internal static void Setup()
     {
@@ -46,8 +46,8 @@ public static class MorphDatabase
     public static MorphType GetMorphType(TechType creatureTechType)
     {
         foreach (var entry in entries)
-            foreach (var tt in entry.creatureTechTypes)
-                if (tt == creatureTechType) return entry.morph;
+            foreach (var tt in entry.CreatureTechTypes)
+                if (tt == creatureTechType) return entry.Morph;
         return null;
     }
 
@@ -56,17 +56,19 @@ public static class MorphDatabase
         return entries;
     }
 
-    public struct Entry
+    public readonly struct Entry
     {
-        public TechType[] creatureTechTypes;
-        public MorphType morph;
+        public TechType[] CreatureTechTypes { get; }
+        public MorphType Morph { get; }
 
         public Entry(MorphType morph, params TechType[] creatureTechTypes)
         {
-            this.creatureTechTypes = creatureTechTypes;
-            this.morph = morph;
+            CreatureTechTypes = creatureTechTypes;
+            Morph = morph;
         }
 
-        public TechType MainTechType => creatureTechTypes[0];
+        public TechType MainTechType => CreatureTechTypes[0];
+
+        public MorphType GetMorphType() => MorphDatabase.GetMorphType(MainTechType);
     }
 }

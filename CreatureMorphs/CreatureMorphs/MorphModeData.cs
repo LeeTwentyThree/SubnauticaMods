@@ -1,6 +1,6 @@
 ﻿namespace CreatureMorphs;
 
-public static class MorphModeData
+internal static class MorphModeData
 {
     public static void Setup()
     {

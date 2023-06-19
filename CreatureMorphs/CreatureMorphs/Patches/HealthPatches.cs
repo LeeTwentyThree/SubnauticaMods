@@ -16,9 +16,11 @@ internal static class HealthPatches
             {
                 var lm = morph.liveMixin;
                 float actualHealth = lm.health - Mathf.Clamp(lm.tempDamage, 0, float.MaxValue);
-                __instance.curr = Mathf.Clamp01(actualHealth / lm.maxHealth);
-                __instance.SetValue(actualHealth, lm.maxHealth);
-                __instance.curr = Mathf.Clamp01(actualHealth / lm.maxHealth);
+                float percent = actualHealth / lm.maxHealth;
+                __instance.curr = Mathf.Clamp01(percent);
+                __instance.vel = 0;
+                __instance.bar.value = percent;
+                __instance.text.text = IntStringCache.GetStringForInt(Mathf.CeilToInt(__instance.curr * lm.maxHealth));
             }
         }
     }

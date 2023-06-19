@@ -1,6 +1,7 @@
 ﻿using UnityEngine.UI;
 using UnityEngine.Events;
 using UWE;
+using CreatureMorphs.Mono.UI;
 
 namespace CreatureMorphs.Mono;
 
@@ -83,8 +84,8 @@ internal class PlayerMorpher : MonoBehaviour
         }
         _player.liveMixin.invincible = !enabled;
         _player.rigidBody.isKinematic = !enabled;
-        if (enabled) _player.FreezeStats();
-        else _player.UnfreezeStats();
+        if (enabled) _player.UnfreezeStats();
+        else _player.FreezeStats();
     }
 
     public PossessedCreature GetCurrentMorph()
@@ -112,24 +113,33 @@ internal class PlayerMorpher : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M))
+        HandleInput();
+    }
+
+    private void HandleInput()
+    {
+        if (Cursor.lockState == CursorLockMode.None)
+            return;
+
+        // Morph key:
+        if (Input.GetKeyDown(Plugin.Config.MorphKey))
         {
             if (_currentMorph == null)
             {
-                // spawn menu!
+                if (MorphMenu.main == null)
+                {
+                    MorphMenu.CreateInstance();
+                }
+                else
+                {
+                    Destroy(MorphMenu.main.gameObject);
+                }
             }
             else
             {
                 BecomeHuman();
             }
         }
-    }
-
-    private Button.ButtonClickedEvent GetEvent(UnityAction call)
-    {
-        var ev = new Button.ButtonClickedEvent();
-        ev.AddListener(call);
-        return ev;
     }
 
     private void ChooseMorph(TechType techType)

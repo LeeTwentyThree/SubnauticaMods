@@ -3,7 +3,7 @@ using System;
 
 namespace CreatureMorphs;
 
-public class MorphType
+internal class MorphType
 {
     public MorphType(string creatureClassId, TechType techType)
     {

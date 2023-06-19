@@ -10,7 +10,7 @@ internal static class MainCameraControlPatches
 
     [HarmonyPatch(nameof(MainCameraControl.OnUpdate))]
     [HarmonyPostfix]
-    public static void UpdatePostfix(MainCameraControl __instance)
+    internal static void UpdatePostfix(MainCameraControl __instance)
     {
         var morphedCreature = PlayerMorpher.main.GetCurrentMorph();
         if (morphedCreature == null || !morphedCreature.BeingControlled) return;

@@ -1,6 +1,6 @@
 ﻿namespace CreatureMorphs;
 
-public class MorphMode
+internal class MorphMode
 {
     public float transformationDuration;
     public FMODAsset soundAsset;

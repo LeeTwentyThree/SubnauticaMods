@@ -1,6 +1,6 @@
 ﻿namespace CreatureMorphs.Mono;
 
-public class PossessedCreature : MonoBehaviour
+internal class PossessedCreature : MonoBehaviour
 {
     public MorphType morph;
     public Creature creature;
@@ -72,6 +72,11 @@ public class PossessedCreature : MonoBehaviour
     private List<MorphAbility> abilities = new List<MorphAbility>();
 
     private void OnDestroy()
+    {
+        PlayerMorpher.main.BecomeHuman();
+    }
+
+    private void OnKill()
     {
         PlayerMorpher.main.BecomeHuman();
     }
