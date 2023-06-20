@@ -13,6 +13,8 @@ internal class MorphMenu : MonoBehaviour
 
     private static int _selectedButton;
 
+    private float rightmostPos;
+
     private int ButtonsCount => buttonsParent.childCount;
 
     public static MorphMenu CreateInstance()
@@ -71,6 +73,8 @@ internal class MorphMenu : MonoBehaviour
         {
             buttons[i].SetSpriteHovered(i == _selectedButton);
         }
+        var currentButton = buttons[_selectedButton];
+        buttonsParent.transform.localPosition = new Vector3(rightmostPos - currentButton.transform.localPosition.x, 10, 0);
     }
 
     private void HandleInput()

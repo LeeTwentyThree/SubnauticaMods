@@ -73,13 +73,22 @@ internal class PossessedCreature : MonoBehaviour
 
     private List<MorphAbility> abilities = new List<MorphAbility>();
 
-    private void OnDestroy()
+    public void KillMorph()
     {
         PlayerMorpher.main.BecomeHuman();
+        GetComponent<LiveMixin>()?.Kill();
+        Destroy(GetComponent<PossessedCreature>());
+    }
+
+    private void OnDestroy()
+    {
+        if (PlayerMorpher.PlayerCurrentlyMorphed)
+            PlayerMorpher.main.BecomeHuman();
     }
 
     private void OnKill()
     {
-        PlayerMorpher.main.BecomeHuman();
+        if (PlayerMorpher.PlayerCurrentlyMorphed)
+            PlayerMorpher.main.BecomeHuman();
     }
 }

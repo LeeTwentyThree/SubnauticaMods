@@ -7,6 +7,6 @@ internal static class GameModeConsoleCommandsPatches
     [HarmonyPrefix]
     public static bool OnGameModeChangedPrefix(GameModeOption gameMode)
     {
-        return gameMode != GameModeOption.NoAggression;
+        return false;
     }
 }

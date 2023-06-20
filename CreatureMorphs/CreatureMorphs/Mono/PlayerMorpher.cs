@@ -85,7 +85,6 @@ internal class PlayerMorpher : MonoBehaviour
                 Player.main.liveMixin.health = Player.main.liveMixin.maxHealth * (lm.health / lm.maxHealth);
             }
             Player.main.SetPosition(_currentMorph.transform.position);
-            Destroy(_currentMorph.gameObject);
         }
         TogglePlayerModel(true);
     }
@@ -118,7 +117,6 @@ internal class PlayerMorpher : MonoBehaviour
     private IEnumerator InitiateMorphCoroutine(MorphType morph)
     {
         _morphing = true;
-        float timeStarted = Time.time;
         if (MorphMenu.main != null) Destroy(MorphMenu.main.gameObject);
         var r = PrefabDatabase.GetPrefabAsync(morph.MorphClassId);
         yield return r;
@@ -162,7 +160,7 @@ internal class PlayerMorpher : MonoBehaviour
             }
             else
             {
-                BecomeHuman();
+                _currentMorph.KillMorph();
             }
         }
     }
