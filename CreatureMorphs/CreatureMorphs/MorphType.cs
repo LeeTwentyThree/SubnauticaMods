@@ -16,13 +16,15 @@ internal class MorphType
 
     public float cameraFollowDistance = 5f;
 
-    public MorphModeType morphModeType;
+    public MorphAnimationType morphModeType;
+
+    public float? overrideSwimSpeed;
+
+    public Vector3 cameraPositionOffset;
+
+    public float sphereCheckRadius;
 
     public readonly List<AbilitySetupBase> morphAbilities = new List<AbilitySetupBase>();
-
-    protected readonly GameInput.Button PrimaryActionKey = GameInput.Button.LeftHand;
-    protected readonly GameInput.Button SecondaryActionKey = GameInput.Button.RightHand;
-    protected readonly GameInput.Button MobilityKey = GameInput.Button.Sprint;
 
     protected static FMODAsset genericBiteSound = Helpers.GetFmodAsset("event:/creature/biter/bite_1");
 

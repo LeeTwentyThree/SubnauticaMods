@@ -2,7 +2,7 @@
 
 internal class PossessedCreature : MonoBehaviour
 {
-    public MorphType morph;
+    public MorphType data;
     public Creature creature;
     public SwimBehaviour swimBehaviour;
     public LiveMixin liveMixin;
@@ -14,7 +14,7 @@ internal class PossessedCreature : MonoBehaviour
     public static PossessedCreature ControlCreature(GameObject creatureGameObject, MorphType morphType)
     {
         var component = creatureGameObject.AddComponent<PossessedCreature>();
-        component.morph = morphType;
+        component.data = morphType;
         component.creature = creatureGameObject.GetComponent<Creature>();
         component.swimBehaviour = creatureGameObject.GetComponent<SwimBehaviour>();
         component.liveMixin = creatureGameObject.GetComponent<LiveMixin>();

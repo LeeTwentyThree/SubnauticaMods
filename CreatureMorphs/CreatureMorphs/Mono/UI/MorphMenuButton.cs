@@ -18,12 +18,12 @@ internal class MorphMenuButton : MonoBehaviour
         }
     }
 
-    public void OnClick()
+    public void OnSelect()
     {
         PlayerMorpher.main.InitiateMorph(entry.GetMorphType());
     }
 
-    public void SetSpriteSelected(bool selected)
+    public void SetSpriteHovered(bool selected)
     {
         GetComponent<Image>().sprite = selected ? _selectedSprite : _normalSprite;
     }

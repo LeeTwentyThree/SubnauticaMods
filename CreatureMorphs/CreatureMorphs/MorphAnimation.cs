@@ -1,11 +1,11 @@
 ﻿namespace CreatureMorphs;
 
-internal class MorphMode
+internal class MorphAnimation
 {
     public float transformationDuration;
     public FMODAsset soundAsset;
 
-    public MorphMode(float transformationDuration, FMODAsset soundAsset)
+    public MorphAnimation(float transformationDuration, FMODAsset soundAsset)
     {
         this.transformationDuration = transformationDuration;
         this.soundAsset = soundAsset;

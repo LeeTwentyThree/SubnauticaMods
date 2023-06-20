@@ -15,18 +15,47 @@ internal static class MorphDatabase
     {
         var builder = new MorphBuilder();
 
-        builder.Create(TechType.Biter, MorphModeType.Prey);
+        builder.Create(TechType.Biter, MorphAnimationType.Prey);
         builder.AddAbility<Bite>((b) => { });
         builder.Finish();
 
-        builder.Create(TechType.Stalker, MorphModeType.Shark);
+        builder.Create(TechType.Stalker, MorphAnimationType.Shark, 4);
         builder.AddAbility<Bite>((b) => { });
+        builder.SetSwimSpeed(6f);
+        builder.SetCameraFollowDistance(8f);
         builder.Finish();
 
-        builder.Create(TechType.GhostLeviathan, MorphModeType.Leviathan);
+        builder.Create(TechType.BoneShark, MorphAnimationType.Shark, 4);
+        builder.SetCameraFollowDistance(8f);
         builder.Finish();
 
-        builder.Create(TechType.CrabSquid, MorphModeType.Shark);
+        builder.Create(TechType.Crabsnake, MorphAnimationType.Shark, 5);
+        builder.SetCameraFollowDistance(16f);
+        builder.Finish();
+
+        builder.Create(TechType.Shocker, MorphAnimationType.Shark, 6);
+        builder.SetCameraFollowDistance(12f);
+        builder.Finish();
+
+        builder.Create(TechType.CrabSquid, MorphAnimationType.Shark, 8);
+        builder.SetCameraFollowDistance(10f);
+        builder.Finish();
+
+        builder.Create(TechType.Warper, MorphAnimationType.Shark, 5);
+        builder.SetCameraFollowDistance(10f);
+        builder.Finish();
+
+        builder.Create(TechType.ReaperLeviathan, MorphAnimationType.Leviathan, 10);
+        builder.SetCameraFollowDistance(16f);
+        builder.SetCameraPositionOffset(new Vector3(8, 0, 15));
+        builder.Finish();
+
+        builder.Create(TechType.GhostLeviathan, MorphAnimationType.Leviathan, 15);
+        builder.SetCameraFollowDistance(20);
+        builder.Finish();
+
+        builder.Create(TechType.SeaDragon, MorphAnimationType.Leviathan, 15);
+        builder.SetCameraFollowDistance(30);
         builder.Finish();
 
         if (ModExists("ProjectAncients"))

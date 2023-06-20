@@ -1,6 +1,6 @@
 ﻿namespace CreatureMorphs;
 
-internal enum MorphModeType
+internal enum MorphAnimationType
 {
     Prey,
     Herbivore,

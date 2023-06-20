@@ -11,6 +11,10 @@ internal class MorphMenu : MonoBehaviour
 
     private GameObject buttonPrefab;
 
+    private static int _selectedButton;
+
+    private int ButtonsCount => buttonsParent.childCount;
+
     public static MorphMenu CreateInstance()
     {
         main = new GameObject("MorphMenu").AddComponent<MorphMenu>();
@@ -20,6 +24,13 @@ internal class MorphMenu : MonoBehaviour
         canvas.transform.localRotation = Quaternion.identity;
 
         main.buttonsParent = canvas.transform.GetChild(0).GetChild(1).GetComponent<RectTransform>();
+
+        FontUtils.SetFontInChildren(main.gameObject, FontUtils.Aller_Rg);
+
+        main.gameObject.SearchChild("Controls").GetComponent<TextMeshProUGUI>().text =
+            $"Navigate: {Helpers.GetInputString(GameInput.Button.UILeft)} / {Helpers.GetInputString(GameInput.Button.UIRight)}\n"
+            + $"Select: {Helpers.GetInputString(GameInput.Button.LeftHand)}";
+
 
         main.RegenerateButtons();
 
@@ -31,6 +42,7 @@ internal class MorphMenu : MonoBehaviour
         if (buttonPrefab == null)
         {
             buttonPrefab = transform.GetChild(0).Find("ButtonsMask/MorphButtonReference").gameObject;
+            FontUtils.SetFontInChildren(buttonPrefab, FontUtils.Aller_W_Bd);
         }
         foreach (Transform child in buttonsParent.transform)
         {
@@ -42,6 +54,40 @@ internal class MorphMenu : MonoBehaviour
             {
                 AddButton(morph);
             }
+        }
+        UpdateHoveredButton();
+    }
+
+    private void Update()
+    {
+        HandleInput();
+    }
+
+    private void UpdateHoveredButton()
+    {
+        if (_selectedButton < 0) _selectedButton = ButtonsCount - 1;
+        if (_selectedButton >= ButtonsCount) _selectedButton = 0;
+        var buttons = buttonsParent.GetComponentsInChildren<MorphMenuButton>();
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].SetSpriteHovered(i == _selectedButton);
+        }
+    }
+
+    private void HandleInput()
+    {
+        if (GameInput.GetButtonDown(GameInput.Button.UILeft))
+        {
+            _selectedButton--;
+        }
+        if (GameInput.GetButtonDown(GameInput.Button.UIRight))
+        {
+            _selectedButton++;
+        }
+        UpdateHoveredButton();
+        if (GameInput.GetButtonDown(GameInput.Button.LeftHand) && ButtonsCount > 0)
+        {
+            buttonsParent.transform.GetChild(_selectedButton).GetComponent<MorphMenuButton>().OnSelect();
         }
     }
 

@@ -20,9 +20,15 @@ internal class Plugin : BaseUnityPlugin
         bundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(assembly, "creaturemorphs");
 
         ModAudio.PatchAudio();
-        MorphModeData.Setup();
+        MorphAnimationData.Setup();
         MorphDatabase.Setup();
+        RegisterLanguageLines();
 
         new Harmony(PluginInfo.PLUGIN_GUID).PatchAll(assembly);
+    }
+
+    private void RegisterLanguageLines()
+    {
+        LanguageHandler.SetLanguageLine("MorphInput", "{0}");
     }
 }

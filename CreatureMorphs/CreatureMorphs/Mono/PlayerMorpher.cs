@@ -56,8 +56,21 @@ internal class PlayerMorpher : MonoBehaviour
 
     public bool InitiateMorph(MorphType morph)
     {
-        if (!CanMorph) return false;
-        if (morph == null) return false;
+        if (!CanMorph)
+        {
+            ErrorMessage.AddMessage("Can't morph right now!");
+            return false;
+        }
+        if (morph == null)
+        {
+            ErrorMessage.AddMessage("Invalid morph!");
+            return false;
+        }
+        if (!SpaceToTransform(morph.sphereCheckRadius))
+        {
+            ErrorMessage.AddMessage("Not enough space to morph!");
+            return false;
+        }
         StartCoroutine(InitiateMorphCoroutine(morph));
         return true;
     }
@@ -71,6 +84,7 @@ internal class PlayerMorpher : MonoBehaviour
             {
                 Player.main.liveMixin.health = Player.main.liveMixin.maxHealth * (lm.health / lm.maxHealth);
             }
+            Player.main.SetPosition(_currentMorph.transform.position);
             Destroy(_currentMorph.gameObject);
         }
         TogglePlayerModel(true);
@@ -86,6 +100,9 @@ internal class PlayerMorpher : MonoBehaviour
         _player.rigidBody.isKinematic = !enabled;
         if (enabled) _player.UnfreezeStats();
         else _player.FreezeStats();
+        AvatarInputHandler.main.gameObject.SetActive(enabled);
+        if (enabled) GameModeUtils.DeactivateCheat(GameModeOption.NoAggression);
+        else GameModeUtils.ActivateCheat(GameModeOption.NoAggression);
     }
 
     public PossessedCreature GetCurrentMorph()
@@ -93,20 +110,28 @@ internal class PlayerMorpher : MonoBehaviour
         return _currentMorph;
     }
 
+    private bool SpaceToTransform(float radius)
+    {
+        return UWE.Utils.OverlapSphereIntoSharedBuffer(Player.main.transform.position, radius, LayerID.TerrainCollider, QueryTriggerInteraction.Ignore) == 0;
+    }
+
     private IEnumerator InitiateMorphCoroutine(MorphType morph)
     {
         _morphing = true;
+        float timeStarted = Time.time;
+        if (MorphMenu.main != null) Destroy(MorphMenu.main.gameObject);
         var r = PrefabDatabase.GetPrefabAsync(morph.MorphClassId);
         yield return r;
         r.TryGetPrefab(out var prefab);
         var spawnedCreature = Instantiate(prefab, Helpers.CameraTransform.position, Helpers.CameraTransform.rotation);
-        spawnedCreature.SetActive(true);
+        spawnedCreature.SetActive(false);
         TogglePlayerModel(false);
         _currentMorph = PossessedCreature.ControlCreature(spawnedCreature, morph);
-        var morphMode = MorphModeData.GetData(morph.morphModeType);
-        FadingOverlay.PlayFX(Color.black, 0.1f, morphMode.transformationDuration, 1f);
+        var morphMode = MorphAnimationData.GetData(morph.morphModeType);
+        FadingOverlay.PlayFX(Color.black, 0f, morphMode.transformationDuration, 1f);
         Utils.PlayFMODAsset(morphMode.soundAsset, Helpers.CameraTransform.position);
         yield return new WaitForSeconds(morphMode.transformationDuration);
+        spawnedCreature.SetActive(true);
         _currentMorph.GainControl();
         _morphing = false;
     }
