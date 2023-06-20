@@ -43,6 +43,7 @@ internal static class MorphDatabase
 
         builder.Create(TechType.Warper, MorphAnimationType.Shark, 5);
         builder.SetCameraFollowDistance(10f);
+        builder.SetSwimSpeed(6f);
         builder.Finish();
 
         builder.Create(TechType.ReaperLeviathan, MorphAnimationType.Leviathan, 10);
@@ -54,7 +55,7 @@ internal static class MorphDatabase
         builder.SetCameraFollowDistance(20);
         builder.Finish();
 
-        builder.Create(TechType.SeaDragon, MorphAnimationType.Leviathan, 15);
+        builder.Create(TechType.SeaDragon, MorphAnimationType.Leviathan, 20);
         builder.SetCameraFollowDistance(30);
         builder.Finish();
 
