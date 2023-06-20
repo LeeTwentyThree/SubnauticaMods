@@ -18,6 +18,7 @@ internal class PossessedCreature : MonoBehaviour
         component.creature = creatureGameObject.GetComponent<Creature>();
         component.swimBehaviour = creatureGameObject.GetComponent<SwimBehaviour>();
         component.liveMixin = creatureGameObject.GetComponent<LiveMixin>();
+        component.liveMixin.health = Player.main.liveMixin.health / Player.main.liveMixin.maxHealth * component.liveMixin.maxHealth;
         component._swimSpeed = DetermineSwimSpeed(morphType, creatureGameObject);
         var newCreatureAction = creatureGameObject.AddComponent<UnderControlCreatureAction>();
         newCreatureAction.evaluatePriority = float.MaxValue;
@@ -30,7 +31,8 @@ internal class PossessedCreature : MonoBehaviour
         }
         foreach (var onTouch in creatureGameObject.GetComponentsInChildren<OnTouch>())
         {
-            onTouch.enabled = false;
+            var collider = onTouch.GetComponent<Collider>();
+            if (collider) collider.enabled = false;
         }
         return component;
     }
