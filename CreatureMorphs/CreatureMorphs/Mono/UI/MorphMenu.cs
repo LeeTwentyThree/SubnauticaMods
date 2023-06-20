@@ -28,8 +28,7 @@ internal class MorphMenu : MonoBehaviour
         FontUtils.SetFontInChildren(main.gameObject, FontUtils.Aller_Rg);
 
         main.gameObject.SearchChild("Controls").GetComponent<TextMeshProUGUI>().text =
-            $"Navigate: {Helpers.GetInputString(GameInput.Button.UILeft)} / {Helpers.GetInputString(GameInput.Button.UIRight)}\n"
-            + $"Select: {Helpers.GetInputString(GameInput.Button.LeftHand)}";
+            $"Navigate: {Helpers.GetInputString(GameInput.Button.CyclePrev)} / {Helpers.GetInputString(GameInput.Button.CycleNext)} Select: {Helpers.GetInputString(GameInput.Button.LeftHand)}";
 
 
         main.RegenerateButtons();
@@ -76,11 +75,11 @@ internal class MorphMenu : MonoBehaviour
 
     private void HandleInput()
     {
-        if (GameInput.GetButtonDown(GameInput.Button.UILeft))
+        if (GameInput.GetButtonDown(GameInput.Button.CyclePrev))
         {
             _selectedButton--;
         }
-        if (GameInput.GetButtonDown(GameInput.Button.UIRight))
+        if (GameInput.GetButtonDown(GameInput.Button.CycleNext))
         {
             _selectedButton++;
         }
