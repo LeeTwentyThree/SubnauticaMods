@@ -18,8 +18,9 @@ internal class PossessedCreature : MonoBehaviour
         component.creature = creatureGameObject.GetComponent<Creature>();
         component.swimBehaviour = creatureGameObject.GetComponent<SwimBehaviour>();
         component.liveMixin = creatureGameObject.GetComponent<LiveMixin>();
-        component._swimSpeed = DetermineSwimSpeed(creatureGameObject);
+        component._swimSpeed = DetermineSwimSpeed(morphType, creatureGameObject);
         var newCreatureAction = creatureGameObject.AddComponent<UnderControlCreatureAction>();
+        newCreatureAction.evaluatePriority = float.MaxValue;
         component.creature.actions.Insert(0, newCreatureAction);
         component.abilities = new List<MorphAbility>();
         foreach (var ability in morphType.morphAbilities)
@@ -34,8 +35,9 @@ internal class PossessedCreature : MonoBehaviour
         return component;
     }
 
-    private static float DetermineSwimSpeed(GameObject creatureGameObject)
+    private static float DetermineSwimSpeed(MorphType morphType, GameObject creatureGameObject)
     {
+        if (morphType.overrideSwimSpeed.HasValue) return morphType.overrideSwimSpeed.Value;
         var sr = creatureGameObject.GetComponent<SwimRandom>();
         if (sr) return sr.swimVelocity;
         var leash = creatureGameObject.GetComponent<StayAtLeashPosition>();
