@@ -1,8 +1,8 @@
 ﻿using HarmonyLib;
-using UnityEngine.UI;
 
 namespace LongerSigns;
 
+[HarmonyPatch]
 public static class Patches
 {
     [HarmonyPatch(typeof(uGUI_SignInput), nameof(uGUI_SignInput.Awake))]
@@ -16,6 +16,6 @@ public static class Patches
         inputField.characterLimit = int.MaxValue;
 
         // inputField.lineLimit = int.MaxValue;
-        // inputField.lineType = TMPro.TMP_InputField.LineType.MultiLineNewline;
+        // inputField.lineType = TMPro.TMP_InputField.LineType.MultiLineSubmit;
     }
 }
