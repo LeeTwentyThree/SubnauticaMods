@@ -6,9 +6,7 @@ internal class PrawnSuitSpeedHandler : MonoBehaviour
 {
     private Exosuit exosuit;
 
-    private float defaultForwardForce = 8.2f;
-    private float defaultBackwardForce = 3f;
-    private float defaultSidewardForce = 4.2f;
+    private float defaultGroundForceMultiplier = 4f;
 
     private void Awake()
     {
@@ -20,11 +18,7 @@ internal class PrawnSuitSpeedHandler : MonoBehaviour
         if (exosuit == null)
             return;
 
-        float multiplier = GetForceMultiplier(exosuit);
-
-        exosuit.forwardForce = defaultForwardForce * multiplier;
-        exosuit.backwardForce = defaultBackwardForce * multiplier;
-        exosuit.sidewardForce = defaultSidewardForce * multiplier;
+        exosuit.onGroundForceMultiplier = defaultGroundForceMultiplier * GetForceMultiplier(exosuit);
     }
     
     private static float GetForceMultiplier(Exosuit exosuit)
