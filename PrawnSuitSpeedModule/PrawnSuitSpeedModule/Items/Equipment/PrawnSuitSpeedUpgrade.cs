@@ -26,7 +26,8 @@ public static class PrawnSuitSpeedUpgrade
         customPrefab.SetVehicleUpgradeModule(EquipmentType.ExosuitModule)
             .WithOnModuleAdded(OnUpdateModule) 
             .WithOnModuleRemoved(OnUpdateModule);
-        customPrefab.SetPdaGroupCategory(TechGroup.VehicleUpgrades, TechCategory.VehicleUpgrades);
+        customPrefab.SetPdaGroupCategory(TechGroup.VehicleUpgrades, TechCategory.VehicleUpgrades)
+            .RequiredForUnlock = TechType.Exosuit;
         customPrefab.Register();
     }
 
