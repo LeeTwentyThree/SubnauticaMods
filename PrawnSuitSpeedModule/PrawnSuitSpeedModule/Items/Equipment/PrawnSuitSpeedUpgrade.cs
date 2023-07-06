@@ -11,7 +11,7 @@ namespace PrawnSuitSpeedModule.Items.Equipment;
 public static class PrawnSuitSpeedUpgrade
 {
     public static PrefabInfo Info { get; } = PrefabInfo
-        .WithTechType("PrawnSuitSpeedModule", "Prawn suit speed module", "Allows the Prawn Suit walking mechanism to enter overdrive. Multiple modules may be installed simultaneously.")
+        .WithTechType("PrawnSuitSpeedModule", "Prawn suit speed module", "Allows the Prawn suit walking mechanism to enter overdrive. Multiple modules may be installed simultaneously.")
         .WithIcon(ImageUtils.LoadSpriteFromFile(Path.Combine(Path.GetDirectoryName(Plugin.Assembly.Location), "Assets", "PrawnSuitSpeedModuleIcon.png")));
 
     public static void Register()
