@@ -54,6 +54,8 @@ internal class MinimapController : MonoBehaviour
         {
             distAbove = hit.distance;
         }
-        transform.position = MainCamera.camera.transform.position + Vector3.up * distAbove;
+        transform.position = MainCamera.camera.transform.position + Vector3.up * Plugin.config.Height;
+        camera.nearClipPlane = Plugin.config.Height - distAbove + 0.1f;
+        camera.farClipPlane = 200f;
     }
 }
