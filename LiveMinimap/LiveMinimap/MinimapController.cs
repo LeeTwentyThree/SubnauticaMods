@@ -49,6 +49,11 @@ internal class MinimapController : MonoBehaviour
     {
         camera.fieldOfView = Plugin.config.FOV;
         transform.eulerAngles = new Vector3(90, MainCamera.camera.transform.eulerAngles.y, 0);
-        transform.position = MainCamera.camera.transform.position + Vector3.up * Plugin.config.Height;
+        var distAbove = Plugin.config.Height;
+        if (Physics.Raycast(new Ray(MainCamera.camera.transform.position, Vector3.up), out var hit, Plugin.config.Height, 1 << LayerID.TerrainCollider, QueryTriggerInteraction.Ignore))
+        {
+            distAbove = hit.distance;
+        }
+        transform.position = MainCamera.camera.transform.position + Vector3.up * distAbove;
     }
 }
