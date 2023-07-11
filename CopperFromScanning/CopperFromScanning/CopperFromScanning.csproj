@@ -8,7 +8,7 @@
     <LangVersion>11</LangVersion>
     <RootNamespace>CopperFromScanning</RootNamespace>
     <BepInExPluginName>Copper From Scanning</BepInExPluginName>
-    <BepInExPluginGuid>com.mrpurple.copperfromscanning</BepInExPluginGuid>
+    <BepInExPluginGuid>com.lee23.copperfromscanning</BepInExPluginGuid>
     
     <RestoreAdditionalProjectSources>
       https://api.nuget.org/v3/index.json;
