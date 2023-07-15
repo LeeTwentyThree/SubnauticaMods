@@ -13,11 +13,28 @@ internal class DeathContainerBehaviour : MonoBehaviour
 
     public static List<Pickupable> droppedItems;
 
+    private bool _isLoadingItems;
+    private bool _disabled;
+
     private void Awake()
     {
         _container = GetComponentInChildren<StorageContainer>(true);
         _text = GetComponentInChildren<TextMeshProUGUI>(true);
         _ping = gameObject.EnsureComponent<PingInstance>();
+    }
+
+    private IEnumerator Start()
+    {
+        yield return null;
+        var classId = GetComponent<PrefabIdentifier>().Id;
+        if (SaveData.Main.graves.TryGetValue(classId, out var grave))
+        {
+            UpdateData(grave.deathNumber, grave.coords);
+        }
+        if (SaveData.Main.obtainedGraves.Contains(classId))
+        {
+            DisableInventory();
+        }
     }
 
     // Should only be called ONCE in the container's lifetime
@@ -43,7 +60,30 @@ internal class DeathContainerBehaviour : MonoBehaviour
             _container.container.UnsafeAdd(ii);
         }
 
-        UpdateData(3, transform.position);
+        int deaths = SaveData.Main.deaths;
+
+        UpdateData(deaths + 1, transform.position);
+
+        SaveData.Main.deaths++;
+        SaveData.Main.graves.Add(GetComponent<PrefabIdentifier>().Id, new SaveContainer(transform.position, deaths + 1, "Died lol"));
+
+        _ping.SetColor(2);
+
+        _isLoadingItems = false;
+    }
+
+    private void Update()
+    {
+        if (!_disabled && _isLoadingItems && _container != null && _container.container.count == 0)
+        {
+            DisableInventory();
+        }
+    }
+
+    private void DisableInventory()
+    {
+        transform.Find("StorageContainer").gameObject.SetActive(false);
+        _disabled = true;
     }
 
     private void UpdateData(int deathNumber, Vector3 coordinates)
@@ -64,7 +104,9 @@ internal class DeathContainerBehaviour : MonoBehaviour
         yield return task;
         var spawned = Instantiate(task.GetResult());
         spawned.transform.position = position;
+        var container = spawned.GetComponent<DeathContainerBehaviour>();
+        container._isLoadingItems = true;
         yield return null;
-        spawned.GetComponent<DeathContainerBehaviour>().Setup();
+        container.Setup();
     }
 }

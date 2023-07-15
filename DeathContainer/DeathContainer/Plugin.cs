@@ -29,6 +29,7 @@ public class Plugin : BaseUnityPlugin
 
         // Initialize custom prefabs
         InitializePrefabs();
+        InitializeLanguage();
 
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
@@ -38,5 +39,10 @@ public class Plugin : BaseUnityPlugin
     private void InitializePrefabs()
     {
         DeathContainerPrefab.Register();
+    }
+
+    private void InitializeLanguage()
+    {
+        LanguageHandler.SetLanguageLine("PingDeathContainerPing", "Death Container");
     }
 }

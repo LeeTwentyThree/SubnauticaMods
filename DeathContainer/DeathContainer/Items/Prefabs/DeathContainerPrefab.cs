@@ -47,8 +47,8 @@ public static class DeathContainerPrefab
             ping.origin = obj.transform;
             ping.SetType(Plugin.DeathContainerPingType);
             ping.visitDistance = 1f;
-            ping.minDist = 4f;
-            ping.range = 8f;
+            ping.minDist = 1f;
+            ping.range = 5f;
         };
         customPrefab.SetGameObject(obj);
         customPrefab.Register();
