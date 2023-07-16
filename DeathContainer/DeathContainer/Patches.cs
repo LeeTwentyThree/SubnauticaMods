@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+using System.Text;
 using DeathContainer.Mono;
 using HarmonyLib;
 
@@ -31,6 +33,20 @@ internal static class Patches
         if (__result && IsPlayerDead() && DeathContainerBehaviour.droppedItems != null)
         {
             DeathContainerBehaviour.droppedItems.Add(pickupable);
+        }
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons))]
+    public static void TooltipPatch(StringBuilder sb, GameObject obj, TechType techType)
+    {
+        if (techType == Items.Prefabs.DeathContainerPrefab.Info.TechType)
+        {
+            var id = obj.GetComponent<PrefabIdentifier>()?.id;
+            if (!SaveData.main.graves.TryGetValue(id, out var data))
+                return;
+            sb.AppendLine();
+            sb.Append($"<color=#FF0000>Death #{data.deathNumber}. Rest in peace...</color>");
         }
     }
 

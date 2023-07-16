@@ -11,9 +11,10 @@ internal class SaveData : SaveDataCache
     public List<string> obtainedGraves = new List<string>();
     public int deaths;
 
-    public static SaveData Main { get; } = SaveDataHandler.RegisterSaveDataCache<SaveData>();
+    public static SaveData main;
 }
 
+[System.Serializable]
 internal class SaveContainer
 {
     public Vector3 coords;

@@ -2,14 +2,14 @@
 using Nautilus.Assets.PrefabTemplates;
 using UnityEngine;
 using DeathContainer.Mono;
-using Ingredient = CraftData.Ingredient;
 using TMPro;
 
 namespace DeathContainer.Items.Prefabs;
 public static class DeathContainerPrefab
 {
     public static PrefabInfo Info { get; } = PrefabInfo
-        .WithTechType("DeathContainer", "Death Container", "Stores any items lost on death.");
+        .WithTechType("DeathContainer", "Death Container", "Stores any items lost on death.")
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("DeathContainerIcon"));
 
     public static void Register()
     {

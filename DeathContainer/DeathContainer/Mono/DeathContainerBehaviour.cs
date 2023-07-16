@@ -13,7 +13,7 @@ internal class DeathContainerBehaviour : MonoBehaviour
 
     public static List<Pickupable> droppedItems;
 
-    private bool _isLoadingItems;
+    private bool _isLoadingItems = true;
     private bool _disabled;
 
     private void Awake()
@@ -23,15 +23,15 @@ internal class DeathContainerBehaviour : MonoBehaviour
         _ping = gameObject.EnsureComponent<PingInstance>();
     }
 
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return null;
-        var classId = GetComponent<PrefabIdentifier>().Id;
-        if (SaveData.Main.graves.TryGetValue(classId, out var grave))
+        var id = GetComponent<PrefabIdentifier>().Id;
+        if (SaveData.main.graves.TryGetValue(id, out var grave))
         {
             UpdateData(grave.deathNumber, grave.coords);
+            _isLoadingItems = false;
         }
-        if (SaveData.Main.obtainedGraves.Contains(classId))
+        if (SaveData.main.obtainedGraves.Contains(id))
         {
             DisableInventory();
         }
@@ -60,13 +60,13 @@ internal class DeathContainerBehaviour : MonoBehaviour
             _container.container.UnsafeAdd(ii);
         }
 
-        int deaths = SaveData.Main.deaths;
+        int deaths = SaveData.main.deaths;
 
         UpdateData(deaths + 1, transform.position);
 
-        SaveData.Main.deaths++;
-        SaveData.Main.graves.Add(GetComponent<PrefabIdentifier>().Id, new SaveContainer(transform.position, deaths + 1, "Died lol"));
-
+        SaveData.main.deaths++;
+        SaveData.main.graves.Add(GetComponent<PrefabIdentifier>().Id, new SaveContainer(transform.position, deaths + 1, "Rest in peace..."));
+        
         _ping.SetColor(2);
 
         _isLoadingItems = false;
@@ -74,7 +74,7 @@ internal class DeathContainerBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if (!_disabled && _isLoadingItems && _container != null && _container.container.count == 0)
+        if (!_disabled && !_isLoadingItems && _container != null && _container.container.count == 0)
         {
             DisableInventory();
         }
@@ -84,6 +84,7 @@ internal class DeathContainerBehaviour : MonoBehaviour
     {
         transform.Find("StorageContainer").gameObject.SetActive(false);
         _disabled = true;
+        SaveData.main.obtainedGraves.Add(GetComponent<PrefabIdentifier>().Id);
     }
 
     private void UpdateData(int deathNumber, Vector3 coordinates)
@@ -105,7 +106,6 @@ internal class DeathContainerBehaviour : MonoBehaviour
         var spawned = Instantiate(task.GetResult());
         spawned.transform.position = position;
         var container = spawned.GetComponent<DeathContainerBehaviour>();
-        container._isLoadingItems = true;
         yield return null;
         container.Setup();
     }
