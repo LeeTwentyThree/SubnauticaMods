@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Text;
 using DeathContainer.Mono;
 using HarmonyLib;
+using System;
 
 namespace DeathContainer;
 
@@ -33,9 +34,10 @@ internal static class Patches
         if (__result && IsPlayerDead() && DeathContainerBehaviour.droppedItems != null)
         {
             DeathContainerBehaviour.droppedItems.Add(pickupable);
-        }
+        }   
     }
 
+    /*
     [HarmonyPostfix]
     [HarmonyPatch(typeof(TooltipFactory), nameof(TooltipFactory.ItemCommons))]
     public static void TooltipPatch(StringBuilder sb, GameObject obj, TechType techType)
@@ -49,6 +51,7 @@ internal static class Patches
             sb.Append($"<color=#FF0000>Death #{data.deathNumber}. Rest in peace...</color>");
         }
     }
+    */
 
     private static bool IsPlayerDead()
     {

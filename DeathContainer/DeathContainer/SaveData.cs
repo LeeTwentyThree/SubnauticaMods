@@ -20,11 +20,15 @@ internal class SaveContainer
     public Vector3 coords;
     public int deathNumber;
     public string deathInfo;
+    public int width;
+    public int height;
 
-    public SaveContainer(Vector3 coords, int deathNumber, string deathInfo)
+    public SaveContainer(Vector3 coords, int deathNumber, string deathInfo, int width, int height)
     {
         this.coords = coords;
         this.deathNumber = deathNumber;
         this.deathInfo = deathInfo;
+        this.width = width;
+        this.height = height;
     }
 }

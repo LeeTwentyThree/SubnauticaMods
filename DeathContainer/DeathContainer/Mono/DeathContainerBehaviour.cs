@@ -28,7 +28,7 @@ internal class DeathContainerBehaviour : MonoBehaviour
         var id = GetComponent<PrefabIdentifier>().Id;
         if (SaveData.main.graves.TryGetValue(id, out var grave))
         {
-            UpdateData(grave.deathNumber, grave.coords);
+            UpdateData(grave.deathNumber, grave.coords, grave.width, grave.height);
             _isLoadingItems = false;
         }
         if (SaveData.main.obtainedGraves.Contains(id))
@@ -62,10 +62,11 @@ internal class DeathContainerBehaviour : MonoBehaviour
 
         int deaths = SaveData.main.deaths;
 
-        UpdateData(deaths + 1, transform.position);
+        UpdateData(deaths + 1, transform.position, inventorySize.x, inventorySize.y);
 
         SaveData.main.deaths++;
-        SaveData.main.graves.Add(GetComponent<PrefabIdentifier>().Id, new SaveContainer(transform.position, deaths + 1, "Rest in peace..."));
+        SaveData.main.graves.Add(GetComponent<PrefabIdentifier>().Id,
+            new SaveContainer(transform.position, deaths + 1, "Rest in peace...", inventorySize.x, inventorySize.y));
         
         _ping.SetColor(2);
 
@@ -84,14 +85,18 @@ internal class DeathContainerBehaviour : MonoBehaviour
     {
         transform.Find("StorageContainer").gameObject.SetActive(false);
         _disabled = true;
-        SaveData.main.obtainedGraves.Add(GetComponent<PrefabIdentifier>().Id);
+        var id = GetComponent<PrefabIdentifier>().Id;
+        if (!SaveData.main.obtainedGraves.Contains(id))
+            SaveData.main.obtainedGraves.Add(id);
     }
 
-    private void UpdateData(int deathNumber, Vector3 coordinates)
+    private void UpdateData(int deathNumber, Vector3 coordinates, int width, int height)
     {
         _text.color = Color.red;
         _text.text = "DEATH #" + deathNumber;
         _ping.SetLabel($"Death #{deathNumber} ({(int)coordinates.x}, {(int)coordinates.y}, {(int)coordinates.z})");
+        if (_container)
+            _container.container.Resize(width, height);
     }
 
     public static void SpawnDeathContainer(Vector3 atPosition)
