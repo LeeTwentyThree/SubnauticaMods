@@ -20,4 +20,6 @@ internal abstract class MorphAbility : MonoBehaviour
     }
 
     protected abstract void OnInputReceived();
+
+    public abstract string GetName();
 }

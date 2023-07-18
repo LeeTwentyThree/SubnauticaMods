@@ -16,4 +16,6 @@ internal class Bite : MorphAbility
             Utils.PlayFMODAsset(biteSound);
         }
     }
+
+    public override string GetName() => "Bite";
 }
