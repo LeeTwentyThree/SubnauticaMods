@@ -12,7 +12,7 @@ Adds an in-game menu that makes it easier to install, update, and manage your mo
 
 # 🖥️ Mods for testing 📊
 
-## [DebugHelper](https://www.submodica.xyz/mods/sn1/133)
+## [DebugHelper](https://www.submodica.xyz/mods/sn1/248)
 Adds over 30 console commands, many in-game options and a new class designed for use with the REPL console.
 
 ## [SubnauticaRuntimeEditor](https://www.submodica.xyz/mods/sn1/109)

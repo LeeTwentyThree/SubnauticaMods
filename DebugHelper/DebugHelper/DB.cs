@@ -4,6 +4,7 @@ using System.Reflection;
 using System.IO;
 using BepInEx.Bootstrap;
 using UnityEngine;
+using System.Collections;
 
 /* Global namespace and short name to make it as accessible as possible
  * Class to help with the REPL console */
@@ -89,6 +90,19 @@ public static class DB
     {
         return false;
     }
+
+    #region GetPrefab
+    public static GameObject loadedPrefab { get; private set; }
+
+    public static void GetPrefab(TechType type) => UWE.CoroutineHost.StartCoroutine(GetPrefabAsync(type));
+
+    private static IEnumerator GetPrefabAsync(TechType type)
+    {
+        var result = CraftData.GetPrefabForTechTypeAsync(type);
+        yield return result;
+        loadedPrefab = result.GetResult();
+    }
+    #endregion
 
     #region ListenBasic
     public static string ListenBasic(MethodInfo original, bool prefix = false) // whenever the method is run, shows information about it on screen
@@ -258,6 +272,8 @@ public static class DB
     }
     #endregion
 
+    #region Method methods
+
     public static MethodInfo Method(string location) // fastest way to reference a method ("Creature.Start")
     {
         var split = location.Split('.');
@@ -289,18 +305,22 @@ public static class DB
         return null;
     }
 
-    private static List<string> knownAssemblyNames = new List<string>() { "Assembly-CSharp", "Assembly-CSharp-firstpass", "UnityEngine", "UnityEngine.CoreModule", "UnityEngine.PhysicsModule", "SMLHelper" };
+    #endregion
+
+    private static List<string> knownAssemblyNames = new List<string>() { "Assembly-CSharp", "Assembly-CSharp-firstpass", "UnityEngine", "UnityEngine.CoreModule", "UnityEngine.PhysicsModule", "Nautilus" };
 
     public static string Help
     {
         get
         {
-            return $"<color={ColorCode.replTitle}>Useful methods:</color>\n" +
+            return $"<color={ColorCode.replTitle}>Useful methods & properties:</color>\n" +
                 $"<color={ColorCode.codeSegment}>" +
                 "- Listen(MethodInfo original, bool prefix = false): Outputs the returned value and all parameters passed into the method when it is called.\n" +
                 "- Mute(MethodInfo original): Stops a method from being called.\n" +
                 "- Method(string location): Returns a MethodInfo by its name (ex: \"Peeper.Start\")\n" +
                 "- Method(System.Type type, string methodName): Also returns a MethodInfo (ex: typeof(Peeper), \"Start\")\n" +
+                "- GetPrefab(TechType techType): Loads a prefab asynchronously and assigns it to the 'loadedPrefab' property when complete.\n" +
+                "- loadedPrefab: Stores the prefab that was loaded in the GetPrefab method (as explained above).\n" +
                 "</color>" +
 
                 $"<color={ColorCode.replTitle}>All methods:</color>\n" +

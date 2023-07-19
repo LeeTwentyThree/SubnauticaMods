@@ -1,6 +1,6 @@
 ﻿using DebugHelper.Systems;
 using UnityEngine;
-using SMLHelper.V2.Commands;
+using Nautilus.Commands;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +39,16 @@ namespace DebugHelper.Commands
             CoroutineHost.StartCoroutine(SpawncCoroutine(classId));
         }
 
+        [ConsoleCommand("spawna")]
+        public static void SpawnAddressable(string addressablePath)
+        {
+            if (string.IsNullOrEmpty(addressablePath))
+            {
+                ErrorMessage.AddMessage("Correct syntax: 'spawna [Addressable path]'.");
+            }
+            CoroutineHost.StartCoroutine(SpawnaCoroutine(addressablePath));
+        }
+
         private static IEnumerator SpawncCoroutine(string classId)
         {
             var prefabRequest = PrefabDatabase.GetPrefabAsync(classId);
@@ -52,6 +62,32 @@ namespace DebugHelper.Commands
             {
                 ErrorMessage.AddMessage($"Failed to load prefab by ClassId '{classId}'.");
             }
+        }
+
+        private static IEnumerator SpawnaCoroutine(string addressablePath)
+        {
+            addressablePath = FixAddressableString(addressablePath, true);
+            var request = PrefabDatabase.GetPrefabForFilenameAsync(addressablePath);
+            yield return request;
+            if (request.TryGetPrefab(out GameObject prefab))
+            {
+                ErrorMessage.AddMessage($"Spawned prefab '{prefab.name}' successfully.");
+                Utils.CreatePrefab(prefab, 12f, false);
+            }
+            else
+            {
+                ErrorMessage.AddMessage($"Failed to load prefab by addressable path '{addressablePath}'.");
+            }
+        }
+
+        private static string FixAddressableString(string original, bool warn)
+        {
+            if (original.StartsWith("Assets/AddressableResources/"))
+            {
+                if (warn) ErrorMessage.AddMessage("Note: The `Assets/AddressableResources/` prefix should generally NOT exist in addressable paths!");
+                return original.Replace("Assets/AddressableResources/", "");
+            }
+            return original;
         }
 
         [ConsoleCommand("search")]

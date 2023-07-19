@@ -15,7 +15,7 @@ namespace SubnauticaRuntimeEditor.Core
 {
     public class SubnauticaRuntimeEditorCore
     {
-        public const string Version = "1.0.2";
+        public const string Version = "1.0.3";
         public const string GUID = "SubnauticaRuntimeEditor";
 
         [Obsolete("Use window Instance instead")] public Inspector.Inspector Inspector => Core.Inspector.Inspector.Initialized ? Core.Inspector.Inspector.Instance : null;
@@ -39,6 +39,21 @@ namespace SubnauticaRuntimeEditor.Core
                 }
             }
         }
+
+        public KeyCode BrowseInspectedObjectHotkey
+        {
+            get => _browseInspectedObjectHotkey;
+            set
+            {
+                if (_browseInspectedObjectHotkey != value)
+                {
+                    _browseInspectedObjectHotkey = value;
+                    _onBrowseInspectedHotkeyChanged?.Invoke(value);
+                }
+            }
+        }
+
+        private readonly Action<KeyCode> _onBrowseInspectedHotkeyChanged;
 
         private readonly Action<KeyCode> _onHotkeyChanged;
 
@@ -72,6 +87,7 @@ namespace SubnauticaRuntimeEditor.Core
         /// </summary>
         public IEnumerable<IFeature> InitializedFeatures => _initializedFeatures;
         private KeyCode _showHotkey = KeyCode.F7;
+        private KeyCode _browseInspectedObjectHotkey = KeyCode.Mouse2;
 
         //private readonly List<IWindow> _initializedWindows = new List<IWindow>();
 
@@ -85,6 +101,9 @@ namespace SubnauticaRuntimeEditor.Core
             Instance = this;
 
             _onHotkeyChanged = initSettings.RegisterSetting("General", "Open/close runtime editor", KeyCode.F7, "", x => ShowHotkey = x);
+
+            _onBrowseInspectedHotkeyChanged = initSettings.RegisterSetting("General", "Browse inspected object", KeyCode.Mouse2,
+                "Key that can be used while mouse inspect is enabled.", x => BrowseInspectedObjectHotkey = x);
 
             var iFeatureType = typeof(IFeature);
             // Create all instances first so they are accessible in Initialize methods in case there's crosslinking spaghetti

@@ -376,6 +376,16 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
                 {
                     MaterialEditor.MaterialEditorViewer.StartEditing(material);
                 }
+
+                Animator animator = instance as Animator;
+
+                if (animator && GUILayout.Button("Open In Animation Controller", new GUILayoutOption[]
+                {
+                            GUILayout.ExpandWidth(true)
+                }))
+                {
+                    AnimationController.AnimationController.StartEditing(animator);
+                }
             }
 
             var currentItem = tab.CurrentStackItem;
@@ -475,7 +485,10 @@ namespace SubnauticaRuntimeEditor.Core.Inspector
                 }
                 catch (Exception ex)
                 {
+#if RELEASE
+#else
                     SubnauticaRuntimeEditorCore.Logger.Log(LogLevel.Error, $"[{Title}] Failed to draw setting {entry?.Name()} - {ex.Message}");
+#endif
                     GUILayout.TextArea(ex.Message, GUI.skin.label, GUILayout.ExpandWidth(true));
                 }
             }

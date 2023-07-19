@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using SubnauticaRuntimeEditor.Core.Inspector.Entries;
+using SubnauticaRuntimeEditor.Core.Utils.Abstractions;
 using UnityEngine;
 
 namespace SubnauticaRuntimeEditor.Core.Utils
@@ -12,6 +13,11 @@ namespace SubnauticaRuntimeEditor.Core.Utils
     {
         public static bool Contains(this string s, string searchText, StringComparison sc)
         {
+            if (s == null)
+            {
+                SubnauticaRuntimeEditorCore.Logger.Log(LogLevel.Warning, "Attempting to call Contains on a null string!");
+                return false;
+            }
             return s.IndexOf(searchText, sc) >= 0;
         }
 
