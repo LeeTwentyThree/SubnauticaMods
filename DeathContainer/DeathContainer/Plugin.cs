@@ -22,6 +22,8 @@ public class Plugin : BaseUnityPlugin
     internal static PingType DeathContainerPingType { get; } = EnumHandler.AddEntry<PingType>("DeathContainerPing")
         .WithIcon(new Atlas.Sprite(AssetBundle.LoadAsset<Sprite>("DeathContainerPing")));
 
+    internal static Options Options { get; } = OptionsPanelHandler.RegisterModOptions<Options>();
+
     private void Awake()
     {
         

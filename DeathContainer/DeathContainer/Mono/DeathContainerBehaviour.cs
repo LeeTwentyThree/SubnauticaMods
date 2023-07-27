@@ -79,6 +79,7 @@ internal class DeathContainerBehaviour : MonoBehaviour
         {
             DisableInventory();
         }
+        _ping.enabled = Plugin.Options.EnableSignal;
     }
 
     private void DisableInventory()
