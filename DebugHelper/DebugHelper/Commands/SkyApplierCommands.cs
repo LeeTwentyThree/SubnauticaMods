@@ -54,9 +54,17 @@ namespace DebugHelper.Commands
                 get
                 {
                     if (attachedSkyApplier == null) return "Null";
+#if SN1
                     if (attachedSkyApplier.applySky != null)
+#elif BZ
+                    if (attachedSkyApplier.skyApplied != null)
+#endif
                     {
-                        return attachedSkyApplier.applySky.name;
+#if SN1
+                        return attachedSkyApplier.applySky.name;                    
+#elif BZ
+                        return attachedSkyApplier.skyApplied.name;
+#endif
                     }
                     return gameObject.name;
                 }
@@ -88,7 +96,11 @@ namespace DebugHelper.Commands
                     {
                         return invalidColor;
                     }
+#if SN1
                     var sky = attachedSkyApplier.applySky;
+#elif BZ
+                    var sky = attachedSkyApplier.skyApplied;
+#endif
                     if (sky == null)
                     {
                         return Color.black;

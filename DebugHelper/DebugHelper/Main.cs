@@ -33,11 +33,11 @@ namespace DebugHelper
             ConsoleCommandsHandler.RegisterConsoleCommands(typeof(RigidbodyCommands));
             ConsoleCommandsHandler.RegisterConsoleCommands(typeof(PlayerCommands));
             ConsoleCommandsHandler.RegisterConsoleCommands(typeof(EntgalCommands));
-
+            
             assetBundle = Helpers.LoadAssetBundleFromAssetsFolder(assembly, "debughelper");
             DebugIconManager.Icons.LoadIcons(assetBundle);
 
-            harmony = new Harmony("Subnautica.DebugHelper");
+            harmony = new Harmony(PluginInfo.PLUGIN_GUID);
             harmony.PatchAll(assembly);
 
             gameObject.EnsureComponent<SceneCleanerPreserve>();
