@@ -10,4 +10,6 @@ internal class Config : ConfigFile
     public bool LoseItemsOnDeath = true;
     [Toggle("Lose all equipment on death")]
     public bool LoseEquipmentOnDeath = true;
+    [Toggle("Keep tools on death")]
+    public bool KeepToolsOnDeath = false;
 }

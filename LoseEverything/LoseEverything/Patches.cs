@@ -19,6 +19,10 @@ internal static class Patches
         {
             if (Plugin.Config.LoseItemsOnDeath || inventoryItem.item.destroyOnDeath)
             {
+                if (Plugin.Config.KeepToolsOnDeath && inventoryItem.item.gameObject.GetComponent<PlayerTool>() != null)
+                {
+                    continue;
+                }
                 list.Add(inventoryItem);
             }
         }
