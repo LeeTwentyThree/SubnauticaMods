@@ -272,6 +272,30 @@ public static class DB
     }
     #endregion
 
+    #region Unmute
+
+    public static void Unmute(MethodInfo original) // Makes the original method run normally again
+    {
+        harmony.Unpatch(original, returnFalse);
+    }
+
+    public static void Unmute(string location)
+    {
+        harmony.Unpatch(Method(location), returnFalse);
+    }
+
+    public static void Unmute(string typeName, string methodName)
+    {
+        harmony.Unpatch(Method(typeName, methodName), returnFalse);
+    }
+
+    public static void Unmute(System.Type type, string methodName)
+    {
+        harmony.Unpatch(Method(type, methodName), returnFalse);
+    }
+
+    #endregion
+
     #region Method methods
 
     public static MethodInfo Method(string location) // fastest way to reference a method ("Creature.Start")
@@ -333,6 +357,10 @@ public static class DB
                 "Mute(string location)\n" +
                 "Mute(string typeName, string methodName)\n" +
                 "Mute(Type type, string methodName)\n" +
+                "Unmute(MethodInfo original)\n" +
+                "Unmute(string location)\n" +
+                "Unmute(string typeName, string methodName)\n" +
+                "Unmute(Type type, string methodName)\n" +
                 "</color>" +
                 $"<color={ColorCode.replTitle}>More info here:</color> <color={ColorCode.url}>https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/blob/main/Downloads/DownloadPages/DebugHelper.md</color>";
             }
