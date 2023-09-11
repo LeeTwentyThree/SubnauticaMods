@@ -21,6 +21,7 @@ namespace DebugHelper.Systems
             var gameObject = Instantiate(Main.assetBundle.LoadAsset<GameObject>("DebugOverlayCanvas"));
             var component = gameObject.AddComponent<DebugOverlay>();
             component.rawImage = gameObject.GetComponentInChildren<RawImage>();
+            component.rawImage.raycastTarget = false;
         }
 
         private void Start()
