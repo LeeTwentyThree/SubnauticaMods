@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Reflection;
 using HarmonyLib;
 using BepInEx;
+using BepInEx.Logging;
 
 namespace DebugHelper
 {
@@ -15,11 +16,13 @@ namespace DebugHelper
         public static Config config;
         public static Assembly assembly = Assembly.GetExecutingAssembly();
         public static Harmony harmony;
+        public static ManualLogSource logger;
 
         internal static AssetBundle assetBundle;
 
         private void Awake()
         {
+            logger = Logger;
             config = OptionsPanelHandler.RegisterModOptions<Config>();
 
             ConsoleCommandsHandler.RegisterConsoleCommands(typeof(PrefabCommands));

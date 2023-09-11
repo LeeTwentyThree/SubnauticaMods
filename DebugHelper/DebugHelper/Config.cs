@@ -40,6 +40,10 @@ namespace DebugHelper
         public bool ShowClassIDs = false;
         [Toggle("Generate SpawnInfo", Tooltip = "Automatically runs the 'showspawninfo' command.")]
         public bool ShowSpawnInfo = false;
+        [Toggle("Print to console", Tooltip = "Logs Listen messages to console.")]
+        public bool PrintToConsole = false;
+        [Toggle("Print on-screen", Tooltip = "Displays Listen messages on-screen.")]
+        public bool PrintOnScreen = true;
 
         [Keybind("Interact with Debug Icons (1)", Tooltip = "Both of these binds must be activated at once to interact.")]
         public KeyCode InteractWithDebugIconKey1 = KeyCode.Mouse0;

@@ -5,6 +5,7 @@ using System.IO;
 using BepInEx.Bootstrap;
 using UnityEngine;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 /* Global namespace and short name to make it as accessible as possible
  * Class to help with the REPL console */
@@ -57,7 +58,16 @@ public static class DB
         {
             message += " (virtual)";
         }
-        ErrorMessage.AddMessage(message);
+        
+        if (DebugHelper.Main.config.PrintOnScreen)
+        {
+            ErrorMessage.AddMessage(message);
+        }
+
+        if (DebugHelper.Main.config.PrintToConsole)
+        {
+            DebugHelper.Main.logger.LogInfo(ColorCode.RemoveColor(message));
+        }
     }
 
     private static void EchoArgs(object[] __args, MethodBase __originalMethod)
@@ -78,12 +88,30 @@ public static class DB
                 }
             }
         }
-        ErrorMessage.AddMessage(message);
+        
+        if (DebugHelper.Main.config.PrintOnScreen)
+        {
+            ErrorMessage.AddMessage(message);
+        }
+
+        if (DebugHelper.Main.config.PrintToConsole)
+        {
+            DebugHelper.Main.logger.LogInfo(ColorCode.RemoveColor(message));
+        }
     }
 
     private static void EchoReturn(object __result, MethodBase __originalMethod)
     {
-        ErrorMessage.AddMessage($"{GetMethodNameText(__originalMethod)} <color={ColorCode.title}>returned:</color> {ColorCode.FormatValue(__result)}");
+        var message = $"{GetMethodNameText(__originalMethod)} <color={ColorCode.title}>returned:</color> {ColorCode.FormatValue(__result)}";
+        if (DebugHelper.Main.config.PrintOnScreen)
+        {
+            ErrorMessage.AddMessage(message);
+        }
+
+        if (DebugHelper.Main.config.PrintToConsole)
+        {
+            DebugHelper.Main.logger.LogInfo(ColorCode.RemoveColor(message));
+        }
     }
 
     private static bool False()
@@ -272,6 +300,30 @@ public static class DB
     }
     #endregion
 
+    #region Unmute
+
+    public static void Unmute(MethodInfo original) // Makes the original method run normally again
+    {
+        harmony.Unpatch(original, returnFalse);
+    }
+
+    public static void Unmute(string location)
+    {
+        harmony.Unpatch(Method(location), returnFalse);
+    }
+
+    public static void Unmute(string typeName, string methodName)
+    {
+        harmony.Unpatch(Method(typeName, methodName), returnFalse);
+    }
+
+    public static void Unmute(System.Type type, string methodName)
+    {
+        harmony.Unpatch(Method(type, methodName), returnFalse);
+    }
+
+    #endregion
+
     #region Method methods
 
     public static MethodInfo Method(string location) // fastest way to reference a method ("Creature.Start")
@@ -333,6 +385,10 @@ public static class DB
                 "Mute(string location)\n" +
                 "Mute(string typeName, string methodName)\n" +
                 "Mute(Type type, string methodName)\n" +
+                "Unmute(MethodInfo original)\n" +
+                "Unmute(string location)\n" +
+                "Unmute(string typeName, string methodName)\n" +
+                "Unmute(Type type, string methodName)\n" +
                 "</color>" +
                 $"<color={ColorCode.replTitle}>More info here:</color> <color={ColorCode.url}>https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/blob/main/Downloads/DownloadPages/DebugHelper.md</color>";
             }
@@ -352,6 +408,9 @@ public static class DB
         public static string keywords = "#569cd6";
         public static string url = "#569cd6";
         public static string codeSegment = "#cffaff";
+        
+        // Matches <color=[#,ANY]>
+        public static readonly Regex colorTagRegex = new Regex(@"<color=[A-Za-z0-9#]+>", RegexOptions.Compiled);
 
         public static string FormatType(string path)
         {
@@ -398,6 +457,13 @@ public static class DB
         {
             var split = arg.Split(' ');
             return $"<color={type}>{split[0]}</color> <color={white}>{split[1]}</color>";
+        }
+
+        public static string RemoveColor(string coloredValue)
+        {
+            var noEndingColorTag = coloredValue.Replace("</color>", "");
+            var noColorTag = colorTagRegex.Replace(noEndingColorTag, "");
+            return noColorTag;
         }
     }
 }
