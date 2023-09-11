@@ -17,7 +17,7 @@ internal static class CreaturePrefabManager
 
     public static void RegisterCreatures()
     {
-        Filtorb = new FiltorbPrefab(PrefabInfo.WithTechType("Filtorb", "Filtorb", "Small, filter feeding organism.").WithIcon(LoadIcon("Filtorb_Item")));
+        Filtorb = new FiltorbPrefab(PrefabInfo.WithTechType("Filtorb", "Filtorb", "Small, filter feeding organism.", unlockAtStart: false).WithIcon(LoadIcon("Filtorb_Item")));
         Filtorb.Register();
     }
 
