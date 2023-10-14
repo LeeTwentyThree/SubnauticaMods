@@ -27,7 +27,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				PropertyTypeVector4.SLIDER_WIDTH,
 				PropertyTypeVector4.SLIDER_HEIGHT
 			});
-			float.TryParse(GUILayout.TextField(vector2.x.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(vector2.x.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
 				PropertyTypeVector4.FIELD_WIDTH,
 				PropertyTypeVector4.FIELD_HEIGHT
@@ -37,7 +37,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				PropertyTypeVector4.SLIDER_WIDTH,
 				PropertyTypeVector4.SLIDER_HEIGHT
 			});
-			float.TryParse(GUILayout.TextField(vector2.y.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(vector2.y.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
 				PropertyTypeVector4.FIELD_WIDTH,
 				PropertyTypeVector4.FIELD_HEIGHT
@@ -47,7 +47,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				PropertyTypeVector4.SLIDER_WIDTH,
 				PropertyTypeVector4.SLIDER_HEIGHT
 			});
-			float.TryParse(GUILayout.TextField(vector2.z.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(vector2.z.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
 				PropertyTypeVector4.FIELD_WIDTH,
 				PropertyTypeVector4.FIELD_HEIGHT
@@ -57,7 +57,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				PropertyTypeVector4.SLIDER_WIDTH,
 				PropertyTypeVector4.SLIDER_HEIGHT
 			});
-			float.TryParse(GUILayout.TextField(vector2.w.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(vector2.w.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
 				PropertyTypeVector4.FIELD_WIDTH,
 				PropertyTypeVector4.FIELD_HEIGHT

@@ -39,10 +39,17 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 
         private bool pinnedMaterialPropertiesExpanded = true;
 
+        public static string FloatPropertyFormattingString { get; private set; }
+
         protected override void Initialize(InitSettings initSettings)
         {
             main = this;
             Title = DEFAULT_TITLE;
+            initSettings.RegisterSetting("Material Editor",
+                "Material editor decimal place accuracy",
+                2,
+                "The decimal place accuracy of float properties in the material editor.",
+                x => FloatPropertyFormattingString = $"F{x}");
         }
 
         public static void StartEditing(Material material)

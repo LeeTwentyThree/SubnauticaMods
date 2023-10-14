@@ -25,7 +25,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 			{
 				PropertyTypeFloat.SLIDER_WIDTH
 			});
-			float.TryParse(GUILayout.TextField(num.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(num.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
 				PropertyTypeFloat.FIELD_WIDTH
 			}), NumberStyles.Any, CultureInfo.InvariantCulture, out num);
