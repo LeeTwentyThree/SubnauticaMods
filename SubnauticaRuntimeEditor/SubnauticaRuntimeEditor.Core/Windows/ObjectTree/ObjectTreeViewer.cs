@@ -40,6 +40,8 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
         public event Action<Transform> TreeSelectionChanged;
 
         private bool openedBefore;
+        
+        public static string TransformFloatPropertyFormattingString { get; private set; }
 
         public void SelectAndShowObject(Transform target)
         {
@@ -62,6 +64,11 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
         {
             Title = "Object browser";
             _gameObjectSearcher = new RootGameObjectSearcher();
+            initSettings.RegisterSetting("Object Viewer",
+                "Transform vectors decimal place accuracy",
+                3,
+                "The decimal place accuracy of float properties in the transform component in the object tree viewer.",
+                x => TransformFloatPropertyFormattingString = $"F{x}");
         }
 
         public Transform SelectedTransform
@@ -285,11 +292,11 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
             {
                 GUILayout.Label(name, GUILayout.ExpandWidth(true), _drawVector3FieldHeight);
                 v3New.x = GUILayout.HorizontalSlider(v3.x, minVal, maxVal, _drawVector3SliderWidth, _drawVector3SliderHeight);
-                float.TryParse(GUILayout.TextField(v3New.x.ToString("F2", CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out v3New.x);
+                float.TryParse(GUILayout.TextField(v3New.x.ToString(TransformFloatPropertyFormattingString, CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out v3New.x);
                 v3New.y = GUILayout.HorizontalSlider(v3.y, minVal, maxVal, _drawVector3SliderWidth, _drawVector3SliderHeight);
-                float.TryParse(GUILayout.TextField(v3New.y.ToString("F2", CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out v3New.y);
+                float.TryParse(GUILayout.TextField(v3New.y.ToString(TransformFloatPropertyFormattingString, CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out v3New.y);
                 v3New.z = GUILayout.HorizontalSlider(v3.z, minVal, maxVal, _drawVector3SliderWidth, _drawVector3SliderHeight);
-                float.TryParse(GUILayout.TextField(v3New.z.ToString("F2", CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out v3New.z);
+                float.TryParse(GUILayout.TextField(v3New.z.ToString(TransformFloatPropertyFormattingString, CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out v3New.z);
             }
             GUILayout.EndHorizontal();
 
@@ -306,9 +313,9 @@ namespace SubnauticaRuntimeEditor.Core.ObjectTree
             {
                 GUILayout.Label(name, GUILayout.ExpandWidth(true), _drawVector3FieldHeight);
                 vector2New.x = GUILayout.HorizontalSlider(vector2.x, minVal, maxVal, _drawVector3SliderWidth, _drawVector3SliderHeight);
-                float.TryParse(GUILayout.TextField(vector2New.x.ToString("F2", CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out vector2New.x);
+                float.TryParse(GUILayout.TextField(vector2New.x.ToString("F6", CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out vector2New.x);
                 vector2New.y = GUILayout.HorizontalSlider(vector2.y, minVal, maxVal, _drawVector3SliderWidth, _drawVector3SliderHeight);
-                float.TryParse(GUILayout.TextField(vector2New.y.ToString("F2", CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out vector2New.y);
+                float.TryParse(GUILayout.TextField(vector2New.y.ToString("F6", CultureInfo.InvariantCulture), _drawVector3FieldWidth, _drawVector3FieldHeight), NumberStyles.Any, CultureInfo.InvariantCulture, out vector2New.y);
             }
             GUILayout.EndHorizontal();
 
