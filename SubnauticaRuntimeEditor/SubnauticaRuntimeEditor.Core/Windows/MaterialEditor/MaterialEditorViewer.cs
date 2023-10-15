@@ -47,7 +47,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             Title = DEFAULT_TITLE;
             initSettings.RegisterSetting("Material Editor",
                 "Material editor decimal place accuracy",
-                2,
+                4,
                 "The decimal place accuracy of float properties in the material editor.",
                 x => FloatPropertyFormattingString = $"F{x}");
         }
