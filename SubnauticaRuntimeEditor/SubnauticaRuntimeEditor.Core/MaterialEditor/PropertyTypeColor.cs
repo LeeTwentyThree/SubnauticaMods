@@ -34,7 +34,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
                 SLIDER_WIDTH,
                 SLIDER_HEIGHT
             });
-			float.TryParse(GUILayout.TextField(color2.r.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(color2.r.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
                 FIELD_WIDTH,
                 FIELD_HEIGHT
@@ -44,7 +44,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
                 SLIDER_WIDTH,
                 SLIDER_HEIGHT
             });
-			float.TryParse(GUILayout.TextField(color2.g.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(color2.g.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
                 FIELD_WIDTH,
                 FIELD_HEIGHT
@@ -54,7 +54,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
                 SLIDER_WIDTH,
                 SLIDER_HEIGHT
             });
-			float.TryParse(GUILayout.TextField(color2.b.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(color2.b.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
                 FIELD_WIDTH,
                 FIELD_HEIGHT
@@ -64,7 +64,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
                 SLIDER_WIDTH,
                 SLIDER_HEIGHT
             });
-			float.TryParse(GUILayout.TextField(color2.a.ToString("F2", CultureInfo.InvariantCulture), new GUILayoutOption[]
+			float.TryParse(GUILayout.TextField(color2.a.ToString(MaterialEditorViewer.FloatPropertyFormattingString, CultureInfo.InvariantCulture), new GUILayoutOption[]
 			{
                 FIELD_WIDTH,
                 FIELD_HEIGHT

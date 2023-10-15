@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="97bd9607-8466-41a3-a7a3-0b956fd1ec7b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/Plugin.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/PodshellLeviathan.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/PodshellLeviathan.sln" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/PodshellMaterialModifier.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/Prefabs/PodshellLeviathan.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Balance.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/GameDir.targets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Maps/HeightMap.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Maps/MapBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Maps/NormalMap.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MaterialModifiers/SteamMaterialModifier.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MaterialModifiers/TitanMaterialModifier.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mono/HeightmapEntity.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Mono/WallTitan.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Patches/WBOITPatches.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Patches/WaterTemperatureSimulationPatches.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Plugin.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Prefabs/WallTitanPrefab.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RumblingAudio.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RumblingCommands.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RumblingManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RumblingUtils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRumbling.csproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRumbling.sln" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2Vao8pY41LIWo3H87OQDK1g8JhF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\kevin\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\kevin\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\kevin\\AppData\\Local\\Symbols\\src&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="97bd9607-8466-41a3-a7a3-0b956fd1ec7b" name="Changes" comment="" />
+      <created>1695083399217</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695083399217</updated>
+      <workItem from="1695083400409" duration="2287000" />
+      <workItem from="1695160928364" duration="2303000" />
+      <workItem from="1695340240885" duration="1359000" />
+      <workItem from="1695432020478" duration="10298000" />
+      <workItem from="1695516721337" duration="8000" />
+      <workItem from="1695952824854" duration="1820000" />
+      <workItem from="1696118333425" duration="5024000" />
+      <workItem from="1696178552930" duration="10579000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
