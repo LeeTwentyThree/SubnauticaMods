@@ -24,7 +24,7 @@ You can access this repository's unorganized releases page [here](https://github
 
 Join the Subnautica Modding Discord server to discuss mods & receive support: https://discord.gg/UpWuWwq
 
-Contact me: `32Eel#3756`
+Contact me: `32eel`
 
 ### Mods from other developers 🔧
 
