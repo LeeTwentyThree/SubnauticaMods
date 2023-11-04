@@ -5,35 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97bd9607-8466-41a3-a7a3-0b956fd1ec7b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/Plugin.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/PodshellLeviathan.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/PodshellLeviathan.sln" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/PodshellMaterialModifier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../PodshellLeviathan/Prefabs/PodshellLeviathan.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Balance.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/GameDir.targets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Maps/HeightMap.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Maps/MapBase.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Maps/NormalMap.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MaterialModifiers/SteamMaterialModifier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/MaterialModifiers/TitanMaterialModifier.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mono/HeightmapEntity.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Mono/WallTitan.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Patches/WBOITPatches.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Patches/WaterTemperatureSimulationPatches.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Plugin.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Prefabs/WallTitanPrefab.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RumblingAudio.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RumblingCommands.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RumblingManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/RumblingUtils.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRumbling.csproj" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRumbling.sln" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRumbling/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRumbling/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/85d1d3e7744a4a47b5f51883bf40bba2bb400/4b/e49eb554/Light.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/68/32afaf9f/ParticleCuller.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -48,6 +29,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -90,6 +72,17 @@
       <workItem from="1695952824854" duration="1820000" />
       <workItem from="1696118333425" duration="5024000" />
       <workItem from="1696178552930" duration="10579000" />
+      <workItem from="1697750433286" duration="1832000" />
+      <workItem from="1698276517059" duration="596000" />
+      <workItem from="1698368624360" duration="4761000" />
+      <workItem from="1698428256697" duration="4509000" />
+      <workItem from="1698447063388" duration="593000" />
+      <workItem from="1698537053999" duration="935000" />
+      <workItem from="1698699426631" duration="2158000" />
+      <workItem from="1698800953654" duration="281000" />
+      <workItem from="1698869407218" duration="4718000" />
+      <workItem from="1698975937951" duration="4865000" />
+      <workItem from="1699024551599" duration="20061000" />
     </task>
     <servers />
   </component>
