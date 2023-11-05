@@ -25,9 +25,9 @@ public static class RumblingCommands
     }
     
     [ConsoleCommand("titanemote")]
-    public static void TitanEmote()
+    public static void TitanEmote(string emoteName = null)
     {
-        RumblingManager.EmoteAll();
+        RumblingManager.EmoteAll(emoteName);
     }
     
     [ConsoleCommand("debugheightmap")]

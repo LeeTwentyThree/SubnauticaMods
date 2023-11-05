@@ -123,6 +123,17 @@ internal class WallTitan : MonoBehaviour
         PlayStaticAnimation(random.Name, random.Duration);
     }
 
+    public void PlayEmoteByName(string trigger)
+    {
+        float dur = 3;
+        foreach (var emote in emotes)
+        {
+            if (emote.Name == trigger)
+                dur = emote.Duration;
+        }
+        StartCoroutine(StaticAnimCoroutine(trigger, dur));
+    }
+    
     public void PlayStaticAnimation(string trigger, float duration)
     {
         StartCoroutine(StaticAnimCoroutine(trigger, duration));

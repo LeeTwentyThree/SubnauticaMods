@@ -57,11 +57,14 @@ internal static class RumblingManager
         Object.Destroy(_foundingTitan);
     }
 
-    public static void EmoteAll()
+    public static void EmoteAll(string emoteName)
     {
         foreach (var titan in _wallTitans)
         {
-            titan.PlayRandomEmote();
+            if (string.IsNullOrEmpty(emoteName))
+                titan.PlayRandomEmote();
+            else
+                titan.PlayEmoteByName(emoteName);
         }
     }
 
