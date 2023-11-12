@@ -16,7 +16,7 @@ internal class JellySpinnerPrefab : CreatureAsset
     protected override CreatureTemplate CreateTemplate()
     {
         var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("JellySpinner_Prefab"),
-            BehaviourType.SmallFish, EcoTargetType.SmallFish, 30)
+            BehaviourType.SmallFish, EcoTargetType.SmallFish, 5)
         {
             SwimRandomData = new SwimRandomData(0.1f, 2f, new Vector3(10, 10, 10), 6f, 1f),
             AvoidObstaclesData = new AvoidObstaclesData(0.3f, 2f, false, 3f, 4f),
