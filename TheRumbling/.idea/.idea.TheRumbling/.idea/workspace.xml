@@ -5,17 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97bd9607-8466-41a3-a7a3-0b956fd1ec7b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/FogManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/FogSettings.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/GameDir.targets" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/AlignWithCamera.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/CustomWeatherManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Patches/SpawnWeatherManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherCommands.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvent.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/LightRain.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/ThunderStorm.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/CloudUtils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/DisableWhenCameraUnderwater.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/LightningSpawner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Patches/DaylightOverrider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Patches/RemoveIslandClouds.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/ClearSkies.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/Foggy.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherMaterialUtils.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRumbling/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRumbling/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/FogSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/FogSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/AlignWithCamera.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/AlignWithCamera.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/CustomWeatherManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Mono/CustomWeatherManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Patches/SpawnWeatherManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/Patches/SpawnWeatherManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherCommands.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherCommands.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/LightRain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/LightRain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/ThunderStorm.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../WeatherMod/WeatherMod/WeatherEvents/Thunderstorm.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,6 +100,7 @@
       <workItem from="1698975937951" duration="4865000" />
       <workItem from="1699024551599" duration="20061000" />
       <workItem from="1700600769161" duration="821000" />
+      <workItem from="1700628406997" duration="740000" />
     </task>
     <servers />
   </component>

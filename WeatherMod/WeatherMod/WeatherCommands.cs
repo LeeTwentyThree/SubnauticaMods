@@ -19,21 +19,21 @@ public static class WeatherCommands
     [ConsoleCommand("pauseweather")]
     public static void PauseWeather()
     {
-        ErrorMessage.AddMessage(!CustomWeatherManager.main.enabled ? "The weather was already paused" : "Paused the weather");
-        CustomWeatherManager.main.enabled = false;
+        ErrorMessage.AddMessage(!CustomWeatherManager.Main.enabled ? "The weather was already paused" : "Paused the weather");
+        CustomWeatherManager.Main.enabled = false;
     }
     
     [ConsoleCommand("unpauseweather")]
     public static void UnpauseWeather()
     {
-        ErrorMessage.AddMessage(CustomWeatherManager.main.enabled ? "The weather was already unpaused" : "Unpaused the weather");
-        CustomWeatherManager.main.enabled = true;
+        ErrorMessage.AddMessage(CustomWeatherManager.Main.enabled ? "The weather was already unpaused" : "Unpaused the weather");
+        CustomWeatherManager.Main.enabled = true;
     }
     
     [ConsoleCommand("setweather")]
     public static void SetWeather(string eventName = "")
     {
-        var weatherManager = CustomWeatherManager.main;
+        var weatherManager = CustomWeatherManager.Main;
 
         if (weatherManager == null)
         {
@@ -56,6 +56,7 @@ public static class WeatherCommands
         if (targetEvent != null)
         {
             weatherManager.SetWeather(targetEvent);
+            ErrorMessage.AddMessage($"Setting weather to: {targetEvent.GetType().Name}");
         }
         else
         {
@@ -65,5 +66,19 @@ public static class WeatherCommands
                 ErrorMessage.AddMessage(evt.GetType().Name.ToLower());
             }
         }
+    }
+
+    [ConsoleCommand("printweather")]
+    public static void PrintWeather()
+    {
+        var weatherManager = CustomWeatherManager.Main;
+
+        if (weatherManager == null)
+        {
+            ErrorMessage.AddMessage("No weather manager found in scene!");
+            return;
+        }
+        
+        ErrorMessage.AddMessage($"Current weather: {weatherManager.CurrentEvent.GetType()}");
     }
 }

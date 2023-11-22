@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using WeatherMod.WeatherEvents;
 using Random = UnityEngine.Random;
 
@@ -6,20 +7,23 @@ namespace WeatherMod.Mono;
 
 public class CustomWeatherManager : MonoBehaviour
 {
-    public static CustomWeatherManager main;
+    public static CustomWeatherManager Main;
     
     private float _weatherSeed;
     private float _timeNextWeatherChange;
 
-    private WeatherEvent _currentEvent;
+    public WeatherEvent CurrentEvent { get; private set; }
 
-    public static readonly WeatherEvent[] WeatherEvents = {
-        new LightRain()
+    public static readonly List<WeatherEvent> WeatherEvents = new() {
+        new ClearSkies(),
+        new LightRain(),
+        new Thunderstorm(),
+        new Foggy()
     };
     
     private void Awake()
     {
-        main = this;
+        Main = this;
         
         _weatherSeed = Random.value * 9999;
         SetWeather(GetRandomWeatherEvent());
@@ -27,21 +31,23 @@ public class CustomWeatherManager : MonoBehaviour
 
     public void SetWeather(WeatherEvent newEvent)
     {
-        if (_currentEvent == newEvent)
+        if (CurrentEvent == newEvent)
         {
             return;
         }
         
-        _currentEvent?.EndEvent();
+        CurrentEvent?.EndEvent();
 
         newEvent.BeginEvent();
+
+        CurrentEvent = newEvent;
         
         _timeNextWeatherChange = Time.time + Random.Range(newEvent.MinDuration, newEvent.MaxDuration);
     }
-
+    
     private WeatherEvent GetRandomWeatherEvent()
     {
-        return WeatherEvents[Random.Range(0, WeatherEvents.Length)];
+        return WeatherEvents[Random.Range(0, WeatherEvents.Count)];
     }
 
     private void Update()

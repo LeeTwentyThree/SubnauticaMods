@@ -11,6 +11,8 @@ public abstract class WeatherEvent
     protected abstract FogSettings Fog { get; } 
     public abstract float MinDuration { get; }
     public abstract float MaxDuration { get; }
+    public abstract float AboveWaterSunlightScale { get; }
+    public abstract float BelowWaterSunlightScale { get; }
 
     internal void BeginEvent()
     {
@@ -27,6 +29,13 @@ public abstract class WeatherEvent
     internal void EndEvent()
     {
         OnEventEnd(_effectInstance);
+        if (_effectInstance != null)
+        {
+            foreach (var ps in _effectInstance.GetComponentsInChildren<ParticleSystem>())
+            {
+                ps.Stop();
+            }
+        }
         Object.Destroy(_effectInstance, DestroyDelay);
     }
 

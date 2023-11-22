@@ -11,7 +11,11 @@ public class FogSettings
     public Color Color3 { get; set; } = new Color(0.2196078f, 0.5058824f, 1f);
     public Color Color4 { get; set; } = new Color(0.003921569f, 0.007843138f, 0.01568628f, 1f);
     public float WaterBrightness { get; set; } = 1f;
-    
+
+    public FogSettings()
+    {
+    }
+
     public FogSettings(float fogDensity, Color mainFogColor, float waterBrightness = 1f)
     {
         FogDensity = fogDensity;
