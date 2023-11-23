@@ -11,8 +11,7 @@ public abstract class WeatherEvent
     protected abstract FogSettings Fog { get; } 
     public abstract float MinDuration { get; }
     public abstract float MaxDuration { get; }
-    public abstract float AboveWaterSunlightScale { get; }
-    public abstract float BelowWaterSunlightScale { get; }
+    public abstract ModSound AmbientSound { get; }
 
     internal void BeginEvent()
     {

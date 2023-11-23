@@ -10,7 +10,7 @@ namespace WeatherMod;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
-public class Plugin : BaseUnityPlugin
+internal class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
 
@@ -30,5 +30,7 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         
         ConsoleCommandsHandler.RegisterConsoleCommands(typeof(WeatherCommands));
+        
+        WeatherAudio.RegisterAll();
     }
 }

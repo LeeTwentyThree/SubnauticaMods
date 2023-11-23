@@ -8,10 +8,9 @@ namespace WeatherMod;
 public static class WeatherCommands
 {
     [ConsoleCommand("setfog")]
-    public static void SetFog(float r, float g, float b, float density = 0.002f, float waterBrightness = 1f)
+    public static void SetFog(float r, float g, float b, float density = 0.002f, float waterBrightness = 1f, float sunlightBrightnessAboveWater = 1f, float sunlightBrightnessBelowWater = 1f)
     {
-        var fogSettings = new FogSettings(density, new Color(r, g, b));
-        fogSettings.WaterBrightness = waterBrightness;
+        var fogSettings = new FogSettings(density, new Color(r, g, b), waterBrightness, sunlightBrightnessAboveWater, sunlightBrightnessBelowWater);
         FogManager.ChangeCurrentFog(fogSettings);
         ErrorMessage.AddMessage("Updated the fog");
     }
@@ -80,5 +79,35 @@ public static class WeatherCommands
         }
         
         ErrorMessage.AddMessage($"Current weather: {weatherManager.CurrentEvent.GetType()}");
+    }
+    
+    [ConsoleCommand("setwavelengths")]
+    public static void SetWavelengths(float r, float g, float b)
+    {
+        var skyManager = uSkyManager.main;
+
+        if (skyManager == null)
+        {
+            ErrorMessage.AddMessage("No uSkyManager found in scene!");
+            return;
+        }
+
+        uSkyManager.main.Wavelengths = new Vector3(r, g, b);
+    }
+    
+    [ConsoleCommand("setplanetdistance")]
+    public static void SetPlanetDistance(float distance)
+    {
+        var skyManager = uSkyManager.main;
+
+        if (skyManager == null)
+        {
+            ErrorMessage.AddMessage("No uSkyManager found in scene!");
+            return;
+        }
+
+        ErrorMessage.AddMessage($"Changing planet distance from {skyManager.planetDistance} to {distance}!");
+
+        uSkyManager.main.planetDistance = distance;
     }
 }

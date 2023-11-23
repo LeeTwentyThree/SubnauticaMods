@@ -12,13 +12,25 @@ public class CustomWeatherManager : MonoBehaviour
     private float _weatherSeed;
     private float _timeNextWeatherChange;
 
+    private LoopingAudioPlayer _audioPlayer;
+
     public WeatherEvent CurrentEvent { get; private set; }
 
-    public static readonly List<WeatherEvent> WeatherEvents = new() {
+    internal static readonly List<WeatherEvent> ActiveWeatherEvents = new() {
         new ClearSkies(),
         new LightRain(),
         new Thunderstorm(),
-        new Foggy()
+        new Foggy(),
+        new Windy()
+    };
+    
+    internal static readonly List<WeatherEvent> WeatherEvents = new() {
+        new ClearSkies(),
+        new LightRain(),
+        new Thunderstorm(),
+        new GoldenThunderstorm(),
+        new Foggy(),
+        new Windy()
     };
     
     private void Awake()
@@ -26,12 +38,15 @@ public class CustomWeatherManager : MonoBehaviour
         Main = this;
         
         _weatherSeed = Random.value * 9999;
+
+        _audioPlayer = gameObject.EnsureComponent<LoopingAudioPlayer>();
+        
         SetWeather(GetRandomWeatherEvent());
     }
 
     public void SetWeather(WeatherEvent newEvent)
     {
-        if (CurrentEvent == newEvent)
+        if (CurrentEvent != null && CurrentEvent.GetType() == newEvent.GetType())
         {
             return;
         }
@@ -42,12 +57,14 @@ public class CustomWeatherManager : MonoBehaviour
 
         CurrentEvent = newEvent;
         
+        _audioPlayer.BeginPlayLoopingSound(newEvent.AmbientSound);
+        
         _timeNextWeatherChange = Time.time + Random.Range(newEvent.MinDuration, newEvent.MaxDuration);
     }
     
     private WeatherEvent GetRandomWeatherEvent()
     {
-        return WeatherEvents[Random.Range(0, WeatherEvents.Count)];
+        return ActiveWeatherEvents[Random.Range(0, ActiveWeatherEvents.Count)];
     }
 
     private void Update()

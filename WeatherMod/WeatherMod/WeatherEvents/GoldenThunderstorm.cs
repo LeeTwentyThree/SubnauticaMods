@@ -3,14 +3,14 @@ using WeatherMod.Mono;
 
 namespace WeatherMod.WeatherEvents;
 
-public class Thunderstorm : WeatherEvent
+public class GoldenThunderstorm : WeatherEvent
 {
-    protected override GameObject EffectPrefab { get; } = Plugin.AssetBundle.LoadAsset<GameObject>("Weather_Thunderstorm");
+    protected override GameObject EffectPrefab { get; } = Plugin.AssetBundle.LoadAsset<GameObject>("Weather_Freddy");
     protected override float DestroyDelay { get; } = 18;
-    protected override FogSettings Fog { get; } = new FogSettings(0.002f, new Color(0.1f, 0.1f, 0.1f), 0.2f, 1f, 0.2f);
+    protected override FogSettings Fog { get; } = new FogSettings(0.002f, new Color(0.4f, 0.4f, 0.1f), 0.2f, 1f, 0.5f);
     public override float MinDuration { get; } = 120;
     public override float MaxDuration { get; } = 160;
-    public override ModSound AmbientSound { get; } = WeatherAudio.ThunderstormLoop;
+    public override ModSound AmbientSound { get; } = WeatherAudio.GoldenThunderstormLoop;
 
     protected override void OnEventBegin(GameObject effectPrefab)
     {
@@ -22,13 +22,13 @@ public class Thunderstorm : WeatherEvent
         var smokeClouds = CloudUtils.GetStormCloudEffect();
         
         smokeClouds.transform.parent = effectPrefab.transform;
-        smokeClouds.transform.localPosition = Vector3.up * 400;
+        smokeClouds.transform.localPosition = Vector3.up * 300;
         
         smokeClouds.gameObject.SetActive(true);
         
         effectPrefab.AddComponent<AlignWithCamera>();
-        effectPrefab.AddComponent<LightningSpawner>();
-        effectPrefab.AddComponent<LightningSpawner>();
+        effectPrefab.AddComponent<LightningSpawner>().useAltModel = true;
+        effectPrefab.AddComponent<LightningSpawner>().useAltModel = true;
         effectPrefab.AddComponent<DisableWhenCameraUnderwater>();
     }
 

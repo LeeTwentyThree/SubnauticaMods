@@ -24,7 +24,8 @@ public static class CloudUtils
         main.startSpeedMultiplier = 0;
         main.startSizeMultiplier = 500;
         main.simulationSpace = ParticleSystemSimulationSpace.World;
-        main.maxParticles = 500;
+        main.maxParticles = 750;
+        main.prewarm = false;
         var velocity = ps.velocityOverLifetime;
         velocity.xMultiplier = 15;
         velocity.yMultiplier = 0;
@@ -32,10 +33,13 @@ public static class CloudUtils
         emission.rateOverTimeMultiplier = 200;
         var shape = ps.shape;
         shape.shapeType = ParticleSystemShapeType.Circle;
-        shape.radius = 1200;
+        shape.radius = 1600;
         shape.rotation = Vector3.left * 90;
         var anim = ps.textureSheetAnimation;
         anim.frameOverTimeMultiplier = 1f;
+
+        var renderer = _stormCloudPrefab.GetComponent<ParticleSystemRenderer>();
+        renderer.sortingFudge = 0;
         
         _stormCloudPrefab.transform.localEulerAngles = Vector3.zero;
 

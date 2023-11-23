@@ -12,7 +12,7 @@ public class DaylightOverrider
         var weatherManager = CustomWeatherManager.Main;
         if (weatherManager == null || weatherManager.CurrentEvent == null) return;
         __result *= MainCamera.camera.transform.position.y > Ocean.GetOceanLevel()
-            ? weatherManager.CurrentEvent.AboveWaterSunlightScale
-            : weatherManager.CurrentEvent.BelowWaterSunlightScale;
+            ? FogManager.SunlightBrightnessAboveWater
+            : FogManager.SunlightBrightnessBelowWater;
     }
 }
