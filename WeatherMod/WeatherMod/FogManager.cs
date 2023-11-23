@@ -80,12 +80,15 @@ public static class FogManager
     
     internal static void Update()
     {
-        var lerpT = Mathf.Clamp01((Time.time - _timeLastTransitionBegun) / _currentTransitionDuration);
+        if (Time.time > _timeLastTransitionBegun + _currentTransitionDuration + 1.1987f)
+            return;
 
+        var lerpT = Mathf.Clamp01((Time.time - _timeLastTransitionBegun) / _currentTransitionDuration);
+        
         var skyManager = uSkyManager.main;
 
         skyManager.skyFogDensity = Mathf.Lerp(_lastFogDensity, _newFogDensity, lerpT);
-        // skyManager.skyFogColor = newFogSettings.GetColorGradient();
+        
         _skyFogColorGradient.colorKeys = new[]
         {
             new GradientColorKey(Color.Lerp(_lastGradientColors[0], _newGradientColors[0], lerpT), 0.2558785f),

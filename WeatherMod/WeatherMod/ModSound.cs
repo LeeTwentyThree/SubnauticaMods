@@ -23,9 +23,9 @@ public class ModSound
     
     public ModSound(string clipNameAndId, float duration = -1f) : this(Plugin.AssetBundle.LoadAsset<AudioClip>(clipNameAndId), clipNameAndId, duration) { }
 
-    public void Register(string bus, float minDistance = 1f, float maxDistance = 100f)
+    public void Register(string bus, bool is3D, float minDistance = 1f, float maxDistance = 100f)
     {
-        var sound = AudioUtils.CreateSound(Clip, AudioUtils.StandardSoundModes_3D);
+        var sound = AudioUtils.CreateSound(Clip, is3D ? AudioUtils.StandardSoundModes_3D : AudioUtils.StandardSoundModes_2D);
         if (maxDistance > 0f)
         {
             sound.set3DMinMaxDistance(minDistance, maxDistance);
