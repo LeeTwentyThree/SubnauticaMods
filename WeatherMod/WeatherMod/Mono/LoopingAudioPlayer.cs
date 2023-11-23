@@ -21,6 +21,7 @@ public class LoopingAudioPlayer : MonoBehaviour
         if (_emitter.playing) _emitter.Stop();
         if (sound == null)
         {
+            _currentSound = null;
             return;
         }
         _secondsUntilOver = sound.Duration;
@@ -43,6 +44,7 @@ public class LoopingAudioPlayer : MonoBehaviour
 
         if (_secondsUntilOver <= 0f)
         {
+            if (_emitter.playing) _emitter.Stop();
             _emitter.Play();
             _secondsUntilOver = _currentSound.Duration;
         }
