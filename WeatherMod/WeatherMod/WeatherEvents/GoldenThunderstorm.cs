@@ -10,7 +10,7 @@ public class GoldenThunderstorm : WeatherEvent
     protected override FogSettings Fog { get; } = new FogSettings(0.002f, new Color(0.4f, 0.4f, 0.1f), 0.2f, 1f, 0.5f);
     public override float MinDuration { get; } = 105.87f;
     public override float MaxDuration { get; } = 105.87f;
-    public override ModSound AmbientSound { get; } = WeatherAudio.GoldenThunderstormLoop;
+    public override WeatherEventAudio AmbientSound { get; } = new WeatherEventAudio(WeatherAudio.GoldenThunderstormLoop, WeatherAudio.GoldenThunderstormLoop, WeatherAudio.GoldenThunderstormLoop);
 
     protected override void OnEventBegin(GameObject effectPrefab)
     {

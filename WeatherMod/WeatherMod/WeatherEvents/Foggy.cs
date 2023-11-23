@@ -10,7 +10,7 @@ public class Foggy : WeatherEvent
     protected override FogSettings Fog { get; } = new FogSettings(0.03f, new Color(0.2f, 0.2f, 0.2f), 0.2f, 1f, 0.6f);
     public override float MinDuration { get; } = 40;
     public override float MaxDuration { get; } = 65;
-    public override ModSound AmbientSound { get; } = WeatherAudio.WindyLoop;
+    public override WeatherEventAudio AmbientSound { get; } = new WeatherEventAudio(WeatherAudio.WindyLoop, WeatherAudio.WindyLoopInside, null);
 
     protected override void OnEventBegin(GameObject effectPrefab) { }
 

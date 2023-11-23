@@ -11,7 +11,7 @@ public abstract class WeatherEvent
     protected abstract FogSettings Fog { get; } 
     public abstract float MinDuration { get; }
     public abstract float MaxDuration { get; }
-    public abstract ModSound AmbientSound { get; }
+    public abstract WeatherEventAudio AmbientSound { get; }
 
     internal void BeginEvent()
     {

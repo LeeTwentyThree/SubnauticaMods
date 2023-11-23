@@ -5,6 +5,7 @@ namespace WeatherMod;
 public static class WeatherAudio
 {
     private const string KSurfaceWeatherBuses = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures surface";
+    private const string KInsideWeatherBuses = "bus:/master/SFX_for_pause/PDA_pause/all/indoorsounds";
     
     public static readonly ModSound[] ThunderSoundsNear = new[]
     {
@@ -21,8 +22,11 @@ public static class WeatherAudio
     };
 
     public static ModSound ThunderstormLoop { get; } = new ModSound("ThunderstormLoop3", "ThunderstormLoop");
+    public static ModSound ThunderstormLoopInside { get; } = new ModSound("ThunderstormLoop3", "ThunderstormLoopInside");
     public static ModSound WindyLoop { get; } = new ModSound("WindLoop_Heavy");
+    public static ModSound WindyLoopInside { get; } = new ModSound("WindLoop", "WindLoopInside");
     public static ModSound LightRainLoop { get; } = new ModSound("LightRainLoop2", "LightRainLoop");
+    public static ModSound LightRainInsideLoop { get; } = new ModSound("LightRainLoop_Covered", "LightRainLoopInside");
     public static ModSound GoldenThunderstormLoop { get; } = new ModSound("GoldenThunderstormLoop");
     
     public static void RegisterAll()
@@ -31,8 +35,11 @@ public static class WeatherAudio
         ThunderSoundsFar.ForEach(s => s.Register(AudioUtils.BusPaths.SurfaceAmbient, true, 40, 1000));
         
         ThunderstormLoop.Register(KSurfaceWeatherBuses, false, -1f, -1f);
+        ThunderstormLoopInside.Register(KInsideWeatherBuses, false, -1f, -1f);
         WindyLoop.Register(KSurfaceWeatherBuses, false, -1f, -1f);
+        WindyLoopInside.Register(KInsideWeatherBuses, false, -1f, -1f);
         LightRainLoop.Register(KSurfaceWeatherBuses, false, -1f, -1f);
-        GoldenThunderstormLoop.Register(AudioUtils.BusPaths.PlayerSFXs, false, -1f, -1f);
+        LightRainInsideLoop.Register(KInsideWeatherBuses, false, -1f, -1f);
+        GoldenThunderstormLoop.Register(KSurfaceWeatherBuses, false, -1f, -1f);
     }
 }

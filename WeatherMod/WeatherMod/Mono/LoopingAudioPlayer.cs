@@ -24,6 +24,12 @@ public class LoopingAudioPlayer : MonoBehaviour
             _currentSound = null;
             return;
         }
+
+        if (sound == _currentSound)
+        {
+            return;
+        }
+        
         _secondsUntilOver = sound.Duration;
         _emitter.SetAsset(sound.Asset);
         _emitter.Play();

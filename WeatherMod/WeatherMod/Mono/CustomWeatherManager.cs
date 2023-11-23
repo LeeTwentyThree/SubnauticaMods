@@ -12,7 +12,7 @@ public class CustomWeatherManager : MonoBehaviour
     private float _weatherSeed;
     private float _timeNextWeatherChange;
 
-    private LoopingAudioPlayer _audioPlayer;
+    private WeatherSoundUpdater _soundUpdater;
 
     public WeatherEvent CurrentEvent { get; private set; }
 
@@ -39,7 +39,7 @@ public class CustomWeatherManager : MonoBehaviour
         
         _weatherSeed = Random.value * 9999;
 
-        _audioPlayer = gameObject.EnsureComponent<LoopingAudioPlayer>();
+        _soundUpdater = gameObject.EnsureComponent<WeatherSoundUpdater>();
         
         SetWeather(GetRandomWeatherEvent());
     }
@@ -57,7 +57,7 @@ public class CustomWeatherManager : MonoBehaviour
 
         CurrentEvent = newEvent;
         
-        _audioPlayer.BeginPlayLoopingSound(newEvent.AmbientSound);
+        _soundUpdater.SetActiveAudio(newEvent.AmbientSound);
         
         _timeNextWeatherChange = Time.time + Random.Range(newEvent.MinDuration, newEvent.MaxDuration);
     }

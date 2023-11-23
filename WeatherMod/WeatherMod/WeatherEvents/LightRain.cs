@@ -10,7 +10,7 @@ public class LightRain : WeatherEvent
     protected override FogSettings Fog { get; } = new FogSettings(0.0014f, new Color(0.18f, 0.26f, 0.45f), 0.5f, 1f, 0.7f);
     public override float MinDuration { get; } = 60;
     public override float MaxDuration { get; } = 120;
-    public override ModSound AmbientSound { get; } = WeatherAudio.LightRainLoop;
+    public override WeatherEventAudio AmbientSound { get; } = new WeatherEventAudio(WeatherAudio.LightRainLoop, WeatherAudio.LightRainInsideLoop, null);
 
     protected override void OnEventBegin(GameObject effectPrefab)
     {
