@@ -110,4 +110,22 @@ public static class WeatherCommands
 
         uSkyManager.main.planetDistance = distance;
     }
+    
+    [ConsoleCommand("setwatercolor")]
+    public static void SetWaterColor(float reflectR, float reflectG, float reflectB, float refractR, float refractG, float refractB)
+    {
+        var waterSurface = WaterSurface._instance;
+
+        if (waterSurface == null)
+        {
+            ErrorMessage.AddMessage("No WaterSurface instance found in scene!");
+            return;
+        }
+
+        WaterSurface._instance.surfaceMaterial.SetColor(ShaderPropertyID._ReflectionColor,
+            new Color(reflectR, reflectG, reflectB));
+        WaterSurface._instance.surfaceMaterial.SetColor(ShaderPropertyID._RefractionColor,
+            new Color(refractR, refractG, refractB));
+
+    }
 }
