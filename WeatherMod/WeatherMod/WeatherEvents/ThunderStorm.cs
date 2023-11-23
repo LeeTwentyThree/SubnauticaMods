@@ -30,6 +30,9 @@ public class Thunderstorm : WeatherEvent
         effectPrefab.AddComponent<LightningSpawner>();
         effectPrefab.AddComponent<LightningSpawner>();
         effectPrefab.AddComponent<DisableWhenCameraUnderwater>();
+        
+        effectPrefab.AddComponent<WaterSplashVfxController>().affectedTransform =
+            effectPrefab.transform.Find("WaterSplashes");
     }
 
     protected override void OnEventEnd(GameObject effectPrefab)

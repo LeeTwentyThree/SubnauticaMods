@@ -18,14 +18,15 @@ public static class WeatherAudio
     {
         new ModSound("ThunderFar_1"),
         new ModSound("ThunderFar_2"),
-        new ModSound("ThunderFar_3")
+        new ModSound("ThunderFar_3"),
+        new ModSound("ThunderFar_4")
     };
 
-    public static ModSound ThunderstormLoop { get; } = new ModSound("ThunderstormLoop3", "ThunderstormLoop");
+    public static ModSound ThunderstormLoop { get; } = new ModSound("ThunderstormLoop4", "ThunderstormLoopOutdoors");
     public static ModSound ThunderstormLoopInside { get; } = new ModSound("ThunderstormLoop3", "ThunderstormLoopInside");
-    public static ModSound WindyLoop { get; } = new ModSound("WindLoop_Heavy");
-    public static ModSound WindyLoopInside { get; } = new ModSound("WindLoop", "WindLoopInside");
-    public static ModSound LightRainLoop { get; } = new ModSound("LightRainLoop2", "LightRainLoop");
+    public static ModSound WindyLoop { get; } = new ModSound("WindLoop_Heavy", "WindLoopOutdoors");
+    public static ModSound WindyLoopInside { get; } = new ModSound("WindLoop_Heavy", "WindLoopInside");
+    public static ModSound LightRainLoop { get; } = new ModSound("LightRainLoop2", "LightRainLoopOutdoors");
     public static ModSound LightRainInsideLoop { get; } = new ModSound("LightRainLoop_Covered", "LightRainLoopInside");
     public static ModSound GoldenThunderstormLoop { get; } = new ModSound("GoldenThunderstormLoop");
     

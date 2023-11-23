@@ -21,6 +21,9 @@ public class LightRain : WeatherEvent
         }
 
         effectPrefab.AddComponent<DisableWhenCameraUnderwater>();
+        
+        effectPrefab.AddComponent<WaterSplashVfxController>().affectedTransform =
+            effectPrefab.transform.Find("WaterSplashes");
     }
 
     protected override void OnEventEnd(GameObject effectPrefab)

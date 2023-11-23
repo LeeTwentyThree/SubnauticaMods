@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Nautilus.Utility;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -7,8 +8,8 @@ namespace WeatherMod.Mono;
 
 public class LightningSpawner : MonoBehaviour
 {
-    private const float MinInterval = 1f;
-    private const float MaxInterval = 6f;
+    private const float MinInterval = 4f;
+    private const float MaxInterval = 10f;
     private const float MinDistanceFromCamera = 20f;
     private const float MaxDistanceFromCamera = 400f;
     private const float SpawnHeightMin = 140;
@@ -16,6 +17,9 @@ public class LightningSpawner : MonoBehaviour
     private const float SpawnHeightAbsMax = 240;
 
     private float _timeSpawnLightningAgain;
+
+    private static AnimationCurve _lightningShakeStrengthCurve =
+        new AnimationCurve(new Keyframe(0f, 1f), new Keyframe(1f, 0.1f));
 
     public bool useAltModel;
 
@@ -55,6 +59,9 @@ public class LightningSpawner : MonoBehaviour
         var lightning =
             Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>(altModel ? "VFX_FreddyLightning" : "VFX_Lightning"));
 
+        if (!altModel)
+            lightning.AddComponent<RandomLightningModel>();
+
         lightning.transform.position = lightningSpawnPosition;
 
         foreach (var r in lightning.GetComponentsInChildren<Renderer>())
@@ -63,12 +70,27 @@ public class LightningSpawner : MonoBehaviour
             m.shader = MaterialUtils.Shaders.ParticlesUBER;
         }
 
-        /* Utils.PlayFMODAsset(Vector3.Distance(MainCamera.camera.transform.position, position) < 80
-            ? WeatherAudio.ThunderSoundsNear.GetRandomUnity().Asset
-            : WeatherAudio.ThunderSoundsFar.GetRandomUnity().Asset,
-            position);
-            */
-
+        UWE.CoroutineHost.StartCoroutine(PlayThunderCoroutine(position));
+        
         Destroy(lightning, 5f);
     }
+
+    private static IEnumerator PlayThunderCoroutine(Vector3 soundPosition)
+    {
+        var dist = Vector3.Distance(MainCamera.camera.transform.position, soundPosition);
+
+        var delay = Mathf.Clamp(dist / 346f, 0f, 5f);
+
+        yield return delay;
+        
+        Utils.PlayFMODAsset(Vector3.Distance(MainCamera.camera.transform.position, soundPosition) < 80
+                ? WeatherAudio.ThunderSoundsNear.GetRandomUnity().Asset
+                : WeatherAudio.ThunderSoundsFar.GetRandomUnity().Asset,
+            soundPosition);
+
+        var baseShakeStrength = _lightningShakeStrengthCurve.Evaluate(Mathf.Clamp01(dist / 1000));
+        
+        if (MainCamera.camera.transform.position.y > Ocean.GetOceanLevel() - 25)
+            MainCameraControl.main.ShakeCamera(baseShakeStrength + Random.Range(-0.1f, 0.1f), Random.Range(1f, 1.3f));
+    } 
 }

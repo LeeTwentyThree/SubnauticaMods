@@ -30,6 +30,9 @@ public class GoldenThunderstorm : WeatherEvent
         effectPrefab.AddComponent<LightningSpawner>().useAltModel = true;
         effectPrefab.AddComponent<LightningSpawner>().useAltModel = true;
         effectPrefab.AddComponent<DisableWhenCameraUnderwater>();
+
+        effectPrefab.AddComponent<WaterSplashVfxController>().affectedTransform =
+            effectPrefab.transform.Find("WaterSplashes");
     }
 
     protected override void OnEventEnd(GameObject effectPrefab)

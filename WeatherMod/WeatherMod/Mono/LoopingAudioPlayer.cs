@@ -18,7 +18,7 @@ public class LoopingAudioPlayer : MonoBehaviour
 
     public void BeginPlayLoopingSound(ModSound sound)
     {
-        if (_emitter.playing) _emitter.Stop();
+        if (_emitter.playing && sound != _currentSound) _emitter.Stop();
         if (sound == null)
         {
             _currentSound = null;
