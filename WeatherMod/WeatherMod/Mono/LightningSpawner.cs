@@ -82,7 +82,7 @@ public class LightningSpawner : MonoBehaviour
     {
         var dist = Vector3.Distance(MainCamera.camera.transform.position, soundPosition);
 
-        var delay = Mathf.Clamp(dist * 2f / 346f, 0f, 5f);
+        var delay = Mathf.Clamp(dist / 346f, 0f, 5f);
 
         yield return delay;
         
