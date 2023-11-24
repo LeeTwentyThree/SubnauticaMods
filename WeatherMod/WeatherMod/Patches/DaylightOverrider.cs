@@ -1,8 +1,10 @@
 ﻿using HarmonyLib;
+using UnityEngine;
 using WeatherMod.Mono;
 
 namespace WeatherMod.Patches;
 
+/*
 [HarmonyPatch(typeof(DayNightCycle)), HarmonyPatch(nameof(DayNightCycle.GetDayScalar))]
 public class DaylightOverrider
 {
@@ -15,4 +17,4 @@ public class DaylightOverrider
             ? FogManager.SunlightBrightnessAboveWater
             : FogManager.SunlightBrightnessBelowWater;
     }
-}
+}*/
