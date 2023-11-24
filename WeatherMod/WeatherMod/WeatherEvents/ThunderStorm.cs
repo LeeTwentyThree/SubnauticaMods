@@ -7,7 +7,7 @@ public class Thunderstorm : WeatherEvent
 {
     protected override GameObject EffectPrefab { get; } = Plugin.AssetBundle.LoadAsset<GameObject>("Weather_Thunderstorm");
     protected override float DestroyDelay { get; } = 18;
-    protected override FogSettings Fog { get; } = new FogSettings(0.002f, new Color(0.1f, 0.1f, 0.1f), 0.2f, 1f, 0.2f);
+    protected override FogSettings Fog { get; } = new FogSettings(0.002f, new Color(0.1f, 0.1f, 0.1f), 0.2f, 1f, 0.4f);
     public override float MinDuration { get; } = 120;
     public override float MaxDuration { get; } = 160;
     public override WeatherEventAudio AmbientSound { get; } = new WeatherEventAudio(WeatherAudio.ThunderstormLoop, WeatherAudio.ThunderstormLoopInside, null);

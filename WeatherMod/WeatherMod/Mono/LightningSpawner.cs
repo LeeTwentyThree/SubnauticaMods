@@ -11,7 +11,7 @@ public class LightningSpawner : MonoBehaviour
     private const float MinInterval = 4f;
     private const float MaxInterval = 10f;
     private const float MinDistanceFromCamera = 20f;
-    private const float MaxDistanceFromCamera = 400f;
+    private const float MaxDistanceFromCamera = 800f;
     private const float SpawnHeightMin = 140;
     private const float SpawnHeightVariationMax = 180;
     private const float SpawnHeightAbsMax = 240;
@@ -28,7 +28,7 @@ public class LightningSpawner : MonoBehaviour
     private void Awake()
     {
         ResetTimer();
-        _timeSpawnLightningAgain += 8; // delay initial lightning
+        _timeSpawnLightningAgain += 4; // delay initial lightning
     }
 
     private void Update()
@@ -48,6 +48,9 @@ public class LightningSpawner : MonoBehaviour
     public static void SpawnLightning(Vector3 position, bool alwaysUseAltModel)
     {
         var camPos = MainCamera.camera.transform.position;
+
+        if (camPos.y < Ocean.GetOceanLevel() - 100)
+            return;
 
         var lightningSpawnPosition = new Vector3(position.x,
             Mathf.Clamp(camPos.y + Random.Range(SpawnHeightMin, SpawnHeightVariationMax),
@@ -79,7 +82,7 @@ public class LightningSpawner : MonoBehaviour
     {
         var dist = Vector3.Distance(MainCamera.camera.transform.position, soundPosition);
 
-        var delay = Mathf.Clamp(dist / 346f, 0f, 5f);
+        var delay = Mathf.Clamp(dist * 2f / 346f, 0f, 5f);
 
         yield return delay;
         
