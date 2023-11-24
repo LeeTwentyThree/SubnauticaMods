@@ -11,6 +11,7 @@ public class LightRain : WeatherEvent
     public override float MinDuration { get; } = 60;
     public override float MaxDuration { get; } = 120;
     public override WeatherEventAudio AmbientSound { get; } = new WeatherEventAudio(WeatherAudio.LightRainLoop, WeatherAudio.LightRainInsideLoop, null);
+    public override int RainDropVfxEmission { get; } = 20;
 
     protected override void OnEventBegin(GameObject effectPrefab)
     {

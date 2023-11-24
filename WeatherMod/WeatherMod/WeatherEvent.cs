@@ -12,6 +12,7 @@ public abstract class WeatherEvent
     public abstract float MinDuration { get; }
     public abstract float MaxDuration { get; }
     public abstract WeatherEventAudio AmbientSound { get; }
+    public virtual int RainDropVfxEmission { get; } = 0;
 
     internal void BeginEvent()
     {

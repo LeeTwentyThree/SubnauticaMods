@@ -11,6 +11,7 @@ public class Thunderstorm : WeatherEvent
     public override float MinDuration { get; } = 120;
     public override float MaxDuration { get; } = 160;
     public override WeatherEventAudio AmbientSound { get; } = new WeatherEventAudio(WeatherAudio.ThunderstormLoop, WeatherAudio.ThunderstormLoopInside, null);
+    public override int RainDropVfxEmission { get; } = 30;
 
     protected override void OnEventBegin(GameObject effectPrefab)
     {
