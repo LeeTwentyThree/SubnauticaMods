@@ -7,8 +7,8 @@
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>11</LangVersion>
         <RootNamespace>WeatherMod</RootNamespace>
-        <BepInExPluginName>Tropical Weather</BepInExPluginName>
-        <BepInExPluginGuid>com.lee23.weather</BepInExPluginGuid>
+        <BepInExPluginName>Epic Weather</BepInExPluginName>
+        <BepInExPluginGuid>com.lee23.epicweather</BepInExPluginGuid>
 
         <RestoreAdditionalProjectSources>
             https://api.nuget.org/v3/index.json;
