@@ -12,7 +12,7 @@ public class WaterDropsOnScreen : MonoBehaviour
     private void Awake()
     {
         _particleSystem = GetComponent<ParticleSystem>();
-        _material = GetComponent<Material>();
+        _material = GetComponent<Renderer>().material;
 
         _lastRateOverTime = GetRateOverTime();
         SetRateOverTime(_lastRateOverTime);
