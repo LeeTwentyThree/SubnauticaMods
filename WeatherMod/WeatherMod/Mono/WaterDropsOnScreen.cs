@@ -6,13 +6,14 @@ namespace WeatherMod.Mono;
 public class WaterDropsOnScreen : MonoBehaviour
 {
     private ParticleSystem _particleSystem;
-    private Material _material;
+    // private Material _material;
     private float _lastRateOverTime;
 
     private void Awake()
     {
         _particleSystem = GetComponent<ParticleSystem>();
-        _material = GetComponent<Renderer>().material;
+        _particleSystem.Play();
+        // _material = GetComponent<Renderer>().material;
 
         _lastRateOverTime = GetRateOverTime();
         SetRateOverTime(_lastRateOverTime);
