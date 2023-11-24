@@ -16,18 +16,18 @@ public static class FogManager
     private static float _lastFogDensity;
     private static float _lastWaterBrightness = 1f;
     private static Color[] _lastGradientColors;
-    private static float _lastSunlightBrightnessAboveWater = 1f;
+    private static float _lastExposure = 0.66f;
     private static float _lastSunlightBrightnessBelowWater = 1f;
 
     private static float _newFogDensity;
     private static float _newWaterBrightness = 1f;
     private static Color[] _newGradientColors;
-    private static float _newSunlightBrightnessAboveWater = 1f;
+    private static float _newExposure = 0.66f;
     private static float _newSunlightBrightnessBelowWater = 1f;
-
+    
     private static Gradient _skyFogColorGradient;
 
-    public static float SunlightBrightnessAboveWater { get; private set; } = 1f;
+    public static float Exposure { get; private set; } = 1f;
     public static float SunlightBrightnessBelowWater { get; private set; } = 1f;
 
     public static void ChangeCurrentFog(FogSettings newFogSettings)
@@ -54,14 +54,14 @@ public static class FogManager
         };
         _lastWaterBrightness = _newWaterBrightness;
         _lastSunlightBrightnessBelowWater = _newSunlightBrightnessBelowWater;
-        _lastSunlightBrightnessAboveWater = _newSunlightBrightnessAboveWater;
+        _lastExposure = _newExposure;
 
         _newFogDensity = newFogSettings.FogDensity;
         _newGradientColors = new[]
             {newFogSettings.Color1, newFogSettings.Color2, newFogSettings.Color3, newFogSettings.Color4};
         _newWaterBrightness = newFogSettings.WaterBrightness;
         _newSunlightBrightnessBelowWater = newFogSettings.SunlightBrightnessBelowWater;
-        _newSunlightBrightnessAboveWater = newFogSettings.SunlightBrightnessAboveWater;
+        _newExposure = newFogSettings.Exposure;
 
         _timeLastTransitionBegun = Time.time;
 
@@ -102,7 +102,7 @@ public static class FogManager
         WaterSurface._instance.surfaceMaterial.SetColor(ShaderPropertyID._RefractionColor,
             ScaleColor(_defaultWaterRefractionColor, Mathf.Lerp(_lastWaterBrightness, _newWaterBrightness, lerpT)));
 
-        SunlightBrightnessAboveWater = Mathf.Lerp(_lastSunlightBrightnessAboveWater, _newSunlightBrightnessAboveWater, lerpT);
+        Exposure = Mathf.Lerp(_lastExposure, _newExposure, lerpT);
         SunlightBrightnessBelowWater = Mathf.Lerp(_lastSunlightBrightnessBelowWater, _newSunlightBrightnessBelowWater, lerpT);
     }
 }

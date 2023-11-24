@@ -111,6 +111,22 @@ public static class WeatherCommands
         uSkyManager.main.planetDistance = distance;
     }
     
+    [ConsoleCommand("setskyexposure")]
+    public static void SetSkyExposure(float exposure = 0.66f)
+    {
+        var skyManager = uSkyManager.main;
+
+        if (skyManager == null)
+        {
+            ErrorMessage.AddMessage("No uSkyManager found in scene!");
+            return;
+        }
+
+        ErrorMessage.AddMessage($"Changing exposure from {skyManager.Exposure} to {exposure}!");
+
+        uSkyManager.main.Exposure = exposure;
+    }
+    
     [ConsoleCommand("setwatercolor")]
     public static void SetWaterColor(float reflectR, float reflectG, float reflectB, float refractR, float refractG, float refractB)
     {
