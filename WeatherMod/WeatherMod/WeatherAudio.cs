@@ -32,8 +32,8 @@ public static class WeatherAudio
     
     public static void RegisterAll()
     {
-        ThunderSoundsNear.ForEach(s => s.Register(AudioUtils.BusPaths.SurfaceAmbient, true, 10, 400));
-        ThunderSoundsFar.ForEach(s => s.Register(AudioUtils.BusPaths.SurfaceAmbient, true, 40, 1000));
+        ThunderSoundsNear.ForEach(s => s.Register(KSurfaceWeatherBuses, true, 10, 400));
+        ThunderSoundsFar.ForEach(s => s.Register(KSurfaceWeatherBuses, true, 40, 1000));
         
         ThunderstormLoop.Register(KSurfaceWeatherBuses, false, -1f, -1f);
         ThunderstormLoopInside.Register(KInsideWeatherBuses, false, -1f, -1f);
