@@ -44,7 +44,7 @@ public static class CloudUtils
         _stormCloudPrefab.transform.localEulerAngles = Vector3.zero;
 
         var r = _stormCloudPrefab.GetComponent<Renderer>();
-        r.material.SetColor(ShaderPropertyID._Color, new Color(1, 1, 1, 2));
+        r.material.SetColor(ShaderPropertyID._Color, new Color(1, 1, 1, 0.5f));
         
         return _stormCloudPrefab;
     }

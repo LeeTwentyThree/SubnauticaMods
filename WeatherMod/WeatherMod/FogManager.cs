@@ -103,6 +103,7 @@ public static class FogManager
             ScaleColor(_defaultWaterRefractionColor, Mathf.Lerp(_lastWaterBrightness, _newWaterBrightness, lerpT)));
 
         Exposure = Mathf.Lerp(_lastExposure, _newExposure, lerpT);
+        skyManager.Exposure = Exposure;
         SunlightBrightnessBelowWater = Mathf.Lerp(_lastSunlightBrightnessBelowWater, _newSunlightBrightnessBelowWater, lerpT);
     }
 }
