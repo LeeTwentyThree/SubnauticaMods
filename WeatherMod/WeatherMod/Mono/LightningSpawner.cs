@@ -12,8 +12,8 @@ public class LightningSpawner : MonoBehaviour
     private const float MaxInterval = 10f;
     private const float MinDistanceFromCamera = 20f;
     private const float MaxDistanceFromCamera = 800f;
-    private const float SpawnHeightMin = 165;
-    private const float SpawnHeightVariationMax = 220;
+    private const float SpawnHeightMin = 1f;
+    private const float SpawnHeightVariationMax = 200f;
     private const float SpawnHeightAbsMax = 240;
 
     private float _timeSpawnLightningAgain;
