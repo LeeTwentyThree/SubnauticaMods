@@ -34,7 +34,7 @@ internal class PodshellLeviathanPrefab : CreatureAsset
         template.StayAtLeashData = new StayAtLeashData(kStayAtLeashPriority, kStandardSwimVelocity, 140f);
         template.CanBeInfected = false;
         template.SizeDistribution = new AnimationCurve(new Keyframe(0f, 0.7f), new Keyframe(1f, 1f));
-        template.LocomotionData = new LocomotionData(10f, 0.06f, 0.1f, 0.5f);
+        template.LocomotionData = new LocomotionData(10f, 0.06f, 0.1f, 0.5f, true);
         template.LiveMixinData.broadcastKillOnDeath = true;
 
         return template;
