@@ -22,6 +22,14 @@ public static class InfectedMixinPatcher
         var techType = CraftData.GetTechType(__instance.gameObject);
         var hasOverridenInfectionSettings = InfectionSettingsDatabase.InfectionSettingsList.TryGetValue(techType, out var infectionSettings);
 
+        if (__instance.infectedAmount >= MinInfectionValue)
+        {
+            if (!ZombieManager.IsZombie(__instance.gameObject))
+            {
+                ZombieManager.AddZombieAI(__instance.gameObject);
+            }
+        }
+        
         foreach (var material in __instance.materials)
         {
             material.SetTexture(ShaderPropertyID._InfectionAlbedomap, Plugin.ZombieInfectionTexture);
