@@ -38,6 +38,8 @@ internal class PodshellLeviathanPrefab : CreatureAsset
         template.AnimateByVelocityData = new AnimateByVelocityData(kStandardSwimVelocity + 1f);
         template.LiveMixinData.broadcastKillOnDeath = true;
 
+        template.SetCreatureComponentType<PodshellLeviathanBehavior>();
+
         return template;
     }
 
@@ -52,7 +54,13 @@ internal class PodshellLeviathanPrefab : CreatureAsset
         var emitter = prefab.AddComponent<FMOD_CustomEmitter>();
         emitter.followParent = true;
         voice.emitter = emitter;
-        voice.liveMixin = components.LiveMixin;
+
+        var randomActions = prefab.AddComponent<PodshellRandomAnimations>();
+        
+        var behavior = (PodshellLeviathanBehavior) components.Creature;
+        
+        behavior.voice = voice;
+        behavior.randomAnimations = randomActions;
         
         yield break;
     }

@@ -4,14 +4,11 @@ namespace PodshellLeviathan.Mono;
 
 public class PodshellVoice : MonoBehaviour
 {
+    private PodshellLeviathanBehavior _behavior;
+    
     public FMOD_CustomEmitter emitter;
-    public LiveMixin liveMixin;
     
     private float _timeNextSound;
-    
-    private float _timeRoarAgain;
-    private float _minRoarDelay = 20;
-    private float _maxRoarDelay = 35;
     
     private float _timeIdleSoundAgain;
     private float _minIdleSoundDelay = 15;
@@ -19,17 +16,15 @@ public class PodshellVoice : MonoBehaviour
 
     private void Awake()
     {
-        ResetRoarDelay();
+        _behavior = GetComponent<PodshellLeviathanBehavior>();
         ResetIdleSoundDelay();
     }
-
-    private void ResetRoarDelay() => _timeRoarAgain = Time.time + Random.Range(_minRoarDelay, _maxRoarDelay);
     
     private void ResetIdleSoundDelay() => _timeIdleSoundAgain = Time.time + Random.Range(_minIdleSoundDelay, _maxIdleSoundDelay);
 
     private bool CanPlaySound() => Time.time > _timeNextSound;
     
-    private bool PlaySound(FMODAsset asset, float cooldown, bool allowOverride = false)
+    public bool PlaySound(FMODAsset asset, float cooldown, bool allowOverride = false)
     {
         if (!CanPlaySound() && !allowOverride)
             return false;
@@ -46,26 +41,23 @@ public class PodshellVoice : MonoBehaviour
     
     private void Update()
     {
-        if (!liveMixin.IsAlive())
+        if (!_behavior.liveMixin.IsAlive())
             return;
-        
-        if (Time.time > _timeRoarAgain)
-        {
-            var distToCamera = Vector3.Distance(transform.position, MainCamera.camera.transform.position);
-            var close = distToCamera < 60;
-            var longRoar = Random.value <= 0.5f;
-            if (longRoar)
-                PlaySound(close ? ModAudio.LongRoarClose : ModAudio.LongRoarFar, 8);
-            else
-                PlaySound(close ? ModAudio.ShortRoarClose : ModAudio.ShortRoarFar, 7);
-            ResetRoarDelay();
-            return;
-        }
 
         if (Time.time > _timeIdleSoundAgain)
         {
             PlaySound(ModAudio.Idle, 6);
             ResetIdleSoundDelay();
         }
+    }
+
+    public bool PlayRoarSound(bool longRoar)
+    {
+        var distToCamera = Vector3.Distance(transform.position, MainCamera.camera.transform.position);
+        var close = distToCamera < 60;
+        if (longRoar)
+            return PlaySound(close ? ModAudio.LongRoarClose : ModAudio.LongRoarFar, 8);
+        else
+            return PlaySound(close ? ModAudio.ShortRoarClose : ModAudio.ShortRoarFar, 7);
     }
 }

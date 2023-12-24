@@ -24,7 +24,7 @@ public static class ModAudio
         RegisterPodshellSound(LongRoarFar, "Long roar_ far_ underwater", 400);
         RegisterPodshellSound(ShortRoarClose, "Short roar_ close_ underwater", 400);
         RegisterPodshellSound(ShortRoarFar, "Short roar_ far_ underwater", 400);
-        RegisterPodshellSound(TeethGrinding, "Teeth grinding underwater", 200);
+        RegisterPodshellSound(TeethGrinding, "Teeth grinding underwater", 320f);
     }
 
     private static void RegisterPodshellSound(FMODAsset asset, string clipName, float maxDistance)
