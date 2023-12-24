@@ -47,6 +47,7 @@ public class PodshellVoice : MonoBehaviour
         if (Time.time > _timeIdleSoundAgain)
         {
             PlaySound(ModAudio.Idle, 6);
+            _behavior.GetAnimator().SetTrigger("small_roar");
             ResetIdleSoundDelay();
         }
     }
