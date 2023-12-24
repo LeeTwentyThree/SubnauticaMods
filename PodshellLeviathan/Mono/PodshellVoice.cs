@@ -11,8 +11,8 @@ public class PodshellVoice : MonoBehaviour
     private float _timeNextSound;
     
     private float _timeIdleSoundAgain;
-    private float _minIdleSoundDelay = 15;
-    private float _maxIdleSoundDelay = 35;
+    private float _minIdleSoundDelay = 60;
+    private float _maxIdleSoundDelay = 120;
 
     private void Awake()
     {
