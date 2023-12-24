@@ -10,7 +10,7 @@ public class PodshellRandomAnimations : MonoBehaviour
 
     private float _timeNextAction;
     private float _minActionDelay = 20f;
-    private float _maxActionDelay = 40f;
+    private float _maxActionDelay = 30f;
 
     private PodshellAnimation[] _animations = new[]
     {
