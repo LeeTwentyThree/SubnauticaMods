@@ -61,6 +61,8 @@ internal class PodshellLeviathanPrefab : CreatureAsset
         
         behavior.voice = voice;
         behavior.randomAnimations = randomActions;
+
+        prefab.GetComponent<AvoidTerrain>().avoidanceDuration = 5f;
         
         yield break;
     }
