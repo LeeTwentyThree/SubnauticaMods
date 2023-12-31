@@ -11,6 +11,16 @@ public static class ZombieManager
     {
         return creature.GetComponent<Zombified>() != null;
     }
+
+    public static void Zombify(GameObject creature)
+    {
+        AddZombieAI(creature);
+        var infectedMixin = creature.GetComponent<InfectedMixin>();
+        if (infectedMixin)
+        {
+            infectedMixin.SetInfectedAmount(5);
+        }
+    }
     
     public static void AddZombieAI(GameObject creature)
     {
@@ -42,10 +52,43 @@ public static class ZombieManager
             AddAttackLastTarget(creatureComponent);
         }
 
+        if (creature.GetComponent<MeleeAttack>() == null)
+        {
+            AddMeleeAttack(creatureComponent);
+        }
+
+        creature.GetComponent<LiveMixin>().health = float.MaxValue;
+
         creatureComponent.Scared = new CreatureTrait(0, 100000f);
         creatureComponent.Aggression = new CreatureTrait(1, 0.01f);
         
         creatureComponent.ScanCreatureActions();
+    }
+
+    private static void AddMeleeAttack(Creature creature)
+    {
+        var meleeAttack = creature.gameObject.AddComponent<MeleeAttack>();
+        meleeAttack.biteAggressionThreshold = 0.1f;
+        meleeAttack.biteInterval = 2;
+        meleeAttack.biteDamage = creature.liveMixin.maxHealth >= 200 ? 14 : 7;
+        meleeAttack.biteAggressionDecrement = 0.2f;
+        meleeAttack.lastTarget = creature.GetComponent<LastTarget>();
+        meleeAttack.creature = creature;
+        meleeAttack.liveMixin = creature.liveMixin;
+        meleeAttack.animator = creature.GetAnimator();
+        meleeAttack.canBiteVehicle = true;
+        
+        var triggerObj = new GameObject("AttackTrigger");
+        meleeAttack.mouth = triggerObj;
+        var collider = triggerObj.AddComponent<SphereCollider>();
+        collider.isTrigger = true;
+        triggerObj.AddComponent<VFXSurface>().surfaceType = VFXSurfaceTypes.organic;
+        var onTouch = triggerObj.AddComponent<OnTouch>();
+        onTouch.onTouch = new OnTouch.OnTouchEvent();
+        onTouch.onTouch.AddListener(meleeAttack.OnTouch);
+
+        triggerObj.transform.parent = creature.transform;
+        triggerObj.transform.localPosition = Vector3.forward * 0.5f;
     }
 
     private static void MakeCreatureAggressiveToSharks(Creature creature)
