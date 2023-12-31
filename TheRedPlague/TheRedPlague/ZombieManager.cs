@@ -67,6 +67,11 @@ public static class ZombieManager
 
     private static void AddMeleeAttack(Creature creature)
     {
+        if (creature.GetAnimator() == null)
+        {
+            Plugin.Logger.LogWarning($"Creature '{creature.gameObject.name}' has no Animator! Skipping MeleeAttack instantiation.");
+            return;
+        }
         var meleeAttack = creature.gameObject.AddComponent<MeleeAttack>();
         meleeAttack.biteAggressionThreshold = 0.1f;
         meleeAttack.biteInterval = 2;
