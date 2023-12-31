@@ -37,10 +37,10 @@ public class Plugin : BaseUnityPlugin
         // Add new biome
         var infectedZoneSettings = BiomeUtils.CreateBiomeSettings(new Vector3(40, 30, 30), 0.5f,
             new Color(1, 0.5f, 0.5f, 1), 1f, new Color(1f, 0.1f, 0.1f), 0.05f, 25f, 0.5f, 0.5f, 20f);
-        BiomeHandler.RegisterBiome("InfectedZone", infectedZoneSettings, new BiomeHandler.SkyReference("SkyGrassyPlateaus"));
+        BiomeHandler.RegisterBiome("infectedzone", infectedZoneSettings, new BiomeHandler.SkyReference("SkyGrassyPlateaus"));
         var infectedZonePrefab = new CustomPrefab(PrefabInfo.WithTechType("InfectedZoneVolume"));
         var infectedZoneTemplate = new AtmosphereVolumeTemplate(infectedZonePrefab.Info,
-            AtmosphereVolumeTemplate.VolumeShape.Sphere, "InfectedZone");
+            AtmosphereVolumeTemplate.VolumeShape.Sphere, "infectedzone");
         infectedZonePrefab.SetGameObject(infectedZoneTemplate);
         infectedZonePrefab.Register();
     }
