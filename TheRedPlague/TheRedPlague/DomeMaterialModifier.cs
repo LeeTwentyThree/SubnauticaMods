@@ -8,7 +8,7 @@ public class DomeMaterialModifier : MaterialModifier
 {
     public override void EditMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
     {
-        if (materialIndex == 0)
+        if (materialIndex == 0 || materialIndex == 2)
         {
             material.EnableKeyword("MARMO_SPECMAP");
             material.SetColor("_Color", new Color(0, 0.142858f, 0.285714f));
