@@ -32,7 +32,7 @@ public static class ZombieManager
 
         if (creatureComponent == null)
         {
-            Debug.LogError($"No creature component on infected object {creature.name}!");
+            Debug.LogWarning($"No creature component on infected object {creature.name}!");
         }
         
         bool aggressiveToSharks = false;
@@ -116,6 +116,11 @@ public static class ZombieManager
 
     private static void AddAttackLastTarget(Creature creature)
     {
+        if (creature.GetAnimator() == null)
+        {
+            Plugin.Logger.LogWarning($"Creature '{creature.gameObject.name}' has no Animator! Skipping AttackLastTarget instantiation.");
+            return;
+        }
         var attackLastTarget = creature.gameObject.AddComponent<AttackLastTarget>();
         var swimRandom = creature.GetComponent<SwimRandom>();
         attackLastTarget.swimVelocity = swimRandom != null ? swimRandom.swimVelocity * 2.5f : 10f;
