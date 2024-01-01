@@ -103,7 +103,7 @@ public class Plugin : BaseUnityPlugin
         forceFieldIslandLightPrefab.Register();
 
         var infectionLaserColumnPrefab = new CustomPrefab(PrefabInfo.WithTechType("InfectionLaserColumn"));
-        var infectionLaserColumnTemplate = new CloneTemplate(infectionLaserColumnPrefab.Info, "081ef6c1-aa78-46fd-a20f-a6b63ca5c5f3");
+        var infectionLaserColumnTemplate = new CloneTemplate(infectionLaserColumnPrefab.Info, "3d625dbb-d15a-4351-bca0-0a0526f01e6e");
         infectionLaserColumnTemplate.ModifyPrefab += go =>
         {
             go.GetComponents<DisableEmissiveOnStoryGoal>().ForEach(c => c.enabled = false);
@@ -140,6 +140,8 @@ public class Plugin : BaseUnityPlugin
         var infectionControlRoomTemplate = new CloneTemplate(infectionControlRoomPrefab.Info, "963fa3a3-9192-4912-8c8d-d0d98f22ed13");
         infectionControlRoomTemplate.ModifyPrefab += go =>
         {
+            go.transform.GetChild(0).gameObject.SetActive(false);
+            go.transform.GetChild(3).gameObject.SetActive(false);
             var colliders = go.transform.Find("Control_Room_Collision/Cube").GetComponents<Collider>();
             var colliderIndicesToDisable = new int[] { 11, 12, 19, 49 };
             foreach (var index in colliderIndicesToDisable)
@@ -155,7 +157,7 @@ public class Plugin : BaseUnityPlugin
             }
         };
         infectionControlRoomPrefab.SetGameObject(infectionControlRoomTemplate);
-        infectionControlRoomPrefab.SetSpawns(new SpawnLocation(new Vector3(-65.050f, 302.850f, -20.260f), Vector3.up * 343));
+        infectionControlRoomPrefab.SetSpawns(new SpawnLocation(new Vector3(-65.050f, 302.850f, -20.260f), Vector3.up * 343, Vector3.one * 0.42f));
         infectionControlRoomPrefab.Register();
         
         var infectionLaserPrefab = new CustomPrefab(PrefabInfo.WithTechType("InfectionLaserDevice"));
