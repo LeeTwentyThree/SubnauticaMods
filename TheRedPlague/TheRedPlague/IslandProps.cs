@@ -5,8 +5,8 @@ namespace TheRedPlague;
 
 public static class IslandProps
 {
-    private const string AnimatedLightClassId = "4fae8fa4-0280-43bd-bcf1-f3cba97eed77";
-    private const string AlienRobotClassID = "XXX";
+    private const string AnimatedLightClassId = "ForceFieldIslandLight";
+    private const string AlienRobotClassID = "4fae8fa4-0280-43bd-bcf1-f3cba97eed77";
     
     public static void AddIslandPropSpawns()
     {
