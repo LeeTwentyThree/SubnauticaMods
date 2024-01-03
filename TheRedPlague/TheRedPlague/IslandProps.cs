@@ -7,6 +7,7 @@ public static class IslandProps
 {
     private const string AnimatedLightClassId = "ForceFieldIslandLight";
     private const string AlienRobotClassID = "4fae8fa4-0280-43bd-bcf1-f3cba97eed77";
+    private const string PedestalClassID = "78009225-a9fa-4d21-9580-8719a3368373";
     
     public static void AddIslandPropSpawns()
     {
@@ -31,5 +32,13 @@ public static class IslandProps
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-52.030f, 309.000f, -16.060f), Vector3.zero));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-42.568f, 307.000f, -29.522f), Vector3.zero));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-62.802f, 302.410f, -25.161f), Vector3.zero));
+            
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-86.282f, 313.889f ,-77.578f), new Vector3(13.347f, 0.737f, 6.290f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-70.778f, 314.329f ,-61.721f), new Vector3(357.261f, 0.200f, 351.665f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-67.838f, 311.601f ,-36.161f), new Vector3(355.100f, 0.174f, 355.931f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-57.648f, 311.728f ,-67.915f), new Vector3(353.138f, 359.848f, 2.539f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-39.203f, 314.595f ,-46.810f), new Vector3(3.533f, 359.882f, 356.166f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-33.754f, 311.370f ,-23.261f), new Vector3(357.549f, 359.691f, 14.369f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-56.914f, 316.780f ,-25.002f), new Vector3(344.945f, 1.823f, 346.270f)));
     }
 }

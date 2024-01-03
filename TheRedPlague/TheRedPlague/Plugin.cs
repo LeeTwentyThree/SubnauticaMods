@@ -25,7 +25,8 @@ public class Plugin : BaseUnityPlugin
     public static AssetBundle AssetBundle { get; set; }
     public static Texture2D ZombieInfectionTexture { get; set; }
 
-    private static PrefabInfo InfectedZoneInfo { get; } = PrefabInfo.WithTechType("InfectionDome"); 
+    private static PrefabInfo InfectionDomeInfo { get; } = PrefabInfo.WithTechType("InfectionDome"); 
+    private static PrefabInfo InfectionLaserInfo { get; } = PrefabInfo.WithTechType("InfectionLaser"); 
 
     private void Awake()
     {
@@ -50,7 +51,7 @@ public class Plugin : BaseUnityPlugin
         infectedZonePrefab.SetGameObject(infectedZoneTemplate);
         infectedZonePrefab.Register();
 
-        var infectionDome = new CustomPrefab(InfectedZoneInfo);
+        var infectionDome = new CustomPrefab(InfectionDomeInfo);
         infectionDome.SetGameObject(GetInfectionDomePrefab);
         infectionDome.SetSpawns(new SpawnLocation(Vector3.zero, Vector3.zero, Vector3.one * 1000));
         infectionDome.Register();
@@ -80,13 +81,30 @@ public class Plugin : BaseUnityPlugin
                 }
             }
 
+            go.GetComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Global;
+
             go.transform.Find("FX/Point light").GetComponent<Light>().color = Color.red;
         };
         islandElevator.SetGameObject(elevatorTemplate);
-        islandElevator.SetSpawns(new SpawnLocation(new Vector3(-55.000f, 50.000f, -41.000f), Vector3.zero,
-            new Vector3(1, 3.7f, 1)));
+        islandElevator.SetSpawns(new SpawnLocation(new Vector3(-48.000f, 56.000f, -40.000f), Vector3.up * 90,
+            new Vector3(1.5f, 3.45f, 1.5f)));
         islandElevator.Register();
 
+        var infectionCubePlatform = new CustomPrefab(PrefabInfo.WithTechType("InfectionCubePlatform"));
+        var infectionCubeTemplate =
+            new CloneTemplate(infectionCubePlatform.Info, "6b0104e8-979e-46e5-bc17-57c4ac2e6e39");
+        infectionCubeTemplate.ModifyPrefab += go =>
+        {
+            DestroyImmediate(go.GetComponent<DisableEmissiveOnStoryGoal>());
+        };
+        infectionCubePlatform.SetGameObject(infectionCubeTemplate);
+        infectionCubePlatform.SetSpawns(new SpawnLocation(new Vector3(-54.508f, -3.523f, -42.000f), new Vector3(340.496f, 30.000f, 270.000f), Vector3.one * 0.4f),
+            new SpawnLocation(new Vector3(-60.932f, 308.929f, -52.616f), new Vector3(0, 103, 0), new Vector3(0.4f, 0.2f, 0.4f)),
+            new SpawnLocation(new Vector3(2.306f, 341.463f, -25.395f), new Vector3(90, 68.57f, 0), new Vector3(0.9f, 0.9f, 0.9f)),
+            new SpawnLocation(new Vector3(-55.196f, 386.394f, -1.448f), Vector3.zero, Vector3.one),
+            new SpawnLocation(new Vector3(-71.367f, 314.375f, -92.013f), new Vector3(15.802f, 359.521f, 356.553f), Vector3.one * 0.7f));
+        infectionCubePlatform.Register();
+        
         var lowQualityForceFieldIsland = new CustomPrefab(PrefabInfo.WithTechType("ForceFieldIslandLowQuality"));
         lowQualityForceFieldIsland.SetGameObject(GetLowQualityForceFieldIslandPrefab);
         lowQualityForceFieldIsland.SetSpawns(new SpawnLocation(new Vector3(-128, 160, -128), new Vector3(0, 180, 0), new Vector3(1, 1, -1)));
@@ -160,16 +178,29 @@ public class Plugin : BaseUnityPlugin
         infectionControlRoomPrefab.SetSpawns(new SpawnLocation(new Vector3(-65.050f, 302.850f, -20.260f), Vector3.up * 343, Vector3.one * 0.42f));
         infectionControlRoomPrefab.Register();
         
-        var infectionLaserPrefab = new CustomPrefab(PrefabInfo.WithTechType("InfectionLaserDevice"));
-        var infectionLaserTemplate = new CloneTemplate(infectionLaserTerminalPrefab.Info, "22fb9ee9-690d-426c-844f-a80e527b5fe6");
-        infectionLaserTemplate.ModifyPrefab += go =>
+        var infectionLaserDevicePrefab = new CustomPrefab(PrefabInfo.WithTechType("InfectionLaserDevice"));
+        var infectionLaserDeviceTemplate = new CloneTemplate(infectionLaserTerminalPrefab.Info, "22fb9ee9-690d-426c-844f-a80e527b5fe6");
+        infectionLaserDeviceTemplate.ModifyPrefab += go =>
         {
             go.GetComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Global;
             go.GetComponents<DisableEmissiveOnStoryGoal>().ForEach(c => c.enabled = false);
             go.GetComponents<LightIntensityOnStoryGoal>().ForEach(c => c.enabled = false);
+            DestroyImmediate(go.GetComponent<PrecursorGunStoryEvents>());
+            DestroyImmediate(go.GetComponent<PrecursorGunAim>());
+            DestroyImmediate(go.GetComponent<AnimateOnStoryGoal>());
+            var modelParent = go.transform.Find("precursor_base/Instances");
+            modelParent.Find("precursor_base_22").gameObject.SetActive(false);
+            modelParent.Find("precursor_base_23").gameObject.SetActive(false);
+            modelParent.Find("precursor_base_24").gameObject.SetActive(false);
+            modelParent.Find("precursor_base_25").gameObject.SetActive(false);
         };
-        infectionLaserPrefab.SetGameObject(infectionLaserTemplate);
-        infectionLaserPrefab.SetSpawns(new SpawnLocation(new Vector3(-80.000f,  304, -47.790f), new Vector3(0, 0, 353), Vector3.one * 0.3f));
+        infectionLaserDevicePrefab.SetGameObject(infectionLaserDeviceTemplate);
+        infectionLaserDevicePrefab.SetSpawns(new SpawnLocation(new Vector3(-80.000f,  304, -47.790f), new Vector3(0, 0, 353), Vector3.one * 0.3f));
+        infectionLaserDevicePrefab.Register();
+
+        var infectionLaserPrefab = new CustomPrefab(InfectionLaserInfo);
+        infectionLaserPrefab.SetGameObject(GetInfectionLaserPrefab);
+        infectionLaserPrefab.SetSpawns(new SpawnLocation(Vector3.zero));
         infectionLaserPrefab.Register();
         
         IslandProps.AddIslandPropSpawns();
@@ -181,7 +212,7 @@ public class Plugin : BaseUnityPlugin
     {
         var obj = Instantiate(AssetBundle.LoadAsset<GameObject>("InfectionDome"));
         MaterialUtils.ApplySNShaders(obj);
-        PrefabUtils.AddBasicComponents(obj, InfectedZoneInfo.ClassID, InfectedZoneInfo.TechType, LargeWorldEntity.CellLevel.Global);
+        PrefabUtils.AddBasicComponents(obj, InfectionDomeInfo.ClassID, InfectionDomeInfo.TechType, LargeWorldEntity.CellLevel.Global);
         var renderer = obj.GetComponentInChildren<Renderer>();
         var material = new Material(MaterialUtils.ForceFieldMaterial);
         material.SetColor("_Color", new Color(1, 0, 0, 0.95f));
@@ -197,10 +228,25 @@ public class Plugin : BaseUnityPlugin
     {
         var obj = Instantiate(AssetBundle.LoadAsset<GameObject>("ForcefieldIslandLowQuality"));
         MaterialUtils.ApplySNShaders(obj);
-        PrefabUtils.AddBasicComponents(obj, InfectedZoneInfo.ClassID, InfectedZoneInfo.TechType, LargeWorldEntity.CellLevel.Global);
+        PrefabUtils.AddBasicComponents(obj, InfectionDomeInfo.ClassID, InfectionDomeInfo.TechType, LargeWorldEntity.CellLevel.Global);
         obj.AddComponent<LowQualityIslandMesh>();
         // var renderer = obj.GetComponentInChildren<Renderer>();
         yield return null;
+        prefab.Set(obj);
+    }
+    
+    private static IEnumerator GetInfectionLaserPrefab(IOut<GameObject> prefab)
+    {
+        var solarPanelRequest = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
+        yield return solarPanelRequest;
+        var solarPanelPrefab = solarPanelRequest.GetResult();
+        var obj = Instantiate(solarPanelPrefab).GetComponent<PowerFX>().vfxPrefab;
+        PrefabUtils.AddBasicComponents(obj, InfectionLaserInfo.ClassID, InfectionLaserInfo.TechType, LargeWorldEntity.CellLevel.Global);
+        var line = obj.GetComponent<LineRenderer>();
+        line.material.color = new Color(5, 0.474790f, 0.977941f);
+        line.widthMultiplier = 15;
+        line.endWidth = 100;
+        line.SetPositions(new []{new Vector3(-78.393f,341.175f, -57.684f), new Vector3(0, 2000, 0)});
         prefab.Set(obj);
     }
 }
