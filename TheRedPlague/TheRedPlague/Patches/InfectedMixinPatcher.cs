@@ -11,9 +11,22 @@ public static class InfectedMixinPatcher
     private static readonly int SpecColor = Shader.PropertyToID("_SpecColor");
     private const int MinInfectionValue = 1;
 
-    [HarmonyPatch(nameof(InfectedMixin.UpdateInfectionShading))]
+    [HarmonyPatch(nameof(InfectedMixin.Start))]
     [HarmonyPostfix]
     public static void StartPostfix(InfectedMixin __instance)
+    {
+        if (__instance.player != null)
+            return;
+        var biomeName = WaterBiomeManager.main.GetBiome(__instance.transform.position);
+        if (biomeName == "dunes" || biomeName == "infectedzone")
+        {
+            __instance.SetInfectedAmount(4);
+        }
+    }
+    
+    [HarmonyPatch(nameof(InfectedMixin.UpdateInfectionShading))]
+    [HarmonyPostfix]
+    public static void UpdateInfectionShadingPostfix(InfectedMixin __instance)
     {
         if (__instance.materials == null)
             return;
