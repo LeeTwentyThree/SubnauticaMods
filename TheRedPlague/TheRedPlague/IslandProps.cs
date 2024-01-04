@@ -8,6 +8,7 @@ public static class IslandProps
     private const string AnimatedLightClassId = "ForceFieldIslandLight";
     private const string AlienRobotClassID = "4fae8fa4-0280-43bd-bcf1-f3cba97eed77";
     private const string PedestalClassID = "78009225-a9fa-4d21-9580-8719a3368373";
+    private const string SkyrayClassID = "6a1b444f-138f-46fa-88bb-d673a2ceb689";
     
     public static void AddIslandPropSpawns()
     {
@@ -40,5 +41,13 @@ public static class IslandProps
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-39.203f, 314.595f ,-46.810f), new Vector3(3.533f, 359.882f, 356.166f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-33.754f, 311.370f ,-23.261f), new Vector3(357.549f, 359.691f, 14.369f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-56.914f, 316.780f ,-25.002f), new Vector3(344.945f, 1.823f, 346.270f)));
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-42.805f, 314.471f, -60.152f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-40.189f, 313.932f, -42.701f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-76.973f, 317.361f, -65.962f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-29.68f, 314.71f, -33.66f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-29.68f, 314.71f, -33.66f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-72.50f, 320.16f, -29.85f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-63.68f, 318.05f, -50.97f)));
     }
 }
