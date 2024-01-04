@@ -34,6 +34,7 @@ public static class InfectionSettingsDatabase
         {TechType.Rockgrub, new InfectionSettings(new Color(1, 1, 1), 0.03f, new Vector3(1, 1, 1), new Vector3(0, 0, 0))},
         {TechType.Jumper, new InfectionSettings(new Color(1, 1, 1), -0.03f, new Vector3(0.3f, 0.5f, 0.3f), new Vector3(-0.33f, -0.58f, 0.47f))},
         {TechType.SeaDragon, new InfectionSettings(new Color(1, 1, 1), 1f, new Vector3(1, 1, 3), new Vector3(0.69f, 0.38f, 0.14f))},
+        {TechType.Warper, new InfectionSettings(new Color(2, 4, 2), -0.5f, new Vector3(0.8f, 1.5f, 1.75f), new Vector3(0.21f, 0.38f, 0.24f))},
         // REEF BACK
         // SEA TREADER
         // SEA EMPEROR & JUVENILES

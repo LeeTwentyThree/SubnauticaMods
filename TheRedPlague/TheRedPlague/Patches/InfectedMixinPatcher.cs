@@ -79,6 +79,13 @@ public static class InfectedMixinPatcher
                 material.SetColor(ShaderPropertyID._Color, new Color(5, 5, 5));
                 material.SetColor(SpecColor, new Color(0, 5, 5));
             }
+            
+            if (techType == TechType.Warper && (material.name.Contains("entrails") || material.name.Contains("alpha")))
+            {
+                material.SetColor(ShaderPropertyID._Color, Color.red);
+                material.SetColor(ShaderPropertyID._SpecColor, Color.red);
+                material.SetColor(ShaderPropertyID._GlowColor, Color.red);
+            }
         }
         
         if (techType == TechType.SpineEel && __instance.infectedAmount >= MinInfectionValue)
