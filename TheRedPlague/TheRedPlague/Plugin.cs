@@ -40,8 +40,9 @@ public class Plugin : BaseUnityPlugin
 
         ModPrefabs.RegisterPrefabs();
         
-        IslandProps.AddIslandPropSpawns();
+        CoordinatedSpawns.RegisterCoordinatedSpawns();
         
         ConsoleCommandsHandler.AddGotoTeleportPosition("forcefieldisland", new Vector3(-78.1f, 315.5f, -68.7f));
+        ConsoleCommandsHandler.AddGotoTeleportPosition("plagueheartisland", new Vector3(-1327, -193, 283));
     }
 }

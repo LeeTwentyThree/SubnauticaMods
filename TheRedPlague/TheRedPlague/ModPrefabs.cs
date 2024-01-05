@@ -13,15 +13,20 @@ public static class ModPrefabs
 {
     private static PrefabInfo InfectionDomeInfo { get; } = PrefabInfo.WithTechType("InfectionDome");
     private static PrefabInfo InfectionLaserInfo { get; } = PrefabInfo.WithTechType("InfectionLaser");
-    private static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague", "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
+
+    private static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
+        "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
 
     private static PrefabInfo InfectionTrackerInfo { get; } = PrefabInfo.WithTechType("InfectionTracker",
         "Tracker tablet", "A tablet that directs its user to a certain location.");
+    
+    private static PrefabInfo PrecursorPhoneInfo { get; } = PrefabInfo.WithTechType("PrecursorPhone",
+        "Precursor iPhone", "An unusual alien device.");
 
     public static void RegisterPrefabs()
     {
         // Add new biome
-        var infectedZoneSettings = BiomeUtils.CreateBiomeSettings(new Vector3(10, 4.5f, 3f), 0.4f,
+        var infectedZoneSettings = BiomeUtils.CreateBiomeSettings(new Vector3(7f, 4.5f, 3f), 0.4f,
             new Color(1.05f, 1f, 1f, 1), 2f, new Color(1f, 0.3f, 0.3f), 0f, 10f, 0.5f, 0.9f, 20f);
         BiomeHandler.RegisterBiome("infectedzone", infectedZoneSettings,
             new BiomeHandler.SkyReference("SkyGrassyPlateaus"));
@@ -103,9 +108,40 @@ public static class ModPrefabs
         {
             go.GetComponents<DisableEmissiveOnStoryGoal>().ForEach(c => c.enabled = false);
             go.GetComponents<LightIntensityOnStoryGoal>().ForEach(c => c.enabled = false);
+            go.GetComponent<SkyApplier>().customSkyPrefab = null;
         };
         forceFieldIslandLightPrefab.SetGameObject(forceFieldIslandLightTemplate);
         forceFieldIslandLightPrefab.Register();
+        
+        var precursorPhone = new CustomPrefab(PrecursorPhoneInfo);
+        var precursorPhoneTemplate =
+            new CloneTemplate(precursorPhone.Info, "081ef6c1-aa78-46fd-a20f-a6b63ca5c5f3");
+        precursorPhoneTemplate.ModifyPrefab += (go) =>
+        {
+            go.GetComponents<DisableEmissiveOnStoryGoal>().ForEach(c => c.enabled = false);
+            go.GetComponents<LightIntensityOnStoryGoal>().ForEach(c => c.enabled = false);
+            go.GetComponentInChildren<Light>().enabled = false;
+            go.GetComponentInChildren<VFXVolumetricLight>().gameObject.SetActive(false);
+            go.GetComponent<SkyApplier>().customSkyPrefab = null;
+            go.transform.localScale = new Vector3(0.2f, 0.1f, 0.3f);
+            go.gameObject.AddComponent<Pickupable>();
+        };
+        precursorPhone.SetGameObject(precursorPhoneTemplate);
+        precursorPhone.SetSpawns(new SpawnLocation(new Vector3(-1324.541f, -206.655f, 266.916f), new Vector3(45.373f, 276.516f, 230.206f), new Vector3(0.2f, 0.1f, 0.3f)));
+        precursorPhone.Register();
+        
+        var forceFieldIslandLight2Prefab = new CustomPrefab(PrefabInfo.WithTechType("ForceFieldIslandLight2"));
+        var forceFieldIslandLight2Template =
+            new CloneTemplate(forceFieldIslandLight2Prefab.Info, "081ef6c1-aa78-46fd-a20f-a6b63ca5c5f3");
+        forceFieldIslandLight2Template.ModifyPrefab += (go) =>
+        {
+            go.GetComponents<DisableEmissiveOnStoryGoal>().ForEach(c => c.enabled = false);
+            go.GetComponents<LightIntensityOnStoryGoal>().ForEach(c => c.enabled = false);
+            go.GetComponentInChildren<Light>().enabled = false;
+            go.GetComponent<SkyApplier>().customSkyPrefab = null;
+        };
+        forceFieldIslandLight2Prefab.SetGameObject(forceFieldIslandLight2Template);
+        forceFieldIslandLight2Prefab.Register();
 
         var infectionLaserColumnPrefab = new CustomPrefab(PrefabInfo.WithTechType("InfectionLaserColumn"));
         var infectionLaserColumnTemplate =
@@ -203,45 +239,7 @@ public static class ModPrefabs
 
         var infectionTrackerPrefab = new CustomPrefab(InfectionTrackerInfo);
         var infectionTrackerTemplate = new CloneTemplate(InfectionTrackerInfo, "b98da0ef-29d4-4571-9a82-53a6e6706153");
-        infectionTrackerTemplate.ModifyPrefab += go =>
-        {
-            go.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._GlowColor, new Color(3, 0, 0));
-            go.GetComponentsInChildren<Collider>().ForEach(c => c.enabled = false);
-            go.GetComponentsInChildren<Animator>().ForEach(c => c.enabled = false);
-            var collider = go.AddComponent<BoxCollider>();
-            collider.size = new Vector3(0.7f, 0.07f, 0.7f);
-            var tool = go.AddComponent<InfectionTrackerTool>();
-            tool.mainCollider = collider;
-            tool.drawSound = AudioUtils.GetFmodAsset("event:/interface/off_long");
-            tool.hasAnimations = false;
-            tool.pickupable = go.AddComponent<Pickupable>();
-            tool.renderers = go.GetComponentsInChildren<Renderer>();
-            tool.hasAnimations = true;
-
-            var worldModel = go.GetComponentInChildren<Animator>().gameObject;
-
-            var viewModel = Object.Instantiate(worldModel, go.transform);
-            viewModel.SetActive(false);
-            viewModel.transform.localScale = Vector3.one * 0.6f;
-            viewModel.transform.localPosition = new Vector3(-0.15f, 0.01f, 0.2f);
-            viewModel.transform.localEulerAngles = new Vector3(275, 180, 0);
-
-            /*
-            var leftHandSocket = new GameObject("LeftHandSocket").transform;
-            leftHandSocket.SetParent(go.transform, false);
-            leftHandSocket.localPosition = Vector3.left * 0.1f;
-            var rightHandSocket = new GameObject("RightHandSocket").transform;
-            rightHandSocket.SetParent(go.transform, false);
-            rightHandSocket.localPosition = Vector3.right * 0.1f;
-            */
-            // tool.leftHandIKTarget = leftHandSocket;
-            // tool.rightHandIKTarget = rightHandSocket;
-            tool.ikAimRightArm = true;
-
-            var fpModel = go.EnsureComponent<FPModel>();
-            fpModel.propModel = worldModel;
-            fpModel.viewModel = viewModel;
-        };
+        infectionTrackerTemplate.ModifyPrefabAsync += ModifyInfectionTrackerPrefab;
         infectionTrackerPrefab.SetGameObject(infectionTrackerTemplate);
         infectionTrackerPrefab.SetEquipment(EquipmentType.Hand);
         infectionTrackerPrefab.SetSpawns(new SpawnLocation(new Vector3(-52.575f, 312.560f, -68.644f),
@@ -269,6 +267,8 @@ public static class ModPrefabs
 
         var plagueHeart = new CustomPrefab(PlagueHeart);
         plagueHeart.SetGameObject(GetPlagueHeartPrefab);
+        PlagueHeart.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("PlagueHeartIcon"));
+        plagueHeart.SetSpawns(new SpawnLocation(new Vector3(-1319.740f, -227.150f, 280)));
         plagueHeart.Register();
     }
 
@@ -279,6 +279,48 @@ public static class ModPrefabs
         template.ModifyPrefab += go => { go.AddComponent<InfectAnything>(); };
         prefab.SetGameObject(template);
         return prefab;
+    }
+
+    private static IEnumerator ModifyInfectionTrackerPrefab(GameObject go)
+    {
+        go.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._GlowColor, new Color(3, 0, 0));
+        go.GetComponentsInChildren<Collider>().ForEach(c => c.enabled = false);
+        go.GetComponentsInChildren<Animator>().ForEach(c => c.enabled = false);
+        var collider = go.AddComponent<BoxCollider>();
+        collider.size = new Vector3(0.7f, 0.07f, 0.7f);
+        var tool = go.AddComponent<InfectionTrackerTool>();
+        tool.mainCollider = collider;
+        tool.drawSound = AudioUtils.GetFmodAsset("event:/interface/off_long");
+        tool.hasAnimations = false;
+        tool.pickupable = go.AddComponent<Pickupable>();
+        tool.renderers = go.GetComponentsInChildren<Renderer>();
+        tool.hasAnimations = true;
+
+        var worldModel = go.GetComponentInChildren<Animator>().gameObject;
+
+        var viewModel = Object.Instantiate(worldModel, go.transform);
+        viewModel.SetActive(false);
+        viewModel.transform.localScale = Vector3.one * 0.6f;
+        viewModel.transform.localPosition = new Vector3(-0.15f, 0.01f, 0.2f);
+        viewModel.transform.localEulerAngles = new Vector3(275, 180, 0);
+            
+        tool.ikAimRightArm = true;
+
+        var fpModel = go.EnsureComponent<FPModel>();
+        fpModel.propModel = worldModel;
+        fpModel.viewModel = viewModel;
+
+        var diveReelTask = CraftData.GetPrefabForTechTypeAsync(TechType.DiveReel);
+        yield return diveReelTask;
+        var arrow = Object.Instantiate(diveReelTask.GetResult().GetComponent<DiveReel>().nodePrefab.transform.Find("Arrow").gameObject, viewModel.transform);
+        arrow.SetActive(true);
+        arrow.transform.localPosition = Vector3.forward * 0.15f;
+        arrow.transform.localScale = Vector3.one * 0.3f;
+        arrow.GetComponentInChildren<Renderer>().material.color = Color.red;
+        arrow.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._ColorStrength, new Color(1.5f, 0, 0));
+        arrow.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._ColorStrengthAtNight, new Color(1.5f, 0, 0));
+
+        tool.arrow = arrow.transform;
     }
 
     private static IEnumerator GetInfectionDomePrefab(IOut<GameObject> prefab)
@@ -331,13 +373,16 @@ public static class ModPrefabs
         
         PrefabUtils.AddBasicComponents(obj, PlagueHeart.ClassID, PlagueHeart.TechType,
             LargeWorldEntity.CellLevel.Global);
-        obj.EnsureComponent<WorldForces>();
+        var wf = obj.EnsureComponent<WorldForces>();
+        wf.underwaterGravity = 0;
         var rb = obj.EnsureComponent<Rigidbody>();
         rb.isKinematic = true;
         rb.mass = 300;
         rb.useGravity = false;
-        obj.AddComponent<FreezeRigidbodyWhenFar>();
+        var freezeWhenFar = obj.AddComponent<FreezeRigidbodyWhenFar>();
+        freezeWhenFar.freezeDist = 4f;
         obj.AddComponent<Pickupable>();
+        obj.AddComponent<PlagueHeartBehavior>();
         yield return null;
         prefab.Set(obj);
     }

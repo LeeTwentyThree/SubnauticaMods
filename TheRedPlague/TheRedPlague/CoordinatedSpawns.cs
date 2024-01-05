@@ -3,15 +3,19 @@ using UnityEngine;
 
 namespace TheRedPlague;
 
-public static class IslandProps
+public static class CoordinatedSpawns
 {
     private const string AnimatedLightClassId = "ForceFieldIslandLight";
+    private const string AnimatedLight2ClassId = "ForceFieldIslandLight2";
     private const string AlienRobotClassID = "4fae8fa4-0280-43bd-bcf1-f3cba97eed77";
     private const string PedestalClassID = "78009225-a9fa-4d21-9580-8719a3368373";
     private const string SkyrayClassID = "6a1b444f-138f-46fa-88bb-d673a2ceb689";
+    private const string WarperClassID = "510a71f0-ab6d-4c6a-aa54-a19b3f1c436c";
     
-    public static void AddIslandPropSpawns()
+    public static void RegisterCoordinatedSpawns()
     {
+        // Force field island
+        
         var animatedLightScale = new Vector3(0.5f, 0.25f, 0.25f);
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-41.757f, 307.086f, -33.187f), new Vector3(326.504f, 172.957f, 182.122f), animatedLightScale));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-36.066f, 304.599f, -36.635f), new Vector3(52.801f, 351.071f, 342.123f), animatedLightScale));
@@ -49,5 +53,37 @@ public static class IslandProps
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-29.68f, 314.71f, -33.66f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-72.50f, 320.16f, -29.85f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-63.68f, 318.05f, -50.97f)));
+        
+        // Plague heart island
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1299.49f, -213.19f, 261.80f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1317.45f, -221.93f, 282.85f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1326.79f, -206.33f, 271.77f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1328.26f, -194.21f, 276.48f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1325.30f, -193.53f, 263.26f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1316.44f, -192.38f, 299.38f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1321.84f, -180.67f, 281.85f)));
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-1327.03f, -192.24f, 283.95f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-1327.09f, -205.73f, 272.02f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-1320.22f, -208.44f, 267.77f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-1318.65f, -217.43f, 277.81f)));
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo("ebc943e4-200c-4789-92f3-e675cd982dbe", new Vector3(-1314.597f, -119, 303.153f), new Vector3(0, 118, 350), Vector3.one * 2));
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1326.821f, -204.724f, 268.104f), new Vector3(69.953f, 267.875f, 247.969f), animatedLightScale));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1315.812f, -211.522f, 269.300f), new Vector3(346.008f, 339.376f, 112.006f), animatedLightScale));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1316.877f, -215.208f, 281.525f), new Vector3(332.411f, 206.049f, 173.499f), animatedLightScale));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1332.575f, -207.004f, 276.217f), new Vector3(326.698f, 74.948f, 222.625f), animatedLightScale));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1324.527f, -223.692f, 283.557f), new Vector3(304.007f, 64.642f, 260.079f), animatedLightScale));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1311.866f, -229.181f, 279.475f), new Vector3(15.476f, 0.230f, 1.693f), animatedLightScale));
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-1328.006f, -197.536f, 290.486f), new Vector3(352.5f, 359.786f, 3.281f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLight2ClassId, new Vector3(-1328.065f, -196.200f, 290.320f), new Vector3(5, 180, 357), new Vector3(0.3f, 0.2f, 0.15f)));
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-1326.911f, -196.478f, 264.966f), new Vector3(353.537f, 0.451f, 352.025f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLight2ClassId, new Vector3(-1326.737f, -195.149f, 264.818f), new Vector3(357.000f, 359.971f, 353.000f), new Vector3(0.3f, 0.2f, 0.15f)));
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo("23d96661-8e2e-4485-9b22-d84707394a0e", new Vector3(-1320.027f, -228.474f, 280.102f), new Vector3(356, 0.4f, 349), new Vector3(1.5f, 1, 1.5f)));
     }
 }
