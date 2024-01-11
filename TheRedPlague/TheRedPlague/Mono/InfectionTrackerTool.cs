@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace TheRedPlague.Mono;
 
@@ -7,24 +6,42 @@ public class InfectionTrackerTool : PlayerTool
 {
     public override string animToolName => "flashlight";
 
-    public Transform arrow;
-    private GameObject _model;
-
-    private void Start()
-    {
-        _model = arrow.GetChild(0).gameObject;
-    }
+    public GameObject arrowPrefab;
+    public Transform arrowRoot;
+    public GameObject viewModel;
+    private GameObject _arrowModel;
+    
+    private Transform _arrow;
 
     private void LateUpdate()
     {
-        var hideArrow = Player.main.IsSwimming() && Player.main.rigidBody.velocity.sqrMagnitude > 0.01f;
+        if (Player.main == null)
+            return;
         var plagueHeart = PlagueHeartBehavior.main;
-        if (hideArrow || plagueHeart == null)
+        if (plagueHeart == null || !viewModel.activeSelf)
         {
-            _model.SetActive(false);
+            _arrowModel.SetActive(false);
             return;
         }
-        _model.SetActive(true);
-        arrow.LookAt(plagueHeart.transform);
+        _arrowModel.SetActive(true);
+        var camTrans = MainCamera.camera.transform;
+        _arrow.transform.position = camTrans.position + camTrans.forward * 1.3f + camTrans.up * -0.05f;
+        _arrow.LookAt(plagueHeart.transform);
+    }
+
+    private void OnEnable()
+    {
+        _arrow = Instantiate(arrowPrefab).transform;
+        _arrow.gameObject.SetActive(true);
+        _arrow.transform.localScale = Vector3.one * 0.5f;
+        _arrowModel = _arrow.GetChild(0).gameObject;
+    }
+
+    private void OnDisable()
+    {
+        if (_arrow)
+        {
+            Destroy(_arrow.gameObject);
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Nautilus.Handlers;
+﻿using System.Linq;
+using Nautilus.Handlers;
+using Nautilus.Utility;
 using TheRedPlague.Mono;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
@@ -7,6 +9,8 @@ namespace TheRedPlague;
 
 public static class ZombieManager
 {
+    private static FMODAsset _biteSound = AudioUtils.GetFmodAsset("event:/creature/blood_kelp_biter/bite");
+    
     public static bool IsZombie(GameObject creature)
     {
         return creature.GetComponent<Zombified>() != null;
@@ -18,7 +22,7 @@ public static class ZombieManager
         var infectedMixin = creature.GetComponent<InfectedMixin>();
         if (infectedMixin)
         {
-            infectedMixin.SetInfectedAmount(5);
+            infectedMixin.SetInfectedAmount(4);
         }
     }
     
@@ -36,15 +40,22 @@ public static class ZombieManager
         }
         
         bool aggressiveToSharks = false;
+        bool aggressiveToWhale = false;
         foreach (var aggressiveWhenSeeTarget in creature.GetComponents<AggressiveWhenSeeTarget>())
         {
             if (aggressiveWhenSeeTarget.targetType == EcoTargetType.Shark)
                 aggressiveToSharks = true;
+            if (aggressiveWhenSeeTarget.targetType == EcoTargetType.Whale)
+                aggressiveToWhale = true;
         }
 
         if (!aggressiveToSharks)
         {
-            MakeCreatureAggressiveToSharks(creatureComponent);
+            MakeCreatureAggressiveToEcoTargetType(creatureComponent, EcoTargetType.Shark);
+        }
+        if (!aggressiveToWhale)
+        {
+            MakeCreatureAggressiveToEcoTargetType(creatureComponent, EcoTargetType.Whale);
         }
 
         if (creature.GetComponent<AttackLastTarget>() == null)
@@ -63,6 +74,12 @@ public static class ZombieManager
         creatureComponent.Aggression = new CreatureTrait(1, 0.01f);
         
         creatureComponent.ScanCreatureActions();
+
+        var pickupable = creature.GetComponent<Pickupable>();
+        if (pickupable)
+        {
+            pickupable.isPickupable = false;
+        }
     }
 
     private static void AddMeleeAttack(Creature creature)
@@ -82,6 +99,11 @@ public static class ZombieManager
         meleeAttack.liveMixin = creature.liveMixin;
         meleeAttack.animator = creature.GetAnimator();
         meleeAttack.canBiteVehicle = true;
+        meleeAttack.canBiteCyclops = true;
+        var biteEmitter = creature.gameObject.AddComponent<FMOD_StudioEventEmitter>();
+        biteEmitter.asset = _biteSound;
+        biteEmitter.path = _biteSound.path;
+        meleeAttack.attackSound = biteEmitter;
         
         var triggerObj = new GameObject("AttackTrigger");
         meleeAttack.mouth = triggerObj;
@@ -96,14 +118,14 @@ public static class ZombieManager
         triggerObj.transform.localPosition = Vector3.forward * 0.5f;
     }
 
-    private static void MakeCreatureAggressiveToSharks(Creature creature)
+    private static void MakeCreatureAggressiveToEcoTargetType(Creature creature, EcoTargetType type)
     {
         var aggressiveComponent = creature.gameObject.AddComponent<AggressiveWhenSeeTarget>();
         // What the fuck is this and why does every creature do this
         aggressiveComponent.maxRangeMultiplier = new AnimationCurve(new Keyframe(0, 1), new Keyframe(0.5f, 0.5f), new Keyframe(1, 1));
         aggressiveComponent.distanceAggressionMultiplier = new AnimationCurve(new Keyframe(0, 1), new Keyframe(1, 0));
         aggressiveComponent.creature = creature;
-        aggressiveComponent.targetType = EcoTargetType.Shark;
+        aggressiveComponent.targetType = type;
         aggressiveComponent.maxRangeScalar = 100;
         aggressiveComponent.maxSearchRings = 2;
         aggressiveComponent.aggressionPerSecond = 1;
@@ -134,8 +156,24 @@ public static class ZombieManager
         attackLastTarget.lastTarget = creature.gameObject.GetComponent<LastTarget>();
     }
 
-    private static void AddBasicMeleeAttack(Creature creature)
+    public static void InfectSeaEmperor(GameObject seaEmperor)
     {
-        
+        var renderers = seaEmperor.GetComponentsInChildren<Renderer>().Where(r => !(r is ParticleSystemRenderer) && !(r is TrailRenderer));
+        foreach (var r in renderers)
+        {
+            var materials = r.materials;
+            foreach (var m in materials)
+            {
+                m.shader = MaterialUtils.Shaders.MarmosetUBER;
+                m.color = new Color(3, 3, 3);
+                m.EnableKeyword(InfectedMixin.uwe_infection);
+                m.SetFloat(ShaderPropertyID._InfectionAmount, 1);
+                m.SetFloat("InfectionHeightStrength", -3.9f);
+                m.SetVector("_InfectionScale", new Vector4(2, 2, 2, 0));
+                m.SetVector("_InfectionOffset", new Vector4(0.285f, 0, 0.142f, 0));
+                m.SetColor("_GlowColor", new Color(3, 0, 0));
+                m.SetTexture(ShaderPropertyID._InfectionAlbedomap, Plugin.ZombieInfectionTexture);
+            }
+        }
     }
 }

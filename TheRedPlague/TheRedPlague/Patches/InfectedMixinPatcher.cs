@@ -1,4 +1,6 @@
 ﻿using HarmonyLib;
+using Nautilus.Handlers;
+using Story;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -15,13 +17,36 @@ public static class InfectedMixinPatcher
     [HarmonyPostfix]
     public static void StartPostfix(InfectedMixin __instance)
     {
+        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key))
+        {
+            __instance.SetInfectedAmount(0);
+            return;
+        }
         if (__instance.player != null)
             return;
-        var biomeName = WaterBiomeManager.main.GetBiome(__instance.transform.position);
-        if (biomeName == "dunes" || biomeName == "infectedzone")
+        var shouldBeInfected = EvaluateShouldBeInfectedRandomly();
+        if (!shouldBeInfected)
         {
-            __instance.SetInfectedAmount(4);
+            if (CraftData.GetTechType(__instance.gameObject) == TechType.Warper)
+            {
+                shouldBeInfected = true;
+            }
         }
+        if (!shouldBeInfected)
+        {
+            var biomeName = WaterBiomeManager.main.GetBiome(__instance.transform.position);
+            if (biomeName == "dunes" || biomeName == "infectedzone")
+            {
+                shouldBeInfected = true;
+            }
+        }
+        if (shouldBeInfected)
+            __instance.SetInfectedAmount(4);
+    }
+
+    private static bool EvaluateShouldBeInfectedRandomly()
+    {
+        return Random.value <= 0.20f;
     }
     
     [HarmonyPatch(nameof(InfectedMixin.UpdateInfectionShading))]
@@ -58,6 +83,11 @@ public static class InfectedMixinPatcher
             {
                 material.SetColor(SpecColor, Color.black);
                 material.SetColor(ShaderPropertyID._GlowColor, Color.black);
+            }
+            
+            if (techType is TechType.HoopfishSchool )
+            {
+                material.SetColor(ShaderPropertyID._GlowColor, Color.red);
             }
             
             if (techType == TechType.Crash && material.name.Contains("Eye"))

@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
+using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -11,6 +12,8 @@ public static class CreaturePatcher
     [HarmonyPostfix]
     public static void OnEnablePostfix(Creature __instance)
     {
+        __instance.gameObject.EnsureComponent<InfectionStrikeTarget>();
+
         var infectedMixin = __instance.gameObject.GetComponent<InfectedMixin>();
         if (infectedMixin != null)
         {

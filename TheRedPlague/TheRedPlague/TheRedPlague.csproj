@@ -34,6 +34,9 @@
       <Reference Include="Nautilus">
         <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\Nautilus\Nautilus.dll</HintPath>
       </Reference>
+      <Reference Include="WeatherMod">
+        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\WeatherMod\WeatherMod.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 

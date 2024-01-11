@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Story;
 
 namespace TheRedPlague.Mono;
 
 // add this script to any object to infect it lol
-public class InfectAnything : MonoBehaviour
+public class InfectAnything : MonoBehaviour, IStoryGoalListener
 {
     public Renderer[] renderers;
     private List<Material> _materials;
@@ -18,6 +19,12 @@ public class InfectAnything : MonoBehaviour
 
     private void Start()
     {
+        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
+        {
+            ApplyShading(false);
+            return;
+        }
+        StoryGoalManager.main.AddListener(this);
         ApplyShading(infectedAtStart);
     }
 
@@ -64,6 +71,14 @@ public class InfectAnything : MonoBehaviour
         foreach (var material in _materials)
         {
             Destroy(material);
+        }
+    }
+
+    public void NotifyGoalComplete(string key)
+    {
+        if (key == StoryUtils.ForceFieldLaserDisabled.key)
+        {
+            ApplyShading(false);
         }
     }
 }

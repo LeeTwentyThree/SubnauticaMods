@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
+using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -9,8 +10,10 @@ public static class PlayerPatcher
 {
     [HarmonyPatch(nameof(Player.Start))]
     [HarmonyPostfix]
-    public static void OnEnablePostfix()
+    public static void StartPostfix(Player __instance)
     {
         MainCamera.camera.farClipPlane = 99999;
+        __instance.gameObject.EnsureComponent<RandomFishSpawner>();
+        __instance.gameObject.EnsureComponent<JumpScares>();
     }
 }

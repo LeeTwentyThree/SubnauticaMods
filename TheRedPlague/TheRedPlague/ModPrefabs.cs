@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
+using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using TheRedPlague.Mono;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TheRedPlague;
 
@@ -13,9 +16,16 @@ public static class ModPrefabs
 {
     private static PrefabInfo InfectionDomeInfo { get; } = PrefabInfo.WithTechType("InfectionDome");
     private static PrefabInfo InfectionLaserInfo { get; } = PrefabInfo.WithTechType("InfectionLaser");
+    private static PrefabInfo LaserReceptacleInfo { get; } = PrefabInfo.WithTechType("InfectionLaserReceptacle");
 
-    private static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
+    public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
+
+    public static PrefabInfo EnzymeContainer { get; } = PrefabInfo.WithTechType("ConcentratedEnzymeContainer", "Concentrated enzyme 42 container",
+        "A container of concentrated enzyme 42, ready to be placed into a machine for mass distribution.");
+
+    public static PrefabInfo EnzymeParticle { get; } = PrefabInfo.WithTechType("EnzymeParticle", "Enzyme 42 particle",
+        "A small particle of Enzyme 42. Not useful until crafted into a concentrated solution.");
 
     private static PrefabInfo InfectionTrackerInfo { get; } = PrefabInfo.WithTechType("InfectionTracker",
         "Tracker tablet", "A tablet that directs its user to a certain location.");
@@ -35,6 +45,11 @@ public static class ModPrefabs
             AtmosphereVolumeTemplate.VolumeShape.Sphere, "infectedzone");
         infectedZonePrefab.SetGameObject(infectedZoneTemplate);
         infectedZonePrefab.Register();
+        
+        var plagueHeartBiomeSettings = BiomeUtils.CreateBiomeSettings(new Vector3(14, 9, 9), 1.3f,
+            new Color(1.05f, 1f, 1f, 1), 2f, new Color(1f, 0.3f, 0.3f), 0.05f, 10f, 0.5f, 0.5f, 18f);
+        BiomeHandler.RegisterBiome("plagueheart", plagueHeartBiomeSettings,
+            new BiomeHandler.SkyReference("SkyGrassyPlateaus"));
 
         var infectionDome = new CustomPrefab(InfectionDomeInfo);
         infectionDome.SetGameObject(GetInfectionDomePrefab);
@@ -166,6 +181,7 @@ public static class ModPrefabs
             var materials = renderer.materials;
             materials[1].color = Color.red;
             renderer.materials = materials;
+            go.AddComponent<InfectAnything>();
         };
         infectionLaserColumnPrefab.SetGameObject(infectionLaserColumnTemplate);
         infectionLaserColumnPrefab.SetSpawns(new SpawnLocation(new Vector3(-59.640f, 301.000f, -24.840f),
@@ -177,6 +193,7 @@ public static class ModPrefabs
             new CloneTemplate(infectionLaserTerminalPrefab.Info, "b1f54987-4652-4f62-a983-4bf3029f8c5b");
         infectionLaserTerminalTemplate.ModifyPrefab += go =>
         {
+            go.AddComponent<InfectAnything>();
             // implement custom modifications here
         };
         infectionLaserTerminalPrefab.SetGameObject(infectionLaserTerminalTemplate);
@@ -247,36 +264,104 @@ public static class ModPrefabs
         infectionTrackerPrefab.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("InfectionTrackerIcon"));
         infectionTrackerPrefab.Register();
 
-        var infectedReaperSkeleton = MakeInfectedClone(PrefabInfo.WithTechType("InfectedReaperSkeleton"), "8fe779a5-e907-4e9e-b748-1eee25589b34");
-        infectedReaperSkeleton.SetSpawns(new LootDistributionData.BiomeData
-            { biome = BiomeType.Dunes_SandDune, count = 1, probability = 0.02f }
+        var infectedReaperSkeleton = MakeInfectedClone(PrefabInfo.WithTechType("InfectedReaperSkeleton"), "8fe779a5-e907-4e9e-b748-1eee25589b34", 4f);
+        infectedReaperSkeleton.SetSpawns(
+            new LootDistributionData.BiomeData { biome = BiomeType.Dunes_SandDune, count = 1, probability = 0.04f }
         );
         infectedReaperSkeleton.Register();
+
+        var reaperWithoutSkullModification = (GameObject go) =>
+        {
+            foreach (Transform child in go.transform)
+            {
+                var name = child.gameObject.name;
+                if (name.Contains("bone") || name.Contains("skull"))
+                {
+                    child.gameObject.SetActive(false);
+                }
+            }
+        };
         
-        var infectedGenericSkeleton1 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedSkeleton1"), "0b6ea118-1c0b-4039-afdb-2d9b26401ad2");
-        infectedGenericSkeleton1.SetSpawns(new LootDistributionData.BiomeData
-            { biome = BiomeType.Dunes_SandDune, count = 1, probability = 0.02f }
+        var infectedReaperSkeletonNoSkull = MakeInfectedClone(PrefabInfo.WithTechType("InfectedReaperSkeletonNoSkull"), "8fe779a5-e907-4e9e-b748-1eee25589b34", 4f, reaperWithoutSkullModification);
+        infectedReaperSkeletonNoSkull.SetSpawns(
+            new LootDistributionData.BiomeData { biome = BiomeType.SafeShallows_SandFlat, count = 1, probability = 0.04f },
+            new LootDistributionData.BiomeData { biome = BiomeType.GrassyPlateaus_Sand, count = 1, probability = 0.04f },
+            new LootDistributionData.BiomeData { biome = BiomeType.Kelp_GrassSparse, count = 1, probability = 0.02f }
+        );
+        infectedReaperSkeletonNoSkull.Register();
+        
+        var infectedGenericSkeleton1 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedSkeleton1"), "0b6ea118-1c0b-4039-afdb-2d9b26401ad2", 7f);
+        infectedGenericSkeleton1.SetSpawns(
+            new LootDistributionData.BiomeData { biome = BiomeType.Dunes_SandDune, count = 1, probability = 0.02f },
+            new LootDistributionData.BiomeData { biome = BiomeType.Kelp_GrassDense, count = 1, probability = 0.08f },
+            new LootDistributionData.BiomeData { biome = BiomeType.MushroomForest_Sand, count = 1, probability = 0.08f }
         );
         infectedGenericSkeleton1.Register();
 
-        var infectedGenericSkeleton2 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedSkeleton2"), "e10ff9a1-5f1e-4c4d-bf5f-170dba9e321b");
-        infectedGenericSkeleton2.SetSpawns(new LootDistributionData.BiomeData
-            { biome = BiomeType.Dunes_Rock, count = 1, probability = 0.02f }
+        var infectedGenericSkeleton2 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedSkeleton2"), "e10ff9a1-5f1e-4c4d-bf5f-170dba9e321b", 8f);
+        infectedGenericSkeleton2.SetSpawns(
+            new LootDistributionData.BiomeData { biome = BiomeType.Dunes_Rock, count = 1, probability = 0.02f },
+            new LootDistributionData.BiomeData { biome = BiomeType.MushroomForest_Grass, count = 1, probability = 0.1f }
         );
         infectedGenericSkeleton2.Register();
+        
+        var infectedRib2 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedRib"), "33c31a89-9d3b-4717-ad26-4cc8106a1f24", 2f);
+        infectedRib2.SetSpawns(new LootDistributionData.BiomeData
+            { biome = BiomeType.Dunes_Rock, count = 1, probability = 0.1f },
+            new LootDistributionData.BiomeData
+                { biome = BiomeType.Dunes_Grass, count = 1, probability = 0.1f }
+        );
+        infectedRib2.Register();
 
         var plagueHeart = new CustomPrefab(PlagueHeart);
         plagueHeart.SetGameObject(GetPlagueHeartPrefab);
         PlagueHeart.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("PlagueHeartIcon"));
-        plagueHeart.SetSpawns(new SpawnLocation(new Vector3(-1319.740f, -227.150f, 280)));
+        plagueHeart.SetSpawns(new SpawnLocation(new Vector3(-1319.740f, -223.150f, 280)));
         plagueHeart.Register();
+
+        var laserReceptacle = new CustomPrefab(LaserReceptacleInfo);
+        laserReceptacle.SetGameObject(GetLaserReceptaclePrefab);
+        laserReceptacle.SetSpawns(new SpawnLocation(Vector3.zero, new Vector3(0, 0, 0)));
+        laserReceptacle.Register();
+
+        var enzymeParticle = new CustomPrefab(EnzymeParticle);
+        var enzymeParticleTemplate = new CloneTemplate(enzymeParticle.Info, TechType.LabContainer3);
+        enzymeParticle.SetGameObject(enzymeParticleTemplate);
+        enzymeParticle.Register();
+
+        var enzymeContainer = new CustomPrefab(EnzymeContainer);
+        EnzymeContainer.WithIcon(SpriteManager.Get(TechType.LabContainer3));
+        var enzymeContainerTemplate = new CloneTemplate(enzymeContainer.Info, TechType.LabContainer3);
+        enzymeContainer.SetGameObject(enzymeContainerTemplate);
+        enzymeContainer.SetRecipe(new RecipeData(new CraftData.Ingredient(enzymeParticle.Info.TechType, 16), new CraftData.Ingredient(TechType.Titanium, 2), new CraftData.Ingredient(TechType.Glass, 1)))
+            .WithStepsToFabricatorTab("Resources", "AdvancedMaterials").WithCraftingTime(6).WithFabricatorType(CraftTree.Type.Fabricator);
+        enzymeContainer.Register();
     }
 
-    private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID)
+    private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)
     {
         var prefab = new CustomPrefab(info);
         var template = new CloneTemplate(prefab.Info, cloneClassID);
-        template.ModifyPrefab += go => { go.AddComponent<InfectAnything>(); };
+        if (modifyPrefab != null)
+        {
+            template.ModifyPrefab += modifyPrefab;
+        }
+        template.ModifyPrefab += go =>
+        {
+            go.AddComponent<InfectAnything>();
+            if (Math.Abs(scale - 1f) > 0.001f)
+            {
+                var scaler = new GameObject("Scaler").transform;
+                scaler.parent = go.transform;
+                scaler.localPosition = Vector3.zero;
+                while (go.transform.childCount > 1)
+                {
+                    go.transform.GetChild(0).parent = scaler;
+                }
+
+                scaler.transform.localScale = Vector3.one * scale;
+            }
+        };
         prefab.SetGameObject(template);
         return prefab;
     }
@@ -312,15 +397,23 @@ public static class ModPrefabs
 
         var diveReelTask = CraftData.GetPrefabForTechTypeAsync(TechType.DiveReel);
         yield return diveReelTask;
-        var arrow = Object.Instantiate(diveReelTask.GetResult().GetComponent<DiveReel>().nodePrefab.transform.Find("Arrow").gameObject, viewModel.transform);
-        arrow.SetActive(true);
-        arrow.transform.localPosition = Vector3.forward * 0.15f;
-        arrow.transform.localScale = Vector3.one * 0.3f;
+        var arrow = Object.Instantiate(diveReelTask.GetResult().GetComponent<DiveReel>().nodePrefab.transform.Find("Arrow").gameObject, go.transform);
+        arrow.SetActive(false);
+        var arrowCenter = new GameObject("ArrowCenter").transform;
+        arrowCenter.parent = viewModel.transform.GetChild(0).GetChild(0);
+        arrowCenter.localPosition = Vector3.forward * 0.15f;
         arrow.GetComponentInChildren<Renderer>().material.color = Color.red;
         arrow.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._ColorStrength, new Color(1.5f, 0, 0));
         arrow.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._ColorStrengthAtNight, new Color(1.5f, 0, 0));
 
-        tool.arrow = arrow.transform;
+        tool.arrowPrefab = arrow;
+        tool.arrowRoot = arrowCenter;
+        tool.viewModel = viewModel;
+
+        var rb = go.EnsureComponent<Rigidbody>();
+        rb.mass = 200;
+        rb.useGravity = false;
+        go.EnsureComponent<WorldForces>();
     }
 
     private static IEnumerator GetInfectionDomePrefab(IOut<GameObject> prefab)
@@ -336,7 +429,22 @@ public static class ModPrefabs
         var materials = renderer.materials;
         materials[2] = material;
         renderer.materials = materials;
-        yield return null;
+        
+        var solarPanelRequest = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
+        yield return solarPanelRequest;
+        var solarPanelPrefab = solarPanelRequest.GetResult();
+        
+        var linePrefab = Object.Instantiate(solarPanelPrefab.GetComponent<PowerFX>().vfxPrefab, obj.transform);
+        linePrefab.SetActive(false);
+        var line = linePrefab.GetComponent<LineRenderer>();
+        var newMaterial = new Material(line.material);
+        newMaterial.color = new Color(4, 0, 0);
+        line.material = newMaterial;
+        line.widthMultiplier = 1;
+
+        var lightning = obj.AddComponent<InfectionLightning>();
+        lightning.linePrefab = linePrefab;
+        
         prefab.Set(obj);
     }
 
@@ -383,6 +491,22 @@ public static class ModPrefabs
         freezeWhenFar.freezeDist = 4f;
         obj.AddComponent<Pickupable>();
         obj.AddComponent<PlagueHeartBehavior>();
+
+        var emitter = obj.AddComponent<FMOD_CustomLoopingEmitter>();
+        emitter.followParent = true;
+        emitter.SetAsset(AudioUtils.GetFmodAsset("PlagueHeartAmbience"));
+
+        /*
+        var volumeObj = new GameObject("AtmosphereVolume");
+        var volume = volumeObj.AddComponent<AtmosphereVolume>();
+        volumeObj.AddComponent<SphereCollider>().isTrigger = true;
+        volumeObj.layer = LayerID.Trigger;
+        volume.overrideBiome = "plagueheart";
+        volumeObj.transform.parent = obj.transform;
+        volumeObj.transform.localPosition = Vector3.zero;
+        volumeObj.transform.localScale = Vector3.one * 12;
+        volumeObj.AddComponent<Rigidbody>().isKinematic = true;
+        */
         yield return null;
         prefab.Set(obj);
     }
@@ -392,7 +516,7 @@ public static class ModPrefabs
         var solarPanelRequest = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
         yield return solarPanelRequest;
         var solarPanelPrefab = solarPanelRequest.GetResult();
-        var obj = Object.Instantiate(solarPanelPrefab.GetComponent<PowerFX>()).vfxPrefab;
+        var obj = Object.Instantiate(solarPanelPrefab.GetComponent<PowerFX>().vfxPrefab);
         PrefabUtils.AddBasicComponents(obj, InfectionLaserInfo.ClassID, InfectionLaserInfo.TechType,
             LargeWorldEntity.CellLevel.Global);
         var line = obj.GetComponent<LineRenderer>();
@@ -403,5 +527,15 @@ public static class ModPrefabs
         line.endWidth = 100;
         line.SetPositions(new[] {new Vector3(-78.393f, 341.175f, -57.684f), new Vector3(0, 2000, 0)});
         prefab.Set(obj);
+    }
+
+    private static IEnumerator GetLaserReceptaclePrefab(IOut<GameObject> prefab)
+    {
+        var request = UWE.PrefabDatabase.GetPrefabAsync("63e69987-7d34-41f0-aab9-1187ea06e740");
+        yield return request;
+        request.TryGetPrefab(out var reference);
+        var go = Object.Instantiate(reference.transform.Find("Precursor_Teleporter_Activation_Terminal").gameObject);
+        PrefabUtils.AddBasicComponents(go, LaserReceptacleInfo.ClassID, LaserReceptacleInfo.TechType, LargeWorldEntity.CellLevel.Near);
+        prefab.Set(go);
     }
 }
