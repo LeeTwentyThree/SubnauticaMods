@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>WeatherMod</AssemblyName>
-        <Version>0.0.5</Version>
+        <Version>0.0.6</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>11</LangVersion>
         <RootNamespace>WeatherMod</RootNamespace>
@@ -29,6 +29,7 @@
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
     </ItemGroup>
+
 
     <!--Imports the GameDir.targets file (from the same folder) which should contain the path to the Subnautica directory for the post-build event-->
     <Import Project="GameDir.targets" />

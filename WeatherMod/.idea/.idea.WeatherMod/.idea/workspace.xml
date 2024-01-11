@@ -5,7 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cf197cb-63f9-422f-a945-9290dc97744c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/JumpScareUtils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModAudio.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/DespawnWhenOffScreen.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/FadingOverlay.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionLightning.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionStrikeTarget.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/JumpScares.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/RandomFishSpawner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/RocketSeaEmperor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/LaunchRocketPatch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/SeaEmperorPatch.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/TelepathyPatcher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeatherMod/MessageReaders/SetWeatherPausedReader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/WeatherMod/MessageReaders/SetWeatherReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModPrefabs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionTrackerTool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionTrackerTool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/CreaturePatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/CreaturePatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/PlayerPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/PlayerPatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Plugin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/TheRedPlague.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/TheRedPlague.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ZombieManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ZombieManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WeatherMod/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WeatherMod/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeatherMod/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WeatherMod/Plugin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeatherMod/WeatherAPI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WeatherMod/WeatherAPI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeatherMod/WeatherMod.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WeatherMod/WeatherMod.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +43,8 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/85d1d3e7744a4a47b5f51883bf40bba2bb400/c0/30c3f295/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/45/07972180/WeatherManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/70/5ba929a9/VFXClouds.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../NautilusClone/Nautilus/Utility/ModMessages/ModInbox.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/WeatherMod/MessageReaders/SetWeatherReader.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -77,6 +103,11 @@
       <workItem from="1700887174405" duration="1865000" />
       <workItem from="1700928541460" duration="1412000" />
       <workItem from="1701024281622" duration="983000" />
+      <workItem from="1704566368000" duration="2064000" />
+      <workItem from="1704577943876" duration="1524000" />
+      <workItem from="1704593105606" duration="38000" />
+      <workItem from="1704833456409" duration="596000" />
+      <workItem from="1704838371489" duration="108000" />
     </task>
     <servers />
   </component>
