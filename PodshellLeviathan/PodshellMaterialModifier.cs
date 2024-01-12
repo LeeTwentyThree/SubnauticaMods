@@ -24,7 +24,7 @@ internal class PodshellMaterialModifier : MaterialModifier
         material.SetColor("_SpecColor", new Color(3, 3, 3));
         material.SetFloat("_Shininess", 6);
         material.SetFloat("_Fresnel", 0.6f);
-        material.SetFloat("_GlowStrength", 3f);
-        material.SetFloat("_GlowStrengthNight", 3f);
+        material.SetFloat("_GlowStrength", 2f);
+        material.SetFloat("_GlowStrengthNight", 2f);
     }
 }
