@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using HarmonyLib;
+using Story;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -11,6 +12,11 @@ public static class SeaEmperorPatch
     [HarmonyPostfix]
     public static void StartPostfix(SeaEmperor __instance)
     {
+        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.OpenAquariumTeleporterGoalKey))
+        {
+            __instance.gameObject.SetActive(false);
+            return;
+        }
         ZombieManager.InfectSeaEmperor(__instance.gameObject);
     }
 }

@@ -16,7 +16,7 @@ public static class ModAudio
         RegisterSound("InfectionLaserShot", "InfectionLaserShot", "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 2, 20);
         Register2DSound("SeaEmperorJumpscare", "SeaEmperorJumpscare", "bus:/master/SFX_for_pause/PDA_pause/all");
         Register2DSound("DieFromInfection", "DieFromInfection", "bus:/master/SFX_for_pause/PDA_pause/all");
-        RegisterSound("DisableDomeSound", "DisableDomeSound", "bus:/master/SFX_for_pause/PDA_pause/all", 50, 4000f);
+        RegisterSound("DisableDomeSound", "DisableDomeSound", "bus:/master/SFX_for_pause/PDA_pause/all", 40, 10000);
         RegisterSound("PlagueHeartAmbience", "PlagueHeartAmbience", "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds", 1f, 16f);
         Register2DSound("InfectedDunesAmbience", "InfectedDunesAmbience", "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds");
         RegisterSoundWithVariants("WarperJumpscare", new string[]{"Jumpscare1", "Jumpscare2", "Jumpscare3", "Jumpscare4", "Jumpscare5"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend");

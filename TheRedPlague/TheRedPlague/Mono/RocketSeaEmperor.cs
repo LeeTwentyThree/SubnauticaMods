@@ -64,6 +64,7 @@ public class RocketSeaEmperor : MonoBehaviour
         emperorTransform.localPosition = new Vector3(-1, 46.500f, 0);
         emperorTransform.localEulerAngles = new Vector3(90, 90, 0);
         emperorTransform.localScale = Vector3.one * 0.4f;
+        SpawnBlackSphere();
         yield return new WaitForSeconds(2f);
         FadingOverlay.PlayFX(Color.black, 0.1f, 10f, 1f);
         yield return new WaitForSeconds(2f);
@@ -80,5 +81,19 @@ public class RocketSeaEmperor : MonoBehaviour
             emperorTransform.localPosition =
                 Vector3.MoveTowards(emperorTransform.localPosition, _seaEmperorEndPos, Time.deltaTime * 30f);
         }
+    }
+
+    private void SpawnBlackSphere()
+    {
+        var sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.localScale = Vector3.one * 7;
+        sphere.transform.position = MainCamera.camera.transform.position + new Vector3(0, -0.5f, 0);
+        sphere.GetComponent<Collider>().enabled = false;
+        var renderer = sphere.GetComponent<MeshRenderer>();
+        var material = renderer.material;
+        material.shader = MaterialUtils.Shaders.MarmosetUBER;
+        material.SetFloat(ShaderPropertyID._MyCullVariable, 0);
+        material.color = Color.black;
+        material.SetColor(ShaderPropertyID._SpecColor, Color.black);
     }
 }

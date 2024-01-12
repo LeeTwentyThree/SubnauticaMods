@@ -321,7 +321,7 @@ public static class ModPrefabs
 
         var laserReceptacle = new CustomPrefab(LaserReceptacleInfo);
         laserReceptacle.SetGameObject(GetLaserReceptaclePrefab);
-        laserReceptacle.SetSpawns(new SpawnLocation(Vector3.zero, new Vector3(0, 0, 0)));
+        laserReceptacle.SetSpawns(new SpawnLocation(new Vector3(-66.123f, 302.018f, -30.484f), new Vector3(0, 343, 0)));
         laserReceptacle.Register();
 
         var enzymeParticle = new CustomPrefab(EnzymeParticle);
@@ -442,7 +442,7 @@ public static class ModPrefabs
         line.material = newMaterial;
         line.widthMultiplier = 1;
 
-        var lightning = obj.AddComponent<InfectionLightning>();
+        var lightning = obj.AddComponent<InfectionDomeController>();
         lightning.linePrefab = linePrefab;
         
         prefab.Set(obj);
@@ -526,6 +526,7 @@ public static class ModPrefabs
         line.widthMultiplier = 15;
         line.endWidth = 100;
         line.SetPositions(new[] {new Vector3(-78.393f, 341.175f, -57.684f), new Vector3(0, 2000, 0)});
+        obj.AddComponent<LaserMaterialManager>();
         prefab.Set(obj);
     }
 
@@ -536,6 +537,18 @@ public static class ModPrefabs
         request.TryGetPrefab(out var reference);
         var go = Object.Instantiate(reference.transform.Find("Precursor_Teleporter_Activation_Terminal").gameObject);
         PrefabUtils.AddBasicComponents(go, LaserReceptacleInfo.ClassID, LaserReceptacleInfo.TechType, LargeWorldEntity.CellLevel.Near);
+        var boxCollider = go.AddComponent<BoxCollider>();
+        boxCollider.size = new Vector3(1.2f, 2f, 1.3f);
+        boxCollider.center = Vector3.up;
+        go.AddComponent<LaserReceptacleController>();
+        var trigger = new GameObject("Trigger");
+        trigger.transform.parent = go.transform;
+        trigger.transform.localPosition = Vector3.zero;
+        var collider = trigger.AddComponent<SphereCollider>();
+        collider.isTrigger = true;
+        collider.radius = 5;
+        trigger.AddComponent<PrecursorKeyTerminalTrigger>();
+        trigger.AddComponent<Rigidbody>().isKinematic = true;
         prefab.Set(go);
     }
 }

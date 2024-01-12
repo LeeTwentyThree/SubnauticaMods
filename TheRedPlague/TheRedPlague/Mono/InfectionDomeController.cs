@@ -5,8 +5,10 @@ using UnityEngine;
 
 namespace TheRedPlague.Mono;
 
-public class InfectionLightning : MonoBehaviour
+public class InfectionDomeController : MonoBehaviour
 {
+    public static InfectionDomeController main;
+    
     public GameObject linePrefab;
 
     private float _timeStrikeAgain;
@@ -17,20 +19,51 @@ public class InfectionLightning : MonoBehaviour
 
     private static FMODAsset _strikeTargetSound = AudioUtils.GetFmodAsset("InfectionLaserShot");
 
+    private bool _rocketAnimation;
+    private float _timeStartRocketAnimation;
+    private float _moveUpwardsDelay = 26;
+    private float _rocketVelocity;
+    private float _rocketAccel = 40;
+
     private void Awake()
     {
+        main = this;
         ResetTimer();
+    }
+
+    public void OnBeginRocketAnimation()
+    {
+        _timeStartRocketAnimation = Time.time;
+        _rocketAnimation = true;
     }
 
     private void Update()
     {
+        if (PlagueHeartBehavior.main == null)
+        {
+            return;
+        }
+        
         if (Time.time > _timeStrikeAgain)
         {
             if (PlagueHeartBehavior.main.isActiveAndEnabled && TryGetRandomTarget(out var target))
             {
                 StrikeTarget(target);
-                ResetTimer();
+                if (Vector3.SqrMagnitude(Player.main.transform.position - PlagueHeartBehavior.main.transform.position) < 24 * 24)
+                {
+                    _timeStrikeAgain = Time.time + Random.value + 0.4f;
+                }
+                else
+                {
+                    ResetTimer();
+                }
             }
+        }
+
+        if (_rocketAnimation && Time.time > _timeStartRocketAnimation + _moveUpwardsDelay)
+        {
+            _rocketVelocity += Time.deltaTime * _rocketAccel;
+            transform.position += Vector3.down * (_rocketVelocity * Time.deltaTime);
         }
     }
 
@@ -81,7 +114,7 @@ public class InfectionLightning : MonoBehaviour
 
     private bool TryGetRandomTarget(out InfectionStrikeTarget chosenTarget)
     {
-        if (PlagueHeartBehavior.main != null && Vector3.SqrMagnitude(Player.main.transform.position - PlagueHeartBehavior.main.transform.position) < 12 * 12)
+        if (PlagueHeartBehavior.main != null && Vector3.SqrMagnitude(Player.main.transform.position - PlagueHeartBehavior.main.transform.position) < 24 * 24)
         {
             chosenTarget = Player.main.gameObject.EnsureComponent<InfectionStrikeTarget>();
             return true;
