@@ -1,11 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using Story;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace TheRedPlague.Mono;
 
-public class InfectionDomeController : MonoBehaviour
+public class InfectionDomeController : MonoBehaviour, IStoryGoalListener
 {
     public static InfectionDomeController main;
     
@@ -25,10 +28,31 @@ public class InfectionDomeController : MonoBehaviour
     private float _rocketVelocity;
     private float _rocketAccel = 40;
 
+    private bool _playerWasNearby;
+
     private void Awake()
     {
         main = this;
         ResetTimer();
+    }
+
+    private void Start()
+    {
+        StoryGoalManager.main.AddListener(this);
+        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.DisableDome.key))
+        {
+            SetDomeColor(new Color(0, 0, 0));
+        }
+        else if (StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key))
+        {
+            SetDomeColor(new Color(0.5f, 1, 0.5f));
+        }
+    }
+
+    private void SetDomeColor(Color color)
+    {
+        var materials = GetComponentInChildren<Renderer>().materials;
+        materials[2].color = color;
     }
 
     public void OnBeginRocketAnimation()
@@ -39,17 +63,12 @@ public class InfectionDomeController : MonoBehaviour
 
     private void Update()
     {
-        if (PlagueHeartBehavior.main == null)
-        {
-            return;
-        }
-        
-        if (Time.time > _timeStrikeAgain)
+        if (PlagueHeartBehavior.main != null && Time.time > _timeStrikeAgain)
         {
             if (PlagueHeartBehavior.main.isActiveAndEnabled && TryGetRandomTarget(out var target))
             {
                 StrikeTarget(target);
-                if (Vector3.SqrMagnitude(Player.main.transform.position - PlagueHeartBehavior.main.transform.position) < 24 * 24)
+                if (_playerWasNearby)
                 {
                     _timeStrikeAgain = Time.time + Random.value + 0.4f;
                 }
@@ -71,28 +90,39 @@ public class InfectionDomeController : MonoBehaviour
     {
         if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
         {
-            Destroy(this);
             return;
         }
         
         var plagueHeart = PlagueHeartBehavior.main;
         if (plagueHeart == null)
             return;
+        
         var positionA = plagueHeart.transform.position;
         var positionB = GetRandomDomePosition();
         var positionC = target.transform.position;
         
-        var line1 = Instantiate(linePrefab);
-        AddLerpColors(line1);
-        line1.SetActive(true);
-        line1.GetComponent<LineRenderer>().SetPositions(new[] {positionA, positionB});
-        Destroy(line1, 1);
+        if (_playerWasNearby)
+        {
+            var line = Instantiate(linePrefab);
+            AddLerpColors(line);
+            line.SetActive(true);
+            line.GetComponent<LineRenderer>().SetPositions(new[] {positionA, positionC});
+            Destroy(line, 1);
+        }
+        else
+        {
+            var line1 = Instantiate(linePrefab);
+            AddLerpColors(line1);
+            line1.SetActive(true);
+            line1.GetComponent<LineRenderer>().SetPositions(new[] {positionA, positionB});
+            Destroy(line1, 1);
 
-        var line2 = Instantiate(linePrefab);
-        AddLerpColors(line2);
-        line2.SetActive(true);
-        line2.GetComponent<LineRenderer>().SetPositions(new[] {positionB, positionC});
-        Destroy(line2, 1);
+            var line2 = Instantiate(linePrefab);
+            AddLerpColors(line2);
+            line2.SetActive(true);
+            line2.GetComponent<LineRenderer>().SetPositions(new[] {positionB, positionC});
+            Destroy(line2, 1);
+        }
         
         target.Infect();
         Utils.PlayFMODAsset(_strikeTargetSound, target.transform.position);
@@ -114,7 +144,8 @@ public class InfectionDomeController : MonoBehaviour
 
     private bool TryGetRandomTarget(out InfectionStrikeTarget chosenTarget)
     {
-        if (PlagueHeartBehavior.main != null && Vector3.SqrMagnitude(Player.main.transform.position - PlagueHeartBehavior.main.transform.position) < 24 * 24)
+        _playerWasNearby = Vector3.SqrMagnitude(Player.main.transform.position - PlagueHeartBehavior.main.transform.position) < 9 * 9;
+        if (PlagueHeartBehavior.main != null && _playerWasNearby)
         {
             chosenTarget = Player.main.gameObject.EnsureComponent<InfectionStrikeTarget>();
             return true;
@@ -130,5 +161,26 @@ public class InfectionDomeController : MonoBehaviour
 
         chosenTarget = validTargets[Random.Range(0, validTargets.Length)];
         return chosenTarget != null;
+    }
+
+    public void NotifyGoalComplete(string key)
+    {
+        if (key == StoryUtils.DisableDome.key)
+        {
+            SetDomeColor(new Color(0, 0, 0));
+        }
+        else if (key == StoryUtils.EnzymeRainEnabled.key)
+        {
+            SetDomeColor(new Color(0.5f, 1, 0.5f));
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        StoryGoalManager main = StoryGoalManager.main;
+        if (main)
+        {
+            main.RemoveListener(this);
+        }
     }
 }

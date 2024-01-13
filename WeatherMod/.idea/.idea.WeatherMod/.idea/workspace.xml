@@ -5,14 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0cf197cb-63f9-422f-a945-9290dc97744c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/EscapeAquariumCinematic.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/DeadSeaEmperorSpawner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/LookAtPlayer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/PlayEmperorDeathAnimation.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/SunBrightnessModifier.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/UninfectSeaEmperorOnEnzymeRain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/JumpScareUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/JumpScareUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModAudio.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModConfig.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/ModPrefabs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionLightning.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionDomeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/LaunchRocketPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/LaunchRocketPatch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/SeaEmperorPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/SeaEmperorPatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/DespawnWhenOffScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/DespawnWhenOffScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionDomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/InfectionDomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/JumpScares.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/JumpScares.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/LaserReceptacleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Mono/LaserReceptacleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/uSkyManagerPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Patches/uSkyManagerPatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/Plugin.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/StoryUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../TheRedPlague/TheRedPlague/StoryUtils.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WeatherMod/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WeatherMod/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeatherMod/CloudUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WeatherMod/CloudUtils.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WeatherMod/WeatherMod.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/WeatherMod/WeatherMod.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,6 +102,7 @@
       <workItem from="1704833456409" duration="596000" />
       <workItem from="1704838371489" duration="108000" />
       <workItem from="1705006638483" duration="792000" />
+      <workItem from="1705110763921" duration="1325000" />
     </task>
     <servers />
   </component>

@@ -49,4 +49,15 @@ public static class LaunchRocketPatch
             RocketSeaEmperor.PlayCinematic(__instance);
         }
     }
+    
+    [HarmonyPatch(nameof(LaunchRocket.IsRocketReady))]
+    [HarmonyPostfix]
+    public static void IsRocketReadyPostfix(ref bool __result)
+    {
+        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key) && !StoryGoalManager.main.IsGoalComplete(StoryUtils.DisableDome.key))
+        {
+            ErrorMessage.AddMessage("Cannot launch rocket while dome is still active!");
+            __result = false;
+        }
+    }
 }

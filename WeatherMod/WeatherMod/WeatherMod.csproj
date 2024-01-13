@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
         <AssemblyName>WeatherMod</AssemblyName>
-        <Version>0.0.7</Version>
+        <Version>0.0.8</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>11</LangVersion>
         <RootNamespace>WeatherMod</RootNamespace>

@@ -14,6 +14,6 @@ public class LowQualityIslandMesh : MonoBehaviour
 
     private void Update()
     {
-        islandModel.SetActive(Vector3.SqrMagnitude(transform.position + new Vector3(-64, 100, 64) - MainCamera.camera.transform.position) > 200 * 200);
+        islandModel.SetActive(!LaunchRocket.launchStarted && Vector3.SqrMagnitude(transform.position + new Vector3(-64, 100, 64) - MainCamera.camera.transform.position) > 200 * 200);
     }
 }

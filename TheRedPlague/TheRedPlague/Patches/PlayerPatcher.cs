@@ -15,5 +15,6 @@ public static class PlayerPatcher
         MainCamera.camera.farClipPlane = 99999;
         __instance.gameObject.EnsureComponent<RandomFishSpawner>();
         __instance.gameObject.EnsureComponent<JumpScares>();
+        __instance.gameObject.AddComponent<EnzymeRainController>();
     }
 }

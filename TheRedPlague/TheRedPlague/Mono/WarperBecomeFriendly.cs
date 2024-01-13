@@ -32,4 +32,13 @@ public class WarperBecomeFriendly : MonoBehaviour, IStoryGoalListener
             BecomeFriendly();
         }
     }
+    
+    private void OnDestroy()
+    {
+        StoryGoalManager main = StoryGoalManager.main;
+        if (main)
+        {
+            main.RemoveListener(this);
+        }
+    }
 }

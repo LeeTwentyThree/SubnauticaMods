@@ -1,10 +1,27 @@
 ﻿using Nautilus.Utility;
+using Story;
 using UnityEngine;
 
 namespace TheRedPlague.Mono;
 
 public class LaserReceptacleController : HandTarget, IHandTarget
 {
+	private PlayerCinematicController _cinematicController;
+
+	private Animator _animator;
+
+	private static readonly FMODAsset UseSound = AudioUtils.GetFmodAsset("event:/player/cube terminal_use");
+
+	private static readonly FMODAsset OpenSound = AudioUtils.GetFmodAsset("event:/player/cube terminal_open");
+
+	private static readonly FMODAsset CloseSound = AudioUtils.GetFmodAsset("event:/player/cube terminal_close");
+
+	private bool _unusable;
+	private GameObject _insertedItem;
+	private int _restoreQuickSlot = -1;
+
+	private Mode _lastUsedMode;
+	
 	public override void Awake()
 	{
 		base.Awake();
@@ -14,10 +31,18 @@ public class LaserReceptacleController : HandTarget, IHandTarget
 	}
 
 	public void OnHandHover(GUIHand hand)
-    {
-	    if (!_unlockedTest)
+	{
+		var mode = GetCurrentMode();
+	    if (!_unusable)
 	    {
-		    HandReticle.main.SetText(HandReticle.TextType.Hand, "InsertPlagueHeart", true, GameInput.Button.LeftHand);
+		    if (mode == Mode.PlagueHeart)
+		    {
+			    HandReticle.main.SetText(HandReticle.TextType.Hand, "InsertPlagueHeart", true, GameInput.Button.LeftHand);
+		    }
+		    else if (mode == Mode.EnzymeContainer)
+		    {
+			    HandReticle.main.SetText(HandReticle.TextType.Hand, "InsertEnzymeContainer", true, GameInput.Button.LeftHand);
+		    }
 		    HandReticle.main.SetText(HandReticle.TextType.HandSubscript, string.Empty, false, GameInput.Button.None);
 		    HandReticle.main.SetIcon(HandReticle.IconType.Hand);
 	    }
@@ -25,33 +50,37 @@ public class LaserReceptacleController : HandTarget, IHandTarget
 
     public void OnHandClick(GUIHand hand)
     {
-	    if (!_unlockedTest)
+	    var mode = GetCurrentMode();
+
+	    if (_unusable || mode == Mode.Unusable) return;
+
+	    var isPlagueHeart = mode == Mode.PlagueHeart;
+	    var pickupable = Inventory.main.container.RemoveItem(isPlagueHeart ? ModPrefabs.PlagueHeart.TechType : ModPrefabs.EnzymeContainer.TechType);
+	    
+	    if (pickupable == null) return;
+	    
+	    _restoreQuickSlot = Inventory.main.quickSlots.activeSlot;
+	    Inventory.main.ReturnHeld(true);
+	    _insertedItem = pickupable.gameObject;
+	    Destroy(_insertedItem.GetComponent<PlagueHeartBehavior>());
+	    _insertedItem.transform.SetParent(Inventory.main.toolSocket);
+	    _insertedItem.transform.localPosition = Vector3.zero;
+	    _insertedItem.transform.localRotation = Quaternion.identity;
+	    _insertedItem.transform.localScale = Vector3.one * (isPlagueHeart ? 0.4f : 1.3f);
+	    _insertedItem.SetActive(true);
+	    Rigidbody component = _insertedItem.GetComponent<Rigidbody>();
+	    if (component != null)
 	    {
-		    Pickupable pickupable = Inventory.main.container.RemoveItem(ModPrefabs.PlagueHeart.TechType);
-		    if (pickupable != null)
-		    {
-			    _restoreQuickSlot = Inventory.main.quickSlots.activeSlot;
-			    Inventory.main.ReturnHeld(true);
-			    _insertedItem = pickupable.gameObject;
-			    _insertedItem.transform.SetParent(Inventory.main.toolSocket);
-			    _insertedItem.transform.localPosition = Vector3.zero;
-			    _insertedItem.transform.localRotation = Quaternion.identity;
-			    _insertedItem.transform.localScale = Vector3.one * 0.4f;
-			    _insertedItem.SetActive(true);
-			    Rigidbody component = _insertedItem.GetComponent<Rigidbody>();
-			    if (component != null)
-			    {
-				    UWE.Utils.SetIsKinematicAndUpdateInterpolation(component, true);
-			    }
-			    _cinematicController.StartCinematicMode(Player.main);
-			    Utils.PlayFMODAsset(UseSound, transform);
-		    }
+		    UWE.Utils.SetIsKinematicAndUpdateInterpolation(component, true);
 	    }
+	    _cinematicController.StartCinematicMode(Player.main);
+	    Utils.PlayFMODAsset(UseSound, transform);
+	    _lastUsedMode = mode;
     }
     
     public void OpenDeck()
 	{
-		if (_unlockedTest)
+		if (_unusable)
 		{
 			return;
 		}
@@ -75,30 +104,43 @@ public class LaserReceptacleController : HandTarget, IHandTarget
 			Destroy(_insertedItem);
 		}
 		CloseDeck();
-		DisableLaser();
+		if (_lastUsedMode == Mode.PlagueHeart)
+		{
+			StoryUtils.DisableInfectionLaser();
+		}
+		else if (_lastUsedMode == Mode.EnzymeContainer)
+		{
+			StoryUtils.StartInfectionRain();
+		}
 		if (_restoreQuickSlot != -1)
 		{
 			Inventory.main.quickSlots.Select(_restoreQuickSlot);
 		}
 	}
-
-	private void DisableLaser()
+	
+	private static Mode GetCurrentMode()
 	{
-		StoryUtils.ForceFieldLaserDisabled.Trigger();
-		Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("DisableDomeSound"), new Vector3(-75.89f, 323.22f, -56.99f));
+		if (StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key))
+		{
+			return Mode.Unusable;
+		}
+		if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
+		{
+			return Mode.EnzymeContainer;
+		}
+		if (StoryGoalManager.main.IsGoalComplete(StoryUtils.PlagueHeartGoal.key))
+		{
+			return Mode.PlagueHeart;
+		}
+
+		return Mode.Unusable;
 	}
 	
-	private PlayerCinematicController _cinematicController;
-
-	private Animator _animator;
-
-	private static readonly FMODAsset UseSound = AudioUtils.GetFmodAsset("event:/player/cube terminal_use");
-
-	private static readonly FMODAsset OpenSound = AudioUtils.GetFmodAsset("event:/player/cube terminal_open");
-
-	private static readonly FMODAsset CloseSound = AudioUtils.GetFmodAsset("event:/player/cube terminal_close");
-
-	private bool _unlockedTest;
-	private GameObject _insertedItem;
-	private int _restoreQuickSlot = -1;
+	
+	private enum Mode
+	{
+		PlagueHeart,
+		EnzymeContainer,
+		Unusable
+	}
 }

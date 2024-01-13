@@ -9,9 +9,17 @@ public class LaserMaterialManager : MonoBehaviour, IStoryGoalListener
     
     private void Start()
     {
-        _renderer = GetComponentInChildren<Renderer>();
-        
-        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
+        _renderer = GetComponentInChildren<Renderer>(true);
+
+        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.DisableDome.key))
+        {
+            _renderer.enabled = false;
+        }
+        else if (StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key))
+        {
+            SetColorGreen();
+        }
+        else if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
         {
             SetColorYellow();
         }
@@ -21,7 +29,15 @@ public class LaserMaterialManager : MonoBehaviour, IStoryGoalListener
 
     public void NotifyGoalComplete(string key)
     {
-        if (key == StoryUtils.ForceFieldLaserDisabled.key)
+        if (key == StoryUtils.DisableDome.key)
+        {
+            _renderer.enabled = false;
+        }
+        else if (key == StoryUtils.EnzymeRainEnabled.key)
+        {
+            Invoke(nameof(SetColorGreen), 13);
+        }
+        else if (key == StoryUtils.ForceFieldLaserDisabled.key)
         {
             Invoke(nameof(SetColorYellow), 13);
         }
@@ -35,5 +51,14 @@ public class LaserMaterialManager : MonoBehaviour, IStoryGoalListener
     private void SetColorGreen()
     {
         _renderer.material.color = new Color(2, 4.5f, 1);
+    }
+    
+    private void OnDestroy()
+    {
+        StoryGoalManager main = StoryGoalManager.main;
+        if (main)
+        {
+            main.RemoveListener(this);
+        }
     }
 }

@@ -72,6 +72,12 @@ public class InfectAnything : MonoBehaviour, IStoryGoalListener
         {
             Destroy(material);
         }
+        
+        StoryGoalManager main = StoryGoalManager.main;
+        if (main)
+        {
+            main.RemoveListener(this);
+        }
     }
 
     public void NotifyGoalComplete(string key)

@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Story;
 using UnityEngine;
 
 namespace TheRedPlague.Mono;
@@ -22,7 +23,7 @@ public class RandomFishSpawner : MonoBehaviour
 
     private bool CanJumpscare()
     {
-        return Player.main.IsSwimming() && !Player.main.IsInside() && !Player.main.justSpawned;
+        return Player.main.IsSwimming() && !Player.main.IsInside() && !Player.main.justSpawned && !StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key);
     }
 
     private void Update()

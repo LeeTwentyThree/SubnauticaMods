@@ -46,36 +46,6 @@ public class Plugin : BaseUnityPlugin
         ConsoleCommandsHandler.AddGotoTeleportPosition("plagueheartisland", new Vector3(-1327, -193, 283));
         
         ModAudio.RegisterAudio();
-
-        // Add CragField_Deep to the BiomeType enum (the name doesn't really matter)
-        BiomeType deepCragFieldCreaturesBiomeType = EnumHandler.AddEntry<BiomeType>("CragField_Deep_Creatures");
-
-        // Create a prefab for the biome slot
-        var deepCragFieldCreaturesSlotInfo = PrefabInfo.WithTechType("DeepCragFieldCreaturesSlot");
-        var deepCragFieldCreaturesSlotPrefab = new CustomPrefab(deepCragFieldCreaturesSlotInfo);
-        deepCragFieldCreaturesSlotPrefab.SetGameObject(() =>
-        {
-            // This name really doesn't matter either
-            var prefab = new GameObject(deepCragFieldCreaturesSlotInfo.ClassID);
-            // Add the most necessary component - a prefab identifier
-            prefab.AddComponent<PrefabIdentifier>().ClassId = deepCragFieldCreaturesSlotInfo.ClassID;
-            // Cells seem to use "Near", so they don't load in until you get close
-            prefab.AddComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Near;
-            // Add the entity slot component which actually links the BiomeType to this prefab
-            // I am NOT certain these fields will actually get set - a lot of these fields are "proto members" which often need special treatment for custom prefabs
-            var entitySlot = prefab.AddComponent<EntitySlot>();
-            entitySlot.biomeType = deepCragFieldCreaturesBiomeType;
-            entitySlot.allowedTypes = new List<EntitySlot.Type> {EntitySlot.Type.Creature};
-            return prefab;
-        });
-        deepCragFieldCreaturesSlotPrefab.Register();
-        
-        // Add spawns to that biome type. When spawning the slot, one of these will appear
-        LootDistributionHandler.AddLootDistributionData(CraftData.GetClassIdForTechType(TechType.Peeper),
-            new LootDistributionData.BiomeData { biome = deepCragFieldCreaturesBiomeType, count = 1, probability = 0.5f } );
-        
-        LootDistributionHandler.AddLootDistributionData(CraftData.GetClassIdForTechType(TechType.Jellyray),
-            new LootDistributionData.BiomeData { biome = deepCragFieldCreaturesBiomeType, count = 1, probability = 0.2f } );
         
         StoryUtils.RegisterStory();
         StoryUtils.RegisterLanguageLines();

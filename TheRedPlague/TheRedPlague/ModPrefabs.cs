@@ -17,15 +17,17 @@ public static class ModPrefabs
     private static PrefabInfo InfectionDomeInfo { get; } = PrefabInfo.WithTechType("InfectionDome");
     private static PrefabInfo InfectionLaserInfo { get; } = PrefabInfo.WithTechType("InfectionLaser");
     private static PrefabInfo LaserReceptacleInfo { get; } = PrefabInfo.WithTechType("InfectionLaserReceptacle");
+    public static PrefabInfo DeadSeaEmperorInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperor", "Deceased Sea Emperor", "A deceased Sea Emperor.");
+    public static PrefabInfo DeadSeaEmperorSpawnerInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperorSpawner");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
 
-    public static PrefabInfo EnzymeContainer { get; } = PrefabInfo.WithTechType("ConcentratedEnzymeContainer", "Concentrated enzyme 42 container",
+    public static PrefabInfo EnzymeContainer { get; } = PrefabInfo.WithTechType("ConcentratedEnzymeContainer", "Concentrated Enzyme 42",
         "A container of concentrated enzyme 42, ready to be placed into a machine for mass distribution.");
 
-    public static PrefabInfo EnzymeParticle { get; } = PrefabInfo.WithTechType("EnzymeParticle", "Enzyme 42 particle",
-        "A small particle of Enzyme 42. Not useful until crafted into a concentrated solution.");
+    public static PrefabInfo EnzymeParticleInfo { get; } = PrefabInfo.WithTechType("InfectedEnzyme", "Impure Enzyme 42",
+        "A small concentration of Enzyme 42. Not very useful until fabricated into a concentrated solution.");
 
     private static PrefabInfo InfectionTrackerInfo { get; } = PrefabInfo.WithTechType("InfectionTracker",
         "Tracker tablet", "A tablet that directs its user to a certain location.");
@@ -324,18 +326,52 @@ public static class ModPrefabs
         laserReceptacle.SetSpawns(new SpawnLocation(new Vector3(-66.123f, 302.018f, -30.484f), new Vector3(0, 343, 0)));
         laserReceptacle.Register();
 
-        var enzymeParticle = new CustomPrefab(EnzymeParticle);
-        var enzymeParticleTemplate = new CloneTemplate(enzymeParticle.Info, TechType.LabContainer3);
-        enzymeParticle.SetGameObject(enzymeParticleTemplate);
+        var enzymeParticle = new CustomPrefab(EnzymeParticleInfo);
+        enzymeParticle.SetGameObject(GetEnzymeParticlePrefab);
+        EnzymeParticleInfo.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("InfectedEnzyme42"));
         enzymeParticle.Register();
 
         var enzymeContainer = new CustomPrefab(EnzymeContainer);
-        EnzymeContainer.WithIcon(SpriteManager.Get(TechType.LabContainer3));
+        EnzymeContainer.WithIcon(SpriteManager.Get(TechType.LabContainer3)).WithSizeInInventory(new Vector2int(2, 2));
         var enzymeContainerTemplate = new CloneTemplate(enzymeContainer.Info, TechType.LabContainer3);
+        enzymeContainerTemplate.ModifyPrefab += (go) =>
+        {
+            var renderer = go.transform.Find("biodome_lab_containers_tube_01/biodome_lab_containers_tube_01_glass").GetComponent<Renderer>();
+            var material = renderer.material;
+            material.color = new Color(1, 1, 1, 0.19f);
+            material.SetColor(ShaderPropertyID._SpecColor, new Color(20, 12, 0, 1));
+            material.SetFloat("_Shininess", 3);
+            if (go.GetComponent<VFXFabricating>() == null)
+            {
+                PrefabUtils.AddVFXFabricating(go, null, -0.05f, 0.3f);
+            }
+        };
         enzymeContainer.SetGameObject(enzymeContainerTemplate);
-        enzymeContainer.SetRecipe(new RecipeData(new CraftData.Ingredient(enzymeParticle.Info.TechType, 16), new CraftData.Ingredient(TechType.Titanium, 2), new CraftData.Ingredient(TechType.Glass, 1)))
-            .WithStepsToFabricatorTab("Resources", "AdvancedMaterials").WithCraftingTime(6).WithFabricatorType(CraftTree.Type.Fabricator);
+        enzymeContainer.SetRecipe(new RecipeData(new CraftData.Ingredient(enzymeParticle.Info.TechType, 16),
+                new CraftData.Ingredient(TechType.Titanium, 2), new CraftData.Ingredient(TechType.Glass, 1)))
+            .WithStepsToFabricatorTab("Resources", "AdvancedMaterials").WithCraftingTime(6)
+            .WithFabricatorType(CraftTree.Type.Fabricator);
+        enzymeContainer.AddGadget(new ScanningGadget(enzymeContainer, TechType.None))
+            .WithPdaGroupCategory(TechGroup.Resources, TechCategory.AdvancedMaterials)
+            .WithAnalysisTech(Plugin.AssetBundle.LoadAsset<Sprite>("InfectedEnzymeStorageContainer_Popup"),
+                KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound,
+                KnownTechHandler.DefaultUnlockData.BlueprintUnlockMessage);
         enzymeContainer.Register();
+
+        var deadEmperor = new CustomPrefab(DeadSeaEmperorInfo);
+        deadEmperor.SetGameObject(GetDeadEmperorPrefab);
+        deadEmperor.Register();
+
+        var deadEmperorSpawner = new CustomPrefab(DeadSeaEmperorSpawnerInfo);
+        deadEmperorSpawner.SetGameObject(() =>
+        {
+            var go = new GameObject(DeadSeaEmperorSpawnerInfo.ClassID);
+            PrefabUtils.AddBasicComponents(go, DeadSeaEmperorSpawnerInfo.ClassID, DeadSeaEmperorSpawnerInfo.TechType, LargeWorldEntity.CellLevel.Global);
+            go.AddComponent<DeadSeaEmperorSpawner>();
+            go.SetActive(false);
+            return go;
+        });
+        deadEmperorSpawner.Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)
@@ -368,9 +404,10 @@ public static class ModPrefabs
 
     private static IEnumerator ModifyInfectionTrackerPrefab(GameObject go)
     {
-        go.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._GlowColor, new Color(3, 0, 0));
-        go.GetComponentsInChildren<Collider>().ForEach(c => c.enabled = false);
-        go.GetComponentsInChildren<Animator>().ForEach(c => c.enabled = false);
+        go.SetActive(false);
+        go.GetComponentInChildren<Renderer>(true).material.SetColor(ShaderPropertyID._GlowColor, new Color(3, 0, 0));
+        go.GetComponentsInChildren<Collider>(true).ForEach(c => c.enabled = false);
+        go.GetComponentsInChildren<Animator>(true).ForEach(c => c.enabled = false);
         var collider = go.AddComponent<BoxCollider>();
         collider.size = new Vector3(0.7f, 0.07f, 0.7f);
         var tool = go.AddComponent<InfectionTrackerTool>();
@@ -402,9 +439,9 @@ public static class ModPrefabs
         var arrowCenter = new GameObject("ArrowCenter").transform;
         arrowCenter.parent = viewModel.transform.GetChild(0).GetChild(0);
         arrowCenter.localPosition = Vector3.forward * 0.15f;
-        arrow.GetComponentInChildren<Renderer>().material.color = Color.red;
-        arrow.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._ColorStrength, new Color(1.5f, 0, 0));
-        arrow.GetComponentInChildren<Renderer>().material.SetColor(ShaderPropertyID._ColorStrengthAtNight, new Color(1.5f, 0, 0));
+        arrow.GetComponentInChildren<Renderer>(true).material.color = Color.red;
+        arrow.GetComponentInChildren<Renderer>(true).material.SetColor(ShaderPropertyID._ColorStrength, new Color(1.5f, 0, 0));
+        arrow.GetComponentInChildren<Renderer>(true).material.SetColor(ShaderPropertyID._ColorStrengthAtNight, new Color(1.5f, 0, 0));
 
         tool.arrowPrefab = arrow;
         tool.arrowRoot = arrowCenter;
@@ -414,6 +451,7 @@ public static class ModPrefabs
         rb.mass = 200;
         rb.useGravity = false;
         go.EnsureComponent<WorldForces>();
+        go.SetActive(true);
     }
 
     private static IEnumerator GetInfectionDomePrefab(IOut<GameObject> prefab)
@@ -495,6 +533,7 @@ public static class ModPrefabs
         var emitter = obj.AddComponent<FMOD_CustomLoopingEmitter>();
         emitter.followParent = true;
         emitter.SetAsset(AudioUtils.GetFmodAsset("PlagueHeartAmbience"));
+        emitter.playOnAwake = true;
 
         /*
         var volumeObj = new GameObject("AtmosphereVolume");
@@ -549,6 +588,45 @@ public static class ModPrefabs
         collider.radius = 5;
         trigger.AddComponent<PrecursorKeyTerminalTrigger>();
         trigger.AddComponent<Rigidbody>().isKinematic = true;
+        prefab.Set(go);
+    }
+    
+    private static IEnumerator GetDeadEmperorPrefab(IOut<GameObject> prefab)
+    {
+        var request = UWE.PrefabDatabase.GetPrefabAsync("871a5ca9-1f2e-4124-8f1e-fac967a464b8");
+        yield return request;
+        request.TryGetPrefab(out var reference);
+        var go = Object.Instantiate(reference.transform.Find("precursor_prison/Leviathan_prison_rig").gameObject);
+        PrefabUtils.AddBasicComponents(go, DeadSeaEmperorInfo.ClassID, DeadSeaEmperorInfo.TechType, LargeWorldEntity.CellLevel.Global);
+        Object.DestroyImmediate(go.GetComponent<EnzymeEmitter>());
+        Object.DestroyImmediate(go.GetComponent<SeaEmperor>());
+        Object.DestroyImmediate(go.GetComponent<FMOD_CustomEmitter>());
+        Object.DestroyImmediate(go.GetComponent<VFXController>());
+        foreach (var occludee in go.GetComponentsInChildren<CullingOccludee>())
+        {
+            Object.DestroyImmediate(occludee);
+        }
+
+        go.AddComponent<PlayEmperorDeathAnimation>();
+        go.AddComponent<UninfectSeaEmperorOnEnzymeRain>();
+        ZombieManager.InfectSeaEmperor(go);
+        prefab.Set(go);
+    }
+    
+    private static IEnumerator GetEnzymeParticlePrefab(IOut<GameObject> prefab)
+    {
+        var request = UWE.PrefabDatabase.GetPrefabAsync("505e7eff-46b3-4ad2-84e1-0fadb7be306c");
+        yield return request;
+        request.TryGetPrefab(out var reference);
+        var go = Object.Instantiate(reference);
+        PrefabUtils.AddBasicComponents(go, EnzymeParticleInfo.ClassID, EnzymeParticleInfo.TechType, LargeWorldEntity.CellLevel.VeryFar);
+        Object.DestroyImmediate(go.GetComponent<EnzymeBall>());
+        Object.DestroyImmediate(go.transform.Find("collider").GetComponent<GenericHandTarget>());
+        var renderer = go.transform.Find("Leviathan_enzymeBall_anim/enzymeBall_geo").GetComponent<Renderer>();
+        var material = renderer.material;
+        material.color = Color.red;
+        material.SetColor(ShaderPropertyID._SpecColor, new Color(0.877f, 1f, 0.838f));
+        go.AddComponent<Pickupable>();
         prefab.Set(go);
     }
 }

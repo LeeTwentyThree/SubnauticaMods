@@ -11,7 +11,6 @@ public static class uSkyManagerPatcher
     [HarmonyPostfix]
     public static void StartPostfix(uSkyManager __instance)
     {
-        var light = __instance.GetComponent<uSkyLight>();
-        light.SunIntensity *= (1f - (Plugin.ModConfig.DarknessPercent * 0.01f));
+        __instance.gameObject.AddComponent<SunBrightnessModifier>();
     }
 }

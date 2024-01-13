@@ -54,7 +54,8 @@ public class DespawnWhenOffScreen : MonoBehaviour
 
     private void Update()
     {
-        if (despawnIfTooClose && Vector3.SqrMagnitude(transform.position - MainCamera.camera.transform.position) < minDistance * minDistance)
+        var minDistanceToUse = Player.main.IsInBase() ? minDistance / 3 : minDistance;
+        if (despawnIfTooClose && Vector3.SqrMagnitude(transform.position - MainCamera.camera.transform.position) < minDistanceToUse * minDistanceToUse)
         {
             Despawn(0.15f);
             FadingOverlay.PlayFX(Color.black, 0.1f, 0.1f, 0.1f);
