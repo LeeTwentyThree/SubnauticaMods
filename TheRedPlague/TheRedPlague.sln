@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheRedPlague", "TheRedPlague\TheRedPlague.csproj", "{306FC59D-5286-4579-B9C6-DA637193174C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{306FC59D-5286-4579-B9C6-DA637193174C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{306FC59D-5286-4579-B9C6-DA637193174C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{306FC59D-5286-4579-B9C6-DA637193174C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{306FC59D-5286-4579-B9C6-DA637193174C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

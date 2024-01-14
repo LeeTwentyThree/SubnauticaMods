@@ -44,7 +44,7 @@ public static class CloudUtils
         _stormCloudPrefab.transform.localEulerAngles = Vector3.zero;
 
         var r = _stormCloudPrefab.GetComponent<Renderer>();
-        r.material.SetColor(ShaderPropertyID._Color, new Color(1, 1, 1, 2));
+        r.material.SetColor(ShaderPropertyID._Color, new Color(1, 1, 1, 0.5f));
         
         return _stormCloudPrefab;
     }
@@ -53,7 +53,7 @@ public static class CloudUtils
     {
         if (_smokeVfxOriginal != null) return;
         
-        if (CrashedShipExploder.main == null) ErrorMessage.AddMessage("Weather mod error: AURORA NOT FOUND! Where did it go lol?");
+        if (CrashedShipExploder.main == null) Plugin.Logger.LogError("Weather mod error: AURORA NOT FOUND! Where did it go lol?");
         
         // "Failed cloud T_T X_X smh lol"
         _smokeVfxOriginal = CrashedShipExploder.main.transform

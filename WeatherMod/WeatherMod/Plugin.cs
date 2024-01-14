@@ -4,7 +4,9 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using Nautilus.Utility.ModMessages;
 using UnityEngine;
+using WeatherMod.MessageReaders;
 
 namespace WeatherMod;
 
@@ -17,6 +19,8 @@ internal class Plugin : BaseUnityPlugin
     private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
     
     public static AssetBundle AssetBundle { get; private set; }
+
+    public static ModInbox Inbox { get; } = new ModInbox(PluginInfo.PLUGIN_GUID);
 
     private void Awake()
     {
@@ -32,5 +36,9 @@ internal class Plugin : BaseUnityPlugin
         ConsoleCommandsHandler.RegisterConsoleCommands(typeof(WeatherCommands));
         
         WeatherAudio.RegisterAll();
+
+        Inbox.AddMessageReader(new SetWeatherReader());
+        Inbox.AddMessageReader(new SetWeatherPausedReader());
+        ModMessageSystem.RegisterInbox(Inbox);
     }
 }

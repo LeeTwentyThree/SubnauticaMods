@@ -2,13 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
-        <AssemblyName>WeatherMod</AssemblyName>
-        <Version>0.0.8</Version>
+        <AssemblyName>TheRedPlague</AssemblyName>
+        <Version>1.0.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>11</LangVersion>
-        <RootNamespace>WeatherMod</RootNamespace>
-        <BepInExPluginName>Epic Weather</BepInExPluginName>
-        <BepInExPluginGuid>com.lee23.epicweather</BepInExPluginGuid>
+        <RootNamespace>TheRedPlague</RootNamespace>
+        <BepInExPluginGuid>com.lee23.theredplague</BepInExPluginGuid>
+        <BepInExPluginName>The Red Plague</BepInExPluginName>
 
         <RestoreAdditionalProjectSources>
             https://api.nuget.org/v3/index.json;
@@ -23,7 +23,6 @@
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile"/>
         <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0"/>
         <PackageReference Include="PolySharp" Version="1.13.1"/>
-        <PackageReference Include="Subnautica.Nautilus" Version="1.*-*" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -31,8 +30,19 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+      <Reference Include="Nautilus">
+        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\Nautilus\Nautilus.dll</HintPath>
+      </Reference>
+      <Reference Include="WeatherMod">
+        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\WeatherMod\WeatherMod.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+
+
     <!--Imports the GameDir.targets file (from the same folder) which should contain the path to the Subnautica directory for the post-build event-->
-    <Import Project="GameDir.targets" />
+    <Import Project="GameDir.targets"/>
 
     <!--Defines the PluginsDir property for use in the Post-Build event-->
     <PropertyGroup>
@@ -41,6 +51,6 @@
 
     <!--Post-Build event that automatically places your mods folder with the DLL and documentation into your plugins folder as defined in GameDir.targets-->
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-        <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;$(PluginsDir)\$(TargetName)&quot;" />
+        <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;$(PluginsDir)\$(TargetName)&quot;"/>
     </Target>
 </Project>
