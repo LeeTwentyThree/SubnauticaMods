@@ -69,8 +69,6 @@ public static class CoordinatedSpawns
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-1320.22f, -208.44f, 267.77f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AlienRobotClassID, new Vector3(-1318.65f, -217.43f, 277.81f)));
         
-        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo("ebc943e4-200c-4789-92f3-e675cd982dbe", new Vector3(-1314.597f, -119, 303.153f), new Vector3(0, 118, 350), Vector3.one * 2));
-        
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1326.821f, -204.724f, 268.104f), new Vector3(69.953f, 267.875f, 247.969f), animatedLightScale));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1315.812f, -211.522f, 269.300f), new Vector3(346.008f, 339.376f, 112.006f), animatedLightScale));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-1316.877f, -215.208f, 281.525f), new Vector3(332.411f, 206.049f, 173.499f), animatedLightScale));

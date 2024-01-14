@@ -26,6 +26,7 @@ public class StoryUtils
         DisableDome = new StoryGoal("Disable_Dome", Story.GoalType.Story, 0);
         StoryGoalHandler.RegisterOnGoalUnlockData("Pickup_Infected_Enzyme", new UnlockBlueprintData[] { new UnlockBlueprintData(){techType = ModPrefabs.EnzymeContainer.TechType, unlockType = UnlockBlueprintData.UnlockType.Available} });
         StoryGoalHandler.RegisterCustomEvent(EscapeAquariumCinematic.PlayCinematic);
+        StoryGoalHandler.RegisterCustomEvent(PlayerInfectionDeath.PlayCinematic);
     }
 
     public static void RegisterLanguageLines()
@@ -34,6 +35,7 @@ public class StoryUtils
         LanguageHandler.SetLanguageLine("InfectionLaserReceptacle", "Multi-purpose receptacle");
         LanguageHandler.SetLanguageLine("InsertPlagueHeart", "Insert plague heart");
         LanguageHandler.SetLanguageLine("InsertEnzymeContainer", "Insert concentrated enzyme");
+        LanguageHandler.SetLanguageLine("DisableDomePrompt", "Disable dome");
     }
 
     public static void DisableInfectionLaser()
@@ -62,5 +64,14 @@ public class StoryUtils
         
         EnzymeRainEnabled.Trigger();
         Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("DisableDomeSound"), new Vector3(-75.89f, 323.22f, -56.99f));
+    }
+    
+    public static void DisableDomeEvent()
+    {
+        if (StoryGoalManager.main.IsGoalComplete(DisableDome.key))
+            return;
+        
+        DisableDome.Trigger();
+        Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("DisableDomeSound"), new Vector3(0, 600, 0));
     }
 }

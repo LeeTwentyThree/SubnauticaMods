@@ -19,6 +19,7 @@ public static class ModPrefabs
     private static PrefabInfo LaserReceptacleInfo { get; } = PrefabInfo.WithTechType("InfectionLaserReceptacle");
     public static PrefabInfo DeadSeaEmperorInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperor", "Deceased Sea Emperor", "A deceased Sea Emperor.");
     public static PrefabInfo DeadSeaEmperorSpawnerInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperorSpawner");
+    public static PrefabInfo InfectionTimerInfo { get; } = PrefabInfo.WithTechType("InfectionTimer");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
@@ -196,6 +197,24 @@ public static class ModPrefabs
         infectionLaserTerminalTemplate.ModifyPrefab += go =>
         {
             go.AddComponent<InfectAnything>();
+            Object.DestroyImmediate(go.GetComponent<DisableEmissiveOnStoryGoal>());
+            var trigger = go.transform.Find("triggerArea");
+            var terminalObj = go.transform.Find("terminal");
+            var disable = trigger.GetComponent<PrecursorDisableGunTerminalArea>();
+            var originalTerminal = terminalObj.GetComponent<PrecursorDisableGunTerminal>();
+            Object.DestroyImmediate(disable);
+            var terminal = terminalObj.gameObject.AddComponent<DisableDomeTerminal>();
+            terminal.accessGrantedSound = originalTerminal.accessGrantedSound;
+            terminal.accessDeniedSound = originalTerminal.accessDeniedSound;
+            terminal.cinematic = originalTerminal.cinematic;
+            terminal.useSound = originalTerminal.useSound;
+            terminal.openLoopSound = originalTerminal.openLoopSound;
+            terminal.onPlayerCuredGoal = originalTerminal.onPlayerCuredGoal;
+            terminal.glowRing = originalTerminal.glowRing;
+            terminal.glowMaterial = originalTerminal.glowMaterial;
+            
+            Object.DestroyImmediate(originalTerminal);
+            trigger.gameObject.AddComponent<DisableDomeArea>().terminal = terminal;
             // implement custom modifications here
         };
         infectionLaserTerminalPrefab.SetGameObject(infectionLaserTerminalTemplate);
@@ -372,6 +391,10 @@ public static class ModPrefabs
             return go;
         });
         deadEmperorSpawner.Register();
+
+        var infectionTimer = new CustomPrefab(InfectionTimerInfo);
+        infectionTimer.SetGameObject(GetInfectionTimerPrefab);
+        infectionTimer.Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)
@@ -497,10 +520,21 @@ public static class ModPrefabs
         yield return null;
         prefab.Set(obj);
     }
+    
+    private static IEnumerator GetInfectionTimerPrefab(IOut<GameObject> prefab)
+    {
+        var go = new GameObject("InfectionTimer");
+        go.SetActive(false);
+        PrefabUtils.AddBasicComponents(go, InfectionTimerInfo.ClassID, InfectionTimerInfo.TechType, LargeWorldEntity.CellLevel.Global);
+        go.AddComponent<PlayerInfectionDeath>();
+        yield return null;
+        prefab.Set(go);
+    }
 
     private static IEnumerator GetPlagueHeartPrefab(IOut<GameObject> prefab)
     {
         var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("PlagueHeartPrefab"));
+        obj.SetActive(false);
         var renderer = obj.GetComponentInChildren<Renderer>();
         renderer.material = new Material(MaterialUtils.IonCubeMaterial);
         renderer.material.SetColor(ShaderPropertyID._Color, Color.black);
@@ -556,6 +590,7 @@ public static class ModPrefabs
         yield return solarPanelRequest;
         var solarPanelPrefab = solarPanelRequest.GetResult();
         var obj = Object.Instantiate(solarPanelPrefab.GetComponent<PowerFX>().vfxPrefab);
+        obj.SetActive(false);
         PrefabUtils.AddBasicComponents(obj, InfectionLaserInfo.ClassID, InfectionLaserInfo.TechType,
             LargeWorldEntity.CellLevel.Global);
         var line = obj.GetComponent<LineRenderer>();
@@ -575,6 +610,7 @@ public static class ModPrefabs
         yield return request;
         request.TryGetPrefab(out var reference);
         var go = Object.Instantiate(reference.transform.Find("Precursor_Teleporter_Activation_Terminal").gameObject);
+        go.SetActive(false);
         PrefabUtils.AddBasicComponents(go, LaserReceptacleInfo.ClassID, LaserReceptacleInfo.TechType, LargeWorldEntity.CellLevel.Near);
         var boxCollider = go.AddComponent<BoxCollider>();
         boxCollider.size = new Vector3(1.2f, 2f, 1.3f);
@@ -597,6 +633,7 @@ public static class ModPrefabs
         yield return request;
         request.TryGetPrefab(out var reference);
         var go = Object.Instantiate(reference.transform.Find("precursor_prison/Leviathan_prison_rig").gameObject);
+        go.SetActive(false);
         PrefabUtils.AddBasicComponents(go, DeadSeaEmperorInfo.ClassID, DeadSeaEmperorInfo.TechType, LargeWorldEntity.CellLevel.Global);
         Object.DestroyImmediate(go.GetComponent<EnzymeEmitter>());
         Object.DestroyImmediate(go.GetComponent<SeaEmperor>());

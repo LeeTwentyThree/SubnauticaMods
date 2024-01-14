@@ -44,6 +44,7 @@ public class Plugin : BaseUnityPlugin
         
         ConsoleCommandsHandler.AddGotoTeleportPosition("forcefieldisland", new Vector3(-78.1f, 315.5f, -68.7f));
         ConsoleCommandsHandler.AddGotoTeleportPosition("plagueheartisland", new Vector3(-1327, -193, 283));
+        ConsoleCommandsHandler.RegisterConsoleCommands(typeof(Commands));
         
         ModAudio.RegisterAudio();
         

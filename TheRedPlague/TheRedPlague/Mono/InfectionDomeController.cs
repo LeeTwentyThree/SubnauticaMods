@@ -167,13 +167,16 @@ public class InfectionDomeController : MonoBehaviour, IStoryGoalListener
     {
         if (key == StoryUtils.DisableDome.key)
         {
-            SetDomeColor(new Color(0, 0, 0));
+            Invoke(nameof(SetDomeDisabled), 13);
         }
         else if (key == StoryUtils.EnzymeRainEnabled.key)
         {
-            SetDomeColor(new Color(0.5f, 1, 0.5f));
+            Invoke(nameof(SetDomeGreen), 13);
         }
     }
+    
+    private void SetDomeDisabled() => SetDomeColor(new Color(0, 0, 0, 0));
+    private void SetDomeGreen() => SetDomeColor(new Color(0.5f, 1, 0.5f));
     
     private void OnDestroy()
     {
