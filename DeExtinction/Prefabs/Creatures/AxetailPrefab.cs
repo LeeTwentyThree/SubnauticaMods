@@ -28,7 +28,7 @@ internal class AxetailPrefab : CreatureAsset
             AnimateByVelocityData = new AnimateByVelocityData(6),
             SizeDistribution = new AnimationCurve(new []{new Keyframe(0, 0.5f), new Keyframe(1, 1)})
         };
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.08f, 0.8f, 1f, 1f, true, true, "Axetail"));
+        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.08f, 0.8f, 1f, 1f, true, true, ClassID));
         CreatureTemplateUtils.SetPreyEssentials(template, 4f,
             new PickupableFishData(TechType.GarryFish, "Axetail", "AxetailViewModel"), new EdibleData(12, -7, false));
         return template;

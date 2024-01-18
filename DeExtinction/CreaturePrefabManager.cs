@@ -24,13 +24,16 @@ internal static class CreaturePrefabManager
 
     public static void RegisterCreatures()
     {
-        Filtorb = new FiltorbPrefab(PrefabInfo.WithTechType("Filtorb", "Filtorb", "Small, filter feeding organism.", unlockAtStart: false).WithIcon(LoadIcon("Filtorb_Item")));
+        Filtorb = new FiltorbPrefab(PrefabInfo.WithTechType("Filtorb", "Filtorb", "Small, filter feeding organism.", unlockAtStart: false)
+            .WithIcon(LoadIcon("Filtorb_Item")));
         Filtorb.Register();
         
-        Axetail = new AxetailPrefab(PrefabInfo.WithTechType("Axetail", "Axetail", "Small, edible prey fish.", unlockAtStart: false).WithIcon(LoadIcon("Axetail_Item")));
+        Axetail = new AxetailPrefab(PrefabInfo.WithTechType("Axetail", "Axetail", "Small, edible prey fish.", unlockAtStart: false)
+            .WithIcon(LoadIcon("Axetail_Item")));
         Axetail.Register();
         
-        JellySpinner = new JellySpinnerPrefab(PrefabInfo.WithTechType("JellySpinner", "Jelly spinner", "Small organism.", unlockAtStart: false).WithIcon(LoadIcon("JellySpinner_Item")));
+        JellySpinner = new JellySpinnerPrefab(PrefabInfo.WithTechType("JellySpinner", "Jelly spinner", "Small organism.", unlockAtStart: false)
+            .WithIcon(LoadIcon("JellySpinner_Item")));
         JellySpinner.Register();
         
         RibbonRay = new RibbonRayPrefab(PrefabInfo.WithTechType("RibbonRay", "Ribbon ray", "Small, edible prey fish.", unlockAtStart: false)

@@ -25,7 +25,7 @@ internal class FiltorbPrefab : CreatureAsset
             EdibleData = new EdibleData(2, 0, false),
             SizeDistribution = new AnimationCurve(new []{new Keyframe(0, 0.8f), new Keyframe(1, 1)})
         };
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.8f, 0.8f, 1.1f, true, true, "Filtorb"));
+        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.8f, 0.8f, 1.1f, true, true, ClassID));
         
         return template;
     }

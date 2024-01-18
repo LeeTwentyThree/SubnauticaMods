@@ -27,10 +27,10 @@ internal class JellySpinnerPrefab : CreatureAsset
             BioReactorCharge = 300f,
             AnimateByVelocityData = new AnimateByVelocityData(4),
             AcidImmune = true,
-            SizeDistribution = new AnimationCurve(new []{new Keyframe(0, 0.2f), new Keyframe(1, 1)}),
+            SizeDistribution = new AnimationCurve(new Keyframe(0, 0.2f), new Keyframe(1, 1)),
             ItemSoundsType = ItemSoundsType.Floater
         };
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.7f, 1f, 0.3f, true, true, "JellySpinner"));
+        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.7f, 1f, 0.3f, true, true, ClassID));
         CreatureTemplateUtils.SetPreyEssentials(template, 4f,
             new PickupableFishData(TechType.Peeper, "WorldModel", "ViewModel"), new EdibleData(2, -2, false));
         return template;
