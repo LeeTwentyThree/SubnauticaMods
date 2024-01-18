@@ -16,6 +16,7 @@ internal static class CreaturePrefabManager
     public static TriangleFishPrefab TriangleFish { get; private set; }
     public static ThalassaceanPrefab StellarThalassacean { get; private set; }
     public static ThalassaceanPrefab JasperThalassacean { get; private set; }
+    public static GrandGliderPrefab GrandGlider { get; private set; }
 
     private static AssetBundle Bundle => Plugin.AssetBundle;
 
@@ -40,6 +41,7 @@ internal static class CreaturePrefabManager
         TriangleFish = new TriangleFishPrefab(PrefabInfo.WithTechType("TriangleFish", "Trianglefish", "Small, edible prey fish.", unlockAtStart: false)
             .WithIcon(LoadIcon("Trianglefish_Item")));
         TriangleFish.Register();
+        
         StellarThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("StellarThalassacean", "Stellar thalassacean", "Large filter feeder, raised in containment.", unlockAtStart: false)
             .WithIcon(LoadIcon("Stellar_Item"))
             .WithSizeInInventory(new Vector2int(4, 4)),
@@ -51,6 +53,13 @@ internal static class CreaturePrefabManager
                 .WithSizeInInventory(new Vector2int(4, 4)),
             Plugin.AssetBundle.LoadAsset<GameObject>("JasperThalassaceanPrefab"));
         JasperThalassacean.Register();
+
+        GrandGlider = new GrandGliderPrefab(PrefabInfo
+            .WithTechType("GrandGlider", "Grand glider", "Medium sized prey animal, raised in containment.",
+                unlockAtStart: false)
+            .WithIcon(LoadIcon("GrandGlider_Item"))
+            .WithSizeInInventory(new Vector2int(3, 3)));
+        GrandGlider.Register();
     }
 
     public static void RegisterFood()
