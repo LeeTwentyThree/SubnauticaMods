@@ -60,7 +60,7 @@ internal class FiltorbHide : ReactToPredatorAction, IOnTakeDamage
 
     public void OnTakeDamage(DamageInfo damageInfo)
     {
-        performingAction = true;
-        timeStopAction = Time.time + 2f;
+        PerformingAction = true;
+        TimeStopAction = Time.time + 2f;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace DeExtinction.Mono;
 
-public class FiltorbSwimBehaviour : CreatureAction
+internal class FiltorbSwimBehaviour : CreatureAction
 {
     public float force = 50f;
     public float rotationalForce = 0.5f;

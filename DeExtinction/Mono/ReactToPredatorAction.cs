@@ -6,16 +6,16 @@ internal class ReactToPredatorAction : CreatureAction
 {
     private void Start()
     {
-        fear = gameObject.GetComponent<CreatureFear>();
+        Fear = gameObject.GetComponent<CreatureFear>();
     }
 
     public float maxReactDistance;
     public EcoTargetType fearedTargetType = EcoTargetType.Shark;
     public float actionLength = 1f;
 
-    protected CreatureFear fear;
-    protected bool performingAction;
-    protected float timeStopAction;
+    protected CreatureFear Fear;
+    protected bool PerformingAction;
+    protected float TimeStopAction;
 
     private bool _frozen;
 
@@ -30,27 +30,20 @@ internal class ReactToPredatorAction : CreatureAction
         {
             if (Vector3.Distance(closestTarget.GetPosition(), transform.position) < maxReactDistance)
             {
-                performingAction = true;
-                timeStopAction = Time.time + actionLength;
-                if (fear) fear.SetScarePosition(closestTarget.GetPosition());
+                PerformingAction = true;
+                TimeStopAction = Time.time + actionLength;
+                if (Fear) Fear.SetScarePosition(closestTarget.GetPosition());
             }
         }
-        if (performingAction)
+        if (PerformingAction)
         {
-            if (Time.time > timeStopAction)
+            if (Time.time > TimeStopAction)
             {
-                performingAction = false;
+                PerformingAction = false;
             }
         }
 
-        if (performingAction)
-        {
-            return evaluatePriority;
-        }
-        else
-        {
-            return 0f;
-        }
+        return PerformingAction ? evaluatePriority : 0f;
     }
 
     public void OnFreeze()

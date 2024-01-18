@@ -12,6 +12,8 @@ internal static class CreaturePrefabManager
     public static FiltorbPrefab Filtorb { get; private set; }
     public static AxetailPrefab Axetail { get; private set; }
     public static JellySpinnerPrefab JellySpinner { get; private set; }
+    public static ThalassaceanPrefab StellarThalassacean { get; private set; }
+    public static ThalassaceanPrefab JasperThalassacean { get; private set; }
 
     private static AssetBundle Bundle => Plugin.AssetBundle;
 
@@ -27,6 +29,17 @@ internal static class CreaturePrefabManager
         
         JellySpinner = new JellySpinnerPrefab(PrefabInfo.WithTechType("JellySpinner", "Jelly spinner", "Small organism.", unlockAtStart: false).WithIcon(LoadIcon("JellySpinner_Item")));
         JellySpinner.Register();
+        StellarThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("StellarThalassacean", "Stellar thalassacean", "Large filter feeder, raised in containment.", unlockAtStart: false)
+            .WithIcon(LoadIcon("Stellar_Item"))
+            .WithSizeInInventory(new Vector2int(4, 4)),
+            Plugin.AssetBundle.LoadAsset<GameObject>("StellarThalassaceanPrefab"));
+        StellarThalassacean.Register();
+        
+        JasperThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("JasperThalassacean", "Jasper thalassacean", "Large filter feeder, raised in containment.", unlockAtStart: false)
+                .WithIcon(LoadIcon("Jasper_Item"))
+                .WithSizeInInventory(new Vector2int(4, 4)),
+            Plugin.AssetBundle.LoadAsset<GameObject>("JasperThalassaceanPrefab"));
+        JasperThalassacean.Register();
     }
 
     public static void RegisterFood()
