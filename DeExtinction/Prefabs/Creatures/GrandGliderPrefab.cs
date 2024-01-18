@@ -21,9 +21,7 @@ public class GrandGliderPrefab : CreatureAsset
             AvoidObstaclesData = new AvoidObstaclesData(0.6f, 4f, false, 5f, 6f),
             Mass = 20,
             CellLevel = LargeWorldEntity.CellLevel.Medium,
-            PickupableFishData = new PickupableFishData(TechType.GarryFish, "WorldModel", "ViewModel"),
             BioReactorCharge = 830,
-            EdibleData = new EdibleData(7, -5, false),
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.25f), new Keyframe(1, 1)),
             LocomotionData = new LocomotionData(10, 0.5f, 3, 0.3f),
             AnimateByVelocityData = new AnimateByVelocityData(8f),
@@ -38,16 +36,8 @@ public class GrandGliderPrefab : CreatureAsset
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
-        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine1"), 0.5f)
-        {
-            Trails = new[]
-            {
-                prefab.SearchChild("Spine2").transform, prefab.SearchChild("Spine3").transform,
-                prefab.SearchChild("Spine4").transform, prefab.SearchChild("Spine5").transform,
-                prefab.SearchChild("Spine6").transform, prefab.SearchChild("Spine7").transform,
-                prefab.SearchChild("Spine8").transform, prefab.SearchChild("Spine9").transform
-            }
-        };
+        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.Find("Grand Glider/Grand Glider Armature/Root/Spine1"), 0.5f);
+        trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
         trailManagerBuilder.Apply();
         
         yield break;
