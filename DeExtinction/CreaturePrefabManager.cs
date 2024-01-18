@@ -12,6 +12,7 @@ internal static class CreaturePrefabManager
     public static FiltorbPrefab Filtorb { get; private set; }
     public static AxetailPrefab Axetail { get; private set; }
     public static JellySpinnerPrefab JellySpinner { get; private set; }
+    public static RibbonRayPrefab RibbonRay { get; private set; }
     public static TriangleFishPrefab TriangleFish { get; private set; }
     public static ThalassaceanPrefab StellarThalassacean { get; private set; }
     public static ThalassaceanPrefab JasperThalassacean { get; private set; }
@@ -30,6 +31,11 @@ internal static class CreaturePrefabManager
         
         JellySpinner = new JellySpinnerPrefab(PrefabInfo.WithTechType("JellySpinner", "Jelly spinner", "Small organism.", unlockAtStart: false).WithIcon(LoadIcon("JellySpinner_Item")));
         JellySpinner.Register();
+        
+        RibbonRay = new RibbonRayPrefab(PrefabInfo.WithTechType("RibbonRay", "Ribbon ray", "Small, edible prey fish.", unlockAtStart: false)
+            .WithIcon(LoadIcon("RibbonRay_Item"))
+            .WithSizeInInventory(new Vector2int(2, 1)));
+        RibbonRay.Register();
         
         TriangleFish = new TriangleFishPrefab(PrefabInfo.WithTechType("TriangleFish", "Trianglefish", "Small, edible prey fish.", unlockAtStart: false)
             .WithIcon(LoadIcon("Trianglefish_Item")));
