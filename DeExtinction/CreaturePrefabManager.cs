@@ -57,9 +57,7 @@ internal static class CreaturePrefabManager
             Plugin.AssetBundle.LoadAsset<GameObject>("JasperThalassaceanPrefab"));
         JasperThalassacean.Register();
 
-        GrandGlider = new GrandGliderPrefab(PrefabInfo
-            .WithTechType("GrandGlider", "Grand glider", "Medium sized prey animal, raised in containment.",
-                unlockAtStart: false)
+        GrandGlider = new GrandGliderPrefab(PrefabInfo.WithTechType("GrandGlider", "Grand glider", "Medium sized prey animal, raised in containment.", unlockAtStart: false)
             .WithIcon(LoadIcon("GrandGlider_Item"))
             .WithSizeInInventory(new Vector2int(3, 3)));
         GrandGlider.Register();
