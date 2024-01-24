@@ -82,6 +82,7 @@ public class PlayerInfectionDeath : MonoBehaviour
         if (key == StoryUtils.PlagueHeartGoal.key)
         {
             SetDeathTimer(15 * 60);
+            Inventory.main.SecureItems(false);
         }
         if (key == StoryUtils.ForceFieldLaserDisabled.key && main != null)
         {
