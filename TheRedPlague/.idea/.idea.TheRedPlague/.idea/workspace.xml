@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/InfectionDomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/InfectionDomeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/LaserMaterialManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/LaserMaterialManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/PlayerInfectionDeath.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/PlayerInfectionDeath.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +71,7 @@
       <workItem from="1700885154441" duration="2733000" />
       <workItem from="1700963322681" duration="10281000" />
       <workItem from="1701048024738" duration="247000" />
-      <workItem from="1706053890536" duration="463000" />
+      <workItem from="1706053890536" duration="4453000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using mset;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using Story;
@@ -184,6 +185,18 @@ public class InfectionDomeController : MonoBehaviour, IStoryGoalListener
         if (main)
         {
             main.RemoveListener(this);
+        }
+    }
+
+    public void ShatterDome()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        var gibs = transform.GetChild(1).gameObject;
+        gibs.SetActive(true);
+        foreach (var rb in gibs.GetComponentsInChildren<Rigidbody>())
+        {
+            rb.AddExplosionForce(100000f, Vector3.zero, 5000, 0.2f);
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
         }
     }
 }

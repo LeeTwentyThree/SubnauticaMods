@@ -678,7 +678,8 @@ public static class ModPrefabs
         go.SetActive(false);
         PrefabUtils.AddBasicComponents(go, InfectedCorpseInfo.ClassID, InfectedCorpseInfo.TechType, LargeWorldEntity.CellLevel.Near);
         MaterialUtils.ApplySNShaders(go);
-        go.AddComponent<InfectAnything>();
+        var infect = go.AddComponent<InfectAnything>();
+        infect.infectionHeightStrength = 0.05f;
         foreach (var rb in go.GetComponentsInChildren<Rigidbody>(true))
         {
             rb.useGravity = false;
