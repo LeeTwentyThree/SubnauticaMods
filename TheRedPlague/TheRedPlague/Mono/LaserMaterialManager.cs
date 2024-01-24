@@ -31,7 +31,7 @@ public class LaserMaterialManager : MonoBehaviour, IStoryGoalListener
     {
         if (key == StoryUtils.DisableDome.key)
         {
-            _renderer.enabled = false;
+            Invoke(nameof(DisableRenderer), 13);
         }
         else if (key == StoryUtils.EnzymeRainEnabled.key)
         {
@@ -43,6 +43,8 @@ public class LaserMaterialManager : MonoBehaviour, IStoryGoalListener
         }
     }
 
+    private void DisableRenderer() => _renderer.enabled = false;
+    
     private void SetColorYellow()
     {
         _renderer.material.color = new Color(3, 3, 0.977941f);
