@@ -20,6 +20,7 @@ public static class ModPrefabs
     public static PrefabInfo DeadSeaEmperorInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperor", "Deceased Sea Emperor", "A deceased Sea Emperor.");
     public static PrefabInfo DeadSeaEmperorSpawnerInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperorSpawner");
     public static PrefabInfo InfectionTimerInfo { get; } = PrefabInfo.WithTechType("InfectionTimer");
+    public static PrefabInfo InfectedCorpseInfo { get; } = PrefabInfo.WithTechType("InfectedCorpse");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
@@ -395,6 +396,10 @@ public static class ModPrefabs
         var infectionTimer = new CustomPrefab(InfectionTimerInfo);
         infectionTimer.SetGameObject(GetInfectionTimerPrefab);
         infectionTimer.Register();
+
+        var infectedCorpse = new CustomPrefab(InfectedCorpseInfo);
+        infectedCorpse.SetGameObject(GetInfectedCorpsePrefab);
+        infectedCorpse.Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)
@@ -664,6 +669,23 @@ public static class ModPrefabs
         material.color = Color.red;
         material.SetColor(ShaderPropertyID._SpecColor, new Color(0.877f, 1f, 0.838f));
         go.AddComponent<Pickupable>();
+        prefab.Set(go);
+    }
+
+    private static IEnumerator GetInfectedCorpsePrefab(IOut<GameObject> prefab)
+    {
+        var go = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("DiverCorpse"));
+        go.SetActive(false);
+        PrefabUtils.AddBasicComponents(go, InfectedCorpseInfo.ClassID, InfectedCorpseInfo.TechType, LargeWorldEntity.CellLevel.Near);
+        MaterialUtils.ApplySNShaders(go);
+        go.AddComponent<InfectAnything>();
+        foreach (var rb in go.GetComponentsInChildren<Rigidbody>(true))
+        {
+            rb.useGravity = false;
+            var wf = rb.gameObject.EnsureComponent<WorldForces>();
+            wf.useRigidbody = rb;
+        }
+        yield return null;
         prefab.Set(go);
     }
 }
