@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DeathScare.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/MoveTowardsPlayerWhenOffScreen.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/NpcSurvivor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/NpcSurvivorManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/NpcSurvivorMotor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/PlaySoundWhenSeen.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/CorpsePrefab.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Commands.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Commands.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/ModAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModAudio.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/InfectionDomeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/InfectionDomeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/LaserMaterialManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/LaserMaterialManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/PlayerInfectionDeath.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/PlayerInfectionDeath.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/DespawnWhenOffScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DespawnWhenOffScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/JumpScares.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/JumpScares.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/InfectedMixinPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/InfectedMixinPatcher.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +27,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/41914444499f4996a3e6af79cf6c1fdb574b98/d7/933cd3f0/Dictionary`2.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/85d1d3e7744a4a47b5f51883bf40bba2bb400/5e/74734314/Material.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10a2290b9f3045c2a90083d2063fb64611200/d1/b88cc089/Physics.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -28,26 +37,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\kevin\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
-      "C:\\Users\\kevin\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
-      "C:\\Users\\kevin\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\kevin\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\kevin\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\kevin\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
@@ -72,6 +81,9 @@
       <workItem from="1700963322681" duration="10281000" />
       <workItem from="1701048024738" duration="247000" />
       <workItem from="1706053890536" duration="4453000" />
+      <workItem from="1706405552370" duration="12363000" />
+      <workItem from="1706459809186" duration="16113000" />
+      <workItem from="1706566893007" duration="7385000" />
     </task>
     <servers />
   </component>

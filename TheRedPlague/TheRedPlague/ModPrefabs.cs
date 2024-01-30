@@ -7,6 +7,7 @@ using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using TheRedPlague.Mono;
+using TheRedPlague.PrefabFiles;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -21,6 +22,8 @@ public static class ModPrefabs
     public static PrefabInfo DeadSeaEmperorSpawnerInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperorSpawner");
     public static PrefabInfo InfectionTimerInfo { get; } = PrefabInfo.WithTechType("InfectionTimer");
     public static PrefabInfo InfectedCorpseInfo { get; } = PrefabInfo.WithTechType("InfectedCorpse");
+    public static PrefabInfo SkeletonCorpse { get; } = PrefabInfo.WithTechType("SkeletonCorpse");
+    public static PrefabInfo NpcSurvivorManager { get; } = PrefabInfo.WithTechType("NpcSurvivorManager");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
@@ -396,10 +399,17 @@ public static class ModPrefabs
         var infectionTimer = new CustomPrefab(InfectionTimerInfo);
         infectionTimer.SetGameObject(GetInfectionTimerPrefab);
         infectionTimer.Register();
+        
+        var npcSurvivorManager = new CustomPrefab(NpcSurvivorManager);
+        npcSurvivorManager.SetGameObject(GetNPCSurvivorManagerPrefab);
+        npcSurvivorManager.SetSpawns(new SpawnLocation(Vector3.zero));
+        npcSurvivorManager.Register();
 
-        var infectedCorpse = new CustomPrefab(InfectedCorpseInfo);
-        infectedCorpse.SetGameObject(GetInfectedCorpsePrefab);
+        var infectedCorpse = new CorpsePrefab(InfectedCorpseInfo, "DiverCorpse", true);
         infectedCorpse.Register();
+        
+        var skeletonCorpse = new CorpsePrefab(SkeletonCorpse, "SkeletonRagdoll", true);
+        skeletonCorpse.Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)
@@ -672,21 +682,20 @@ public static class ModPrefabs
         prefab.Set(go);
     }
 
-    private static IEnumerator GetInfectedCorpsePrefab(IOut<GameObject> prefab)
+    private static IEnumerator GetNPCSurvivorManagerPrefab(IOut<GameObject> prefab)
     {
-        var go = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("DiverCorpse"));
-        go.SetActive(false);
-        PrefabUtils.AddBasicComponents(go, InfectedCorpseInfo.ClassID, InfectedCorpseInfo.TechType, LargeWorldEntity.CellLevel.Near);
-        MaterialUtils.ApplySNShaders(go);
-        var infect = go.AddComponent<InfectAnything>();
-        infect.infectionHeightStrength = 0.05f;
-        foreach (var rb in go.GetComponentsInChildren<Rigidbody>(true))
-        {
-            rb.useGravity = false;
-            var wf = rb.gameObject.EnsureComponent<WorldForces>();
-            wf.useRigidbody = rb;
-        }
-        yield return null;
+        var go = new GameObject(NpcSurvivorManager.ClassID);
+        PrefabUtils.AddBasicComponents(go, NpcSurvivorManager.ClassID, NpcSurvivorManager.TechType,
+            LargeWorldEntity.CellLevel.Global);
+        go.AddComponent<Mono.NpcSurvivorManager>();
+        var johnKyle = go.AddComponent<NpcSurvivor>();
+        johnKyle.survivorName = "JohnKyle";
+        var sylvie = go.AddComponent<NpcSurvivor>();
+        sylvie.survivorName = "Sylvie";
+        sylvie.model = NpcSurvivor.ModelType.PrawnSuit;
+        var simon = go.AddComponent<NpcSurvivor>();
+        simon.survivorName = "Simon";
         prefab.Set(go);
+        yield break;
     }
 }

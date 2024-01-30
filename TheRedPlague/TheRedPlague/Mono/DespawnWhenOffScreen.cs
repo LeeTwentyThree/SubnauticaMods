@@ -11,6 +11,8 @@ public class DespawnWhenOffScreen : MonoBehaviour
     public bool despawnIfTooClose;
     public float minDistance;
     public bool waitUntilSeen;
+    public bool despawnIfViewNotClear;
+    public bool playSoundWhenFound;
 
     private bool _wasSeen;
     private float _timeWasSeen;
@@ -20,6 +22,10 @@ public class DespawnWhenOffScreen : MonoBehaviour
 
     public bool disappearWhenLookedAtForTooLong;
     public float maxLookTime = 10f;
+
+    public bool jumpscareWhenTooClose;
+
+    private bool _despawning;
     
     private void Start()
     {
@@ -50,20 +56,36 @@ public class DespawnWhenOffScreen : MonoBehaviour
         {
             Despawn(0f);
         }
+        else if (despawnIfViewNotClear && Physics.SphereCast(new Ray(transform.position, (MainCamera.camera.transform.position - transform.position).normalized), 1, (MainCamera.camera.transform.position - transform.position).magnitude - 2f, -1, QueryTriggerInteraction.Ignore))
+        {
+            Despawn(0f);
+        }
     }
 
     private void Update()
     {
+        if (_despawning)
+            return;
+        
         var minDistanceToUse = Player.main.IsInBase() ? minDistance / 3 : minDistance;
         if (despawnIfTooClose && Vector3.SqrMagnitude(transform.position - MainCamera.camera.transform.position) < minDistanceToUse * minDistanceToUse)
         {
-            Despawn(0.15f);
-            FadingOverlay.PlayFX(Color.black, 0.1f, 0.1f, 0.1f);
+            if (jumpscareWhenTooClose)
+            {
+                Despawn(2f);
+                DeathScare.PlayDeathScare();
+            }
+            else
+            {
+                Despawn(0.15f);
+                FadingOverlay.PlayFX(Color.black, 0.1f, 0.1f, 0.1f);
+            }
         }
     }
 
     private void Despawn(float timer)
     {
+        _despawning = true;
         if (moveInstead)
         {
             if (JumpScareUtils.TryGetSpawnPosition(out var pos, moveRadius, 25, minDistance + 1f))

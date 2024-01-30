@@ -17,6 +17,20 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
 
     private static FMODAsset jumpscareSound = AudioUtils.GetFmodAsset("WarperJumpscare");
 
+    private string[] _corpseClassIDs = new string[] {"InfectedCorpse", "SkeletonCorpse"};
+
+    public static JumpScares main;
+
+    private void Awake()
+    {
+        main = this;
+    }
+
+    public void JumpScareNow()
+    {
+        JumpScare();
+    }
+
     private IEnumerator Start()
     {
         yield return new WaitUntil(() =>
@@ -35,17 +49,31 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
         MaterialUtils.ApplySNShaders(model);
         var despawn = model.AddComponent<DespawnWhenOffScreen>();
         despawn.despawnIfTooClose = true;
-        despawn.minDistance = 25;
+        despawn.minDistance = 10;
         despawn.waitUntilSeen = true;
         despawn.moveInstead = true;
         despawn.moveRadius = 35f;
         despawn.disappearWhenLookedAtForTooLong = true;
+        despawn.jumpscareWhenTooClose = true;
         model.AddComponent<LookAtPlayer>();
         if (Player.main.IsInBase())
         {
             model.transform.localScale *= 0.4f;
         }
         return model;
+    }
+
+    private IEnumerator SpawnCorpse(Vector3 pos)
+    {
+        var classID = _corpseClassIDs[Random.Range(0, _corpseClassIDs.Length)];
+        var task = UWE.PrefabDatabase.GetPrefabAsync(classID);
+        yield return task;
+        task.TryGetPrefab(out var prefab);
+        var spawned = Instantiate(prefab, pos, Random.rotation);
+        spawned.SetActive(true);
+        var despawn = spawned.AddComponent<DespawnWhenOffScreen>();
+        despawn.initialDelay = 20;
+        despawn.waitUntilSeen = true;
     }
 
     private void Update()
@@ -67,6 +95,7 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
             var diff = jumpscarePosition - Player.main.transform.position;
             diff.y = 0;
             model.transform.forward = diff.normalized;
+            StartCoroutine(SpawnCorpse(jumpscarePosition + Vector3.up * 2));
         }
         Utils.PlayFMODAsset(jumpscareSound, jumpscarePosition);
     }

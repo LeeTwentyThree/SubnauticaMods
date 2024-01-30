@@ -6,19 +6,18 @@ namespace TheRedPlague.Mono;
 
 public class RandomFishSpawner : MonoBehaviour
 {
-    private float _minInterval = 15f;
-    private float _maxInterval = 20f;
+    private float _minInterval = 20;
+    private float _maxInterval = 25f;
 
     private float _timeJumpScareAgain;
 
     private TechType[] _fishTechTypes = new TechType[]
     {
         TechType.SpineEel,
-        TechType.BoneShark,
-        TechType.Stalker,
         TechType.CrabSquid,
         TechType.Warper,
-        TechType.Warper
+        TechType.Warper,
+        TechType.Shocker
     };
 
     private bool CanJumpscare()
@@ -44,7 +43,7 @@ public class RandomFishSpawner : MonoBehaviour
     private void Jumpscare()
     {
         var camTransform = MainCamera.camera.transform;
-        StartCoroutine(SpawnFishAsync(_fishTechTypes[Random.Range(0, _fishTechTypes.Length)], camTransform.position + camTransform.forward * -20));
+        StartCoroutine(SpawnFishAsync(_fishTechTypes[Random.Range(0, _fishTechTypes.Length)], camTransform.position + camTransform.forward * Random.Range(-2, -13)));
     }
 
     private IEnumerator SpawnFishAsync(TechType techType, Vector3 location)
@@ -58,5 +57,6 @@ public class RandomFishSpawner : MonoBehaviour
         ZombieManager.Zombify(fish);
         var despawn = fish.AddComponent<DespawnWhenOffScreen>();
         despawn.initialDelay = 20f;
+        fish.AddComponent<PlaySoundWhenSeen>();
     }
 }
