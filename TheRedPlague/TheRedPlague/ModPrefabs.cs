@@ -24,6 +24,8 @@ public static class ModPrefabs
     public static PrefabInfo InfectedCorpseInfo { get; } = PrefabInfo.WithTechType("InfectedCorpse");
     public static PrefabInfo SkeletonCorpse { get; } = PrefabInfo.WithTechType("SkeletonCorpse");
     public static PrefabInfo NpcSurvivorManager { get; } = PrefabInfo.WithTechType("NpcSurvivorManager");
+    public static PrefabInfo WarperHeart { get; } = PrefabInfo.WithTechType("WarperHeart", "Warper heart", "A warper's bio-mechanical heart. While unstable due to the infection, the power can still be utilized for your own purposes.");
+    public static PrefabInfo PlagueKnife { get; } = PrefabInfo.WithTechType("PlagueKnife", "Plague knife", "A more powerful upgrade of the survival knife, with a connection to the infected defense network.");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
@@ -410,6 +412,63 @@ public static class ModPrefabs
         
         var skeletonCorpse = new CorpsePrefab(SkeletonCorpse, "SkeletonRagdoll", true);
         skeletonCorpse.Register();
+
+        var warperHeart = new CustomPrefab(WarperHeart);
+        warperHeart.SetGameObject(GetWarperInnardsPrefab);
+        warperHeart.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("WarperHeartIcon"));
+        warperHeart.Register();
+
+        var plagueKnife = new CustomPrefab(PlagueKnife);
+        var plagueKnifeTemplate = new CloneTemplate(PlagueKnife, TechType.Knife);
+        plagueKnifeTemplate.ModifyPrefab += (go) =>
+        {
+            var renderer = go.GetComponentInChildren<Renderer>();
+            var material = new Material(MaterialUtils.IonCubeMaterial);
+            material.SetColor(ShaderPropertyID._Color, Color.black);
+            material.SetColor(ShaderPropertyID._SpecColor, Color.black);
+            material.SetColor(ShaderPropertyID._SpecColor, Color.black);
+            material.SetColor(ShaderPropertyID._GlowColor, Color.red);
+            material.SetFloat(ShaderPropertyID._GlowStrength, 2.2f);
+            material.SetFloat(ShaderPropertyID._GlowStrengthNight, 2.2f);
+            material.SetColor("_DetailsColor", Color.red);
+            material.SetColor("_SquaresColor", new Color(3, 2, 1));
+            material.SetFloat("_SquaresTile", 5.6f);
+            material.SetFloat("_SquaresSpeed", 8.8f);
+            material.SetVector("_NoiseSpeed", new Vector4(0.5f, 0.3f, 0f));
+            material.SetVector("_FakeSSSParams", new Vector4(0.2f, 1f, 1f));
+            material.SetVector("_FakeSSSSpeed", new Vector4(0.5f, 0.5f, 1.37f));
+            renderer.material = material;
+
+            var oldKnifeComponent = go.GetComponent<Knife>();
+            var newKnifeComponent = go.AddComponent<PlagueKnifeTool>();
+            newKnifeComponent.attackSound = AudioUtils.GetFmodAsset("event:/creature/warper/swipe");
+            newKnifeComponent.underwaterMissSound = AudioUtils.GetFmodAsset("event:/creature/warper/swipe");
+            newKnifeComponent.surfaceMissSound = oldKnifeComponent.surfaceMissSound;
+            newKnifeComponent.damageType = oldKnifeComponent.damageType;
+            newKnifeComponent.damage = 50;
+            newKnifeComponent.attackDist = 4;
+            newKnifeComponent.vfxEventType = VFXEventTypes.knife;
+            newKnifeComponent.mainCollider = oldKnifeComponent.mainCollider;
+            newKnifeComponent.drawSound = oldKnifeComponent.drawSound;
+            newKnifeComponent.firstUseSound = oldKnifeComponent.firstUseSound;
+            newKnifeComponent.hitBleederSound = oldKnifeComponent.hitBleederSound;
+            newKnifeComponent.bleederDamage = 50;
+            newKnifeComponent.socket = oldKnifeComponent.socket;
+            newKnifeComponent.ikAimRightArm = true;
+            newKnifeComponent.drawTime = 0;
+            newKnifeComponent.holsterTime = 0.1f;
+            newKnifeComponent.pickupable = oldKnifeComponent.pickupable;
+            newKnifeComponent.hasFirstUseAnimation = true;
+            newKnifeComponent.hasBashAnimation = true;
+            Object.DestroyImmediate(oldKnifeComponent);
+        };
+        plagueKnife.SetGameObject(plagueKnifeTemplate);
+        plagueKnife.SetEquipment(EquipmentType.Hand);
+        plagueKnife.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.Knife, 1),
+                new CraftData.Ingredient(WarperHeart.TechType, 3)))
+            .WithCraftingTime(5)
+            .WithFabricatorType(CraftTree.Type.Workbench);
+        plagueKnife.Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)
@@ -697,5 +756,28 @@ public static class ModPrefabs
         simon.survivorName = "Simon";
         prefab.Set(go);
         yield break;
+    }
+    
+    private static IEnumerator GetWarperInnardsPrefab(IOut<GameObject> prefab)
+    {
+        var go = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("WarperInnards_Prefab"));
+        go.SetActive(false);
+        PrefabUtils.AddBasicComponents(go, WarperHeart.ClassID, WarperHeart.TechType,
+            LargeWorldEntity.CellLevel.Near);
+        go.AddComponent<Pickupable>();
+        var rb = go.AddComponent<Rigidbody>();
+        rb.mass = 10;
+        rb.useGravity = false;
+        var wf = go.AddComponent<WorldForces>();
+        wf.useRigidbody = rb;
+        var warperTask = CraftData.GetPrefabForTechTypeAsync(TechType.Warper);
+        yield return warperTask;
+        var heartMaterial = new Material(warperTask.GetResult().transform.Find("warper_anim/warper_geos/Warper_geo").gameObject.GetComponent<Renderer>().materials[1]);
+        heartMaterial.color = Color.red;
+        heartMaterial.SetColor("_SpecColor", Color.red * 4);
+        heartMaterial.SetColor("_GlowColor", Color.red * 4);
+        heartMaterial.SetFloat("_Shininess", 8);
+        go.GetComponentInChildren<Renderer>().material = heartMaterial;
+        prefab.Set(go);
     }
 }

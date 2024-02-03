@@ -18,7 +18,9 @@ public static class ZombieManager
 
     public static void Zombify(GameObject creature)
     {
-        AddZombieAI(creature);
+        if (IsZombie(creature)) return;
+        
+        AddZombieBehaviour(creature);
         var infectedMixin = creature.GetComponent<InfectedMixin>();
         if (infectedMixin)
         {
@@ -26,7 +28,7 @@ public static class ZombieManager
         }
     }
     
-    public static void AddZombieAI(GameObject creature)
+    public static void AddZombieBehaviour(GameObject creature)
     {
         creature.AddComponent<Zombified>();
         
@@ -68,7 +70,7 @@ public static class ZombieManager
             AddMeleeAttack(creatureComponent);
         }
 
-        creature.GetComponent<LiveMixin>().health = float.MaxValue;
+        // creature.GetComponent<LiveMixin>().health = float.MaxValue;
 
         creatureComponent.Scared = new CreatureTrait(0, 100000f);
         creatureComponent.Aggression = new CreatureTrait(1, 0.01f);
@@ -80,6 +82,8 @@ public static class ZombieManager
         {
             pickupable.isPickupable = false;
         }
+        
+        AmalgamationManager.AmalgamateCreature(creature);
     }
 
     private static void AddMeleeAttack(Creature creature)

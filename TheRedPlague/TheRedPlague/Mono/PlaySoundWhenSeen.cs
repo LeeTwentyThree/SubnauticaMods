@@ -12,7 +12,7 @@ public class PlaySoundWhenSeen : MonoBehaviour
     {
         if (JumpScareUtils.IsPositionOnScreen(transform.position))
         {
-            if (Vector3.Distance(MainCamera.camera.transform.position, transform.position) < maxDistance)
+            if (Vector3.Distance(MainCamera.camera.transform.position, transform.position) < maxDistance && Vector3.Dot(transform.forward, (MainCamera.camera.transform.position - transform.position).normalized) > 0.1f)
                 Utils.PlayFMODAsset(sound, transform.position);
             Destroy(this);
         }

@@ -5,21 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DeathScare.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/MoveTowardsPlayerWhenOffScreen.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/NpcSurvivor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/NpcSurvivorManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/NpcSurvivorMotor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/PlaySoundWhenSeen.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/CorpsePrefab.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettingsDatabase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/FriendlyWarper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/PlagueKnifeTool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/WarperDropHeartOnDeath.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Patches/WarperMeleeAttackPatcher.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Commands.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Commands.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/ModAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModAudio.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/DespawnWhenOffScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DespawnWhenOffScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/DeathScare.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DeathScare.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/JumpScares.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/JumpScares.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/PlaySoundWhenSeen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/PlaySoundWhenSeen.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/InfectedMixinPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/InfectedMixinPatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/LiveMixinPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/LiveMixinPatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/WarperPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/WarperPatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/ZombieManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ZombieManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +29,12 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10a2290b9f3045c2a90083d2063fb64611200/d1/b88cc089/Physics.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/85d1d3e7744a4a47b5f51883bf40bba2bb400/43/3ac99d01/AnimationCurve.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/a7/2de0180b/VFXEventTypes.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/b3/2ec2b90d/MeleeAttack.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/dd/2e487241/LiveMixin.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/aafb86ac724b47ddb09cd2e6deee237015a400/52/0a0395f5/Utils.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Nautilus/Nautilus/Assets/Gadgets/CraftingGadget.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -83,7 +90,9 @@
       <workItem from="1706053890536" duration="4453000" />
       <workItem from="1706405552370" duration="12363000" />
       <workItem from="1706459809186" duration="16113000" />
-      <workItem from="1706566893007" duration="7385000" />
+      <workItem from="1706566893007" duration="7770000" />
+      <workItem from="1706736533535" duration="12822000" />
+      <workItem from="1706910890552" duration="12112000" />
     </task>
     <servers />
   </component>

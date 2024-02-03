@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -7,17 +8,19 @@ namespace TheRedPlague.Patches;
 public class LiveMixinPatcher
 {
     [HarmonyPatch(nameof(LiveMixin.TakeDamage))]
-    [HarmonyPostfix]
-    public static void TakeDamagePostfix(LiveMixin __instance, float originalDamage, GameObject dealer)
+    [HarmonyPrefix]
+    public static bool TakeDamagePrefix(LiveMixin __instance, float originalDamage, GameObject dealer)
     {
         if (originalDamage <= 0 || dealer == null)
-            return;
+            return true;
         if (__instance.GetComponent<Creature>() == null)
-            return;
-        if (!ZombieManager.IsZombie(dealer))
-            return;
-        if (ZombieManager.IsZombie(__instance.gameObject))
-            return;
+            return true;
+        var damagedByZombie = ZombieManager.IsZombie(dealer);
+        if (!damagedByZombie || dealer.GetComponent<FriendlyWarper>() != null)
+            return true;
+        if (ZombieManager.IsZombie(__instance.gameObject)) // am I already a zombie?
+            return false;
         ZombieManager.Zombify(__instance.gameObject);
+        return false;
     }
 }

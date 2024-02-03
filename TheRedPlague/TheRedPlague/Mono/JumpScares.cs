@@ -74,6 +74,9 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
         var despawn = spawned.AddComponent<DespawnWhenOffScreen>();
         despawn.initialDelay = 20;
         despawn.waitUntilSeen = true;
+        despawn.despawnIfTooClose = true;
+        despawn.minDistance = 3;
+        despawn.jumpscareWhenTooClose = true;
     }
 
     private void Update()

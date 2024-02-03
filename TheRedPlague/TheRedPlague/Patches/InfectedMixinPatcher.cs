@@ -63,7 +63,7 @@ public static class InfectedMixinPatcher
         {
             if (!ZombieManager.IsZombie(__instance.gameObject))
             {
-                ZombieManager.AddZombieAI(__instance.gameObject);
+                ZombieManager.AddZombieBehaviour(__instance.gameObject);
             }
         }
         

@@ -19,5 +19,6 @@ public static class WarperPatcher
         sounds.maxDelay = 11;
 
         __instance.gameObject.EnsureComponent<WarperBecomeFriendly>();
+        __instance.gameObject.EnsureComponent<WarperDropHeartOnDeath>();
     }
 }
