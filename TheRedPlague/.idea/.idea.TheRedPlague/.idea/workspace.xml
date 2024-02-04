@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/ModCompatibility.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Creatures/Mutant.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/AmalgamationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettingsDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettingsDatabase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Plugin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/CoordinatedSpawns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/CoordinatedSpawns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/ZombieManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ZombieManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +21,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/10a2290b9f3045c2a90083d2063fb64611200/d1/b88cc089/Physics.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/85d1d3e7744a4a47b5f51883bf40bba2bb400/43/3ac99d01/AnimationCurve.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/33/800b6423/AttackLastTarget.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/a7/2de0180b/VFXEventTypes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/b3/2ec2b90d/MeleeAttack.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/9ec6c1b62c324758b9c2d79021505be61b5600/dd/2e487241/LiveMixin.cs" root0="SKIP_HIGHLIGHTING" />
@@ -80,7 +84,8 @@
       <workItem from="1706459809186" duration="16113000" />
       <workItem from="1706566893007" duration="7770000" />
       <workItem from="1706736533535" duration="12822000" />
-      <workItem from="1706910890552" duration="15602000" />
+      <workItem from="1706910890552" duration="16384000" />
+      <workItem from="1707079819035" duration="6715000" />
     </task>
     <servers />
   </component>

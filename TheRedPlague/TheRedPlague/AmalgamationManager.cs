@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheRedPlague;
@@ -7,6 +8,16 @@ public static class AmalgamationManager
 {
     private static readonly int InfectionHeightStrength = Shader.PropertyToID("_InfectionHeightStrength");
 
+    private static readonly List<TechType> _leviathanTechTypes = new List<TechType>()
+    {
+        TechType.ReaperLeviathan,
+        TechType.GhostLeviathan,
+        TechType.GhostLeviathanJuvenile,
+        TechType.SeaDragon
+    };
+
+    private const float LeviathanProbabilityScale = 8;
+    
     public static void AmalgamateCreature(GameObject host)
     {
         UWE.CoroutineHost.StartCoroutine(AmalgamateCreatureInternal(host));
@@ -19,11 +30,20 @@ public static class AmalgamationManager
         if (!AmalgamationSettingsDatabase.SettingsList.TryGetValue(techType, out var settings))
             yield break;
 
+        if (host.transform.parent != null && host.transform.parent.gameObject.GetComponentInParent<Creature>() != null)
+            yield break;
+
+        var probabilityScale = Mathf.Clamp(ZombieManager.GetInfectionStrengthAtPosition(host.transform.position), 0.05f, 1f);
+        if (_leviathanTechTypes.Contains(techType))
+        {
+            probabilityScale = Mathf.Clamp01(probabilityScale * LeviathanProbabilityScale);
+        }
+        
         foreach (var attachPoint in settings.AttachPoints)
         {
             foreach (var bone in attachPoint.PathToAffectedBone)
             {
-                if (Random.value <= attachPoint.Probability)
+                if (Random.value <= attachPoint.Probability * probabilityScale)
                 {
                     yield return AttachCreatureToHost(host, attachPoint, bone);
                 }

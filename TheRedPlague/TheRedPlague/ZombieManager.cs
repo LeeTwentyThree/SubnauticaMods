@@ -149,12 +149,12 @@ public static class ZombieManager
         }
         var attackLastTarget = creature.gameObject.AddComponent<AttackLastTarget>();
         var swimRandom = creature.GetComponent<SwimRandom>();
-        attackLastTarget.swimVelocity = swimRandom != null ? swimRandom.swimVelocity * 2.5f : 10f;
+        attackLastTarget.swimVelocity = swimRandom != null ? swimRandom.swimVelocity * 2f : 10f;
         attackLastTarget.aggressionThreshold = 0.75f;
         attackLastTarget.swimInterval = 0.5f;
         attackLastTarget.minAttackDuration = 3f;
         attackLastTarget.maxAttackDuration = 10f;
-        attackLastTarget.pauseInterval = 10f;
+        attackLastTarget.pauseInterval = 15f;
         attackLastTarget.rememberTargetTime = 5f;
         attackLastTarget.evaluatePriority = 1.1f;
         attackLastTarget.lastTarget = creature.gameObject.GetComponent<LastTarget>();
@@ -179,5 +179,12 @@ public static class ZombieManager
                 m.SetTexture(ShaderPropertyID._InfectionAlbedomap, Plugin.ZombieInfectionTexture);
             }
         }
+    }
+    
+    public static float GetInfectionStrengthAtPosition(Vector3 position)
+    {
+        var depthWeight = Mathf.InverseLerp(0, -1500, position.y);
+        var distanceWeight = Mathf.Sqrt(position.x * position.x + position.z * position.z) / 2400;
+        return Mathf.Clamp01(depthWeight + distanceWeight);
     }
 }
