@@ -110,8 +110,8 @@ public static class AmalgamationSettingsDatabase
                         true,
                         new[] {"mouth_damage_trigger"},
                         new AttachableParasite(TechType.Warper, 6f),
-                        new AttachableParasite(TechType.GhostLeviathan, 0.5f),
-                        new AttachableParasite(TechType.CrabSquid, 2f)
+                        new AttachableParasite(TechType.GhostLeviathan, 0.5f)
+                        //new AttachableParasite(TechType.CrabSquid, 2f)
                     ) /*,
                     new ParasiteAttachPoint(
                         new string[]
@@ -243,7 +243,7 @@ public static class AmalgamationSettingsDatabase
                         0.5f,
                         new Vector3(0, 90, 0),
                         true,
-                        new[] {"Mouth"},
+                        new string[0],
                         new AttachableParasite(TechType.Stalker, 0.8f),
                         new AttachableParasite(TechType.Eyeye, 3f),
                         new AttachableParasite(TechType.Warper, 0.5f),
@@ -273,7 +273,7 @@ public static class AmalgamationSettingsDatabase
                         0.3f,
                         new Vector3(0, 90, 0),
                         true,
-                        new[] {"Mouth"},
+                        new string[0],
                         new AttachableParasite(TechType.Stalker, 0.8f),
                         new AttachableParasite(TechType.Eyeye, 3f),
                         new AttachableParasite(TechType.Warper, 0.5f),
@@ -298,6 +298,29 @@ public static class AmalgamationSettingsDatabase
                     new ParasiteAttachPoint(
                         new string[]
                         {
+                            "shocker_anim/root/head_back"
+                        },
+                        1f,
+                        new Vector3(0, 90, 0),
+                        false,
+                        new string[0],
+                        new AttachableParasite(TechType.Stalker, 0.8f),
+                        new AttachableParasite(TechType.Eyeye, 3f),
+                        new AttachableParasite(TechType.Warper, 0.5f),
+                        new AttachableParasite(TechType.CrabSquid, 0.2f),
+                        new AttachableParasite(TechType.Crash, 2f),
+                        new AttachableParasite(TechType.Peeper, 2.5f),
+                        new AttachableParasite(TechType.Jellyray, 0.5f),
+                        new AttachableParasite(TechType.GhostRayBlue, 0.5f),
+                        new AttachableParasite(TechType.Mesmer, 2f),
+                        new AttachableParasite(TechType.CaveCrawler, 2f),
+                        new AttachableParasite(TechType.Jumper, 2f),
+                        new AttachableParasite(TechType.Bleeder, 8f),
+                        new AttachableParasite(TechType.Sandshark, 1f)
+                    ),
+                    new ParasiteAttachPoint(
+                        new string[]
+                        {
                             "shocker_anim/root/head_back/tail_1/segment1_front/segment1_back/tail_2/segment2_front/segment2_back/tail_3/segment3_front/segment3_back/tail_4/segment4_front/segment4_back/tail_5/segment5_front/segment5_back/tail_6/segment6_front/segment6_back/tail_7"
                             //"shocker_anim/root/head_back/tail_1/segment1_front/segment1_back/tail_2/segment2_front/segment2_back/tail_3/segment3_front/segment3_back/tail_4/segment4_front/segment4_back/tail_5/segment5_front/segment5_back/tail_6/segment6_front/segment6_back/tail_7/segment7_front/segment7_back/tail_8/segment8_front/segment8_back/tail_9"
                         },
@@ -305,18 +328,19 @@ public static class AmalgamationSettingsDatabase
                         new Vector3(0, 90, 0),
                         true,
                         new string[0],
-                        new AttachableParasite(TechType.Stalker, 0.2f),
-                        new AttachableParasite(TechType.Eyeye, 1f),
-                        new AttachableParasite(TechType.Warper, 0.2f),
-                        new AttachableParasite(TechType.CrabSquid, 0.04f),
-                        new AttachableParasite(TechType.Crash, 0.3f),
-                        new AttachableParasite(TechType.Peeper, 0.8f),
-                        new AttachableParasite(TechType.Jellyray, 0.3f),
-                        new AttachableParasite(TechType.GhostRayBlue, 0.1f),
-                        new AttachableParasite(TechType.Mesmer, 0.8f),
-                        new AttachableParasite(TechType.CaveCrawler, 0.9f),
-                        new AttachableParasite(TechType.Jumper, 0.5f),
-                        new AttachableParasite(TechType.Bleeder, 2f)
+                        new AttachableParasite(TechType.Stalker, 0.8f),
+                        new AttachableParasite(TechType.Eyeye, 3f),
+                        new AttachableParasite(TechType.Warper, 0.5f),
+                        new AttachableParasite(TechType.CrabSquid, 0.2f),
+                        new AttachableParasite(TechType.Crash, 2f),
+                        new AttachableParasite(TechType.Peeper, 2.5f),
+                        new AttachableParasite(TechType.Jellyray, 0.5f),
+                        new AttachableParasite(TechType.GhostRayBlue, 0.5f),
+                        new AttachableParasite(TechType.Mesmer, 2f),
+                        new AttachableParasite(TechType.CaveCrawler, 2f),
+                        new AttachableParasite(TechType.Jumper, 2f),
+                        new AttachableParasite(TechType.Bleeder, 8f),
+                        new AttachableParasite(TechType.Sandshark, 1f)
                     )
                 }
             )
@@ -334,18 +358,19 @@ public static class AmalgamationSettingsDatabase
                         new Vector3(0, 90, 0),
                         true,
                         new string[0],
-                        new AttachableParasite(TechType.Stalker, 0.2f),
-                        new AttachableParasite(TechType.Eyeye, 1f),
-                        new AttachableParasite(TechType.Warper, 0.2f),
-                        new AttachableParasite(TechType.CrabSquid, 0.04f),
-                        new AttachableParasite(TechType.Crash, 0.3f),
-                        new AttachableParasite(TechType.Peeper, 0.8f),
-                        new AttachableParasite(TechType.Jellyray, 0.3f),
-                        new AttachableParasite(TechType.GhostRayBlue, 0.1f),
-                        new AttachableParasite(TechType.Mesmer, 0.8f),
-                        new AttachableParasite(TechType.CaveCrawler, 0.9f),
-                        new AttachableParasite(TechType.Jumper, 0.5f),
-                        new AttachableParasite(TechType.Bleeder, 2f)
+                        new AttachableParasite(TechType.Stalker, 0.8f),
+                        new AttachableParasite(TechType.Eyeye, 3f),
+                        new AttachableParasite(TechType.Warper, 0.5f),
+                        new AttachableParasite(TechType.CrabSquid, 0.2f),
+                        new AttachableParasite(TechType.Crash, 2f),
+                        new AttachableParasite(TechType.Peeper, 2.5f),
+                        new AttachableParasite(TechType.Jellyray, 0.5f),
+                        new AttachableParasite(TechType.GhostRayBlue, 0.5f),
+                        new AttachableParasite(TechType.Mesmer, 2f),
+                        new AttachableParasite(TechType.CaveCrawler, 2f),
+                        new AttachableParasite(TechType.Jumper, 2f),
+                        new AttachableParasite(TechType.Bleeder, 8f),
+                        new AttachableParasite(TechType.Sandshark, 1f)
                     )
                 }
             )
@@ -357,24 +382,48 @@ public static class AmalgamationSettingsDatabase
                     new ParasiteAttachPoint(
                         new string[]
                         {
+                            "model/ghost_ray_red/root_jnt"
+                        },
+                        1f,
+                        new Vector3(0, 90, 0),
+                        false,
+                        new string[0],
+                        new AttachableParasite(TechType.Stalker, 0.8f),
+                        new AttachableParasite(TechType.Eyeye, 3f),
+                        new AttachableParasite(TechType.Warper, 0.5f),
+                        new AttachableParasite(TechType.CrabSquid, 0.2f),
+                        new AttachableParasite(TechType.Crash, 2f),
+                        new AttachableParasite(TechType.Peeper, 2.5f),
+                        new AttachableParasite(TechType.Jellyray, 0.5f),
+                        new AttachableParasite(TechType.GhostRayBlue, 0.5f),
+                        new AttachableParasite(TechType.Mesmer, 2f),
+                        new AttachableParasite(TechType.CaveCrawler, 2f),
+                        new AttachableParasite(TechType.Jumper, 2f),
+                        new AttachableParasite(TechType.Bleeder, 8f),
+                        new AttachableParasite(TechType.Sandshark, 1f)
+                    ),
+                    new ParasiteAttachPoint(
+                        new string[]
+                        {
                             "model/ghost_ray_red/root_jnt/Tail_phy/tail_jnt/Tail_phy1/tail1_jnt/Tail_phy2/tail2_jnt/Tail_phy3/tail3_jnt/Tail_phy4/tail4_jnt/Tail_phy5/tail5_jnt/Tail_phy6"
                         },
                         1f,
                         new Vector3(0, 90, 0),
                         true,
                         new string[0],
-                        new AttachableParasite(TechType.Stalker, 0.2f),
-                        new AttachableParasite(TechType.Eyeye, 1f),
-                        new AttachableParasite(TechType.Warper, 0.2f),
-                        new AttachableParasite(TechType.CrabSquid, 0.04f),
-                        new AttachableParasite(TechType.Crash, 0.3f),
-                        new AttachableParasite(TechType.Peeper, 0.8f),
-                        new AttachableParasite(TechType.Jellyray, 0.3f),
-                        new AttachableParasite(TechType.GhostRayBlue, 0.1f),
-                        new AttachableParasite(TechType.Mesmer, 0.8f),
-                        new AttachableParasite(TechType.CaveCrawler, 0.9f),
-                        new AttachableParasite(TechType.Jumper, 0.5f),
-                        new AttachableParasite(TechType.Bleeder, 2f)
+                        new AttachableParasite(TechType.Stalker, 0.8f),
+                        new AttachableParasite(TechType.Eyeye, 3f),
+                        new AttachableParasite(TechType.Warper, 0.5f),
+                        new AttachableParasite(TechType.CrabSquid, 0.2f),
+                        new AttachableParasite(TechType.Crash, 2f),
+                        new AttachableParasite(TechType.Peeper, 2.5f),
+                        new AttachableParasite(TechType.Jellyray, 0.5f),
+                        new AttachableParasite(TechType.GhostRayBlue, 0.5f),
+                        new AttachableParasite(TechType.Mesmer, 2f),
+                        new AttachableParasite(TechType.CaveCrawler, 2f),
+                        new AttachableParasite(TechType.Jumper, 2f),
+                        new AttachableParasite(TechType.Bleeder, 8f),
+                        new AttachableParasite(TechType.Sandshark, 1f)
                     )
                 }
             )
@@ -393,18 +442,18 @@ public static class AmalgamationSettingsDatabase
                         new Vector3(0, 90, 0),
                         true,
                         new string[0],
-                        new AttachableParasite(TechType.Stalker, 0.2f),
-                        new AttachableParasite(TechType.Eyeye, 1f),
-                        new AttachableParasite(TechType.Warper, 0.2f),
-                        new AttachableParasite(TechType.CrabSquid, 0.04f),
-                        new AttachableParasite(TechType.Crash, 0.3f),
-                        new AttachableParasite(TechType.Peeper, 0.8f),
-                        new AttachableParasite(TechType.Jellyray, 0.3f),
-                        new AttachableParasite(TechType.GhostRayBlue, 0.1f),
-                        new AttachableParasite(TechType.Mesmer, 0.8f),
-                        new AttachableParasite(TechType.CaveCrawler, 0.9f),
-                        new AttachableParasite(TechType.Jumper, 0.5f),
-                        new AttachableParasite(TechType.Bleeder, 2f)
+                        new AttachableParasite(TechType.Eyeye, 3f),
+                        new AttachableParasite(TechType.Warper, 0.5f),
+                        new AttachableParasite(TechType.CrabSquid, 0.2f),
+                        new AttachableParasite(TechType.Crash, 2f),
+                        new AttachableParasite(TechType.Peeper, 2.5f),
+                        new AttachableParasite(TechType.Jellyray, 0.5f),
+                        new AttachableParasite(TechType.GhostRayBlue, 0.5f),
+                        new AttachableParasite(TechType.Mesmer, 2f),
+                        new AttachableParasite(TechType.CaveCrawler, 2f),
+                        new AttachableParasite(TechType.Jumper, 2f),
+                        new AttachableParasite(TechType.Bleeder, 8f),
+                        new AttachableParasite(TechType.Sandshark, 1f)
                     )
                 }
             )
