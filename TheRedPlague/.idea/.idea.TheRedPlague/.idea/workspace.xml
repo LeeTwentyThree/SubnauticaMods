@@ -5,12 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Creatures/Mutant.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DisableRigidbodyWhileOffScreen.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/FixMassiveCreatures.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/InfectOnStart.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/AmalgamationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettingsDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettingsDatabase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/CoordinatedSpawns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/CoordinatedSpawns.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/InfectedMixinPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/InfectedMixinPatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/TheRedPlague.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/TheRedPlague.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/ZombieManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ZombieManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +88,7 @@
       <workItem from="1706566893007" duration="7770000" />
       <workItem from="1706736533535" duration="12822000" />
       <workItem from="1706910890552" duration="16384000" />
-      <workItem from="1707079819035" duration="6715000" />
+      <workItem from="1707079819035" duration="12874000" />
     </task>
     <servers />
   </component>

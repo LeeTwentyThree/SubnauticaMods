@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague;
@@ -75,11 +76,14 @@ public static class AmalgamationManager
         var parasiteTransform = parasite.transform;
         parasiteTransform.localPosition = Vector3.zero;
         parasiteTransform.localEulerAngles = parasiteAttachPoint.LocalEulerAngles;
+        
+        // Scale the parasite properly
         var lossyBoneScale = attachmentBone.lossyScale;
         var parasiteScale = new Vector3(chosenParasite.Scale / lossyBoneScale.x,
             chosenParasite.Scale / lossyBoneScale.y, chosenParasite.Scale / lossyBoneScale.z);
         parasiteTransform.localScale = parasiteScale;
         var parasiteAverageScale = (parasiteScale.x + parasiteScale.y + parasiteScale.z) / 3f;
+        parasite.AddComponent<FixMassiveCreatures>().desiredLossyScale = chosenParasite.Scale;
         
         // Disable the parasite's movement
         foreach (var collider in parasite.GetComponentsInChildren<Collider>(true))

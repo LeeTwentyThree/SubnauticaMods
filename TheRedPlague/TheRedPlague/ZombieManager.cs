@@ -96,7 +96,7 @@ public static class ZombieManager
         var meleeAttack = creature.gameObject.AddComponent<MeleeAttack>();
         meleeAttack.biteAggressionThreshold = 0.1f;
         meleeAttack.biteInterval = 2;
-        meleeAttack.biteDamage = creature.liveMixin.maxHealth >= 200 ? 14 : 7;
+        meleeAttack.biteDamage = creature.liveMixin.maxHealth >= 200 ? 14 : 2;
         meleeAttack.biteAggressionDecrement = 0.2f;
         meleeAttack.lastTarget = creature.GetComponent<LastTarget>();
         meleeAttack.creature = creature;

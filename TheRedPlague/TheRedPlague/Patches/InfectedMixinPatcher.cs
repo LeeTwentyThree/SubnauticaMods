@@ -34,10 +34,20 @@ public static class InfectedMixinPatcher
         }
         if (!shouldBeInfected)
         {
-            var biomeName = WaterBiomeManager.main.GetBiome(__instance.transform.position);
-            if (biomeName == "dunes" || biomeName == "infectedzone")
+            if (__instance.gameObject.GetComponent<Pickupable>() == null)
             {
-                shouldBeInfected = true;
+                if (__instance.transform.position.y < -1300)
+                {
+                    shouldBeInfected = true;
+                }
+                else
+                {
+                    var biomeName = WaterBiomeManager.main.GetBiome(__instance.transform.position);
+                    if (biomeName == "dunes" || biomeName == "infectedzone")
+                    {
+                        shouldBeInfected = true;
+                    }
+                }
             }
         }
         if (shouldBeInfected)

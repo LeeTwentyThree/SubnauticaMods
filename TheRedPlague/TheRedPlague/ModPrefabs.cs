@@ -6,6 +6,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using TheRedPlague.Creatures;
 using TheRedPlague.Mono;
 using TheRedPlague.PrefabFiles;
 using UnityEngine;
@@ -26,6 +27,10 @@ public static class ModPrefabs
     public static PrefabInfo NpcSurvivorManager { get; } = PrefabInfo.WithTechType("NpcSurvivorManager");
     public static PrefabInfo WarperHeart { get; } = PrefabInfo.WithTechType("WarperHeart", "Warper heart", "A warper's bio-mechanical heart. While unstable due to the infection, the power can still be utilized for your own purposes.");
     public static PrefabInfo PlagueKnife { get; } = PrefabInfo.WithTechType("PlagueKnife", "Plague knife", "A more powerful upgrade of the survival knife, with a connection to the infected defense network.");
+    public static PrefabInfo MutantDiver1 { get; } = PrefabInfo.WithTechType("MutantDiver1", "Mutant diver", "A mutated diver.");
+    public static PrefabInfo MutantDiver2 { get; } = PrefabInfo.WithTechType("MutantDiver2", "Mutant diver", "A mutated diver.");
+    public static PrefabInfo MutantDiver3 { get; } = PrefabInfo.WithTechType("MutantDiver3", "Heavily mutated diver", "A heavily mutated diver.");
+    public static PrefabInfo MutantDiver4 { get; } = PrefabInfo.WithTechType("MutantDiver4", "Heavily mutated diver", "DEATH IS JUST A BREATH AWAY");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
@@ -469,6 +474,19 @@ public static class ModPrefabs
             .WithCraftingTime(5)
             .WithFabricatorType(CraftTree.Type.Workbench);
         plagueKnife.Register();
+        
+        var mutantDiver1 = new Mutant(MutantDiver1, "MutatedDiver1", false);
+        mutantDiver1.Register();
+        
+        var mutantDiver2 = new Mutant(MutantDiver2, "MutatedDiver2", false);
+        mutantDiver2.Register();
+
+        var mutantDiver3 = new Mutant(MutantDiver3, "MutatedDiver3", true);
+        mutantDiver3.Register();
+
+        var mutantDiver4 = new Mutant(MutantDiver4, "MutatedDiver4", true);
+        mutantDiver4.Register();
+
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)
