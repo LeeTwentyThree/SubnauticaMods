@@ -30,7 +30,7 @@ public static class ModPrefabs
     public static PrefabInfo MutantDiver1 { get; } = PrefabInfo.WithTechType("MutantDiver1", "Mutant diver", "A mutated diver.");
     public static PrefabInfo MutantDiver2 { get; } = PrefabInfo.WithTechType("MutantDiver2", "Mutant diver", "A mutated diver.");
     public static PrefabInfo MutantDiver3 { get; } = PrefabInfo.WithTechType("MutantDiver3", "Heavily mutated diver", "A heavily mutated diver.");
-    public static PrefabInfo MutantDiver4 { get; } = PrefabInfo.WithTechType("MutantDiver4", "Heavily mutated diver", "DEATH IS JUST A BREATH AWAY");
+    public static PrefabInfo MutantDiver4 { get; } = PrefabInfo.WithTechType("MutantDiver4", "Heavily mutated diver", "DEATH IS JUST A GLANCE AWAY");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
@@ -486,7 +486,8 @@ public static class ModPrefabs
 
         var mutantDiver4 = new Mutant(MutantDiver4, "MutatedDiver4", true);
         mutantDiver4.Register();
-
+        
+        BoneArmor.Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale, Action<GameObject> modifyPrefab = null)

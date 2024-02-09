@@ -26,7 +26,8 @@ public class DespawnWhenOffScreen : MonoBehaviour
     public bool jumpscareWhenTooClose;
 
     private bool _despawning;
-    
+    private int _terrainMask;
+
     private void Start()
     {
         InvokeRepeating(nameof(Check), initialDelay, 0.05f);
@@ -56,9 +57,13 @@ public class DespawnWhenOffScreen : MonoBehaviour
         {
             Despawn(0f);
         }
-        else if (despawnIfViewNotClear && Physics.SphereCast(new Ray(transform.position, (MainCamera.camera.transform.position - transform.position).normalized), 1, (MainCamera.camera.transform.position - transform.position).magnitude - 2f, -1, QueryTriggerInteraction.Ignore))
+        else
         {
-            Despawn(0f);
+            _terrainMask = LayerMask.GetMask("Terrain");
+            if (despawnIfViewNotClear && Physics.Raycast(new Ray(transform.position, (MainCamera.camera.transform.position - transform.position).normalized), (MainCamera.camera.transform.position - transform.position).magnitude - 2f, _terrainMask, QueryTriggerInteraction.Ignore))
+            {
+                Despawn(0f);
+            }
         }
     }
 
@@ -73,7 +78,8 @@ public class DespawnWhenOffScreen : MonoBehaviour
             if (jumpscareWhenTooClose)
             {
                 Despawn(2f);
-                DeathScare.PlayDeathScare();
+                if (!Player.main.IsInBase())
+                    DeathScare.PlayDeathScare();
             }
             else
             {

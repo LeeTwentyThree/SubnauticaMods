@@ -38,6 +38,10 @@ public static class AmalgamationManager
         if (_leviathanTechTypes.Contains(techType))
         {
             probabilityScale = Mathf.Clamp01(probabilityScale * LeviathanProbabilityScale);
+            if (WaterBiomeManager.main.GetBiome(host.transform.position) == "dunes")
+            {
+                probabilityScale = 1f;
+            }
         }
         
         foreach (var attachPoint in settings.AttachPoints)

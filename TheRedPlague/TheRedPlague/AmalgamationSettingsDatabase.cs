@@ -108,7 +108,7 @@ public static class AmalgamationSettingsDatabase
                         0.9f,
                         new Vector3(0, 270, 0),
                         true,
-                        new[] {"mouth_damage_trigger"},
+                        new[] {"mouth_damage_trigger", "LavaMeteorSpawnPoints"},
                         new AttachableParasite(TechType.Warper, 6f),
                         new AttachableParasite(TechType.GhostLeviathan, 0.5f)
                         //new AttachableParasite(TechType.CrabSquid, 2f)

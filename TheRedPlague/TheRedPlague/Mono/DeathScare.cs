@@ -17,14 +17,35 @@ public class DeathScare : MonoBehaviour
             return;
         UWE.CoroutineHost.StartCoroutine(SpawnDeathScare());
     }
+    
+    public static void PlayMutantDeathScare(string prefabName, bool heavilyMutated)
+    {
+        if (current != null)
+            return;
+        var obj = Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>(prefabName));
+        MaterialUtils.ApplySNShaders(obj);
+        obj.AddComponent<SkyApplier>().renderers = obj.GetComponentsInChildren<Renderer>();
+        obj.AddComponent<InfectAnything>().infectionHeightStrength = 0.001f;
+        var scare = obj.AddComponent<DeathScare>();
+        scare.yOffset = -0.2f;
+        if (heavilyMutated)
+        {
+            scare.zOffset = 1.2f;
+        }
+    }
 
     private static IEnumerator SpawnDeathScare()
     {
+        /*
         GameObject obj;
         if (Random.value < 0.5f)
         {
             obj = Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("DeathScare"));
-            obj.AddComponent<DeathScare>();
+            var scare = obj.AddComponent<DeathScare>();
+            MaterialUtils.ApplySNShaders(obj);
+            obj.AddComponent<SkyApplier>().renderers = obj.GetComponentsInChildren<Renderer>();
+            scare.yOffset = 0f;
+            scare.zOffset = 1.2f;
         }
         else
         {
@@ -36,6 +57,21 @@ public class DeathScare : MonoBehaviour
             scare.yOffset = -1.4f;
             scare.zOffset = 1.3f;
         }
+        */
+        
+        var obj = Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("DeathScare"));
+        var scare = obj.AddComponent<DeathScare>();
+        MaterialUtils.ApplySNShaders(obj);
+        obj.AddComponent<SkyApplier>().renderers = obj.GetComponentsInChildren<Renderer>();
+        scare.yOffset = 0.2f;
+        scare.zOffset = 1.2f;
+        if (Random.value < 0.9f)
+        {
+            obj.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+            obj.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+        }
+
+        yield break;
     }
 
     private void Awake()
