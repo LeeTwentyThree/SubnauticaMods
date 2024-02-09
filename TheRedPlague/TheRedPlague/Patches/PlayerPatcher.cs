@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using HarmonyLib;
 using TheRedPlague.Mono;
+using TheRedPlague.PrefabFiles;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -16,5 +17,14 @@ public static class PlayerPatcher
         __instance.gameObject.EnsureComponent<RandomFishSpawner>();
         __instance.gameObject.EnsureComponent<JumpScares>();
         __instance.gameObject.AddComponent<EnzymeRainController>();
+    }
+    
+    [HarmonyPatch(nameof(Player.EquipmentChanged))]
+    [HarmonyPostfix]
+    public static void EquipmentChangedPostfix(Player __instance)
+    {
+        var equipment = Inventory.main.equipment;
+        __instance.gameObject.EnsureComponent<PlagueArmorBehavior>()
+            .SetArmorActive(equipment.GetTechTypeInSlot("Body") == BoneArmor.BoneArmorInfo.TechType);
     }
 }

@@ -5,17 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/MutantAttackTrigger.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/BoneArmor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/Mono/PlagueArmorBehavior.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/AmalgamationManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettingsDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/AmalgamationSettingsDatabase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Creatures/Mutant.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Creatures/Mutant.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/ModAudio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModAudio.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/DeathScare.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DeathScare.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/DespawnWhenOffScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DespawnWhenOffScreen.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/DisableRigidbodyWhileOffScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/DisableRigidbodyWhileOffScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/PlayerPatcher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/PlayerPatcher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/BoneArmor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/BoneArmor.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +86,7 @@
       <workItem from="1707079819035" duration="13803000" />
       <workItem from="1707254665302" duration="1778000" />
       <workItem from="1707352162760" duration="12381000" />
-      <workItem from="1707507707802" duration="5714000" />
+      <workItem from="1707507707802" duration="7427000" />
     </task>
     <servers />
   </component>

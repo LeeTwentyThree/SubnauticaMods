@@ -24,12 +24,9 @@ public static class BoneArmor
             .WithStepsToFabricatorTab("Personal", "Equipment");
         prefab.Register();
     }
-    
-    private static IEnumerator GetPrefab(IOut<GameObject> prefab)
+
+    public static Material GetMaterial()
     {
-        var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("BoneArmor_Prefab"));
-        obj.SetActive(false);
-        
         var material = new Material(MaterialUtils.IonCubeMaterial);
         material.SetColor(ShaderPropertyID._Color, Color.black);
         material.SetColor(ShaderPropertyID._SpecColor, Color.black);
@@ -39,11 +36,21 @@ public static class BoneArmor
         material.SetFloat(ShaderPropertyID._GlowStrengthNight, 2.2f);
         material.SetColor("_DetailsColor", Color.red);
         material.SetColor("_SquaresColor", new Color(3, 2, 1));
-        material.SetFloat("_SquaresTile", 78);
+        material.SetFloat("_SquaresTile", 100);
         material.SetFloat("_SquaresSpeed", 8.8f);
         material.SetVector("_NoiseSpeed", new Vector4(0.5f, 0.3f, 0f));
         material.SetVector("_FakeSSSParams", new Vector4(0.2f, 1f, 1f));
         material.SetVector("_FakeSSSSpeed", new Vector4(0.5f, 0.5f, 1.37f));
+
+        return material;
+    }
+    
+    private static IEnumerator GetPrefab(IOut<GameObject> prefab)
+    {
+        var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("BoneArmor_Prefab"));
+        obj.SetActive(false);
+
+        var material = GetMaterial();
 
         var renderers = obj.GetComponentsInChildren<Renderer>();
         foreach (var renderer in renderers)
