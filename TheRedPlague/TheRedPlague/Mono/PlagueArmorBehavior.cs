@@ -28,9 +28,9 @@ public class PlagueArmorBehavior : MonoBehaviour
     private void SpawnArmor()
     {
         _currentArmor = Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("BoneArmor_PlayerModel"), _parentBone, true);
-        _currentArmor.transform.localPosition = new Vector3(0, 0, 0.03f);
+        _currentArmor.transform.localPosition = new Vector3(-0.06f, 0, 0.03f);
         _currentArmor.transform.localEulerAngles = new Vector3(0, 10, 86);
-        _currentArmor.transform.localScale = Vector3.one * 0.9f;
+        _currentArmor.transform.localScale = Vector3.one * 0.8f;
         var material = BoneArmor.GetMaterial();
 
         var renderers = _currentArmor.GetComponentsInChildren<Renderer>();
