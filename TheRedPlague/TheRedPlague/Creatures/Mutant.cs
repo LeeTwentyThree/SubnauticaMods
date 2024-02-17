@@ -148,8 +148,7 @@ public class Mutant : CreatureAsset
                 biome = BiomeType.InactiveLavaZone_Corridor_Open_CreatureOnly,
                 probability = 0.05f,
                 count = 1
-            }
-            ,
+            },
             new LootDistributionData.BiomeData
             {
                 biome = BiomeType.InactiveLavaZone_Chamber_Open_CreatureOnly,

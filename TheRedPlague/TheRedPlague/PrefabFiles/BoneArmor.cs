@@ -65,7 +65,9 @@ public static class BoneArmor
         var rb = obj.EnsureComponent<Rigidbody>();
         rb.mass = 100;
         rb.useGravity = false;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
         var wf = obj.EnsureComponent<WorldForces>();
+        wf.useRigidbody = rb;
         obj.AddComponent<Pickupable>();
 
         prefab.Set(obj);

@@ -394,12 +394,18 @@ public static class ModPrefabs
             go.AddComponent<Pickupable>();
         };
         amalgamatedBonePrefab.SetGameObject(amalgamatedBoneTemplate);
-        amalgamatedBonePrefab.SetSpawns(new LootDistributionData.BiomeData()
-        {
-            biome = BiomeType.Dunes_SandDune,
-            count = 1,
-            probability = 0.4f
-        });
+        amalgamatedBonePrefab.SetSpawns(new LootDistributionData.BiomeData
+            {
+                biome = BiomeType.Dunes_SandDune,
+                count = 1,
+                probability = 0.4f
+            },
+            new LootDistributionData.BiomeData
+            {
+                biome = BiomeType.Dunes_Grass,
+                count = 1,
+                probability = 0.4f
+            });
         amalgamatedBonePrefab.Register();
     }
 

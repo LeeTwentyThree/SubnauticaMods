@@ -37,7 +37,8 @@ public class Plugin : BaseUnityPlugin
 
         LanguageHandler.RegisterLocalizationFolder();
         
-        CraftTreeHandler.AddTabNode(CraftTree.Type.Workbench, "PlagueEquipment", null, AssetBundle.LoadAsset<Sprite>("WarperHeartIcon"));
+        // stupid method doesn't work with localization?
+        CraftTreeHandler.AddTabNode(CraftTree.Type.Workbench, "PlagueEquipment", "Organic equipment", AssetBundle.LoadAsset<Sprite>("WarperHeartIcon"));
 
         ModPrefabs.RegisterPrefabs();
         
