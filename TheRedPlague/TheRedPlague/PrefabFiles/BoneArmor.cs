@@ -3,18 +3,17 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
-using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague.PrefabFiles;
 
 public static class BoneArmor
 {
-    public static PrefabInfo BoneArmorInfo { get; } = PrefabInfo.WithTechType("PlagueArmor", "Plague armor", "This suit exploits a rare mutation of the plague that allows its host to survive otherwise fatal contact with the disease. The side effects are unknown.");
+    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("PlagueArmor", "Plague armor", "This suit exploits a rare mutation of the plague that allows its host to survive otherwise fatal contact with the disease. The side effects are unknown.");
 
     public static void Register()
     {
-        var prefab = new CustomPrefab(BoneArmorInfo);
+        var prefab = new CustomPrefab(Info);
         prefab.SetGameObject(GetPrefab);
         prefab.SetEquipment(EquipmentType.Body);
         prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.ReinforcedDiveSuit, 1),
@@ -22,7 +21,7 @@ public static class BoneArmor
             .WithCraftingTime(5)
             .WithFabricatorType(CraftTree.Type.Workbench)
             .WithStepsToFabricatorTab("PlagueEquipment");
-        BoneArmorInfo.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("BoneArmorIcon"))
+        Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("BoneArmorIcon"))
             .WithSizeInInventory(new Vector2int(2, 2));
         prefab.Register();
     }
@@ -60,7 +59,7 @@ public static class BoneArmor
             renderer.material = material;
         }
         
-        PrefabUtils.AddBasicComponents(obj, BoneArmorInfo.ClassID, BoneArmorInfo.TechType,
+        PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType,
             LargeWorldEntity.CellLevel.Near);
         var rb = obj.EnsureComponent<Rigidbody>();
         rb.mass = 100;

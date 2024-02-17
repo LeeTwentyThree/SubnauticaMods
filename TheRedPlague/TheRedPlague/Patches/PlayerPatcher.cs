@@ -25,6 +25,6 @@ public static class PlayerPatcher
     {
         var equipment = Inventory.main.equipment;
         __instance.gameObject.EnsureComponent<PlagueArmorBehavior>()
-            .SetArmorActive(equipment.GetTechTypeInSlot("Body") == BoneArmor.BoneArmorInfo.TechType);
+            .SetArmorActive(equipment.GetTechTypeInSlot("Body") == BoneArmor.Info.TechType);
     }
 }
