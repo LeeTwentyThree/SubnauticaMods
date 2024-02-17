@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/CyclopsWreckPrefab.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/DataboxPrefab.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.TheRedPlague/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/CoordinatedSpawns.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/CoordinatedSpawns.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/InfectionSettingsDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/InfectionSettingsDatabase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Mono/RandomFishSpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/BrokenPDAPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/BrokenPDAPatch.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Plugin.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/BoneArmor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/BoneArmor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/PlagueKnife.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/PlagueKnife.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +33,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/bb76f3f683b941c2aa105b0533f79fab14400/0a/a73e88b0/CreatureAsset.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Nautilus/Nautilus/Assets/Gadgets/CraftingGadget.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../Nautilus/Nautilus/Handlers/CraftTreeHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../../Nautilus/Nautilus/Handlers/KnownTechHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TheRedPlague/CoordinatedSpawns.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TheRedPlague/Creatures/Mutant.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/TheRedPlague/JumpScareUtils.cs" root0="FORCE_HIGHLIGHTING" />
@@ -100,7 +111,7 @@
       <workItem from="1707955495199" duration="4569000" />
       <workItem from="1708040232130" duration="4807000" />
       <workItem from="1708049103334" duration="750000" />
-      <workItem from="1708132494997" duration="5920000" />
+      <workItem from="1708132494997" duration="13048000" />
     </task>
     <servers />
   </component>

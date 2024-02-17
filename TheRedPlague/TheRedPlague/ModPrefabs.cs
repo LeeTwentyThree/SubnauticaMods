@@ -53,6 +53,9 @@ public static class ModPrefabs
         .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("InfectedEnzyme42"));
 
     private static PrefabInfo PrecursorPhoneInfo { get; } = PrefabInfo.WithTechType("PrecursorPhone");
+    
+    public static PrefabInfo PlagueKnifeDatabox { get; } = PrefabInfo.WithTechType("PlagueKnifeDatabox");
+    public static PrefabInfo BoneArmorDatabox { get; } = PrefabInfo.WithTechType("BoneArmorDatabox");
 
     public static void RegisterPrefabs()
     {
@@ -69,6 +72,10 @@ public static class ModPrefabs
         RegisterCreaturesAndCorpses();
 
         RegisterEquipment();
+        
+        RegisterDataboxes();
+        
+        CyclopsWreckPrefab.Register();
     }
 
     private static void RegisterBiomes()
@@ -465,6 +472,12 @@ public static class ModPrefabs
         BoneArmor.Register();
 
         PlagueKnife.Register();
+    }
+    
+    private static void RegisterDataboxes()
+    {
+        new DataboxPrefab(PlagueKnifeDatabox, PlagueKnife.Info.TechType).Register();
+        new DataboxPrefab(BoneArmorDatabox, BoneArmor.Info.TechType).Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale,

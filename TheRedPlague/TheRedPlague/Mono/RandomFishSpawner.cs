@@ -63,7 +63,20 @@ public class RandomFishSpawner : MonoBehaviour, IStoryGoalListener
     private void Jumpscare()
     {
         var camTransform = MainCamera.camera.transform;
-        StartCoroutine(SpawnFishAsync(_fishTechTypes[Random.Range(0, _fishTechTypes.Length)], camTransform.position + camTransform.forward * Random.Range(-2, -13)));
+        StartCoroutine(SpawnFishAsync(GetRandomFishTechType(), camTransform.position + camTransform.forward * Random.Range(-2, -13)));
+    }
+
+    private TechType GetRandomFishTechType()
+    {
+        if (Player.main.transform.position.y < -300)
+        {
+            if (Random.value < 0.2f)
+            {
+                return Random.value > 0.5f ? ModPrefabs.MutantDiver1.TechType : ModPrefabs.MutantDiver2.TechType;
+            }
+        }
+
+        return _fishTechTypes[Random.Range(0, _fishTechTypes.Length)];
     }
 
     private IEnumerator SpawnFishAsync(TechType techType, Vector3 location)

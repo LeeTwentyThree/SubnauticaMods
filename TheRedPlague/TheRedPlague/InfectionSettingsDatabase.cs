@@ -11,7 +11,7 @@ public static class InfectionSettingsDatabase
         {TechType.Gasopod, new InfectionSettings(new Color(3, 3, 3), -0.7f, new Vector3(1, 1, 1), new Vector3(0.476190f, 0.596191f, 0.620476f))},
         {TechType.Skyray, new InfectionSettings(new Color(0.860294f, 0.860294f, 0.860294f), -0.1f, new Vector3(1.5f, 1.5f, 1.5f), new Vector3(0, 0, 0))},
         {TechType.Peeper, new InfectionSettings(new Color(3, 3, 3), -0.1f, new Vector3(1.5f, 1.5f, 1.5f), new Vector3(0, 0, 0))},
-        {TechType.RabbitRay, new InfectionSettings(new Color(1, 1, 1), -0.3f, new Vector3(2, 2, 2), new Vector3(0, 0.28f, 0.32f))},
+        {TechType.RabbitRay, new InfectionSettings(new Color(2, 2, 2), -0.3f, new Vector3(2, 2, 2), new Vector3(0, 0.28f, 0.32f))},
         {TechType.Stalker, new InfectionSettings(new Color(2, 2.5f, 2), -0.2f, new Vector3(1, 1, 5), new Vector3(0.47f, 0.52f, 0.29f))},
         {TechType.Shocker, new InfectionSettings(new Color(4, 4, 4), -0.3f, new Vector3(1, 2, 4), new Vector3(0.14f, 0.42f, -0.4f))},
         {TechType.GhostLeviathan, new InfectionSettings(new Color(1, 1, 1), 3f, new Vector3(5, 5, 20), new Vector3(0, 0, 0))},

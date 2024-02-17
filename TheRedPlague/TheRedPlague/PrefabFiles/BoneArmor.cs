@@ -2,6 +2,7 @@
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -24,7 +25,12 @@ public static class BoneArmor
             .WithCraftingTime(5)
             .WithFabricatorType(CraftTree.Type.Workbench)
             .WithStepsToFabricatorTab("PlagueEquipment");
+        prefab.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Equipment);
         prefab.Register();
+        
+        KnownTechHandler.SetAnalysisTechEntry(Info.TechType, System.Array.Empty<TechType>(),
+            KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound,
+            Plugin.AssetBundle.LoadAsset<Sprite>("BoneArmorPopup"));
     }
 
     public static Material GetMaterial()

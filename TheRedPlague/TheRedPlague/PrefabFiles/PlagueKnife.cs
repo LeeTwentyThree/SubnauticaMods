@@ -3,6 +3,7 @@ using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using TheRedPlague.Mono;
 using UnityEngine;
@@ -26,7 +27,11 @@ public static class PlagueKnife
             .WithCraftingTime(5)
             .WithFabricatorType(CraftTree.Type.Workbench)
             .WithStepsToFabricatorTab("PlagueEquipment");
+        plagueKnife.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Tools);
         plagueKnife.Register();
+        KnownTechHandler.SetAnalysisTechEntry(ModPrefabs.AmalgamatedBone.TechType, new[] {Info.TechType},
+            KnownTechHandler.DefaultUnlockData.BlueprintUnlockSound,
+            Plugin.AssetBundle.LoadAsset<Sprite>("PlagueKnifePopup"));
     }
 
     private static void ModifyPrefab(GameObject prefab)
@@ -49,7 +54,7 @@ public static class PlagueKnife
         renderer.material = material;
 
         var oldKnifeComponent = prefab.GetComponent<Knife>();
-        
+
         var newKnifeComponent = prefab.AddComponent<PlagueKnifeTool>();
         newKnifeComponent.attackSound = AudioUtils.GetFmodAsset("event:/creature/warper/swipe");
         newKnifeComponent.underwaterMissSound = AudioUtils.GetFmodAsset("event:/creature/warper/swipe");

@@ -23,8 +23,9 @@ public static class BrokenPdaPatch
         var glassCracks = Object.Instantiate(seamoth.transform
             .Find("SeamothDamageFXSpawn").gameObject.GetComponent<PrefabSpawn>().prefab.transform
             .Find("x_SeamothGlassCracks"), pda, true);
-        glassCracks.transform.localPosition = Vector3.zero;
-        glassCracks.transform.localEulerAngles = Vector3.up * 270;
-        glassCracks.GetComponent<Renderer>().material.color = new Color(0.113505f, 0.066081f, 0.691189f, 1f);
+        glassCracks.transform.localPosition = new Vector3(0, 0.276f, 0f);
+        glassCracks.transform.localScale = Vector3.one * 0.7f;
+        glassCracks.transform.localEulerAngles = Vector3.up * 188.5f;
+        glassCracks.GetComponent<Renderer>().material.color = new Color(0.113505f, 0.066081f, 0.691189f, 0.5714f);
     }
 }
