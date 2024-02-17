@@ -7,7 +7,7 @@ namespace TheRedPlague.PrefabFiles;
 
 public static class IslandElevator
 {
-    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("");
+    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("IslandElevator");
 
     public static void Register()
     {

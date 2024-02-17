@@ -9,7 +9,9 @@ namespace TheRedPlague.PrefabFiles;
 
 public static class BoneArmor
 {
-    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("PlagueArmor", "Plague armor", "This suit exploits a rare mutation of the plague that allows its host to survive otherwise fatal contact with the disease. The side effects are unknown.");
+    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("PlagueArmor")
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("BoneArmorIcon"))
+        .WithSizeInInventory(new Vector2int(2, 2));
 
     public static void Register()
     {
@@ -17,12 +19,11 @@ public static class BoneArmor
         prefab.SetGameObject(GetPrefab);
         prefab.SetEquipment(EquipmentType.Body);
         prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.ReinforcedDiveSuit, 1),
-                new CraftData.Ingredient(ModPrefabs.WarperHeart.TechType, 1), new CraftData.Ingredient(ModPrefabs.AmalgamatedBone.TechType, 8)))
+                new CraftData.Ingredient(ModPrefabs.WarperHeart.TechType, 1),
+                new CraftData.Ingredient(ModPrefabs.AmalgamatedBone.TechType, 8)))
             .WithCraftingTime(5)
             .WithFabricatorType(CraftTree.Type.Workbench)
             .WithStepsToFabricatorTab("PlagueEquipment");
-        Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("BoneArmorIcon"))
-            .WithSizeInInventory(new Vector2int(2, 2));
         prefab.Register();
     }
 
@@ -45,7 +46,7 @@ public static class BoneArmor
 
         return material;
     }
-    
+
     private static IEnumerator GetPrefab(IOut<GameObject> prefab)
     {
         var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("BoneArmor_Prefab"));
@@ -58,7 +59,7 @@ public static class BoneArmor
         {
             renderer.material = material;
         }
-        
+
         PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType,
             LargeWorldEntity.CellLevel.Near);
         var rb = obj.EnsureComponent<Rigidbody>();
@@ -66,7 +67,7 @@ public static class BoneArmor
         rb.useGravity = false;
         var wf = obj.EnsureComponent<WorldForces>();
         obj.AddComponent<Pickupable>();
-        
+
         prefab.Set(obj);
         yield break;
     }

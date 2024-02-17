@@ -19,8 +19,7 @@ public static class ModPrefabs
     private static PrefabInfo InfectionLaserInfo { get; } = PrefabInfo.WithTechType("InfectionLaser");
     private static PrefabInfo LaserReceptacleInfo { get; } = PrefabInfo.WithTechType("InfectionLaserReceptacle");
 
-    public static PrefabInfo DeadSeaEmperorInfo { get; } =
-        PrefabInfo.WithTechType("DeadSeaEmperor", "Deceased Sea Emperor", "A deceased Sea Emperor.");
+    public static PrefabInfo DeadSeaEmperorInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperor");
 
     public static PrefabInfo DeadSeaEmperorSpawnerInfo { get; } = PrefabInfo.WithTechType("DeadSeaEmperorSpawner");
     public static PrefabInfo InfectionTimerInfo { get; } = PrefabInfo.WithTechType("InfectionTimer");
@@ -28,39 +27,32 @@ public static class ModPrefabs
     public static PrefabInfo SkeletonCorpse { get; } = PrefabInfo.WithTechType("SkeletonCorpse");
     public static PrefabInfo NpcSurvivorManager { get; } = PrefabInfo.WithTechType("NpcSurvivorManager");
 
-    public static PrefabInfo WarperHeart { get; } = PrefabInfo.WithTechType("WarperHeart", "Warper heart",
-        "A warper's bio-mechanical heart. While unstable due to the infection, the power can still be utilized for your own purposes.");
-    
-    public static PrefabInfo MutantDiver1 { get; } =
-        PrefabInfo.WithTechType("MutantDiver1", "Mutant diver", "A mutated diver.");
+    public static PrefabInfo WarperHeart { get; } = PrefabInfo.WithTechType("WarperHeart")
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("WarperHeartIcon"));
 
-    public static PrefabInfo MutantDiver2 { get; } =
-        PrefabInfo.WithTechType("MutantDiver2", "Mutant diver", "A mutated diver.");
+    public static PrefabInfo MutantDiver1 { get; } = PrefabInfo.WithTechType("MutantDiver1");
 
-    public static PrefabInfo MutantDiver3 { get; } =
-        PrefabInfo.WithTechType("MutantDiver3", "Heavily mutated diver", "A heavily mutated diver.");
+    public static PrefabInfo MutantDiver2 { get; } = PrefabInfo.WithTechType("MutantDiver2");
 
-    public static PrefabInfo MutantDiver4 { get; } =
-        PrefabInfo.WithTechType("MutantDiver4", "Heavily mutated diver", "DEATH IS JUST A GLANCE AWAY");
+    public static PrefabInfo MutantDiver3 { get; } = PrefabInfo.WithTechType("MutantDiver3");
 
-    public static PrefabInfo AmalgamatedBone { get; } = PrefabInfo.WithTechType("AmalgamatedBone", "Amalgamated bone",
-        "Skeletal remnants of a heavily infected creature. Unlike other organic material, this bone is able to withstand the effects of the plague.");
+    public static PrefabInfo MutantDiver4 { get; } = PrefabInfo.WithTechType("MutantDiver4");
 
-    public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
-        "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
+    public static PrefabInfo AmalgamatedBone { get; } = PrefabInfo.WithTechType("AmalgamatedBone")
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("AmalgamatedBone"));
 
-    public static PrefabInfo EnzymeContainer { get; } = PrefabInfo.WithTechType("ConcentratedEnzymeContainer",
-        "Concentrated Enzyme 42",
-        "A container of concentrated enzyme 42, ready to be placed into a machine for mass distribution.");
+    public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart")
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("PlagueHeartIcon"))
+        .WithSizeInInventory(new Vector2int(2, 2));
 
-    public static PrefabInfo EnzymeParticleInfo { get; } = PrefabInfo.WithTechType("InfectedEnzyme", "Impure Enzyme 42",
-        "A small concentration of Enzyme 42. Not very useful until fabricated into a concentrated solution.");
+    public static PrefabInfo EnzymeContainer { get; } = PrefabInfo.WithTechType("ConcentratedEnzymeContainer")
+        .WithIcon(SpriteManager.Get(TechType.LabContainer3))
+        .WithSizeInInventory(new Vector2int(2, 2));
 
-    private static PrefabInfo InfectionTrackerInfo { get; } = PrefabInfo.WithTechType("InfectionTracker",
-        "Tracker tablet", "A tablet that directs its user to a certain location.");
+    public static PrefabInfo EnzymeParticleInfo { get; } = PrefabInfo.WithTechType("InfectedEnzyme")
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("InfectedEnzyme42"));
 
-    private static PrefabInfo PrecursorPhoneInfo { get; } = PrefabInfo.WithTechType("PrecursorPhone",
-        "Precursor iPhone", "An unusual alien device.");
+    private static PrefabInfo PrecursorPhoneInfo { get; } = PrefabInfo.WithTechType("PrecursorPhone");
 
     public static void RegisterPrefabs()
     {
@@ -101,9 +93,9 @@ public static class ModPrefabs
     private static void RegisterPrecursorBasePieces()
     {
         InfectionDome.Register();
-        
+
         IslandElevator.Register();
-        
+
         var infectionCubePlatform = new CustomPrefab(PrefabInfo.WithTechType("InfectionCubePlatform"));
         var infectionCubeTemplate =
             new CloneTemplate(infectionCubePlatform.Info, "6b0104e8-979e-46e5-bc17-57c4ac2e6e39");
@@ -283,16 +275,6 @@ public static class ModPrefabs
         infectionLaserPrefab.SetSpawns(new SpawnLocation(Vector3.zero));
         infectionLaserPrefab.Register();
 
-        var infectionTrackerPrefab = new CustomPrefab(InfectionTrackerInfo);
-        var infectionTrackerTemplate = new CloneTemplate(InfectionTrackerInfo, "b98da0ef-29d4-4571-9a82-53a6e6706153");
-        infectionTrackerTemplate.ModifyPrefabAsync += ModifyInfectionTrackerPrefab;
-        infectionTrackerPrefab.SetGameObject(infectionTrackerTemplate);
-        infectionTrackerPrefab.SetEquipment(EquipmentType.Hand);
-        infectionTrackerPrefab.SetSpawns(new SpawnLocation(new Vector3(-52.575f, 312.560f, -68.644f),
-            new Vector3(4.3f, 0.68f, 18f)));
-        infectionTrackerPrefab.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("InfectionTrackerIcon"));
-        infectionTrackerPrefab.Register();
-
         var laserReceptacle = new CustomPrefab(LaserReceptacleInfo);
         laserReceptacle.SetGameObject(GetLaserReceptaclePrefab);
         laserReceptacle.SetSpawns(new SpawnLocation(new Vector3(-66.123f, 302.018f, -30.484f), new Vector3(0, 343, 0)));
@@ -361,17 +343,14 @@ public static class ModPrefabs
     {
         var plagueHeart = new CustomPrefab(PlagueHeart);
         plagueHeart.SetGameObject(GetPlagueHeartPrefab);
-        PlagueHeart.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("PlagueHeartIcon"));
         plagueHeart.SetSpawns(new SpawnLocation(new Vector3(-1319.740f, -223.150f, 280)));
         plagueHeart.Register();
 
         var enzymeParticle = new CustomPrefab(EnzymeParticleInfo);
         enzymeParticle.SetGameObject(GetEnzymeParticlePrefab);
-        EnzymeParticleInfo.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("InfectedEnzyme42"));
         enzymeParticle.Register();
 
         var enzymeContainer = new CustomPrefab(EnzymeContainer);
-        EnzymeContainer.WithIcon(SpriteManager.Get(TechType.LabContainer3)).WithSizeInInventory(new Vector2int(2, 2));
         var enzymeContainerTemplate = new CloneTemplate(enzymeContainer.Info, TechType.LabContainer3);
         enzymeContainerTemplate.ModifyPrefab += (go) =>
         {
@@ -400,7 +379,6 @@ public static class ModPrefabs
 
         var warperHeart = new CustomPrefab(WarperHeart);
         warperHeart.SetGameObject(GetWarperInnardsPrefab);
-        warperHeart.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("WarperHeartIcon"));
         warperHeart.Register();
 
         var amalgamatedBonePrefab = new CustomPrefab(AmalgamatedBone);
@@ -422,7 +400,6 @@ public static class ModPrefabs
             count = 1,
             probability = 0.4f
         });
-        amalgamatedBonePrefab.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("AmalgamatedBone"));
         amalgamatedBonePrefab.Register();
     }
 
@@ -477,6 +454,8 @@ public static class ModPrefabs
 
     private static void RegisterEquipment()
     {
+        InfectionTracker.Register();
+
         BoneArmor.Register();
 
         PlagueKnife.Register();
@@ -510,62 +489,6 @@ public static class ModPrefabs
         };
         prefab.SetGameObject(template);
         return prefab;
-    }
-
-    private static IEnumerator ModifyInfectionTrackerPrefab(GameObject go)
-    {
-        go.SetActive(false);
-        go.GetComponentInChildren<Renderer>(true).material.SetColor(ShaderPropertyID._GlowColor, new Color(3, 0, 0));
-        go.GetComponentsInChildren<Collider>(true).ForEach(c => c.enabled = false);
-        go.GetComponentsInChildren<Animator>(true).ForEach(c => c.enabled = false);
-        var collider = go.AddComponent<BoxCollider>();
-        collider.size = new Vector3(0.7f, 0.07f, 0.7f);
-        var tool = go.AddComponent<InfectionTrackerTool>();
-        tool.mainCollider = collider;
-        tool.drawSound = AudioUtils.GetFmodAsset("event:/interface/off_long");
-        tool.hasAnimations = false;
-        tool.pickupable = go.AddComponent<Pickupable>();
-        tool.renderers = go.GetComponentsInChildren<Renderer>();
-        tool.hasAnimations = true;
-
-        var worldModel = go.GetComponentInChildren<Animator>().gameObject;
-
-        var viewModel = Object.Instantiate(worldModel, go.transform);
-        viewModel.SetActive(false);
-        viewModel.transform.localScale = Vector3.one * 0.6f;
-        viewModel.transform.localPosition = new Vector3(-0.15f, 0.01f, 0.2f);
-        viewModel.transform.localEulerAngles = new Vector3(275, 180, 0);
-
-        tool.ikAimRightArm = true;
-
-        var fpModel = go.EnsureComponent<FPModel>();
-        fpModel.propModel = worldModel;
-        fpModel.viewModel = viewModel;
-
-        var diveReelTask = CraftData.GetPrefabForTechTypeAsync(TechType.DiveReel);
-        yield return diveReelTask;
-        var arrow = Object.Instantiate(
-            diveReelTask.GetResult().GetComponent<DiveReel>().nodePrefab.transform.Find("Arrow").gameObject,
-            go.transform);
-        arrow.SetActive(false);
-        var arrowCenter = new GameObject("ArrowCenter").transform;
-        arrowCenter.parent = viewModel.transform.GetChild(0).GetChild(0);
-        arrowCenter.localPosition = Vector3.forward * 0.15f;
-        arrow.GetComponentInChildren<Renderer>(true).material.color = Color.red;
-        arrow.GetComponentInChildren<Renderer>(true).material
-            .SetColor(ShaderPropertyID._ColorStrength, new Color(1.5f, 0, 0));
-        arrow.GetComponentInChildren<Renderer>(true).material
-            .SetColor(ShaderPropertyID._ColorStrengthAtNight, new Color(1.5f, 0, 0));
-
-        tool.arrowPrefab = arrow;
-        tool.arrowRoot = arrowCenter;
-        tool.viewModel = viewModel;
-
-        var rb = go.EnsureComponent<Rigidbody>();
-        rb.mass = 200;
-        rb.useGravity = false;
-        go.EnsureComponent<WorldForces>();
-        go.SetActive(true);
     }
 
     private static IEnumerator GetInfectionTimerPrefab(IOut<GameObject> prefab)

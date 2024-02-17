@@ -11,8 +11,8 @@ namespace TheRedPlague.PrefabFiles;
 
 public static class PlagueKnife
 {
-    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("PlagueKnife", "Plague knife",
-        "A more powerful upgrade of the survival knife, with a connection to the infected defense network.");
+    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("PlagueKnife")
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("PlagueKnifeIcon"));
 
     public static void Register()
     {
@@ -26,7 +26,6 @@ public static class PlagueKnife
             .WithCraftingTime(5)
             .WithFabricatorType(CraftTree.Type.Workbench)
             .WithStepsToFabricatorTab("PlagueEquipment");
-        plagueKnife.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("PlagueKnifeIcon"));
         plagueKnife.Register();
     }
 
