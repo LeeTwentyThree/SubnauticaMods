@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cba6b3b8-07a7-47e5-b1c1-13ee6dbf0abd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/TheRedPlague/Patches/BrokenPDAPatch.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/ModPrefabs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/Plugin.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Plugin.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/BoneArmor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/PrefabFiles/BoneArmor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TheRedPlague/Patches/BrokenPDAPatch.cs" beforeDir="false" afterPath="$PROJECT_DIR$/TheRedPlague/Patches/BrokenPDAPatch.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +100,7 @@
       <workItem from="1707955495199" duration="4569000" />
       <workItem from="1708040232130" duration="4807000" />
       <workItem from="1708049103334" duration="750000" />
-      <workItem from="1708132494997" duration="5409000" />
+      <workItem from="1708132494997" duration="5920000" />
     </task>
     <servers />
   </component>

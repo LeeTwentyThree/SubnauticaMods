@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace TheRedPlague.Patches;
 
+[HarmonyPatch(typeof(Player))]
 public static class BrokenPdaPatch
 {
-    [HarmonyPatch(typeof(Player), nameof(Player.Start))]
+    [HarmonyPatch(nameof(Player.Start))]
     [HarmonyPostfix]
     public static void SpawnGlassCracksPatch(Player __instance)
     {
@@ -20,7 +21,8 @@ public static class BrokenPdaPatch
         yield return task;
         var seamoth = task.GetResult();
         var glassCracks = Object.Instantiate(seamoth.transform
-            .Find("SeamothDamageFXSpawn/Seamoth_DamageFX(Clone)/x_SeamothGlassCracks").gameObject, pda, true);
+            .Find("SeamothDamageFXSpawn").gameObject.GetComponent<PrefabSpawn>().prefab.transform
+            .Find("x_SeamothGlassCracks"), pda, true);
         glassCracks.transform.localPosition = Vector3.zero;
         glassCracks.transform.localEulerAngles = Vector3.up * 270;
         glassCracks.GetComponent<Renderer>().material.color = new Color(0.113505f, 0.066081f, 0.691189f, 1f);
