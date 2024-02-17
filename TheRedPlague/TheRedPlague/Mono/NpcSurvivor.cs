@@ -268,8 +268,11 @@ public class NpcSurvivor : MonoBehaviour
             collider.center = Vector3.zero;
             collider.radius = 2;
             collider.height = 6;
-            Instantiate(arm, _instance.transform.Find("root/geoChildren/lArm_clav")).transform.localPosition = Vector3.zero;
-            Instantiate(arm, _instance.transform.Find("root/geoChildren/rArm_clav")).transform.localPosition = Vector3.zero;
+            var leftArm = Instantiate(arm, _instance.transform.Find("root/geoChildren/lArm_clav")).transform;
+            leftArm.localPosition = Vector3.zero;
+            var rightArm = Instantiate(arm, _instance.transform.Find("root/geoChildren/rArm_clav"));
+            rightArm.transform.localPosition = Vector3.zero;
+            rightArm.transform.localScale = new Vector3(-1, 1, 1);
             var rb = _instance.AddComponent<Rigidbody>();
             rb.useGravity = false;
             rb.mass = 800;

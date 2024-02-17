@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using Story;
 
 namespace TheRedPlague.Mono;
@@ -17,12 +19,18 @@ public class InfectAnything : MonoBehaviour, IStoryGoalListener
     
     private static readonly int InfectionHeightStrengthParameter = Shader.PropertyToID("_InfectionHeightStrength");
 
-    private void Start()
+    public bool isAppliedToPlayer;
+
+    private IEnumerator Start()
     {
+        isAppliedToPlayer = gameObject.GetComponent<Player>() != null;
+        
+        yield return new WaitUntil(() =>
+            StoryGoalManager.main.completedGoals != null && StoryGoalManager.main.completedGoals.Count > 0);
         if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
         {
             ApplyShading(false);
-            return;
+            yield break;
         }
         StoryGoalManager.main.AddListener(this);
         ApplyShading(infectedAtStart);
@@ -32,7 +40,14 @@ public class InfectAnything : MonoBehaviour, IStoryGoalListener
     {
         if (renderers == null || renderers.Length == 0)
         {
-            renderers = gameObject.GetComponentsInChildren<Renderer>();
+            if (isAppliedToPlayer)
+            {
+                renderers = transform.Find("body").GetComponentsInChildren<Renderer>(true).Where((r) => !r.gameObject.name.Contains("BoneArmor")).ToArray();
+            }
+            else
+            {
+                renderers = gameObject.GetComponentsInChildren<Renderer>(true);
+            }
         }
         if (_materials == null)
         {

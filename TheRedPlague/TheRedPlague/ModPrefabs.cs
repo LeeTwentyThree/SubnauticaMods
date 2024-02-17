@@ -31,6 +31,7 @@ public static class ModPrefabs
     public static PrefabInfo MutantDiver2 { get; } = PrefabInfo.WithTechType("MutantDiver2", "Mutant diver", "A mutated diver.");
     public static PrefabInfo MutantDiver3 { get; } = PrefabInfo.WithTechType("MutantDiver3", "Heavily mutated diver", "A heavily mutated diver.");
     public static PrefabInfo MutantDiver4 { get; } = PrefabInfo.WithTechType("MutantDiver4", "Heavily mutated diver", "DEATH IS JUST A GLANCE AWAY");
+    public static PrefabInfo AmalgamatedBone { get; } = PrefabInfo.WithTechType("AmalgamatedBone", "Amalgamated bone", "Skeletal remnants of a heavily infected creature. Unlike other organic material, this bone is able to withstand the effects of the plague.");
 
     public static PrefabInfo PlagueHeart { get; } = PrefabInfo.WithTechType("PlagueHeart", "Heart of the plague",
         "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.");
@@ -472,7 +473,9 @@ public static class ModPrefabs
         plagueKnife.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.Knife, 1),
                 new CraftData.Ingredient(WarperHeart.TechType, 3)))
             .WithCraftingTime(5)
-            .WithFabricatorType(CraftTree.Type.Workbench);
+            .WithFabricatorType(CraftTree.Type.Workbench)
+            .WithStepsToFabricatorTab("PlagueEquipment");
+        plagueKnife.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("PlagueKnifeIcon"));
         plagueKnife.Register();
         
         var mutantDiver1 = new Mutant(MutantDiver1, "MutatedDiver1", false);
@@ -486,6 +489,28 @@ public static class ModPrefabs
 
         var mutantDiver4 = new Mutant(MutantDiver4, "MutatedDiver4", true);
         mutantDiver4.Register();
+        
+        var amalgamatedBonePrefab = new CustomPrefab(AmalgamatedBone);
+        var amalgamatedBoneTemplate = new CloneTemplate(AmalgamatedBone, "42e1ac56-6fab-4a9f-95d9-eec5707fe62b");
+        amalgamatedBoneTemplate.ModifyPrefab += (go) =>
+        {
+            foreach (Transform child in go.transform)
+            {
+                child.localScale *= 0.3f;
+            }
+
+            go.AddComponent<InfectAnything>().infectionHeightStrength = 0.2f;
+            go.AddComponent<Pickupable>();
+        };
+        amalgamatedBonePrefab.SetGameObject(amalgamatedBoneTemplate);
+        amalgamatedBonePrefab.SetSpawns(new LootDistributionData.BiomeData()
+        {
+            biome = BiomeType.Dunes_SandDune,
+            count = 1,
+            probability = 0.4f
+        });
+        amalgamatedBonePrefab.Info.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("AmalgamatedBone"));
+        amalgamatedBonePrefab.Register();
         
         BoneArmor.Register();
     }

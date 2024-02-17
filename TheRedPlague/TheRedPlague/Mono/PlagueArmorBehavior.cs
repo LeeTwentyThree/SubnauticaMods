@@ -1,16 +1,55 @@
-﻿using TheRedPlague.PrefabFiles;
+﻿using Story;
+using TheRedPlague.PrefabFiles;
 using UnityEngine;
 
 namespace TheRedPlague.Mono;
 
+// This class manages the plague armor model & the infection damage in the dunes
 public class PlagueArmorBehavior : MonoBehaviour
 {
     private Transform _parentBone;
     private GameObject _currentArmor;
+    private float _timeTryDamageAgain;
+
+    private bool _equipped;
+    private bool _infectionDamageDisabled;
+
+    private bool _addedInfectionVisuals;
 
     private void Start()
     {
         _parentBone = transform.Find("body/player_view/export_skeleton/head_rig/neck/chest/spine_3/spine_2");
+    }
+
+    private void Update()
+    {
+        if (Time.time > _timeTryDamageAgain)
+        {
+            if (!_equipped && WaterBiomeManager.main.GetBiome(Player.main.transform.position) == "dunes")
+            {
+                if (_infectionDamageDisabled)
+                {
+                    return;
+                }
+
+                if (StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key))
+                {
+                    _infectionDamageDisabled = true;
+                    return;
+                }
+                
+                Player.main.liveMixin.TakeDamage(1, MainCamera.camera.transform.position + Random.onUnitSphere);
+                
+                if (!_addedInfectionVisuals && Player.main.gameObject.GetComponent<InfectAnything>() == null)
+                {
+                    var infectVisuals = Player.main.gameObject.EnsureComponent<InfectAnything>();
+                    infectVisuals.infectionHeightStrength = 0.01f;
+                }
+
+                _addedInfectionVisuals = true;
+            }
+            _timeTryDamageAgain = Time.time + 1f;
+        }
     }
 
     public void SetArmorActive(bool state)
@@ -23,6 +62,8 @@ public class PlagueArmorBehavior : MonoBehaviour
         {
             Destroy(_currentArmor);
         }
+
+        _equipped = state;
     }
 
     private void SpawnArmor()
@@ -38,7 +79,7 @@ public class PlagueArmorBehavior : MonoBehaviour
         {
             renderer.material = material;
         }
-        
-        _currentArmor.AddComponent<SkyApplier>();
+
+        _currentArmor.EnsureComponent<SkyApplier>().renderers = renderers;
     }
 }

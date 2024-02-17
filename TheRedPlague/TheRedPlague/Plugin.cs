@@ -39,6 +39,8 @@ public class Plugin : BaseUnityPlugin
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
+        CraftTreeHandler.AddTabNode(CraftTree.Type.Workbench, "PlagueEquipment", "Plague equipment", AssetBundle.LoadAsset<Sprite>("WarperHeartIcon"));
+
         ModPrefabs.RegisterPrefabs();
         
         CoordinatedSpawns.RegisterCoordinatedSpawns();

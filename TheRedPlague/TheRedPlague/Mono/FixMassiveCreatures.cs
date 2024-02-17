@@ -6,12 +6,12 @@ public class FixMassiveCreatures : MonoBehaviour
 {
     public float desiredLossyScale;
 
-    private void Start()
+    private void Update()
     {
-        var parentScale = GetParentScale();
-        if (transform.lossyScale.magnitude > desiredLossyScale)
+        if (transform.lossyScale.x > desiredLossyScale)
         {
-            transform.localScale = Vector3.one * 1 / parentScale;
+            var parentScale = GetParentScale();
+            transform.localScale = Vector3.one * (desiredLossyScale / parentScale);
         }
     }
 

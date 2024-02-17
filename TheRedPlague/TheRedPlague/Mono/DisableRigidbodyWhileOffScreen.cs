@@ -8,11 +8,12 @@ public class DisableRigidbodyWhileOffScreen : MonoBehaviour
     private Rigidbody _rb;
     private Animator _animator;
 
-    public bool playAttackSound = true;
-    public FMODAsset attackSound = AudioUtils.GetFmodAsset("ZombieRoar");
+    public bool playAttackSound = false;
+    private static readonly FMODAsset AttackSound = AudioUtils.GetFmodAsset("ZombieRoar");
 
     private bool _wasAttackingPlayer;
     private AttackLastTarget _attack;
+    private Creature _creature;
 
     private float _timeCanPlaySoundAgain;
     
@@ -21,6 +22,7 @@ public class DisableRigidbodyWhileOffScreen : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
         _attack = GetComponent<AttackLastTarget>();
+        _creature = GetComponent<Creature>();
     }
 
     private void Update()
@@ -31,11 +33,11 @@ public class DisableRigidbodyWhileOffScreen : MonoBehaviour
 
         if (!playAttackSound) return;
         
-        var attacking = Time.time > _attack.timeStartAttack && Time.time < _attack.timeStopAttack && _attack.currentTarget == Player.main.gameObject;
+        var attacking = _creature.prevBestAction == _attack;
         
         if (!_wasAttackingPlayer && attacking && canMove && Time.time > _timeCanPlaySoundAgain)
         {
-            Utils.PlayFMODAsset(attackSound, transform.position);
+            Utils.PlayFMODAsset(AttackSound, transform.position);
             _timeCanPlaySoundAgain = Time.time + 5f;
         }
 

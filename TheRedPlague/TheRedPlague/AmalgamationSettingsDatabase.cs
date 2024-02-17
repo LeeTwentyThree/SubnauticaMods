@@ -503,13 +503,11 @@ public static class AmalgamationSettingsDatabase
                         new AttachableParasite(TechType.Stalker, 0.2f),
                         new AttachableParasite(TechType.Eyeye, 1f),
                         new AttachableParasite(TechType.Warper, 0.2f),
-                        new AttachableParasite(TechType.CrabSquid, 0.04f),
                         new AttachableParasite(TechType.Crash, 0.3f),
                         new AttachableParasite(TechType.Peeper, 0.8f),
                         new AttachableParasite(TechType.Jellyray, 0.3f),
                         new AttachableParasite(TechType.GhostRayBlue, 0.1f),
                         new AttachableParasite(TechType.Mesmer, 0.8f),
-                        new AttachableParasite(TechType.CaveCrawler, 0.9f),
                         new AttachableParasite(TechType.Jumper, 0.5f),
                         new AttachableParasite(TechType.Bleeder, 2f)
                     )
@@ -541,6 +539,23 @@ public static class AmalgamationSettingsDatabase
                         new AttachableParasite(TechType.CaveCrawler, 0.9f),
                         new AttachableParasite(TechType.Jumper, 0.5f),
                         new AttachableParasite(TechType.Bleeder, 2f)
+                    )
+                }
+            )
+        },
+        {
+            TechType.Peeper, new AmalgamationSettings(new[]
+                {
+                    new ParasiteAttachPoint(
+                        new string[]
+                        {
+                            "model/peeper"
+                        },
+                        1f,
+                        new Vector3(60, 0, 0),
+                        false,
+                        new string[0],
+                        new AttachableParasite(TechType.Peeper, 1)
                     )
                 }
             )

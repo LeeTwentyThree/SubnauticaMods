@@ -70,7 +70,8 @@ public class PlayerInfectionDeath : MonoBehaviour
             if (!infectDamage)
             {
                 Player.main.gameObject.EnsureComponent<PlayerInfectDamage>();
-                Player.main.gameObject.EnsureComponent<InfectAnything>();
+                var infectVisuals = Player.main.gameObject.EnsureComponent<InfectAnything>();
+                infectVisuals.infectionHeightStrength = 0.1f;
                 Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("DieFromInfection"), Player.main.transform.position);
                 _ui.gameObject.SetActive(false);
             }

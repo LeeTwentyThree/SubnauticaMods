@@ -49,7 +49,7 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
         MaterialUtils.ApplySNShaders(model);
         var despawn = model.AddComponent<DespawnWhenOffScreen>();
         despawn.despawnIfTooClose = true;
-        despawn.minDistance = 10;
+        despawn.minDistance = 4;
         despawn.waitUntilSeen = true;
         despawn.moveInstead = true;
         despawn.moveRadius = 35f;

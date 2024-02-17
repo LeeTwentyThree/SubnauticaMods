@@ -14,7 +14,7 @@ public static class CoordinatedSpawns
     
     public static void RegisterCoordinatedSpawns()
     {
-        // Force field island
+        // --- Force field island ---
         
         var animatedLightScale = new Vector3(0.5f, 0.25f, 0.25f);
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLightClassId, new Vector3(-41.757f, 307.086f, -33.187f), new Vector3(326.504f, 172.957f, 182.122f), animatedLightScale));
@@ -54,7 +54,7 @@ public static class CoordinatedSpawns
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-72.50f, 320.16f, -29.85f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(SkyrayClassID, new Vector3(-63.68f, 318.05f, -50.97f)));
         
-        // Plague heart island
+        // --- Plague heart island ---
         
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1299.49f, -213.19f, 261.80f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(WarperClassID, new Vector3(-1317.45f, -221.93f, 282.85f)));
@@ -82,10 +82,46 @@ public static class CoordinatedSpawns
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PedestalClassID, new Vector3(-1326.911f, -196.478f, 264.966f), new Vector3(353.537f, 0.451f, 352.025f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(AnimatedLight2ClassId, new Vector3(-1326.737f, -195.149f, 264.818f), new Vector3(357.000f, 359.971f, 353.000f), new Vector3(0.3f, 0.2f, 0.15f)));
         
+        // pedestal
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo("23d96661-8e2e-4485-9b22-d84707394a0e", new Vector3(-1320.027f, -228.474f, 280.102f), new Vector3(356, 0.4f, 349), new Vector3(1.5f, 1, 1.5f)));
         
-        // Base game precursor bases
+        // ghost leviathan
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo("54701bfc-bb1a-4a84-8f79-ba4f76691bef", new Vector3(-1253.01f, -159.05f, 276.41f)));
+        
+        // --- Base game precursor bases ---
         
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.WarperHeart.ClassID, new Vector3(-262.546f, -814.698f, 300.219f), new Vector3(9, 0.335f, 4.289f)));
+        
+        // --- Infected divers ---
+        
+        // lifepod 17
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.InfectedCorpseInfo.ClassID, new Vector3(-515.96f, -95.58f, -56.83f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.SkeletonCorpse.ClassID, new Vector3(-512.98f, -95.68f, -57.87f)));
+        
+        // lifepod 7
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.InfectedCorpseInfo.ClassID, new Vector3(-56.19f, -180.21f, -1039.19f)));
+        
+        // lifepod 13
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.SkeletonCorpse.ClassID, new Vector3(-926.35f, -178.92f, 506.76f)));
+        
+        // lifepod 6
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.SkeletonCorpse.ClassID, new Vector3(359.76f, -115.58f, 306.60f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.InfectedCorpseInfo.ClassID, new Vector3(366.26f, -114.64f, 305.62f)));
+        
+        // lifepod 12
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.InfectedCorpseInfo.ClassID, new Vector3(1119.06f, -269.02f, 564.86f)));
+        
+        // lifepod 4
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.InfectedCorpseInfo.ClassID, new Vector3(712.27f, 2.09f, 160.94f)));
+        
+        // lifepod 3
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.SkeletonCorpse.ClassID, new Vector3(-28.18f, -19.40f, 406.94f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.MutantDiver2.ClassID, new Vector3(-27.92f, -19.85f, 411.73f)));
+        
+        // lifepod 2
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.MutantDiver3.ClassID, new Vector3(-481.45f, -496.54f, 1323.83f)));
+        
+        // lifepod 19
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.SkeletonCorpse.ClassID, new Vector3(-810.37f, -299.89f, -877.06f)));
     }
 }

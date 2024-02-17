@@ -162,7 +162,7 @@ public class Mutant : CreatureAsset
     protected override CreatureTemplate CreateTemplate()
     {
         var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>(_prefabName), BehaviourType.Shark,
-            EcoTargetType.Shark, 1000);
+            EcoTargetType.Shark, float.PositiveInfinity);
         CreatureTemplateUtils.SetCreatureDataEssentials(template, LargeWorldEntity.CellLevel.Medium, 500, -0.5f);
         CreatureTemplateUtils.SetCreatureMotionEssentials(template,
             new SwimRandomData(0.3f, _heavilyMutated ? HeavilyMutatedVelocity : NormalVariantVelocity,
@@ -170,9 +170,9 @@ public class Mutant : CreatureAsset
             new StayAtLeashData(0.4f, _heavilyMutated ? HeavilyMutatedVelocity : NormalVariantVelocity, 50f));
         template.LocomotionData = new LocomotionData(5f);
         template.AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>()
-            {new(EcoTargetType.Shark, 1, 40, 2, false)};
+            {new(EcoTargetType.Shark, 1, 40, 2)};
         template.AttackLastTargetData =
-            new AttackLastTargetData(0.5f, _heavilyMutated ? 20f : NormalVariantVelocity * 2f, 0.5f, 7f);
+            new AttackLastTargetData(0.5f, _heavilyMutated ? 20f : NormalVariantVelocity * 2f, 0.5f, 7f, _heavilyMutated ? 5 : 10);
         return template;
     }
 

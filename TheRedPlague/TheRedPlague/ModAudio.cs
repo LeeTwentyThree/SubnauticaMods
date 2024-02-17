@@ -19,7 +19,7 @@ public static class ModAudio
         RegisterSound("DisableDomeSound", "DisableDomeSound", "bus:/master/SFX_for_pause/PDA_pause/all", 40, 10000);
         RegisterSound("PlagueHeartAmbience", "PlagueHeartAmbience", "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds", 4f, 20f);
         Register2DSound("InfectedDunesAmbience", "InfectedDunesAmbience", "bus:/master/SFX_for_pause/PDA_pause/all/SFX/backgrounds");
-        RegisterSoundWithVariants("WarperJumpscare", new string[]{"Jumpscare1", "Jumpscare2", "Jumpscare3", "Jumpscare4", "Jumpscare5"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 3f, 60f);
+        RegisterSoundWithVariants("WarperJumpscare", new string[]{"Jumpscare1", "Jumpscare2", "Jumpscare3", "Jumpscare4", "Jumpscare5"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 3f, 70);
         RegisterSoundWithVariants("InfectedWarperIdle", new string[]{"WarperSound1", "WarperSound2", "WarperSound3", "WarperSound4", "WarperSound5", "WarperSound6"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 30f);
         RegisterSoundWithVariants("CloseJumpScare", new string[]{"CloseScare1", "CloseScare2", "CloseScare3", "CloseScare4", "CloseScare5", "CloseScare6"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 30f);
         RegisterSoundWithVariants("ZombieRoar", new string[]{"ZombieRoar1", "ZombieRoar2"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 30f);

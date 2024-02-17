@@ -54,6 +54,8 @@ public static class AmalgamationManager
                 }
             }
         }
+
+        host.EnsureComponent<DropAmalgamatedBoneOnDeath>();
     }
 
     private static IEnumerator AttachCreatureToHost(GameObject host, ParasiteAttachPoint parasiteAttachPoint, string chosenBone)

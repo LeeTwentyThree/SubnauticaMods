@@ -10,7 +10,7 @@ namespace TheRedPlague.PrefabFiles;
 
 public static class BoneArmor
 {
-    public static PrefabInfo BoneArmorInfo { get; } = PrefabInfo.WithTechType("PlagueArmor", "Plague armor", "A rare mutation of the plague that allows a host to survive otherwise fatal contact with the disease. The side effects are unknown.");
+    public static PrefabInfo BoneArmorInfo { get; } = PrefabInfo.WithTechType("PlagueArmor", "Plague armor", "This suit exploits a rare mutation of the plague that allows its host to survive otherwise fatal contact with the disease. The side effects are unknown.");
 
     public static void Register()
     {
@@ -18,10 +18,12 @@ public static class BoneArmor
         prefab.SetGameObject(GetPrefab);
         prefab.SetEquipment(EquipmentType.Body);
         prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.ReinforcedDiveSuit, 1),
-                new CraftData.Ingredient(ModPrefabs.WarperHeart.TechType, 1)))
+                new CraftData.Ingredient(ModPrefabs.WarperHeart.TechType, 1), new CraftData.Ingredient(ModPrefabs.AmalgamatedBone.TechType, 8)))
             .WithCraftingTime(5)
-            .WithFabricatorType(CraftTree.Type.Fabricator)
-            .WithStepsToFabricatorTab("Personal", "Equipment");
+            .WithFabricatorType(CraftTree.Type.Workbench)
+            .WithStepsToFabricatorTab("PlagueEquipment");
+        BoneArmorInfo.WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("BoneArmorIcon"))
+            .WithSizeInInventory(new Vector2int(2, 2));
         prefab.Register();
     }
 

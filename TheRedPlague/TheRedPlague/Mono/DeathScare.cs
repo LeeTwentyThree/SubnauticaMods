@@ -10,6 +10,7 @@ public class DeathScare : MonoBehaviour
     private float yOffset = 0f;
     private float zOffset = 0.5f;
     private static DeathScare current;
+    private float _timeSpawned;
     
     public static void PlayDeathScare()
     {
@@ -77,6 +78,7 @@ public class DeathScare : MonoBehaviour
     private void Awake()
     {
         current = this;
+        _timeSpawned = Time.time;
     }
     
     private void Start()
@@ -90,7 +92,7 @@ public class DeathScare : MonoBehaviour
     private void LateUpdate()
     {
         var camera = MainCamera.camera.transform;
-        var offset = camera.forward * zOffset + camera.up * yOffset;
+        var offset = camera.forward * Mathf.Lerp(5, zOffset, (Time.time - _timeSpawned) * 4) + camera.up * yOffset;
         transform.position = camera.position + offset;
         transform.forward = -camera.forward;
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TheRedPlague.Mono;
 
-public class RandomFishSpawner : MonoBehaviour
+public class RandomFishSpawner : MonoBehaviour, IStoryGoalListener
 {
     private float _minInterval = 40;
     private float _maxInterval = 60f;
@@ -19,6 +19,26 @@ public class RandomFishSpawner : MonoBehaviour
         TechType.Warper,
         TechType.Shocker
     };
+    
+    private IEnumerator Start()
+    {
+        yield return new WaitUntil(() =>
+            StoryGoalManager.main.completedGoals != null && StoryGoalManager.main.completedGoals.Count > 0);
+        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
+        {
+            enabled = false;
+            yield break;
+        }
+        StoryGoalManager.main.AddListener(this);
+    }
+    
+    public void NotifyGoalComplete(string key)
+    {
+        if (key == StoryUtils.ForceFieldLaserDisabled.key)
+        {
+            enabled = false;
+        }
+    }
 
     private bool CanJumpscare()
     {
