@@ -27,7 +27,7 @@ public class Plugin : BaseUnityPlugin
         // set project-scoped logger instance
         Logger = base.Logger;
 
-        assetBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "shipassets");
+        assetBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "seavoyagerassets");
 
         // Initialize custom prefabs
         InitializePrefabs();

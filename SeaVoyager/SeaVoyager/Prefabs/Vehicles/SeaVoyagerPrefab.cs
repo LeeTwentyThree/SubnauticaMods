@@ -12,7 +12,7 @@ namespace SeaVoyager.Prefabs.Vehicles;
 
 public class SeaVoyagerPrefab
 {
-    public PrefabInfo Info { get; } = PrefabInfo.WithTechType("SeaVoyager", "Alterra Sea Voyager", "A large self-sustaining ship that specializes in quick transportation.");
+    public PrefabInfo Info { get; } = PrefabInfo.WithTechType("SeaVoyager", "Sea Voyager", "A large self-sustaining ship that specializes in quick transportation.");
 
     public SeaVoyagerPrefab Register()
     {
@@ -48,7 +48,7 @@ public class SeaVoyagerPrefab
     public IEnumerator GetGameObjectAsync(IOut<GameObject> returnedPrefab)
     {
         // Load the model
-        var prefab = Plugin.assetBundle.LoadAsset<GameObject>("ShipPrefab");
+        var prefab = Object.Instantiate(Plugin.assetBundle.LoadAsset<GameObject>("SeaVoyagerPrefab"));
         prefab.SetActive(false);
 
         // Add essential components
@@ -81,7 +81,7 @@ public class SeaVoyagerPrefab
         }
 
         // Apply materials. It got so long and ugly that I made it its own method.
-        Helpers.ApplyMaterials(prefab);
+        MaterialUtils.ApplySNShaders(prefab);
         prefab.SearchChild("Window").GetComponent<MeshRenderer>().material = glassMaterial;
 
         // Get the Transform of the models
