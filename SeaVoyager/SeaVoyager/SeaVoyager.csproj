@@ -33,4 +33,17 @@
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
   </ItemGroup>
+
+  <!--Imports the GameDir.targets file (from the same folder) which should contain the path to the Subnautica directory for the post-build event-->
+  <Import Project="GameDir.targets"/>
+
+  <!--Defines the PluginsDir property for use in the Post-Build event-->
+  <PropertyGroup>
+    <PluginsDir>$(GameDir)\BepInEx\plugins</PluginsDir>
+  </PropertyGroup>
+
+  <!--Post-Build event that automatically places your mods folder with the DLL and documentation into your plugins folder as defined in GameDir.targets-->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;$(PluginsDir)\$(TargetName)&quot;"/>
+  </Target>
 </Project>
