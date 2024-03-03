@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
-using SMLHelper.V2.Utility;
+﻿using UnityEngine;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Mono
 {
     public class ShipEntranceDoor : HandTarget, IHandTarget
     {

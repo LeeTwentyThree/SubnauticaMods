@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Mono
 {
     public class ShipAutoStop : MonoBehaviour
     {

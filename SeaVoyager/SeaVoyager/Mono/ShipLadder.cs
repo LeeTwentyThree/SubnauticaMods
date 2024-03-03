@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Story;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Mono
 {
     public class ShipLadder : HandTarget, IHandTarget
     {

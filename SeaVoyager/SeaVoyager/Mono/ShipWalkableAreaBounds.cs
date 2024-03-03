@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace ShipMod.Ship
+namespace SeaVoyager.Mono
 {
     public class ShipWalkableAreaBounds : MonoBehaviour
     {

@@ -13,13 +13,7 @@
       https://nuget.bepinex.dev/v3/index.json;
     </RestoreAdditionalProjectSources>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Mono\**" />
-    <EmbeddedResource Remove="Mono\**" />
-    <None Remove="Mono\**" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.4.21" />
