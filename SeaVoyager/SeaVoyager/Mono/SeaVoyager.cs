@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Reflection;
+using UnityEngine.Serialization;
 
 namespace SeaVoyager.Mono
 {
@@ -22,7 +23,7 @@ namespace SeaVoyager.Mono
         public ShipSolarPanel solarPanel;
         public ShipHUD hud;
         public ShipPropeller propeller;
-        public ShipMove shipMove;
+        [FormerlySerializedAs("shipMove")] public ShipMotor shipMotor;
         public ShipVoice voice;
         private float oldHPPercent;
 
@@ -187,8 +188,8 @@ namespace SeaVoyager.Mono
 
             hud = Helpers.FindChild(gameObject, "PilotCanvas").AddComponent<ShipHUD>();
 
-            shipMove = gameObject.AddComponent<ShipMove>();
-            shipMove.ship = this;
+            shipMotor = gameObject.AddComponent<ShipMotor>();
+            shipMotor.ship = this;
 
             propeller = Helpers.FindChild(gameObject, "Propeller").AddComponent<ShipPropeller>();
             propeller.rotationDirection = new Vector3(0f, 0f, 1f);

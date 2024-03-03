@@ -36,11 +36,11 @@ namespace SeaVoyager.Mono
             {
                 if (clickable)
                 {
-                    HandReticle.main.SetInteractText(displayText, false, HandReticle.Hand.Left);
+                    HandReticle.main.SetText(HandReticle.TextType.Hand, displayText, true, GameInput.Button.LeftHand);
                 }
                 else
                 {
-                    HandReticle.main.SetInteractText(displayText, false, HandReticle.Hand.None);
+                    HandReticle.main.SetText(HandReticle.TextType.Hand, displayText, true);
                 }
             }
         }

@@ -117,27 +117,27 @@ namespace SeaVoyager.Mono
             zoomButtonTooltip = zoomButton.AddComponent<ShipUITooltip>();
             zoomButtonTooltip.Init("Zoom in");
 
-            directionSpriteInactive = QPatch.bundle.LoadAsset<Sprite>("ArrowOff");
-            directionSpriteActive = QPatch.bundle.LoadAsset<Sprite>("ArrowOn");
+            directionSpriteInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
+            directionSpriteActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
 
-            switchedOn = QPatch.bundle.LoadAsset<Sprite>("ShipOn");
-            switchedOff = QPatch.bundle.LoadAsset<Sprite>("ShipOff");
+            switchedOn = Plugin.assetBundle.LoadAsset<Sprite>("ShipOn");
+            switchedOff = Plugin.assetBundle.LoadAsset<Sprite>("ShipOff");
 
-            spriteCamActive = QPatch.bundle.LoadAsset<Sprite>("CameraOn");
-            spriteCamInactive = QPatch.bundle.LoadAsset<Sprite>("CameraOff");
+            spriteCamActive = Plugin.assetBundle.LoadAsset<Sprite>("CameraOn");
+            spriteCamInactive = Plugin.assetBundle.LoadAsset<Sprite>("CameraOff");
 
-            spriteSonarActive = QPatch.bundle.LoadAsset<Sprite>("SonarOn");
-            spriteSonarInactive = QPatch.bundle.LoadAsset<Sprite>("SonarOff");
+            spriteSonarActive = Plugin.assetBundle.LoadAsset<Sprite>("SonarOn");
+            spriteSonarInactive = Plugin.assetBundle.LoadAsset<Sprite>("SonarOff");
 
-            spriteMapActive = QPatch.bundle.LoadAsset<Sprite>("MapOn");
-            spriteMapInactive = QPatch.bundle.LoadAsset<Sprite>("MapOff");
+            spriteMapActive = Plugin.assetBundle.LoadAsset<Sprite>("MapOn");
+            spriteMapInactive = Plugin.assetBundle.LoadAsset<Sprite>("MapOff");
 
-            speed1Active = QPatch.bundle.LoadAsset<Sprite>("SpeedSetting1");
-            speed1Inactive = QPatch.bundle.LoadAsset<Sprite>("SpeedSetting1Inactive");
-            speed2Active = QPatch.bundle.LoadAsset<Sprite>("SpeedSetting2");
-            speed2Inactive = QPatch.bundle.LoadAsset<Sprite>("SpeedSetting2Inactive");
-            speed3Active = QPatch.bundle.LoadAsset<Sprite>("SpeedSetting3");
-            speed3Inactive = QPatch.bundle.LoadAsset<Sprite>("SpeedSetting3Inactive");
+            speed1Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting1");
+            speed1Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting1Inactive");
+            speed2Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting2");
+            speed2Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting2Inactive");
+            speed3Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting3");
+            speed3Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting3Inactive");
 
             camRawImage = Helpers.FindChild(gameObject, "CameraView").GetComponent<RawImage>();
             renderTextureBottom = new RenderTexture(256, 128, 24);
@@ -165,8 +165,8 @@ namespace SeaVoyager.Mono
             cameraFront.gameObject.SetActive(true);
 
             buttonSource = gameObject.AddComponent<AudioSource>();
-            buttonSource.volume = QPatch.config.NormalizedAudioVolume;
-            buttonPressSound = QPatch.bundle.LoadAsset<AudioClip>("ButtonPress");
+            // buttonSource.volume = Plugin.config.NormalizedAudioVolume;
+            buttonPressSound = Plugin.assetBundle.LoadAsset<AudioClip>("ButtonPress");
         }
 
         void Start()
@@ -233,7 +233,7 @@ namespace SeaVoyager.Mono
             if (ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.EnginePoweringUp, true))
             {
                 MainCameraControl.main.ShakeCamera(3f, 5f, MainCameraControl.ShakeMode.BuildUp, 0.5f);
-                ship.shipMove.StopMovementForSeconds(4f);
+                ship.shipMotor.StopMovementForSeconds(4f);
             }
         }
         void TryPlayEnginePoweringDown()

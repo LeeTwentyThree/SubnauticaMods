@@ -3,6 +3,7 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
 using System.Collections;
 using System.Collections.Generic;
+using SeaVoyager.Mono;
 using UnityEngine;
 
 using static CraftData;
@@ -167,14 +168,11 @@ public class SeaVoyagerPrefab
         skyApplierInterior.anchorSky = Skies.BaseInterior;
         skyApplierInterior.SetSky(Skies.BaseInterior);
         skyApplierInterior.lightControl = lights;
-
-        /*
         
         // Load a seamoth for reference
         var seamothRequest = GetPrefabForTechTypeAsync(TechType.Seamoth);
         yield return seamothRequest;
         GameObject seamothRef = rocketPlatformRequest.GetResult();
-
 
         // Get the seamoth's water clip proxy component. This is what displaces the water.
         var seamothProxy = seamothRef.GetComponentInChildren<WaterClipProxy>();
@@ -197,22 +195,42 @@ public class SeaVoyagerPrefab
 
 
         //Add this component. It inherits from the same component that both the cyclops submarine and seabases use.
-        var shipBehaviour = prefab.AddComponent<global::SeaVoyager>();
+        var shipBehaviour = prefab.AddComponent<Mono.SeaVoyager>();
 
         //It needs to produce power somehow
         shipBehaviour.solarPanel = Helpers.FindChild(prefab, "SolarPanel").AddComponent<ShipSolarPanel>();
-        shipBehaviour.solarPanel.Initialize();
+        shipBehaviour.solarPanel.powerSource = shipBehaviour.solarPanel.gameObject.AddComponent<PowerSource>();
+        shipBehaviour.solarPanel.powerSource.maxPower = 1000;
+
+        shipBehaviour.solarPanel.relay = shipBehaviour.solarPanel.gameObject.AddComponent<PowerRelay>();
+        shipBehaviour.solarPanel.relay.maxOutboundDistance = 20;
+        shipBehaviour.solarPanel.relay.internalPowerSource = shipBehaviour.solarPanel.powerSource;
+
+        shipBehaviour.solarPanel.powerSource.connectedRelay = shipBehaviour.solarPanel.relay;
+
+        PowerFX powerFXComponent = shipBehaviour.solarPanel.gameObject.AddComponent<PowerFX>();
+        var solarPanelTask = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
+        yield return solarPanelTask;
+        var solarPanelReference = solarPanelTask.GetResult();
+        PowerRelay referenceRelay = solarPanelReference.GetComponent<PowerRelay>();
+        powerFXComponent.vfxPrefab = referenceRelay.powerFX.vfxPrefab;
+        shipBehaviour.solarPanel.relay.powerFX = powerFXComponent;
+
+        powerFXComponent.attachPoint = shipBehaviour.solarPanel.transform;
+
+        // shipBehaviour.solarPanel.relay.outboundRelay = GetComponentInParent<PowerRelay>();
+        shipBehaviour.solarPanel.relay.dontConnectToRelays = true;
 
         //A ping so you can see it from far away
         var ping = prefab.AddComponent<PingInstance>();
-        ping.pingType = QPatch.shipPingType;
+        ping.pingType = Plugin.SeaVoyagerPingType;
         ping.origin = Helpers.FindChild(prefab, "PingOrigin").transform;
 
         //Adjust volume.
         var audiosources = prefab.GetComponentsInChildren<AudioSource>();
         foreach (var source in audiosources)
         {
-            source.volume *= QPatch.config.NormalizedAudioVolume;
+            // source.volume *= Plugin.config.NormalizedAudioVolume;
         }
 
         //Add a respawn point
@@ -227,7 +245,7 @@ public class SeaVoyagerPrefab
         // Voice
         var shipVoice = prefab.AddComponent<ShipVoice>();
         var voiceSource = prefab.AddComponent<AudioSource>();
-        voiceSource.volume = QPatch.config.NormalizedAudioVolume;
+        // voiceSource.volume = Plugin.config.NormalizedAudioVolume;
         shipVoice.source = voiceSource;
         shipBehaviour.voice = shipVoice;
 
@@ -250,7 +268,6 @@ public class SeaVoyagerPrefab
         // Make sure you don't walk on the seafloor
         var walkableAreaBounds = prefab.AddComponent<ShipWalkableAreaBounds>();
         walkableAreaBounds.ship = shipBehaviour;
-        */
         returnedPrefab.Set(prefab);
     }
 

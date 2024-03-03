@@ -37,7 +37,7 @@ namespace SeaVoyager.Mono
         public void OnHandHover(GUIHand hand)
         {
             HandReticle.main.SetIcon(HandReticle.IconType.Interact);
-            HandReticle.main.SetInteractText(interactText);
+            HandReticle.main.SetText(HandReticle.TextType.Hand, interactText, true);
         }
 
         public void SetAsMainEmbarkLadder(SeaVoyager ship)

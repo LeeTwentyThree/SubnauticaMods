@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace SeaVoyager.Mono
@@ -8,14 +9,17 @@ namespace SeaVoyager.Mono
         List<Transform> spawnPoints;
         GameObject prefab;
 
-        void Awake()
+        private IEnumerator Start()
         {
             spawnPoints = new List<Transform>();
             foreach(Transform child in transform)
             {
                 spawnPoints.Add(child);
             }
-            prefab = CraftData.GetPrefabForTechType(TechType.Skyray);
+
+            var task = CraftData.GetPrefabForTechTypeAsync(TechType.Skyray);
+            yield return task;
+            prefab = task.GetResult();
         }
 
         public void SpawnSkyrays(int amount)

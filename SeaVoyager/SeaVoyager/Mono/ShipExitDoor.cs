@@ -28,7 +28,7 @@ namespace SeaVoyager.Mono
         public void OnHandHover(GUIHand hand)
         {
             HandReticle.main.SetIcon(HandReticle.IconType.Interact);
-            HandReticle.main.SetInteractText("Exit");
+            HandReticle.main.SetText(HandReticle.TextType.Hand,"SeaVoyager_Exit", true);
         }
     }
 }

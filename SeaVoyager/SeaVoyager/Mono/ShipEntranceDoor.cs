@@ -29,7 +29,7 @@ namespace SeaVoyager.Mono
         public void OnHandHover(GUIHand hand)
         {
             HandReticle.main.SetIcon(HandReticle.IconType.Interact);
-            HandReticle.main.SetInteractText("Enter");
+            HandReticle.main.SetText(HandReticle.TextType.Hand,"SeaVoyager_Enter", true);
         }
     }
 }

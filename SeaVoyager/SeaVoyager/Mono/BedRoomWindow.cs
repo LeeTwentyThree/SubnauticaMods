@@ -41,7 +41,7 @@ namespace SeaVoyager.Mono
 
         private bool GetShouldRender()
         {
-            if (!QPatch.config.EnableCabinWindow)
+            if (!Plugin.config.EnableCabinWindow)
             {
                 return false;
             }

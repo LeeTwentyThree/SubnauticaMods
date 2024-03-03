@@ -16,7 +16,7 @@ namespace SeaVoyager.Mono
         {
             get
             {
-                return _minDepth + Ocean.main.GetOceanLevel();
+                return _minDepth + Ocean.GetOceanLevel();
             }
         }
 

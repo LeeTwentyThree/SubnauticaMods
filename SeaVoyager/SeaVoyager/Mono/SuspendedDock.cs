@@ -164,7 +164,7 @@ namespace SeaVoyager.Mono
             cableConnectionPoint = gameObject.SearchChild("CableTop").transform;
             armTransform = gameObject.SearchChild("DockArm").transform;
             moveSound = gameObject.SearchComponent<AudioSource>("ArmMoveSound");
-            moveSound.volume = QPatch.config.NormalizedAudioVolume;
+            // moveSound.volume = Plugin.config.NormalizedAudioVolume;
             cableTrigger = gameObject.SearchChild("CableTrigger").AddComponent<CableTrigger>();
             cableTrigger.dock = this;
 
@@ -190,8 +190,8 @@ namespace SeaVoyager.Mono
             extendCableButtonTooltip = extendButton.gameObject.AddComponent<ShipUITooltip>();
             extendCableButtonTooltip.Init("Extend cable");
 
-            spriteButtonActive = QPatch.bundle.LoadAsset<Sprite>("ArrowOn");
-            spriteButtonInactive = QPatch.bundle.LoadAsset<Sprite>("ArrowOff");
+            spriteButtonActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
+            spriteButtonInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
         }
 
         void Update()
@@ -490,12 +490,22 @@ namespace SeaVoyager.Mono
             IgnorePhysicsWithVehicle(vehicle, true);
             if (Player.main.GetVehicle() == vehicle)
             {
-                QPatch.PrintExoCustomControls();
+                PrintExoCustomControls();
             }
             if (ship != null)
             {
                 ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.VehicleAttached);
             }
+        }
+
+        private static void PrintExoCustomControls()
+        {
+            ErrorMessage.AddMessage(string.Format("Return to surface: '{0}'",
+                new[] {GameInput.GetBindingName(GameInput.Button.MoveUp, GameInput.BindingSet.Primary)}));
+            ErrorMessage.AddMessage(string.Format("Descend: '{0}'",
+                new[] {GameInput.GetBindingName(GameInput.Button.MoveDown, GameInput.BindingSet.Primary)}));
+            ErrorMessage.AddMessage(string.Format("Detach cable: '{0}'",
+                new[] {GameInput.GetBindingName(GameInput.Button.Deconstruct, GameInput.BindingSet.Primary)}));
         }
 
         public void DetatchVehicle()

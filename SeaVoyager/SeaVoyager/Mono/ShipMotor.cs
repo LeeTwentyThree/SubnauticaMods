@@ -2,7 +2,7 @@
 
 namespace SeaVoyager.Mono
 {
-    public class ShipMove : MonoBehaviour
+    public class ShipMotor : MonoBehaviour
     {
         public SeaVoyager ship;
         private float _timeCanMoveAgain;
@@ -18,22 +18,22 @@ namespace SeaVoyager.Mono
             {
                 return;
             }
-            if(GameModeUtils.IsInvisible() || ship.powerRelay.ConsumeEnergy(Time.fixedDeltaTime * QPatch.ShipMaxPowerConsumptionRate * ship.SpeedMultiplier, out float amountConsumed))
+            if(GameModeUtils.IsInvisible() || ship.powerRelay.ConsumeEnergy(Time.fixedDeltaTime * 12 * ship.SpeedMultiplier, out float amountConsumed))
             {
                 switch (ship.currentState)
                 {
                     default:
                         break;
                     case ShipState.Moving:
-                        ship.rb.AddForce(-ship.transform.forward * ship.MoveAmount * ship.rb.mass, ForceMode.Force);
+                        ship.rb.AddForce(-ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
                         Decelerotate();
                         break;
                     case ShipState.Rotating:
-                        ship.rb.AddTorque(Vector3.up * ship.RotateAmount * ship.rb.mass, ForceMode.Force);
+                        ship.rb.AddTorque(Vector3.up * (ship.RotateAmount * ship.rb.mass), ForceMode.Force);
                         break;
                     case ShipState.MovingAndRotating:
-                        ship.rb.AddForce(-ship.transform.forward * ship.MoveAmount * ship.rb.mass, ForceMode.Force);
-                        ship.rb.AddTorque(Vector3.up * ship.RotateAmount * ship.rb.mass, ForceMode.Force);
+                        ship.rb.AddForce(-ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
+                        ship.rb.AddTorque(Vector3.up * (ship.RotateAmount * ship.rb.mass), ForceMode.Force);
                         break;
                 }
             }

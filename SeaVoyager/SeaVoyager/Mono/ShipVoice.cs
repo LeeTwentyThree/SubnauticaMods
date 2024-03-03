@@ -63,20 +63,20 @@ namespace SeaVoyager.Mono
         private void LoadAudioClips()
         {
             voiceLineClips = new Dictionary<VoiceLine, AudioClip>();
-            voiceLineClips.Add(VoiceLine.AheadFlank, QPatch.bundle.LoadAsset<AudioClip>("ahead_flank"));
-            voiceLineClips.Add(VoiceLine.AheadSlow, QPatch.bundle.LoadAsset<AudioClip>("ahead_slow"));
-            voiceLineClips.Add(VoiceLine.AheadStandard, QPatch.bundle.LoadAsset<AudioClip>("ahead_standard"));
-            voiceLineClips.Add(VoiceLine.ApproachingShallowWater, QPatch.bundle.LoadAsset<AudioClip>("approaching_shallow_water"));
-            voiceLineClips.Add(VoiceLine.EnginePoweringDown, QPatch.bundle.LoadAsset<AudioClip>("engine_powering_down"));
-            voiceLineClips.Add(VoiceLine.EnginePoweringUp, QPatch.bundle.LoadAsset<AudioClip>("engine_powering_up"));
-            voiceLineClips.Add(VoiceLine.FirstUse, QPatch.bundle.LoadAsset<AudioClip>("first_use"));
-            voiceLineClips.Add(VoiceLine.PowerDepleted, QPatch.bundle.LoadAsset<AudioClip>("reserve_power_empty"));
-            voiceLineClips.Add(VoiceLine.SonarMap, QPatch.bundle.LoadAsset<AudioClip>("sonar_map_activated"));
-            voiceLineClips.Add(VoiceLine.RegionMap, QPatch.bundle.LoadAsset<AudioClip>("updating_regional_map"));
-            voiceLineClips.Add(VoiceLine.VehicleAttached, QPatch.bundle.LoadAsset<AudioClip>("vehicle_attached"));
-            voiceLineClips.Add(VoiceLine.VehicleDock, QPatch.bundle.LoadAsset<AudioClip>("vehicle_docked_successfully"));
-            voiceLineClips.Add(VoiceLine.VehicleReleased, QPatch.bundle.LoadAsset<AudioClip>("vehicle_released"));
-            voiceLineClips.Add(VoiceLine.WelcomeAboard, QPatch.bundle.LoadAsset<AudioClip>("welcome_aboard_captain"));
+            voiceLineClips.Add(VoiceLine.AheadFlank, Plugin.assetBundle.LoadAsset<AudioClip>("ahead_flank"));
+            voiceLineClips.Add(VoiceLine.AheadSlow, Plugin.assetBundle.LoadAsset<AudioClip>("ahead_slow"));
+            voiceLineClips.Add(VoiceLine.AheadStandard, Plugin.assetBundle.LoadAsset<AudioClip>("ahead_standard"));
+            voiceLineClips.Add(VoiceLine.ApproachingShallowWater, Plugin.assetBundle.LoadAsset<AudioClip>("approaching_shallow_water"));
+            voiceLineClips.Add(VoiceLine.EnginePoweringDown, Plugin.assetBundle.LoadAsset<AudioClip>("engine_powering_down"));
+            voiceLineClips.Add(VoiceLine.EnginePoweringUp, Plugin.assetBundle.LoadAsset<AudioClip>("engine_powering_up"));
+            voiceLineClips.Add(VoiceLine.FirstUse, Plugin.assetBundle.LoadAsset<AudioClip>("first_use"));
+            voiceLineClips.Add(VoiceLine.PowerDepleted, Plugin.assetBundle.LoadAsset<AudioClip>("reserve_power_empty"));
+            voiceLineClips.Add(VoiceLine.SonarMap, Plugin.assetBundle.LoadAsset<AudioClip>("sonar_map_activated"));
+            voiceLineClips.Add(VoiceLine.RegionMap, Plugin.assetBundle.LoadAsset<AudioClip>("updating_regional_map"));
+            voiceLineClips.Add(VoiceLine.VehicleAttached, Plugin.assetBundle.LoadAsset<AudioClip>("vehicle_attached"));
+            voiceLineClips.Add(VoiceLine.VehicleDock, Plugin.assetBundle.LoadAsset<AudioClip>("vehicle_docked_successfully"));
+            voiceLineClips.Add(VoiceLine.VehicleReleased, Plugin.assetBundle.LoadAsset<AudioClip>("vehicle_released"));
+            voiceLineClips.Add(VoiceLine.WelcomeAboard, Plugin.assetBundle.LoadAsset<AudioClip>("welcome_aboard_captain"));
         }
 
         private void SetTimeCanPlayAgain(VoiceLine line)
@@ -112,7 +112,7 @@ namespace SeaVoyager.Mono
             SetTimeCanPlayAgain(line);
             if (voiceLineSubtitleKey.TryGetValue(line, out var subtitleKey))
             {
-                Subtitles.main.Add(subtitleKey);
+                Subtitles.Add(subtitleKey);
             }
             return true;
         }

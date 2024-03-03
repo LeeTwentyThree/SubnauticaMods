@@ -22,6 +22,8 @@ public class Plugin : BaseUnityPlugin
 
     public static SeaVoyagerConfig config = OptionsPanelHandler.RegisterModOptions<SeaVoyagerConfig>();
 
+    public static PingType SeaVoyagerPingType { get; private set; }
+    
     private void Awake()
     {
         // set project-scoped logger instance
@@ -38,6 +40,9 @@ public class Plugin : BaseUnityPlugin
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+        
+        SeaVoyagerPingType = EnumHandler.AddEntry<PingType>("SealSub")
+            .WithIcon(new Atlas.Sprite(assetBundle.LoadAsset<Sprite>("ShipPing")));
     }
 
     private void InitializePrefabs()

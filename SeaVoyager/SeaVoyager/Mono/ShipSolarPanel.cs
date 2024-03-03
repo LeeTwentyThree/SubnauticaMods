@@ -5,31 +5,8 @@ namespace SeaVoyager.Mono
     public class ShipSolarPanel : MonoBehaviour, IProtoEventListener
 	{
 		public PowerSource powerSource;
-		PowerRelay relay;
-
-		public void Initialize()
-		{
-			powerSource = gameObject.AddComponent<PowerSource>();
-			powerSource.maxPower = QPatch.ShipMaxPower;
-
-			relay = gameObject.AddComponent<PowerRelay>();
-			relay.maxOutboundDistance = 20;
-			relay.internalPowerSource = powerSource;
-
-			powerSource.connectedRelay = relay;
-
-
-			PowerFX powerFXComponent = gameObject.AddComponent<PowerFX>();
-			var solarPanelReference = CraftData.GetPrefabForTechType(TechType.SolarPanel);
-			PowerRelay referenceRelay = solarPanelReference.GetComponent<PowerRelay>();
-			powerFXComponent.vfxPrefab = referenceRelay.powerFX.vfxPrefab;
-			relay.powerFX = powerFXComponent;
-
-			powerFXComponent.attachPoint = gameObject.transform;
-
-			relay.outboundRelay = GetComponentInParent<PowerRelay>();
-			relay.dontConnectToRelays = true;
-		}
+		public PowerRelay relay;
+		
 		private float GetSunScalar()
 		{
 			return DayNightCycle.main.GetLocalLightScalar();
@@ -37,7 +14,7 @@ namespace SeaVoyager.Mono
 
 		private void Update()
 		{
-			powerSource.power = Mathf.Clamp(powerSource.power + (GetSunScalar() * DayNightCycle.main.deltaTime * QPatch.ShipMaxPowerGenerationRate), 0f, powerSource.maxPower);
+			powerSource.power = Mathf.Clamp(powerSource.power + (GetSunScalar() * DayNightCycle.main.deltaTime * 9), 0f, powerSource.maxPower);
 		}
 
 		public void OnProtoSerialize(ProtobufSerializer serializer)
