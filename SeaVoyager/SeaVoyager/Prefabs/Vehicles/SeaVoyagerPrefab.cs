@@ -172,7 +172,7 @@ public class SeaVoyagerPrefab
         // Load a seamoth for reference
         var seamothRequest = GetPrefabForTechTypeAsync(TechType.Seamoth);
         yield return seamothRequest;
-        GameObject seamothRef = rocketPlatformRequest.GetResult();
+        GameObject seamothRef = seamothRequest.GetResult();
 
         // Get the seamoth's water clip proxy component. This is what displaces the water.
         var seamothProxy = seamothRef.GetComponentInChildren<WaterClipProxy>();
