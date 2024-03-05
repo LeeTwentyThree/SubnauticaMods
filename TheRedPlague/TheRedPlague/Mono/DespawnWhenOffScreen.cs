@@ -79,8 +79,8 @@ public class DespawnWhenOffScreen : MonoBehaviour
         {
             if (jumpscareWhenTooClose)
             {
-                var canJumpScare = !rareJumpscare || Random.value < 0.02f * Time.deltaTime;
-                if (!canJumpScare) return;
+                var canJumpScareThisFrame = !rareJumpscare || Random.value < 0.02f * Time.deltaTime;
+                if (!canJumpScareThisFrame) return;
                 Despawn(2f);
                 if (!Player.main.IsInBase())
                     DeathScare.PlayDeathScare();
