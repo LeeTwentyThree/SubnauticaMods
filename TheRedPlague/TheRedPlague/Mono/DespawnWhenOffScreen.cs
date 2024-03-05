@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace TheRedPlague.Mono;
 
@@ -13,6 +14,7 @@ public class DespawnWhenOffScreen : MonoBehaviour
     public bool waitUntilSeen;
     public bool despawnIfViewNotClear;
     public bool playSoundWhenFound;
+    public bool rareJumpscare;
 
     private bool _wasSeen;
     private float _timeWasSeen;
@@ -78,7 +80,7 @@ public class DespawnWhenOffScreen : MonoBehaviour
             if (jumpscareWhenTooClose)
             {
                 Despawn(2f);
-                if (!Player.main.IsInBase())
+                if (!Player.main.IsInBase() && (!rareJumpscare || Random.value < 0.02f * Time.deltaTime))
                     DeathScare.PlayDeathScare();
             }
             else

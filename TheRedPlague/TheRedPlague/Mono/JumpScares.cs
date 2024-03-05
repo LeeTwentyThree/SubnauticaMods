@@ -77,6 +77,7 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
         despawn.despawnIfTooClose = true;
         despawn.minDistance = 3;
         despawn.jumpscareWhenTooClose = true;
+        despawn.rareJumpscare = true;
     }
 
     private void Update()
