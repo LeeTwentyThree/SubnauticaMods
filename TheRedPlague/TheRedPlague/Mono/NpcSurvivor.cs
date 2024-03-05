@@ -51,6 +51,10 @@ public class NpcSurvivor : MonoBehaviour
 
     private void Start()
     {
+        if (model == ModelType.PrawnSuit)
+        {
+            enabled = false;
+        }
         _timeReadyAgain = Time.time + Random.Range(minInterval, maxInterval);
     }
 
