@@ -17,6 +17,7 @@ internal static class CreaturePrefabManager
     public static ThalassaceanPrefab StellarThalassacean { get; private set; }
     public static ThalassaceanPrefab JasperThalassacean { get; private set; }
     public static GrandGliderPrefab GrandGlider { get; private set; }
+    public static GulperLeviathanPrefab GulperPrefab { get; private set; }
 
     private static AssetBundle Bundle => Plugin.AssetBundle;
 
@@ -61,6 +62,9 @@ internal static class CreaturePrefabManager
             .WithIcon(LoadIcon("GrandGlider_Item"))
             .WithSizeInInventory(new Vector2int(3, 3)));
         GrandGlider.Register();
+        
+        GulperPrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathan", "Gulper leviathan", "Leviathan-class predator with a huge mouth."));
+        GulperPrefab.Register();
     }
 
     public static void RegisterFood()
