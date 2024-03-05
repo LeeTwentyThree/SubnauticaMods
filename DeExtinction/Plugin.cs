@@ -27,6 +27,9 @@ public class Plugin : BaseUnityPlugin
         // Initialize custom prefabs
         CreaturePrefabManager.RegisterCreatures();
         CreaturePrefabManager.RegisterFood();
+        
+        // Register custom sounds
+        CreatureAudio.RegisterAudio();
 
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
