@@ -99,9 +99,12 @@ public class GulperMeleeAttackMouth : MeleeAttack
                     var suckInWhole = collider.gameObject.AddComponent<CreatureSwallowedAnimation>();
                     suckInWhole.animationLength = 0.5f;
                     suckInWhole.target = _throat;
-                    _voice.BlockIdleSoundsForTime(3);
-                    _voice.emitter.SetAsset(_genericAttackSound);
-                    _voice.emitter.Play();
+                    if (Time.time >= _voice.TimeLastPlayed + 5)
+                    {
+                        _voice.BlockIdleSoundsForTime(3);
+                        _voice.emitter.SetAsset(_genericAttackSound);
+                        _voice.emitter.Play();
+                    }
                     creature.GetAnimator().SetTrigger("bite");
                     return;
                 }
