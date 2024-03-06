@@ -104,8 +104,8 @@ public class GulperMeleeAttackMouth : MeleeAttack
                         _voice.BlockIdleSoundsForTime(3);
                         _voice.emitter.SetAsset(_genericAttackSound);
                         _voice.emitter.Play();
+                        creature.GetAnimator().SetTrigger("bite");
                     }
-                    creature.GetAnimator().SetTrigger("bite");
                     return;
                 }
 
@@ -113,6 +113,8 @@ public class GulperMeleeAttackMouth : MeleeAttack
                 {
                     liveMixin.TakeDamage(GetBiteDamage(target));
                     timeLastBite = Time.time;
+                    // MUST ADD FMOD EMITTER FOR BITE ATTACK!!!I#II#I!$I!#I$O# IOIOJ
+                    grokgrok
                     _voice.BlockIdleSoundsForTime(3);
                     _voice.emitter.SetAsset(_genericAttackSound);
                     _voice.emitter.Play();
