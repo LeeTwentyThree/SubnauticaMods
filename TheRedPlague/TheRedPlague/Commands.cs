@@ -37,4 +37,10 @@ public static class Commands
             }
         }
     }
+    
+    [ConsoleCommand("prawnsuitcinematic")]
+    public static void PrawnSuitCinematic()
+    {
+        Mono.PrawnSuitCinematic.PlayCinematic();
+    }
 }
