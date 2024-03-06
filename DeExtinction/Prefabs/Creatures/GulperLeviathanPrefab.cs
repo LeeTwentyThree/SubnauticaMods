@@ -22,8 +22,8 @@ internal class GulperLeviathanPrefab : CreatureAsset
             BehaviourType.Leviathan, EcoTargetType.Leviathan, 5000)
         {
             SwimRandomData = new SwimRandomData(0.1f, 12f, new Vector3(40, 6, 40), 4f, 1f, true),
-            AvoidTerrainData = new AvoidTerrainData(0.9f, 14f, 30f, 30f, 0.4f),
-            StayAtLeashData = new StayAtLeashData(0.4f, 12, 40),
+            AvoidTerrainData = new AvoidTerrainData(0.9f, 14f, 30f, 35f, 0.5f, 10),
+            StayAtLeashData = new StayAtLeashData(0.4f, 12, 60),
             LocomotionData = new LocomotionData(12f, 0.4f, 3, 0.6f),
             Mass = 2000,
             CellLevel = LargeWorldEntity.CellLevel.Far,

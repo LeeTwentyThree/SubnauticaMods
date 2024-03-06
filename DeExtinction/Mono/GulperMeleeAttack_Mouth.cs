@@ -1,5 +1,4 @@
 ﻿using System;
-using ECCLibrary.Mono;
 using Nautilus.Extensions;
 using Nautilus.Utility;
 using UnityEngine;
@@ -9,12 +8,12 @@ namespace DeExtinction.Mono;
 public class GulperMeleeAttackMouth : MeleeAttack
 {
     public bool isBaby; // implies GulperBehaviour DNE
-    private CreatureVoice _voice;
     private FMODAsset _genericAttackSound = AudioUtils.GetFmodAsset("GulperBite");
     private FMODAsset _playerAttackSound = AudioUtils.GetFmodAsset("GulperBitePlayer");
     private PlayerCinematicController _playerDeathCinematic;
     private Transform _throat;
     private float _timeCanPlayCinematicAgain;
+    private FMOD_CustomEmitter _emitter;
 
     private void Start()
     {
@@ -23,7 +22,8 @@ public class GulperMeleeAttackMouth : MeleeAttack
         _playerDeathCinematic.animator = creature.GetAnimator();
         _playerDeathCinematic.animParamReceivers = Array.Empty<GameObject>();
         _throat = gameObject.SearchChild("Throat").transform;
-        _voice = GetComponent<CreatureVoice>();
+        _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
+        _emitter.followParent = true;
     }
 
     public override void OnTouch(Collider collider)
@@ -49,9 +49,8 @@ public class GulperMeleeAttackMouth : MeleeAttack
                     {
                         Invoke("KillPlayer", 0.9f);
                         _playerDeathCinematic.StartCinematicMode(player);
-                        _voice.BlockIdleSoundsForTime(5);
-                        _voice.emitter.SetAsset(_playerAttackSound);
-                        _voice.emitter.Play();
+                        _emitter.SetAsset(_playerAttackSound);
+                        _emitter.Play();
                         _timeCanPlayCinematicAgain = Time.time + 4f;
                         timeLastBite = Time.time;
                         return;
@@ -99,13 +98,9 @@ public class GulperMeleeAttackMouth : MeleeAttack
                     var suckInWhole = collider.gameObject.AddComponent<CreatureSwallowedAnimation>();
                     suckInWhole.animationLength = 0.5f;
                     suckInWhole.target = _throat;
-                    if (Time.time >= _voice.TimeLastPlayed + 5)
-                    {
-                        _voice.BlockIdleSoundsForTime(3);
-                        _voice.emitter.SetAsset(_genericAttackSound);
-                        _voice.emitter.Play();
-                        creature.GetAnimator().SetTrigger("bite");
-                    }
+                    _emitter.SetAsset(_genericAttackSound);
+                    _emitter.Play();
+                    creature.GetAnimator().SetTrigger("bite");
                     return;
                 }
 
@@ -113,11 +108,8 @@ public class GulperMeleeAttackMouth : MeleeAttack
                 {
                     liveMixin.TakeDamage(GetBiteDamage(target));
                     timeLastBite = Time.time;
-                    // MUST ADD FMOD EMITTER FOR BITE ATTACK!!!I#II#I!$I!#I$O# IOIOJ
-                    grokgrok
-                    _voice.BlockIdleSoundsForTime(3);
-                    _voice.emitter.SetAsset(_genericAttackSound);
-                    _voice.emitter.Play();
+                    _emitter.SetAsset(_genericAttackSound);
+                    _emitter.Play();
                     creature.GetAnimator().SetTrigger("bite");
                     component.Aggression.Value = 0f;
                 }

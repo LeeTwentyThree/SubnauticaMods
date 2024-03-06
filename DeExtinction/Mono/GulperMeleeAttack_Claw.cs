@@ -40,6 +40,7 @@ public class GulperMeleeAttackClaw : MeleeAttack
             }
 
             animator.SetTrigger(animationTriggerName);
+            _clawEmitter.Play();
             Invoke("DamageTarget", 0.6f);
             timeLastBite = Time.time;
         }
