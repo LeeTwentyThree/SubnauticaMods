@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Nautilus.Utility;
 using UnityEngine;
 
 namespace TheRedPlague.Mono;
@@ -7,8 +7,13 @@ public class MutantAttackTrigger : MonoBehaviour
 {
     public string prefabFileName;
     public bool heavilyMutated;
+    public float damage;
+    public float instantKillChance = 0.1f;
+    public float attackDelay = 1f;
 
     private GameObject _model;
+    private float _timeCanAttackAgain;
+    private static FMODAsset _zombieBiteSound = AudioUtils.GetFmodAsset("ZombieBite");
 
     private void Start()
     {
@@ -17,12 +22,41 @@ public class MutantAttackTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GetTarget(other).GetComponent<Player>() != null)
+        if (Time.time < _timeCanAttackAgain) return;
+        var player = GetTarget(other).GetComponent<Player>();
+        if (player == null)
         {
-            DeathScare.PlayMutantDeathScare(prefabFileName, heavilyMutated);
-            if (_model) _model.SetActive(false);
-            Invoke(nameof(ReEnableModel), 5);
+            return;
         }
+        DamagePlayer(player);
+        _timeCanAttackAgain = Time.time + attackDelay;
+    }
+
+    private void DamagePlayer(Player player)
+    {
+        var calculatedDamage = DamageSystem.CalculateDamage(damage, DamageType.Normal, player.gameObject);
+        if (calculatedDamage >= player.liveMixin.health)
+        {
+            JumpScare();
+            return;
+        }
+
+        if (Random.value < instantKillChance)
+        {
+            JumpScare();
+        }
+        else
+        {
+            player.liveMixin.TakeDamage(calculatedDamage, transform.position);
+            Utils.PlayFMODAsset(_zombieBiteSound, transform.position);
+        }
+    }
+
+    private void JumpScare()
+    {
+        DeathScare.PlayMutantDeathScare(prefabFileName, heavilyMutated);
+        if (_model) _model.SetActive(false);
+        Invoke(nameof(ReEnableModel), 5);
     }
     
     private GameObject GetTarget(Collider collider)

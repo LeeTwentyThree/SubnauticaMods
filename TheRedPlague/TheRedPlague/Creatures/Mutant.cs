@@ -186,6 +186,7 @@ public class Mutant : CreatureAsset
         var attackTrigger = prefab.transform.Find("AttackTrigger").gameObject.AddComponent<MutantAttackTrigger>();
         attackTrigger.prefabFileName = _prefabName;
         attackTrigger.heavilyMutated = _heavilyMutated;
+        attackTrigger.damage = _heavilyMutated ? 24 : 14;
         yield break;
     }
 }
