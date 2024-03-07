@@ -7,6 +7,7 @@ public class MutantAttackTrigger : MonoBehaviour
 {
     public string prefabFileName;
     public bool heavilyMutated;
+    public DisableRigidbodyWhileOnScreen disableRigidbodyWhileOnScreen;
     public float damage;
     public float instantKillChance = 0.1f;
     public float attackDelay = 1f;
@@ -49,7 +50,15 @@ public class MutantAttackTrigger : MonoBehaviour
         {
             player.liveMixin.TakeDamage(calculatedDamage, transform.position);
             Utils.PlayFMODAsset(_zombieBiteSound, transform.position);
+            if (disableRigidbodyWhileOnScreen == null) return;
+            disableRigidbodyWhileOnScreen.enabled = false;
+            Invoke(nameof(ReFreeze), 1);
         }
+    }
+
+    private void ReFreeze()
+    {
+        if (disableRigidbodyWhileOnScreen) disableRigidbodyWhileOnScreen.enabled = true;
     }
 
     private void JumpScare()

@@ -178,15 +178,17 @@ public class Mutant : CreatureAsset
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
         prefab.AddComponent<InfectOnStart>();
+        DisableRigidbodyWhileOnScreen disableRigidbodyWhileOnScreen = null;
         if (_heavilyMutated)
         {
-            prefab.AddComponent<DisableRigidbodyWhileOnScreen>();
+            disableRigidbodyWhileOnScreen = prefab.AddComponent<DisableRigidbodyWhileOnScreen>();
         }
 
         var attackTrigger = prefab.transform.Find("AttackTrigger").gameObject.AddComponent<MutantAttackTrigger>();
         attackTrigger.prefabFileName = _prefabName;
         attackTrigger.heavilyMutated = _heavilyMutated;
         attackTrigger.damage = _heavilyMutated ? 24 : 14;
+        attackTrigger.disableRigidbodyWhileOnScreen = disableRigidbodyWhileOnScreen;
         yield break;
     }
 }

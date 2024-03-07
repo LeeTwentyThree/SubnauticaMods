@@ -1,4 +1,5 @@
-﻿using Nautilus.Utility;
+﻿using System;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace TheRedPlague.Mono;
@@ -42,5 +43,10 @@ public class DisableRigidbodyWhileOnScreen : MonoBehaviour
         }
 
         _wasAttackingPlayer = attacking;
+    }
+
+    private void OnDisable()
+    {
+        _rb.isKinematic = false;
     }
 }
