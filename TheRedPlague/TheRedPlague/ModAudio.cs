@@ -23,6 +23,7 @@ public static class ModAudio
         RegisterSoundWithVariants("InfectedWarperIdle", new string[]{"WarperSound1", "WarperSound2", "WarperSound3", "WarperSound4", "WarperSound5", "WarperSound6"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 30f);
         RegisterSoundWithVariants("CloseJumpScare", new string[]{"CloseScare1", "CloseScare2", "CloseScare3", "CloseScare4", "CloseScare5", "CloseScare6"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 30f);
         RegisterSoundWithVariants("ZombieRoar", new string[]{"ZombieRoar1", "ZombieRoar2"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 30f);
+        RegisterSoundWithVariants("ZombieBite", new string[]{"ZombieBite1", "ZombieBite2"}, "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 30f);
     }
     
     private static void Register2DSound(string id, string clipName, string bus)
