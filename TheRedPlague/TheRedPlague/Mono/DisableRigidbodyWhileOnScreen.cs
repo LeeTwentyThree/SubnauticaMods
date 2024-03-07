@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace TheRedPlague.Mono;
 
-public class DisableRigidbodyWhileOffScreen : MonoBehaviour
+public class DisableRigidbodyWhileOnScreen : MonoBehaviour
 {
     private Rigidbody _rb;
     private Animator _animator;

@@ -180,7 +180,7 @@ public class Mutant : CreatureAsset
         prefab.AddComponent<InfectOnStart>();
         if (_heavilyMutated)
         {
-            prefab.AddComponent<DisableRigidbodyWhileOffScreen>();
+            prefab.AddComponent<DisableRigidbodyWhileOnScreen>();
         }
 
         var attackTrigger = prefab.transform.Find("AttackTrigger").gameObject.AddComponent<MutantAttackTrigger>();
