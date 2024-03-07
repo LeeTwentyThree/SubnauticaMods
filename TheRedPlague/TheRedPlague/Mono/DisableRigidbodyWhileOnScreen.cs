@@ -27,7 +27,7 @@ public class DisableRigidbodyWhileOnScreen : MonoBehaviour
 
     private void Update()
     {
-        var canMove = !JumpScareUtils.IsPositionOnScreen(transform.position);
+        var canMove = !JumpScareUtils.IsPositionOnScreen(transform.position, 0.2f);
         _rb.isKinematic = !canMove;
         _animator.speed = canMove ? 1 : 0;
 

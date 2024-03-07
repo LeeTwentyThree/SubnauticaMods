@@ -15,7 +15,7 @@ public class Mutant : CreatureAsset
     private readonly bool _heavilyMutated;
 
     private const float NormalVariantVelocity = 3f;
-    private const float HeavilyMutatedVelocity = 10f;
+    private const float HeavilyMutatedVelocity = 14f;
 
     public Mutant(PrefabInfo prefabInfo, string prefabName, bool heavilyMutated) : base(prefabInfo)
     {
@@ -167,7 +167,7 @@ public class Mutant : CreatureAsset
             new SwimRandomData(0.3f, _heavilyMutated ? HeavilyMutatedVelocity : NormalVariantVelocity,
                 new Vector3(20f, 6f, 20f), 3f),
             new StayAtLeashData(0.4f, _heavilyMutated ? HeavilyMutatedVelocity : NormalVariantVelocity, 50f));
-        template.LocomotionData = new LocomotionData(5f);
+        template.LocomotionData = new LocomotionData(5f, _heavilyMutated ? 3 : 0.6f);
         template.AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>()
             {new(EcoTargetType.Shark, 1, 40, 2)};
         template.AttackLastTargetData =
