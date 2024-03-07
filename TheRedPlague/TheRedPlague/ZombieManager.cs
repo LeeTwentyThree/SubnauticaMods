@@ -172,7 +172,7 @@ public static class ZombieManager
                 m.color = new Color(3, 3, 3);
                 m.EnableKeyword(InfectedMixin.uwe_infection);
                 m.SetFloat(ShaderPropertyID._InfectionAmount, 1);
-                m.SetFloat("InfectionHeightStrength", -3.9f);
+                m.SetFloat("_InfectionHeightStrength", -3.9f);
                 m.SetVector("_InfectionScale", new Vector4(2, 2, 2, 0));
                 m.SetVector("_InfectionOffset", new Vector4(0.285f, 0, 0.142f, 0));
                 m.SetColor("_GlowColor", new Color(3, 0, 0));
