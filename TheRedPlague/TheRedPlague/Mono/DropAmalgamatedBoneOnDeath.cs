@@ -16,6 +16,7 @@ public class DropAmalgamatedBoneOnDeath : MonoBehaviour
         yield return task;
         var obj = Instantiate(task.GetResult(), position + Random.insideUnitSphere, Quaternion.identity);
         obj.SetActive(true);
+        obj.GetComponent<Rigidbody>().isKinematic = false;
         LargeWorld.main.streamer.cellManager.RegisterEntity(obj);
     }
 }
