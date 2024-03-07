@@ -9,7 +9,7 @@ public static class AmalgamationManager
 {
     private static readonly int InfectionHeightStrength = Shader.PropertyToID("_InfectionHeightStrength");
 
-    private static readonly List<TechType> _leviathanTechTypes = new List<TechType>()
+    private static readonly List<TechType> LeviathanTechTypes = new()
     {
         TechType.ReaperLeviathan,
         TechType.GhostLeviathan,
@@ -35,7 +35,7 @@ public static class AmalgamationManager
             yield break;
 
         var probabilityScale = Mathf.Clamp(ZombieManager.GetInfectionStrengthAtPosition(host.transform.position), 0.05f, 1f);
-        if (_leviathanTechTypes.Contains(techType))
+        if (LeviathanTechTypes.Contains(techType))
         {
             probabilityScale = Mathf.Clamp01(probabilityScale * LeviathanProbabilityScale);
             if (WaterBiomeManager.main.GetBiome(host.transform.position) == "dunes")
@@ -62,9 +62,15 @@ public static class AmalgamationManager
     {
         // Shrink the bone
         var attachmentBone = host.transform.Find(chosenBone);
+        if (attachmentBone == null)
+        {
+            Plugin.Logger.LogWarning($"Could not find attachment bone of path '{chosenBone}' on host {host}!");
+            yield break;
+        }
         foreach (var unaffectedChild in parasiteAttachPoint.UnaffectedChildObjects)
         {
-            attachmentBone.Find(unaffectedChild).parent = attachmentBone.parent;
+            var childObj = attachmentBone.Find(unaffectedChild);
+            if (childObj != null) childObj.parent = attachmentBone.parent;
         }
         if (parasiteAttachPoint.RemoveBodyPart)
             attachmentBone.transform.localScale *= 0.01f;
@@ -73,7 +79,18 @@ public static class AmalgamationManager
         var chosenParasite = parasiteAttachPoint.AttachableCreatures[Random.Range(0, parasiteAttachPoint.AttachableCreatures.Length)];
         var parasitePrefabTask = CraftData.GetPrefabForTechTypeAsync(chosenParasite.Type);
         yield return parasitePrefabTask;
-        var parasite = Object.Instantiate(parasitePrefabTask.GetResult(), attachmentBone);
+        if (attachmentBone == null)
+        {
+            Plugin.Logger.LogWarning($"Attachment bone became null! The host might've died.");
+            yield break;
+        }
+        var parasitePrefab = parasitePrefabTask.GetResult();
+        if (parasitePrefab == null)
+        {
+            Plugin.Logger.LogWarning($"Parasite prefab for TechType {chosenParasite.Type} not found!");
+            yield break;
+        }
+        var parasite = Object.Instantiate(parasitePrefab, attachmentBone);
         Object.Destroy(parasite.GetComponent<LargeWorldEntity>());
         Object.Destroy(parasite.GetComponent<PrefabIdentifier>());
         parasite.SetActive(true);
@@ -107,13 +124,20 @@ public static class AmalgamationManager
         ZombieManager.Zombify(parasite);
 
         yield return null;
+
+        if (parasite == null)
+        {
+            Plugin.Logger.LogWarning($"Parasite was destroyed!");
+            yield break;
+        }
         
         foreach (var renderer in parasite.GetComponentsInChildren<Renderer>(true))
         {
             foreach (var material in renderer.materials)
             {
                 if (!material) continue;
-                material.SetFloat(InfectionHeightStrength, Mathf.Abs(3.5f * material.GetFloat(InfectionHeightStrength) / parasiteAverageScale));
+                if (material.HasProperty(InfectionHeightStrength))
+                    material.SetFloat(InfectionHeightStrength, Mathf.Abs(3.5f * material.GetFloat(InfectionHeightStrength) / parasiteAverageScale));
             }
         }
     }
