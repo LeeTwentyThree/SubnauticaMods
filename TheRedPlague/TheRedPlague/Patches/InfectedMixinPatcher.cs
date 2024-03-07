@@ -80,7 +80,8 @@ public static class InfectedMixinPatcher
         foreach (var material in __instance.materials)
         {
             material.SetTexture(ShaderPropertyID._InfectionAlbedomap, Plugin.ZombieInfectionTexture);
-            material.SetFloat(InfectionHeightStrength, hasOverridenInfectionSettings ? infectionSettings.InfectionHeight : -0.1f);
+            if (material.HasProperty(InfectionHeightStrength))
+                material.SetFloat(InfectionHeightStrength, hasOverridenInfectionSettings ? infectionSettings.InfectionHeight : -0.1f);
             if (hasOverridenInfectionSettings) material.SetVector("_InfectionScale", infectionSettings.InfectionScale);
             if (hasOverridenInfectionSettings) material.SetVector("_InfectionOffset", infectionSettings.InfectionOffset);
             if (hasOverridenInfectionSettings && __instance.infectedAmount >= MinInfectionValue)

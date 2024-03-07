@@ -38,7 +38,7 @@ public static class ZombieManager
 
         if (creatureComponent == null)
         {
-            Debug.LogWarning($"No creature component on infected object {creature.name}!");
+            // Debug.LogWarning($"No creature component on infected object {creature.name}!");
         }
         
         bool aggressiveToSharks = false;
@@ -90,7 +90,7 @@ public static class ZombieManager
     {
         if (creature.GetAnimator() == null)
         {
-            Plugin.Logger.LogWarning($"Creature '{creature.gameObject.name}' has no Animator! Skipping MeleeAttack instantiation.");
+            // Plugin.Logger.LogWarning($"Creature '{creature.gameObject.name}' has no Animator! Skipping MeleeAttack instantiation.");
             return;
         }
         var meleeAttack = creature.gameObject.AddComponent<MeleeAttack>();
@@ -144,7 +144,7 @@ public static class ZombieManager
     {
         if (creature.GetAnimator() == null)
         {
-            Plugin.Logger.LogWarning($"Creature '{creature.gameObject.name}' has no Animator! Skipping AttackLastTarget instantiation.");
+            // Plugin.Logger.LogWarning($"Creature '{creature.gameObject.name}' has no Animator! Skipping AttackLastTarget instantiation.");
             return;
         }
         var attackLastTarget = creature.gameObject.AddComponent<AttackLastTarget>();
