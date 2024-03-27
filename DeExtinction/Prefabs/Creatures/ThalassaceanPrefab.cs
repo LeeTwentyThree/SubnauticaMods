@@ -2,7 +2,9 @@
 using DeExtinction.Mono;
 using ECCLibrary;
 using ECCLibrary.Data;
+using ECCLibrary.Mono;
 using Nautilus.Assets;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;
@@ -11,11 +13,6 @@ namespace DeExtinction.Prefabs.Creatures;
  * THE
  * DAMN
  * EGG
- * PLEASE
- * LEE23
- * AND
- * THE
- * SOUND EFFECTS
 */
 public class ThalassaceanPrefab : CreatureAsset
 {
@@ -63,6 +60,15 @@ public class ThalassaceanPrefab : CreatureAsset
         fleeFromPredators.maxReactDistance = 35f;
         fleeFromPredators.evaluatePriority = 0.9f;
         fleeFromPredators.fearedTargetType = EcoTargetType.Leviathan;
+
+        var voiceEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
+        voiceEmitter.followParent = true;
+
+        var voice = prefab.AddComponent<CreatureVoice>();
+        voice.emitter = voiceEmitter;
+        voice.closeIdleSound = AudioUtils.GetFmodAsset("ThalassaceanRoar");
+        voice.minInterval = 18;
+        voice.maxInterval = 30;
         
         yield break;
     }
