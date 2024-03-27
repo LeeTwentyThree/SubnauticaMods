@@ -65,6 +65,27 @@ public static class CreatureAudio
                 "ThalassaceanRoar1", "ThalassaceanRoar2", "ThalassaceanRoar3", "ThalassaceanRoar4"
             },
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 120);
+        
+        RegisterSoundWithVariants("TwisteelRoar",
+            new[]
+            {
+                "TwisteelRoar_Long", "TwisteelRoar_Short", "TwisteelRoar_Shriek1", "TwisteelRoar_Shriek2"
+            },
+            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 5, 50);
+        
+        RegisterSoundWithVariants("TwisteelAttack",
+            new[]
+            {
+                "TwisteelRoar_Attack"
+            },
+            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 5, 40);
+        
+        RegisterSoundWithVariants("TwisteelCinematicAttack",
+            new[]
+            {
+                "TwisteelCinematicAttack"
+            },
+            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 5, 40);
     }
 
     private static void Register2DSound(string id, string clipName, string bus)
