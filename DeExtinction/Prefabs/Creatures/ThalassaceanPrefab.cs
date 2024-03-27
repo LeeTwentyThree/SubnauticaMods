@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DeExtinction.MaterialModifiers;
 using DeExtinction.Mono;
 using ECCLibrary;
 using ECCLibrary.Data;
@@ -35,7 +36,7 @@ public class ThalassaceanPrefab : CreatureAsset
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.6f), new Keyframe(1, 1)),
             LocomotionData = new LocomotionData(12f, 0.15f, 3),
             AnimateByVelocityData = new AnimateByVelocityData(6f),
-            FleeOnDamageData = new FleeOnDamageData(0.5f, 6f, 10),
+            FleeOnDamageData = new FleeOnDamageData(0.5f, 6f, 10)
         };
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.02f, 0.09f, 0.2f, 1.25f, true, true, PrefabInfo.ClassID));
         
@@ -71,5 +72,10 @@ public class ThalassaceanPrefab : CreatureAsset
         voice.maxInterval = 30;
         
         yield break;
+    }
+
+    protected override void ApplyMaterials(GameObject prefab)
+    {
+        MaterialUtils.ApplySNShaders(prefab, 7f, 3, 3, new FresnelModifier(0));
     }
 }

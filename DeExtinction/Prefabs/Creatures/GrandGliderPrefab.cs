@@ -1,8 +1,9 @@
 ﻿using System.Collections;
-using DeExtinction.Mono;
+using DeExtinction.MaterialModifiers;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;
@@ -41,5 +42,10 @@ public class GrandGliderPrefab : CreatureAsset
         trailManagerBuilder.Apply();
         
         yield break;
+    }
+
+    protected override void ApplyMaterials(GameObject prefab)
+    {
+        MaterialUtils.ApplySNShaders(prefab, 4f, 1f, 1f, new GrandGliderModifier());
     }
 }
