@@ -14,8 +14,8 @@ public class GrandGliderModifier : MaterialModifier
         switch (materialIndex)
         {
             case 0:
-                material.color = new Color(2, 2, 2);
-                material.SetFloat(SpecInt, 6);
+                material.color = new Color(1.5f, 1.5f, 1.5f);
+                material.SetFloat(SpecInt, 3);
                 material.SetFloat(Shininess, 4);
                 break;
             case 1:
