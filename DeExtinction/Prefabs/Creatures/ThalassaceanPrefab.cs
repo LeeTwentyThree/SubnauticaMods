@@ -17,7 +17,7 @@ namespace DeExtinction.Prefabs.Creatures;
 */
 public class ThalassaceanPrefab : CreatureAsset
 {
-    private GameObject _prefabModel;
+    private readonly GameObject _prefabModel;
     
     public ThalassaceanPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
     {

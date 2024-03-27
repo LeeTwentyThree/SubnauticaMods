@@ -23,6 +23,7 @@ public class GrandGliderModifier : MaterialModifier
                 material.SetFloat(Shininess, 7);
                 break;
             case 2:
+                material.color = new Color(1, 1, 1, 0.7f);
                 material.SetFloat(SpecInt, 1);
                 material.SetFloat(Shininess, 7.5f);
                 break;
