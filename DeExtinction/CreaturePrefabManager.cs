@@ -14,7 +14,11 @@ internal static class CreaturePrefabManager
     public static JellySpinnerPrefab JellySpinner { get; private set; }
     public static RibbonRayPrefab RibbonRay { get; private set; }
     public static TriangleFishPrefab TriangleFish { get; private set; }
+    public static ClownPincherPrefab RubyClownPincher { get; private set; }
+    public static ClownPincherPrefab SapphireClownPincher { get; private set; }
     public static ClownPincherPrefab EmeraldClownPincher { get; private set; }
+    public static ClownPincherPrefab AmberClownPincher { get; private set; }
+    public static ClownPincherPrefab CitrineClownPincher { get; private set; }
     public static ThalassaceanPrefab StellarThalassacean { get; private set; }
     public static ThalassaceanPrefab JasperThalassacean { get; private set; }
     public static GrandGliderPrefab GrandGlider { get; private set; }
@@ -48,10 +52,47 @@ internal static class CreaturePrefabManager
             .WithIcon(LoadIcon("Trianglefish_Item")));
         TriangleFish.Register();
         
+        RubyClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("RubyClownPincher", "Ruby clown pincher", "Small, edible prey fish.", unlockAtStart: false)
+                .WithIcon(LoadIcon("RCP_Item")),
+            Bundle.LoadAsset<GameObject>("RCP_Prefab"));
+        RubyClownPincher.Register();
+
+        SapphireClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("SapphireClownPincher", "Sapphire clown pincher", "Small, edible prey fish.", unlockAtStart: false)
+            .WithIcon(LoadIcon("SCP_Item")),
+            Bundle.LoadAsset<GameObject>("SCP_Prefab"));
+        SapphireClownPincher.Register();
+        
         EmeraldClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("EmeraldClownPincher", "Emerald clown pincher", "Small, edible prey fish.", unlockAtStart: false)
-            .WithIcon(LoadIcon("ECP_Item")),
+                .WithIcon(LoadIcon("ECP_Item")),
             Bundle.LoadAsset<GameObject>("ECP_Prefab"));
         EmeraldClownPincher.Register();
+
+        AmberClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("AmberClownPincher", "Amber clown pincher", "Small, edible prey fish.", unlockAtStart: false)
+                .WithIcon(LoadIcon("ACP_Item")),
+            Bundle.LoadAsset<GameObject>("ACP_Prefab"));
+        AmberClownPincher.Register();
+
+        CitrineClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("CitrineClownPincher", "Citrine clown pincher", "Small, edible prey fish.", unlockAtStart: false)
+                .WithIcon(LoadIcon("CCP_Item")),
+            Bundle.LoadAsset<GameObject>("CCP_Prefab"));
+        CitrineClownPincher.Register();
+        
+        /*
+         *             rubyClownPincher = new ClownPincherRuby("RubyClownPincher", "Ruby clown pincher", "Small, edible prey fish.", assetBundle.LoadAsset<GameObject>("RCP_Prefab"), assetBundle.LoadAsset<Texture2D>("RCP_Item"));
+            rubyClownPincher.Patch();
+
+            sapphireClownPincher = new ClownPincherSapphire("SapphireClownPincher", "Sapphire clown pincher", "Small, edible prey fish.", assetBundle.LoadAsset<GameObject>("SCP_Prefab"), assetBundle.LoadAsset<Texture2D>("SCP_Item"));
+            sapphireClownPincher.Patch();
+
+            emeraldClownPincher = new ClownPincherEmerald("EmeraldClownPincher", "Emerald clown pincher", "Small, edible prey fish.", assetBundle.LoadAsset<GameObject>("ECP_Prefab"), assetBundle.LoadAsset<Texture2D>("ECP_Item"));
+            emeraldClownPincher.Patch();
+
+            amberClownPincher = new ClownPincherAmber("AmberClownPincher", "Amber clown pincher", "Small, edible prey fish.", assetBundle.LoadAsset<GameObject>("ACP_Prefab"), assetBundle.LoadAsset<Texture2D>("ACP_Item"));
+            amberClownPincher.Patch();
+
+            citrineClownPincher = new ClownPincherCitrine("CitrineClownPincher", "Citrine clown pincher", "Small, edible prey fish.", assetBundle.LoadAsset<GameObject>("CCP_Prefab"), assetBundle.LoadAsset<Texture2D>("CCP_Item"));
+            citrineClownPincher.Patch();
+         */
         
         StellarThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("StellarThalassacean", "Stellar thalassacean", "Large filter feeder, raised in containment.", unlockAtStart: false)
             .WithIcon(LoadIcon("Stellar_Item"))
