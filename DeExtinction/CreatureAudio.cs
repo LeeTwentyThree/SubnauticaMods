@@ -14,7 +14,7 @@ public static class CreatureAudio
     public static void RegisterAudio()
     {
         RegisterSound("ClownPincherEating", "ClownPincherEating",
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 2, 16);
+            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 0.5f, 8f);
         RegisterSoundWithVariants("ClownPincherIdle",
             new[]
             {
@@ -76,7 +76,7 @@ public static class CreatureAudio
         RegisterSoundWithVariants("TwisteelAttack",
             new[]
             {
-                "TwisteelRoar_Attack"
+                "TwisteelRoar_Attack", "TwisteelBite1", "TwisteelBite2"
             },
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 5, 40);
         

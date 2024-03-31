@@ -4,6 +4,7 @@ namespace DeExtinction;
 
 public static class DeExtinctionUtils
 {
+    // Causes a creature to get tired during the night
     public static AnimationCurve StandardActivityCurve { get; } = new AnimationCurve(
         new Keyframe(0, 0.3f, 0, 0, 0.333f, 0.333f),
         new Keyframe(0.1f, 0.3f, 0, 0.035f, 0.333f, 0.535f),

@@ -14,6 +14,7 @@ internal static class CreaturePrefabManager
     public static JellySpinnerPrefab JellySpinner { get; private set; }
     public static RibbonRayPrefab RibbonRay { get; private set; }
     public static TriangleFishPrefab TriangleFish { get; private set; }
+    public static ClownPincherPrefab EmeraldClownPincher { get; private set; }
     public static ThalassaceanPrefab StellarThalassacean { get; private set; }
     public static ThalassaceanPrefab JasperThalassacean { get; private set; }
     public static GrandGliderPrefab GrandGlider { get; private set; }
@@ -46,6 +47,11 @@ internal static class CreaturePrefabManager
         TriangleFish = new TriangleFishPrefab(PrefabInfo.WithTechType("TriangleFish", "Trianglefish", "Small, edible prey fish.", unlockAtStart: false)
             .WithIcon(LoadIcon("Trianglefish_Item")));
         TriangleFish.Register();
+        
+        EmeraldClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("EmeraldClownPincher", "Emerald clown pincher", "Small, edible prey fish.", unlockAtStart: false)
+            .WithIcon(LoadIcon("ECP_Item")),
+            Bundle.LoadAsset<GameObject>("ECP_Prefab"));
+        EmeraldClownPincher.Register();
         
         StellarThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("StellarThalassacean", "Stellar thalassacean", "Large filter feeder, raised in containment.", unlockAtStart: false)
             .WithIcon(LoadIcon("Stellar_Item"))
