@@ -10,13 +10,10 @@ using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;
 
-/* IMPLEMENT
- * THE
- * DAMN
- * EGG
-*/
 public class ThalassaceanPrefab : CreatureAsset
 {
+    public PrefabInfo EggInfo { get; set; }
+    
     private readonly GameObject _prefabModel;
     
     public ThalassaceanPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
@@ -38,7 +35,7 @@ public class ThalassaceanPrefab : CreatureAsset
             AnimateByVelocityData = new AnimateByVelocityData(6f),
             FleeOnDamageData = new FleeOnDamageData(0.5f, 6f, 10)
         };
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.02f, 0.09f, 0.2f, 1.25f, true, true, PrefabInfo.ClassID));
+        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.02f, 0.09f, 0.2f, 1.25f, true, true, EggInfo.ClassID));
         
         return template;
     }

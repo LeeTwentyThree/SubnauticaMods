@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Nautilus.Assets;
+using Nautilus.Assets.PrefabTemplates;
+using UnityEngine;
 
 namespace DeExtinction;
 

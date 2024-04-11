@@ -90,13 +90,11 @@ public class ClownPincherNibble : MonoBehaviour
         _nibbling = true;
         eatingEmitter.Play();
         swimBehaviour.LookAt(currentlyEating.transform);
-        /*
-        var otherRigidbody = _currentlyEating.GetComponentInParent<Rigidbody>();
+        var otherRigidbody = currentlyEating.GetComponentInParent<Rigidbody>();
         if (otherRigidbody != null)
         {
             otherRigidbody.isKinematic = true;
         }
-        */
     }
 
     public void StopNibbling()

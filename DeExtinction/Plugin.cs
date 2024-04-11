@@ -6,6 +6,7 @@ using HarmonyLib;
 using Nautilus.Utility;
 using System.Reflection;
 using DeExtinction.Mono;
+using Nautilus.Handlers;
 using UnityEngine;
 
 namespace DeExtinction;
@@ -31,6 +32,9 @@ public class Plugin : BaseUnityPlugin
 
         AssetBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "deextinctionassets");
 
+        // Register localization
+        LanguageHandler.RegisterLocalizationFolder();
+        
         // Initialize custom prefabs
         CreaturePrefabManager.RegisterCreatures();
         CreaturePrefabManager.RegisterFood();
@@ -51,7 +55,8 @@ public class Plugin : BaseUnityPlugin
         {
             var task = CraftData.GetPrefabForTechTypeAsync(techType);
             yield return task;
-            task.GetResult().AddComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
+            var result = task.GetResult();
+            if (result) result.AddComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
         }
     }
 }

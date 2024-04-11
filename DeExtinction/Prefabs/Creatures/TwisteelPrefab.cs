@@ -10,9 +10,10 @@ using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;
 
-// IMPLEMENT THE EGG!!!
 public class TwisteelPrefab : CreatureAsset
 {
+    public PrefabInfo EggInfo { get; set; }
+
     public TwisteelPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
         
@@ -47,7 +48,7 @@ public class TwisteelPrefab : CreatureAsset
         };
         // REPLACE THIS WITH THE EGG CLASS ID LATER!
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.1f, 0.6f, 1.5f, false, true,
-            PrefabInfo.ClassID));
+            EggInfo.ClassID));
         
         return template;
     }

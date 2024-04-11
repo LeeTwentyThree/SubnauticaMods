@@ -10,6 +10,8 @@ namespace DeExtinction.Prefabs.Creatures;
 
 public class GrandGliderPrefab : CreatureAsset
 {
+    public PrefabInfo EggInfo { get; set; }
+
     public GrandGliderPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
     }
@@ -30,7 +32,7 @@ public class GrandGliderPrefab : CreatureAsset
             FleeWhenScaredData = new FleeWhenScaredData(0.4f, 6f),
             ScareableData = new ScareableData(maxRangeScalar: 5)
         };
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.025f, 0.15f, 0.5f, 1f, true, true, PrefabInfo.ClassID));
+        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.025f, 0.15f, 0.5f, 1f, true, true, EggInfo.ClassID));
         
         return template;
     }
