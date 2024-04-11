@@ -42,7 +42,8 @@ internal class GulperLeviathanPrefab : CreatureAsset
                 new(EcoTargetType.Shark, 1.5f, 80f, 3),
                 new(EcoTargetType.SubDecoy, 2f, 35f, 2),
                 new(EcoTargetType.MediumFish, 1.5f, 15f, 2)
-            }
+            },
+            CanBeInfected = false
         };
         
         return template;
