@@ -13,9 +13,12 @@ internal class ClownPincherPrefab : CreatureAsset
 {
     private readonly GameObject _prefabModel;
 
-    public ClownPincherPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
+    public ClownPincherPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
     {
         _prefabModel = prefabModel;
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Scavengers", null, null, 2,
+            Plugin.AssetBundle.LoadAsset<Texture2D>(encyImageName),
+            Plugin.AssetBundle.LoadAsset<Sprite>(encyPopupName));
     }
 
     protected override CreatureTemplate CreateTemplate()

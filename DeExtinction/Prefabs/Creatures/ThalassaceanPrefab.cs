@@ -13,12 +13,15 @@ namespace DeExtinction.Prefabs.Creatures;
 public class ThalassaceanPrefab : CreatureAsset
 {
     public PrefabInfo EggInfo { get; set; }
-    
+
     private readonly GameObject _prefabModel;
-    
-    public ThalassaceanPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
+
+    public ThalassaceanPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
     {
         _prefabModel = prefabModel;
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, 8,
+            Plugin.AssetBundle.LoadAsset<Texture2D>(encyImageName),
+            Plugin.AssetBundle.LoadAsset<Sprite>(encyPopupName));
     }
 
     protected override CreatureTemplate CreateTemplate()
@@ -35,15 +38,16 @@ public class ThalassaceanPrefab : CreatureAsset
             AnimateByVelocityData = new AnimateByVelocityData(6f),
             FleeOnDamageData = new FleeOnDamageData(0.5f, 6f, 10)
         };
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.02f, 0.09f, 0.2f, 1.25f, true, true, EggInfo.ClassID));
-        
+        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.02f, 0.09f, 0.2f, 1.25f, true, true,
+            EggInfo.ClassID));
+
         return template;
     }
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
         components.Creature.activity = DeExtinctionUtils.StandardActivityCurve;
-        
+
         /*
         var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("root"), 0.2f)
             {
@@ -51,7 +55,7 @@ public class ThalassaceanPrefab : CreatureAsset
             };
         trailManagerBuilder.Apply();
         */
-        
+
         var fleeFromPredators = prefab.AddComponent<FleeFromPredators>();
         fleeFromPredators.actionLength = 6f;
         fleeFromPredators.swimVelocity = 15f;
@@ -67,7 +71,7 @@ public class ThalassaceanPrefab : CreatureAsset
         voice.closeIdleSound = AudioUtils.GetFmodAsset("ThalassaceanRoar");
         voice.minInterval = 18;
         voice.maxInterval = 30;
-        
+
         yield break;
     }
 

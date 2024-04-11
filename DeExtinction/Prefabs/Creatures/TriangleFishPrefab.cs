@@ -11,6 +11,9 @@ public class TriangleFishPrefab : CreatureAsset
 {
     public TriangleFishPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/SmallHerbivores", null, null, 2,
+            Plugin.AssetBundle.LoadAsset<Texture2D>("Trianglefish_Ency"),
+            Plugin.AssetBundle.LoadAsset<Sprite>("Trianglefish_Popup"));
     }
 
     protected override CreatureTemplate CreateTemplate()

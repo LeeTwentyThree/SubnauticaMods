@@ -10,6 +10,9 @@ public class RibbonRayPrefab : CreatureAsset
 {
     public RibbonRayPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/SmallHerbivores", null, null, 2,
+            Plugin.AssetBundle.LoadAsset<Texture2D>("RibbonRay_Ency"),
+            Plugin.AssetBundle.LoadAsset<Sprite>("RibbonRay_Popup"));
     }
 
     protected override CreatureTemplate CreateTemplate()

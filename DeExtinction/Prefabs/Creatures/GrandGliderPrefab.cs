@@ -14,6 +14,9 @@ public class GrandGliderPrefab : CreatureAsset
 
     public GrandGliderPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/LargeHerbivores", null, null, 4,
+            Plugin.AssetBundle.LoadAsset<Texture2D>("GrandGlider_Ency"),
+            Plugin.AssetBundle.LoadAsset<Sprite>("GrandGlider_Popup"));
     }
 
     protected override CreatureTemplate CreateTemplate()

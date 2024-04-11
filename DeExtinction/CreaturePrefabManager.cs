@@ -25,7 +25,7 @@ internal static class CreaturePrefabManager
     public static GrandGliderPrefab GrandGlider { get; private set; }
     public static TwisteelPrefab Twisteel { get; private set; }
     public static GulperLeviathanPrefab GulperPrefab { get; private set; }
-    public static GulperLeviathanPrefab GulperBabyPrefab { get; private set; }
+    public static GulperLeviathanBabyPrefab GulperBabyPrefab { get; private set; }
     
     public static PrefabInfo GrandGliderEgg { get; private set; }
     public static PrefabInfo StellarThalassaceanEgg { get; private set; }
@@ -62,33 +62,46 @@ internal static class CreaturePrefabManager
         
         RubyClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("RubyClownPincher")
                 .WithIcon(LoadIcon("RCP_Item")),
-            Bundle.LoadAsset<GameObject>("RCP_Prefab"));
+            Bundle.LoadAsset<GameObject>("RCP_Prefab"),
+            "RCP_Ency",
+            "RCP_Popup");
         RubyClownPincher.Register();
 
         SapphireClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("SapphireClownPincher")
             .WithIcon(LoadIcon("SCP_Item")),
-            Bundle.LoadAsset<GameObject>("SCP_Prefab"));
+            Bundle.LoadAsset<GameObject>("SCP_Prefab"),
+            "SCP_Ency",
+            "SCP_Popup");
         SapphireClownPincher.Register();
         
         EmeraldClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("EmeraldClownPincher")
                 .WithIcon(LoadIcon("ECP_Item")),
-            Bundle.LoadAsset<GameObject>("ECP_Prefab"));
+            Bundle.LoadAsset<GameObject>("ECP_Prefab"),
+            "ECP_Ency",
+            "ECP_Popup");
         EmeraldClownPincher.Register();
 
         AmberClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("AmberClownPincher")
                 .WithIcon(LoadIcon("ACP_Item")),
-            Bundle.LoadAsset<GameObject>("ACP_Prefab"));
+            Bundle.LoadAsset<GameObject>("ACP_Prefab"),
+            "ACP_Ency",
+            "ACP_Popup");
         AmberClownPincher.Register();
 
         CitrineClownPincher = new ClownPincherPrefab(PrefabInfo.WithTechType("CitrineClownPincher")
                 .WithIcon(LoadIcon("CCP_Item")),
-            Bundle.LoadAsset<GameObject>("CCP_Prefab"));
+            Bundle.LoadAsset<GameObject>("CCP_Prefab"),
+            "CCP_Ency",
+            "CCP_Popup"
+            );
         CitrineClownPincher.Register();
         
         StellarThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("StellarThalassacean")
             .WithIcon(LoadIcon("Stellar_Item"))
             .WithSizeInInventory(new Vector2int(4, 4)),
-            Plugin.AssetBundle.LoadAsset<GameObject>("StellarThalassaceanPrefab"));
+            Plugin.AssetBundle.LoadAsset<GameObject>("StellarThalassaceanPrefab"),
+            "Stellar_Ency",
+            "Stellar_Popup");
         StellarThalassaceanEgg = CreateEggPrefab("StellarThalassaceanEgg", "StellarThalassaceanEggPrefab",
             "StellarThalassaceanEgg_Icon", new Vector2int(3, 3), StellarThalassacean.PrefabInfo.TechType, 2);
         StellarThalassacean.EggInfo = StellarThalassaceanEgg;
@@ -97,7 +110,9 @@ internal static class CreaturePrefabManager
         JasperThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("JasperThalassacean")
                 .WithIcon(LoadIcon("Jasper_Item"))
                 .WithSizeInInventory(new Vector2int(4, 4)),
-            Plugin.AssetBundle.LoadAsset<GameObject>("JasperThalassaceanPrefab"));
+            Plugin.AssetBundle.LoadAsset<GameObject>("JasperThalassaceanPrefab"),
+            "Jasper_Ency",
+            "Jasper_Popup");
         JasperThalassaceanEgg = CreateEggPrefab("JasperThalassaceanEgg", "JasperThalassaceanEggPrefab",
             "JasperThalassaceanEgg_Icon", new Vector2int(3, 3), JasperThalassacean.PrefabInfo.TechType, 2);
         JasperThalassacean.EggInfo = StellarThalassaceanEgg;
@@ -123,10 +138,13 @@ internal static class CreaturePrefabManager
         GulperPrefab.Register();
         
         // PLACEHOLDER BABY GULPER; PLEASE REDO LATER!
-        GulperBabyPrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathanBaby"));
+        GulperBabyPrefab = new GulperLeviathanBabyPrefab(PrefabInfo.WithTechType("GulperLeviathanBaby")
+            .WithIcon(LoadIcon("GulperBaby_Sprite"))
+            .WithSizeInInventory(new Vector2int(4, 4)));
         GulperLeviathanEgg = CreateEggPrefab("GulperEgg", "GulperEgg_Prefab",
             "GulperEgg_Sprite", new Vector2int(3, 3), GulperBabyPrefab.PrefabInfo.TechType, 2);
-        GulperPrefab.Register();
+        GulperBabyPrefab.EggInfo = GulperLeviathanEgg;
+        GulperBabyPrefab.Register();
     }
 
     public static void RegisterFood()

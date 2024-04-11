@@ -11,6 +11,9 @@ internal class FiltorbPrefab : CreatureAsset
 {
     public FiltorbPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/SmallHerbivores", null, null, 3,
+            Plugin.AssetBundle.LoadAsset<Texture2D>("Filtorb_Ency"),
+            Plugin.AssetBundle.LoadAsset<Sprite>("Filtorb_Popup"));
     }
 
     protected override CreatureTemplate CreateTemplate()

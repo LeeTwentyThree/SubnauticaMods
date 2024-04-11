@@ -16,7 +16,9 @@ public class TwisteelPrefab : CreatureAsset
 
     public TwisteelPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
-        
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, 7,
+            Plugin.AssetBundle.LoadAsset<Texture2D>("Twisteel_Ency"),
+            Plugin.AssetBundle.LoadAsset<Sprite>("Twisteel_Popup"));
     }
 
     protected override CreatureTemplate CreateTemplate()
@@ -46,7 +48,6 @@ public class TwisteelPrefab : CreatureAsset
                 new(EcoTargetType.MediumFish, 0.5f, 15, 1, true, false, 0.5f),
             }
         };
-        // REPLACE THIS WITH THE EGG CLASS ID LATER!
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.1f, 0.6f, 1.5f, false, true,
             EggInfo.ClassID));
         
