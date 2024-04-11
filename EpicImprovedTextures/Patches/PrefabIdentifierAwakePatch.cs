@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace EpicImprovedTextures.Patches;
 
-[HarmonyPatch(typeof(PrefabIdentifier))]
-public static class PrefabIdentifierAwakePatch
+[HarmonyPatch(typeof(UniqueIdentifier))]
+public static class UniqueIdentifierAwakePatch
 {
-    [HarmonyPatch(nameof(PrefabIdentifier.Awake))]
+    [HarmonyPatch(nameof(UniqueIdentifier.Awake))]
     [HarmonyPostfix]
-    public static void PrefabIdentifierAwakePostfix(PrefabIdentifier __instance)
+    public static void PrefabIdentifierAwakePostfix(UniqueIdentifier __instance)
     {
         var database = TextureDatabase.GetInstance();
         foreach (var renderer in __instance.gameObject.GetComponentsInChildren<Renderer>(true))

@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace EpicImprovedTextures;
 
+// hahaha april fools :3
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
 public class Plugin : BaseUnityPlugin
