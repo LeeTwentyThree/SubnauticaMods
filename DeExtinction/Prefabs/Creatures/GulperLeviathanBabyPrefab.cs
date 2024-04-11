@@ -40,11 +40,13 @@ internal class GulperLeviathanBabyPrefab : CreatureAsset
             RespawnData = new RespawnData(false),
             AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>()
             {
-                new(EcoTargetType.Shark, 1.5f, 80f, 3),
-                new(EcoTargetType.SubDecoy, 2f, 35f, 2),
-                new(EcoTargetType.MediumFish, 1.5f, 15f, 2)
+                new(EcoTargetType.Shark, 2, 40, 2),
+                new(EcoTargetType.SubDecoy, 2, 35, 2),
+                new(EcoTargetType.Leviathan, 1, 35, 1),
+                new(EcoTargetType.SmallFish, 2, 30, 2)
             },
-            BioReactorCharge = 800
+            BioReactorCharge = 800,
+            PickupableFishData = new PickupableFishData(TechType.GarryFish, "Gulper Leviathan", "ViewModel")
         };
         
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.02f, 0.5f, 1f, 1.25f, true, true,
@@ -77,7 +79,7 @@ internal class GulperLeviathanBabyPrefab : CreatureAsset
         var lClawTrigger = prefab.SearchChild("LClaw");
         var rClawTrigger = prefab.SearchChild("RClaw");
 
-        /*
+        /* Mute the baby until it has proper sound files
         var voice = prefab.AddComponent<CreatureVoice>();
         var emitter = prefab.AddComponent<FMOD_CustomEmitter>();
         emitter.followParent = true;
@@ -128,74 +130,3 @@ internal class GulperLeviathanBabyPrefab : CreatureAsset
         clawAttack.isBaby = true;
     }
 }
-/*
-public override BehaviourType BehaviourType => BehaviourType.Leviathan;
-
-        public override WaterParkCreatureParameters WaterParkParameters => new WaterParkCreatureParameters(0.02f, 0.5f, 1f, 1.25f, false);
-
-        public override Vector2int SizeInInventory => new Vector2int(4, 4);
-
-        public override void AddCustomBehaviour(CreatureComponents components)
-        {
-            GameObject spine2 = prefab.SearchChild("Spine2");
-            CreateTrail(spine2, new Transform[] { spine2.SearchChild("Spine3").transform, spine2.SearchChild("Spine4").transform, spine2.SearchChild("Spine5").transform, spine2.SearchChild("Spine6").transform, spine2.SearchChild("Spine7").transform, spine2.SearchChild("Spine8").transform, spine2.SearchChild("Spine9").transform }, components, 3f);
-            MakeAggressiveTo(30f, 2, EcoTargetType.SmallFish, 0.2f, 1f);;
-            MakeAggressiveTo(40f, 2, EcoTargetType.Shark, 0f, 1f).ignoreSameKind = false;
-            MakeAggressiveTo(35f, 2, EcoTargetType.SubDecoy, 0f, 2f);
-            MakeAggressiveTo(35f, 1, EcoTargetType.Leviathan, 0f, 1f);
-            GameObject mouth = prefab.SearchChild("Mouth");
-            GameObject lClawTrigger = prefab.SearchChild("LClaw");
-            GameObject rClawTrigger = prefab.SearchChild("RClaw");
-
-            GulperMeleeAttack_Mouth meleeAttack = prefab.AddComponent<GulperMeleeAttack_Mouth>();
-            meleeAttack.isBaby = true;
-            meleeAttack.mouth = mouth;
-            meleeAttack.canBeFed = false;
-            meleeAttack.biteInterval = 1f;
-            meleeAttack.biteDamage = 50f;
-            meleeAttack.eatHungerDecrement = 0.05f;
-            meleeAttack.eatHappyIncrement = 0.1f;
-            meleeAttack.biteAggressionDecrement = 0.02f;
-            meleeAttack.biteAggressionThreshold = 0.1f;
-            meleeAttack.lastTarget = components.lastTarget;
-            meleeAttack.creature = components.creature;
-            meleeAttack.liveMixin = components.liveMixin;
-            meleeAttack.animator = components.creature.GetAnimator();
-
-            var avoidObstacels = prefab.GetComponent<AvoidObstacles>();
-            avoidObstacels.avoidanceIterations = 15;
-            avoidObstacels.scanInterval = 0.5f;
-
-            mouth.AddComponent<OnTouch>();
-            lClawTrigger.AddComponent<OnTouch>();
-            rClawTrigger.AddComponent<OnTouch>();
-            AddClawAttack("LClaw", "swipeL", components);
-            AddClawAttack("RClaw", "swipeR", components);
-
-            components.locomotion.driftFactor = 0.4f;
-            components.locomotion.maxAcceleration = 10f;
-            }
-
-        void AddClawAttack(string triggerName, string animationName, CreatureComponents components)
-        {
-            GulperMeleeAttack_Claw meleeAttack = prefab.AddComponent<GulperMeleeAttack_Claw>();
-            meleeAttack.mouth = prefab.SearchChild(triggerName);
-            meleeAttack.canBeFed = false;
-            meleeAttack.biteInterval = 1f;
-            meleeAttack.biteDamage = 50f;
-            meleeAttack.eatHungerDecrement = 0.05f;
-            meleeAttack.eatHappyIncrement = 0.1f;
-            meleeAttack.biteAggressionDecrement = 0.02f;
-            meleeAttack.biteAggressionThreshold = 0.1f;
-            meleeAttack.lastTarget = components.lastTarget;
-            meleeAttack.creature = components.creature;
-            meleeAttack.liveMixin = components.liveMixin;
-            meleeAttack.animator = components.creature.GetAnimator();
-            meleeAttack.colliderName = triggerName;
-            meleeAttack.animationTriggerName = animationName;
-            meleeAttack.isBaby = true;
-        }
-
-    }
-}
-*/
