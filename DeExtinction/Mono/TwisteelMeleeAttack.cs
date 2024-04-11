@@ -30,60 +30,63 @@ public class TwisteelMeleeAttack : MeleeAttack
 
         if (liveMixin.IsAlive() && Time.time > timeLastBite + biteInterval)
         {
-            var component = GetComponent<Creature>();
-            if (component.Aggression.Value >= 0.1f)
+            var thisCreature = GetComponent<Creature>();
+            if (thisCreature.Aggression.Value < 0.1f) return;
+            GameObject target = GetTarget(collider);
+            if (!_playerDeathCinematic.IsCinematicModeActive())
             {
-                GameObject target = GetTarget(collider);
-                if (!_playerDeathCinematic.IsCinematicModeActive())
+                var player = target.GetComponent<Player>();
+                if (player != null)
                 {
-                    Player player = target.GetComponent<Player>();
-                    if (player != null)
+                    if (Time.time > _timeCanPlayCinematicAgain && player.CanBeAttacked() &&
+                        player.liveMixin.IsAlive() && !player.cinematicModeActive)
                     {
-                        if (Time.time > _timeCanPlayCinematicAgain && player.CanBeAttacked() &&
-                            player.liveMixin.IsAlive() && !player.cinematicModeActive)
+                        float num = DamageSystem.CalculateDamage(biteDamage, DamageType.Normal, player.gameObject,
+                            null);
+                        if (player.liveMixin.health - num <= 0f)
                         {
-                            float num = DamageSystem.CalculateDamage(biteDamage, DamageType.Normal, player.gameObject,
-                                null);
-                            if (player.liveMixin.health - num <= 0f)
-                            {
-                                Invoke(nameof(KillPlayer), 2.5f);
-                                _playerDeathCinematic.StartCinematicMode(player);
-                                attackEmitter.SetAsset(_cinematicKillSound);
-                                attackEmitter.Play();
-                                _timeCanPlayCinematicAgain = Time.time + 5f;
-                                timeLastBite = Time.time;
-                                return;
-                            }
-                        }
-                    }
-
-                    LiveMixin liveMixin = target.GetComponent<LiveMixin>();
-                    if (liveMixin == null) return;
-                    if (!liveMixin.IsAlive())
-                    {
-                        return;
-                    }
-
-                    if (liveMixin == Player.main.liveMixin)
-                    {
-                        if (!player.CanBeAttacked())
-                        {
+                            Invoke(nameof(KillPlayer), 2.5f);
+                            _playerDeathCinematic.StartCinematicMode(player);
+                            attackEmitter.SetAsset(_cinematicKillSound);
+                            attackEmitter.Play();
+                            _timeCanPlayCinematicAgain = Time.time + 5f;
+                            timeLastBite = Time.time;
                             return;
                         }
                     }
+                }
 
-                    if (!CanAttackTargetFromPosition(target))
+                if (target != lastTarget.target)
+                {
+                    return;
+                }
+
+                LiveMixin liveMixin = target.GetComponent<LiveMixin>();
+                if (liveMixin == null) return;
+                if (!liveMixin.IsAlive())
+                {
+                    return;
+                }
+
+                if (liveMixin == Player.main.liveMixin)
+                {
+                    if (!player.CanBeAttacked())
                     {
                         return;
                     }
-
-                    liveMixin.TakeDamage(GetBiteDamage(target));
-                    attackEmitter.SetAsset(_biteSound);
-                    attackEmitter.Play();
-                    timeLastBite = Time.time;
-                    creature.GetAnimator().SetTrigger("bite");
-                    component.Aggression.Value -= 0.15f;
                 }
+
+                if (!CanAttackTargetFromPosition(target))
+                {
+                    return;
+                }
+
+                liveMixin.TakeDamage(GetBiteDamage(target));
+                attackEmitter.SetAsset(_biteSound);
+                attackEmitter.Play();
+                timeLastBite = Time.time;
+                creature.GetAnimator().SetTrigger("bite");
+                thisCreature.Aggression.Value -= 0.15f;
             }
         }
     }
