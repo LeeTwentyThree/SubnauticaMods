@@ -78,6 +78,6 @@ public class DragonflyPrefab : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
-        MaterialUtils.ApplySNShaders(prefab, 6, 2f, 0.25f, new FresnelModifier(0));
+        MaterialUtils.ApplySNShaders(prefab, 6, 2f, 0.25f, new FresnelModifier(0), new DragonflyModifier());
     }
 }
