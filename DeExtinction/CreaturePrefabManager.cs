@@ -26,6 +26,7 @@ internal static class CreaturePrefabManager
     public static TwisteelPrefab Twisteel { get; private set; }
     public static GulperLeviathanPrefab GulperPrefab { get; private set; }
     public static GulperLeviathanBabyPrefab GulperBabyPrefab { get; private set; }
+    public static DragonflyPrefab Dragonfly { get; private set; }
     
     public static PrefabInfo GrandGliderEgg { get; private set; }
     public static PrefabInfo StellarThalassaceanEgg { get; private set; }
@@ -137,7 +138,6 @@ internal static class CreaturePrefabManager
         GulperPrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathan"));
         GulperPrefab.Register();
         
-        // PLACEHOLDER BABY GULPER; PLEASE REDO LATER!
         GulperBabyPrefab = new GulperLeviathanBabyPrefab(PrefabInfo.WithTechType("GulperLeviathanBaby")
             .WithIcon(LoadIcon("GulperBaby_Sprite"))
             .WithSizeInInventory(new Vector2int(4, 4)));
@@ -145,6 +145,9 @@ internal static class CreaturePrefabManager
             "GulperEgg_Sprite", new Vector2int(3, 3), GulperBabyPrefab.PrefabInfo.TechType, 2);
         GulperBabyPrefab.EggInfo = GulperLeviathanEgg;
         GulperBabyPrefab.Register();
+
+        Dragonfly = new DragonflyPrefab(PrefabInfo.WithTechType("Dragonfly"));
+        Dragonfly.Register();
     }
 
     public static void RegisterFood()

@@ -128,5 +128,10 @@
     "EncyDesc_GulperLeviathanBaby": "A very young offspring of an apex predator.\n\n1. Jaws:\nThe four jaws of this leviathan are not yet developed to maintain a fulfilling diet. At this age it is impossible to gulp its prey, which is common behavior found in adult specimens, but it can still deal a devastating blow with its jaws if it has the intent of doing so.\n\n2. Behavior:\nThis baby is extremely aggressive, but also shows signs of intelligence. It appears to be very curious, and can even be seen playing with other fish that are too large to be eaten.\n\nAssessment: Minor threat. May attack if provoked, and will reduce local fish populations",
 
     "GulperEgg": "Gulper leviathan egg",
-    "Tooltip_GulperEgg": "Gulper leviathans hatch from these."
+    "Tooltip_GulperEgg": "Gulper leviathans hatch from these.",
+
+    "Dragonfly": "Dragonfly",
+    "Tooltip_Dragonfly": "A large, flying bird-like creature.",
+    "Ency_Dragonfly": "Dragonfly",
+    "EncyDesc_Dragonfly": "TBA"
 }
