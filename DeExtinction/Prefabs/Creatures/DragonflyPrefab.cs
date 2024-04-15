@@ -33,7 +33,7 @@ public class DragonflyPrefab : CreatureAsset
             LocomotionData = new LocomotionData(1, 0.18f, 3, 0f, false, true),
             StayAtLeashData = new StayAtLeashData(0.4f, FlyVelocity, 35f),
             BehaviourLODData = new BehaviourLODData(50, 200, 400),
-            AnimateByVelocityData = new AnimateByVelocityData(FlyVelocity)
+            AnimateByVelocityData = new AnimateByVelocityData(FlyVelocity, 30, 5)
         };
 
         template.SetCreatureComponentType<BirdBehaviour>();
