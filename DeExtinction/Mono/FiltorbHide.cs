@@ -43,12 +43,20 @@ internal class FiltorbHide : ReactToPredatorAction, IOnTakeDamage
         _vfxSurface = GetComponent<VFXSurface>();
     }
 
+#if SUBNAUTICA
     public override void StartPerform(Creature creature, float time)
+#elif BELOWZERO
+    public override void StartPerform(float time)
+#endif
     {
         SetClosed(true);
     }
-
+    
+#if SUBNAUTICA
     public override void StopPerform(Creature creature, float time)
+#elif BELOWZERO
+    public override void StopPerform(float time)
+#endif
     {
         SetClosed(false);
     }

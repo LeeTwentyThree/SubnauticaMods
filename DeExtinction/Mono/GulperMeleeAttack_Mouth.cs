@@ -171,10 +171,12 @@ public class GulperMeleeAttackMouth : MeleeAttack
             return false;
         }
 
+#if SUBNAUTICA
         if (gameObject.GetComponentInParent<EscapePod>())
         {
             return false;
         }
+#endif
 
         if (liveMixin.maxHealth > 600f)
         {

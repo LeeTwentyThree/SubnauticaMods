@@ -31,7 +31,11 @@ internal class JellySpinnerPrefab : CreatureAsset
             AnimateByVelocityData = new AnimateByVelocityData(4),
             AcidImmune = true,
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.2f), new Keyframe(1, 1)),
+            #if SUBNAUTICA
             ItemSoundsType = ItemSoundsType.Floater
+            #elif BELOWZERO
+            ItemSoundsType = TechData.SoundType.Wet
+            #endif
         };
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.7f, 1f, 0.3f, true, true, ClassID));
         CreatureTemplateUtils.SetPreyEssentials(template, 4f,

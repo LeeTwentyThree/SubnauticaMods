@@ -2,7 +2,7 @@
 
 namespace DeExtinction.Mono;
 
-internal class FiltorbSwimBehaviour : CreatureAction
+internal class FiltorbSwimBehaviour : MonoBehaviour
 {
     public float force = 50f;
     public float rotationalForce = 0.5f;
@@ -13,11 +13,6 @@ internal class FiltorbSwimBehaviour : CreatureAction
     void Start()
     {
         _rigibody = GetComponent<Rigidbody>();
-    }
-
-    public override float Evaluate(Creature creature, float time)
-    {
-        return evaluatePriority;
     }
 
     void FixedUpdate()

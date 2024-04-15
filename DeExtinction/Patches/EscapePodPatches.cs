@@ -1,4 +1,5 @@
-﻿using DeExtinction.Mono;
+﻿#if SUBNAUTICA
+using DeExtinction.Mono;
 using HarmonyLib;
 
 namespace DeExtinction.Patches;
@@ -13,3 +14,4 @@ public static class EscapePodPatches
         __instance.gameObject.AddComponent<SpawnDragonfliesAroundEscapePod>();
     }
 }
+#endif

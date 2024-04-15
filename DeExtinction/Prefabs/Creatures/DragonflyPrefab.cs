@@ -54,7 +54,11 @@ public class DragonflyPrefab : CreatureAsset
         flyAboveMinHeight.minHeight = 14;
         flyAboveMinHeight.flyVelocity = FlyVelocity;
 
+#if SUBNAUTICA
         var birdsFlapping = prefab.AddComponent<BirdsFlapping>();
+#elif BELOWZERO
+        var birdsFlapping = prefab.AddComponent<BirdFlap>();
+#endif
         birdsFlapping.flyVelocity = FlyVelocity;
         birdsFlapping.flappingDuration = 3;
         birdsFlapping.flyInterval = 1;

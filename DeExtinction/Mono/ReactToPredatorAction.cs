@@ -2,7 +2,7 @@
 
 namespace DeExtinction.Mono;
 
-internal class ReactToPredatorAction : CreatureAction
+internal abstract class ReactToPredatorAction : CreatureAction
 {
     private void Start()
     {
@@ -19,7 +19,11 @@ internal class ReactToPredatorAction : CreatureAction
 
     private bool _frozen;
 
+#if SUBNAUTICA
     public override float Evaluate(Creature creature, float time)
+#elif BELOWZERO
+    public override float Evaluate(float time)
+#endif
     {
         if (_frozen)
         {

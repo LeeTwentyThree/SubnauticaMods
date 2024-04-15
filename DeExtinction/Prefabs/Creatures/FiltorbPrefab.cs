@@ -40,8 +40,7 @@ internal class FiltorbPrefab : CreatureAsset
         hide.actionLength = 0.5f;
         hide.maxReactDistance = 14f;
         hide.evaluatePriority = 0.2f;
-        var freeFloat = prefab.AddComponent<FiltorbSwimBehaviour>();
-        freeFloat.evaluatePriority = 0.1f;
+        prefab.AddComponent<FiltorbSwimBehaviour>();
         yield break;
     }
 }

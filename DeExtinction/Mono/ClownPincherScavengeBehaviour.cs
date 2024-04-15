@@ -21,7 +21,11 @@ public class ClownPincherScavengeBehaviour : CreatureAction
         _targetFilter = IsValidTarget;
     }
 
+#if SUBNAUTICA
     public override float Evaluate(Creature creature, float time)
+#elif BELOWZERO
+    public override float Evaluate(float time)
+#endif
     {
         if (clownPincher.lastAction == this && Time.time > _timeStarted + 20f)
         {
@@ -45,7 +49,11 @@ public class ClownPincherScavengeBehaviour : CreatureAction
         return 0f;
     }
 
+#if SUBNAUTICA
     public override void StartPerform(Creature creature, float time)
+#elif BELOWZERO
+    public override void StartPerform(float time)
+#endif
     {
         _timeStarted = Time.time;
         if (TrySearchForFood(out IEcoTarget ecoTarget))
@@ -54,7 +62,11 @@ public class ClownPincherScavengeBehaviour : CreatureAction
         }
     }
 
+#if SUBNAUTICA
     public override void Perform(Creature creature, float time, float deltaTime)
+#elif BELOWZERO
+    public override void Perform(float time, float deltaTime)
+#endif
     {
         if (Time.time > _timeSearchAgain)
         {

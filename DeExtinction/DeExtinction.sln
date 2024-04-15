@@ -7,14 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeExtinction", "DeExtinctio
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		BZ|Any CPU = BZ|Any CPU
+		SN1|Any CPU = SN1|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.BZ|Any CPU.ActiveCfg = BZ|Any CPU
+		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.BZ|Any CPU.Build.0 = BZ|Any CPU
+		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.SN1|Any CPU.ActiveCfg = SN1|Any CPU
+		{4AE5F388-C62A-4CD9-B09A-25771697B1E3}.SN1|Any CPU.Build.0 = SN1|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
