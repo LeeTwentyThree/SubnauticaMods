@@ -80,7 +80,8 @@ public class TwisteelPrefab : CreatureAsset
         var trailParent = prefab.SearchChild("Spine1");
         var trailManagerBuilder = new TrailManagerBuilder(components, trailParent.transform, 4, 0.5f);
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
-        trailManagerBuilder.Apply();
+        var trailManager = trailManagerBuilder.Apply();
+        trailManager.rootSegment = prefab.transform.Find("FakeTrailManagerRoot");
 
         yield break;
     }

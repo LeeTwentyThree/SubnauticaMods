@@ -34,7 +34,7 @@ internal class GulperLeviathanPrefab : CreatureAsset
             AttackLastTargetData = new AttackLastTargetData(0.8f, 20f, 0.6f, 10f, 10f),
             AggressiveToPilotingVehicleData = new AggressiveToPilotingVehicleData(30f, 0.2f),
             EyeFOV = -0.5f,
-            BehaviourLODData = new BehaviourLODData(40, 100, 200),
+            BehaviourLODData = new BehaviourLODData(60, 200, 300),
             ScannerRoomScannable = true,
             RespawnData = new RespawnData(false),
             AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>()
@@ -67,7 +67,8 @@ internal class GulperLeviathanPrefab : CreatureAsset
                 spine2.SearchChild("Spine9").transform
             }
         };
-        trailManagerBuilder.Apply();
+        var trailManager = trailManagerBuilder.Apply();
+        trailManager.rootSegment = prefab.transform.Find("FakeTrailManagerRoot");
         
         var mouth = prefab.SearchChild("Mouth");
         var lClawTrigger = prefab.SearchChild("LClaw");
