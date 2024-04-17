@@ -27,6 +27,7 @@ internal static class CreaturePrefabManager
     public static GulperLeviathanPrefab GulperPrefab { get; private set; }
     public static GulperLeviathanBabyPrefab GulperBabyPrefab { get; private set; }
     public static DragonflyPrefab Dragonfly { get; private set; }
+    public static PyrambassisPrefab Pyrambassis { get; private set; }
     
     public static PrefabInfo GrandGliderEgg { get; private set; }
     public static PrefabInfo StellarThalassaceanEgg { get; private set; }
@@ -148,6 +149,9 @@ internal static class CreaturePrefabManager
 
         Dragonfly = new DragonflyPrefab(PrefabInfo.WithTechType("Dragonfly"));
         Dragonfly.Register();
+
+        Pyrambassis = new PyrambassisPrefab(PrefabInfo.WithTechType("Pyrambassis"));
+        Pyrambassis.Register();
     }
 
     public static void RegisterFood()
