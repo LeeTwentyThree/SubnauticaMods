@@ -41,6 +41,12 @@ internal class FiltorbPrefab : CreatureAsset
         hide.maxReactDistance = 14f;
         hide.evaluatePriority = 0.2f;
         prefab.AddComponent<FiltorbSwimBehaviour>();
+        
+#if BELOWZERO
+        var viewModelTransform = prefab.GetComponent<FPModel>().viewModel.transform;
+        viewModelTransform.localPosition = new Vector3(-0.05f, 0, -0.03f);
+#endif
+
         yield break;
     }
 }

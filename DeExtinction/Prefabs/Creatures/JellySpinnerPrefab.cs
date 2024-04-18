@@ -45,6 +45,11 @@ internal class JellySpinnerPrefab : CreatureAsset
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
+#if BELOWZERO
+        var viewModelTransform = prefab.GetComponent<FPModel>().viewModel.transform;
+        viewModelTransform.localPosition = new Vector3(-0.1f, 0, 0);
+#endif
+
         yield break;
     }
 }

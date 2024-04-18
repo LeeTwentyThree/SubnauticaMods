@@ -81,6 +81,12 @@ internal class ClownPincherPrefab : CreatureAsset
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
         trailManagerBuilder.Apply();
         
+#if BELOWZERO
+        var viewModelTransform = prefab.GetComponent<FPModel>().viewModel.transform;
+        viewModelTransform.localPosition = new Vector3(0.09f, 0, -0.05f);
+        viewModelTransform.localEulerAngles = new Vector3(0, 233.5f, 261.4f);
+#endif
+        
         yield break;
     }
 }

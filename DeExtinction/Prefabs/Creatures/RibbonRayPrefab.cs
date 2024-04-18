@@ -46,6 +46,13 @@ public class RibbonRayPrefab : CreatureAsset
         var trailManagerBuilder2 = new TrailManagerBuilder(components, prefab.transform.SearchChild("RTail1Spade"), 3, 0.5f);
         trailManagerBuilder2.SetTrailArrayToAllChildren();
         trailManagerBuilder2.Apply();
+        
+#if BELOWZERO
+        var viewModelTransform = prefab.GetComponent<FPModel>().viewModel.transform;
+        viewModelTransform.localPosition = new Vector3(-0.02f, 0.02f, 0);
+        viewModelTransform.localEulerAngles = new Vector3(0, 0, 5);
+        viewModelTransform.localScale = Vector3.one * 0.4f;
+#endif
 
         yield break;
     }

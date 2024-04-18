@@ -39,6 +39,10 @@ internal class AxetailPrefab : CreatureAsset
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
+#if BELOWZERO
+        var viewModelTransform = prefab.GetComponent<FPModel>().viewModel.transform;
+        viewModelTransform.localPosition = Vector3.zero;
+#endif
         yield break;
     }
 }
