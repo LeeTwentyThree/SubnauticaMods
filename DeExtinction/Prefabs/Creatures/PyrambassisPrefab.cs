@@ -47,8 +47,19 @@ public class PyrambassisPrefab : CreatureAsset
         var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.Find("Pyrambassis/Armature/Spine1"), 1f);
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
         trailManagerBuilder.Apply();
+
+        AddAntennaTrailManager(prefab, components, "AntennaL1");
+        
+        AddAntennaTrailManager(prefab, components, "AntennaR1");
         
         yield break;
+    }
+
+    private void AddAntennaTrailManager(GameObject prefab, CreatureComponents components, string antennaName)
+    {
+        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild(antennaName), 2.5f);
+        trailManagerBuilder.SetTrailArrayToAllChildren();
+        trailManagerBuilder.Apply();
     }
 
     protected override void ApplyMaterials(GameObject prefab)
