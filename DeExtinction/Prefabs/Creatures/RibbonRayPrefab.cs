@@ -19,15 +19,15 @@ public class RibbonRayPrefab : CreatureAsset
     {
         var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("RibbonRay_Prefab"), BehaviourType.MediumFish, EcoTargetType.MediumFish, 40f)
         {
-            SwimRandomData = new SwimRandomData(0.2f, 3, new Vector3(15, 3, 15), 3),
-            AvoidObstaclesData = new AvoidObstaclesData(0.6f, 3f, false, 5f, 6f),
+            SwimRandomData = new SwimRandomData(0.2f, 2, new Vector3(15, 3, 15), 3),
+            AvoidObstaclesData = new AvoidObstaclesData(0.6f, 2, false, 5f, 6f),
             Mass = 4f,
             CellLevel = LargeWorldEntity.CellLevel.Near,
             BioReactorCharge = 400f,
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.8f), new Keyframe(1, 1)),
-            LocomotionData = new LocomotionData(10, 2, 3, 0.3f),
+            LocomotionData = new LocomotionData(10, 0.4f, 3, 0.1f),
             AnimateByVelocityData = new AnimateByVelocityData(6f),
-            StayAtLeashData = new StayAtLeashData(0.4f, 3f, 25f)
+            StayAtLeashData = new StayAtLeashData(0.4f, 2, 25f)
         };
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.1f, 0.7f, 0.9f, 1f, true, true, PrefabInfo.ClassID));
         CreatureTemplateUtils.SetPreyEssentials(template, 4f,
@@ -39,11 +39,11 @@ public class RibbonRayPrefab : CreatureAsset
     {
         components.Creature.activity = DeExtinctionUtils.StandardActivityCurve;
         
-        var trailManagerBuilder1 = new TrailManagerBuilder(components, prefab.transform.SearchChild("LTail1Spade"), 1f);
+        var trailManagerBuilder1 = new TrailManagerBuilder(components, prefab.transform.SearchChild("LTail1Spade"), 3, 0.5f);
         trailManagerBuilder1.SetTrailArrayToAllChildren();
         trailManagerBuilder1.Apply();
         
-        var trailManagerBuilder2 = new TrailManagerBuilder(components, prefab.transform.SearchChild("RTail1Spade"), 1f);
+        var trailManagerBuilder2 = new TrailManagerBuilder(components, prefab.transform.SearchChild("RTail1Spade"), 3, 0.5f);
         trailManagerBuilder2.SetTrailArrayToAllChildren();
         trailManagerBuilder2.Apply();
 
