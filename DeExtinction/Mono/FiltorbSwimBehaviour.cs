@@ -4,7 +4,7 @@ namespace DeExtinction.Mono;
 
 internal class FiltorbSwimBehaviour : MonoBehaviour
 {
-    public float force = 50f;
+    public float force = 16;
     public float rotationalForce = 0.5f;
 
     private Vector3 _torqueDirection = new Vector3(1, 1, 1).normalized;
@@ -18,7 +18,6 @@ internal class FiltorbSwimBehaviour : MonoBehaviour
     void FixedUpdate()
     {
         _rigibody.AddForce(FiltorbCurrentGenerator.Main.CurrentForceDirection * (force * Time.deltaTime));
-        if (_torqueDirection != Vector3.zero)
-            _rigibody.AddTorque(_torqueDirection * (rotationalForce * Time.deltaTime));
+        _rigibody.AddTorque(_torqueDirection * (rotationalForce * Time.deltaTime));
     }
 }
