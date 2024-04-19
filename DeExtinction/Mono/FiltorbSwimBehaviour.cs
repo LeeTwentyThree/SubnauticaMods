@@ -2,7 +2,8 @@
 
 namespace DeExtinction.Mono;
 
-internal class FiltorbSwimBehaviour : MonoBehaviour
+// HAS TO BE A CREATURE ACTION, otherwise the Filtorb will constantly hide because it has no alternative action!
+internal class FiltorbSwimBehaviour : CreatureAction
 {
     public float force = 16;
     public float rotationalForce = 0.5f;
