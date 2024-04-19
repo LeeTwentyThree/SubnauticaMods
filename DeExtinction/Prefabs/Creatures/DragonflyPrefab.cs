@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DeExtinction.MaterialModifiers;
+using DeExtinction.Mono;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
@@ -67,9 +68,11 @@ public class DragonflyPrefab : CreatureAsset
         birdsFlapping.animator = components.Animator;
         birdsFlapping.flyUp = 0.08f;
 
-        var drowning = prefab.AddComponent<Drowning>();
+        var drowning = prefab.AddComponent<SlowDrowning>();
         drowning.damage = 20;
         drowning.animator = components.Animator;
+
+        prefab.AddComponent<BirdHuntBehaviour>().evaluatePriority = 0.5f;
 
         var tailRoot = prefab.SearchChild("Tail");
         var fakeRoot = prefab.transform.Find("FakeTrailManagerRoot");
