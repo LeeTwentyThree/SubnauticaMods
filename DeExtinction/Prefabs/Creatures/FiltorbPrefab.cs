@@ -9,16 +9,19 @@ namespace DeExtinction.Prefabs.Creatures;
 
 internal class FiltorbPrefab : CreatureAsset
 {
-    public FiltorbPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
+    private readonly GameObject _prefabModel;
+
+    public FiltorbPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
     {
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/SmallHerbivores", null, null, 3,
-            Plugin.AssetBundle.LoadAsset<Texture2D>("Filtorb_Ency"),
-            Plugin.AssetBundle.LoadAsset<Sprite>("Filtorb_Popup"));
+            Plugin.AssetBundle.LoadAsset<Texture2D>($"{prefabInfo.ClassID}_Ency"),
+            Plugin.AssetBundle.LoadAsset<Sprite>($"{prefabInfo.ClassID}_Popup"));
+        _prefabModel = prefabModel;
     }
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Filtorb_Prefab"), BehaviourType.SmallFish, EcoTargetType.SmallFish, 130f)
+        var template = new CreatureTemplate(_prefabModel, BehaviourType.SmallFish, EcoTargetType.SmallFish, 130f)
         {
             SwimRandomData = null,
             Mass = 5f,

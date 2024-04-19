@@ -3,7 +3,6 @@ using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.PrefabTemplates;
-using Nautilus.Handlers;
 using UnityEngine;
 
 namespace DeExtinction;
@@ -11,6 +10,7 @@ namespace DeExtinction;
 internal static class CreaturePrefabManager
 {
     public static FiltorbPrefab Filtorb { get; private set; }
+    public static FiltorbPrefab FloralFiltorb { get; private set; }
     public static AxetailPrefab Axetail { get; private set; }
     public static JellySpinnerPrefab JellySpinner { get; private set; }
     public static RibbonRayPrefab RibbonRay { get; private set; }
@@ -42,8 +42,14 @@ internal static class CreaturePrefabManager
     public static void RegisterCreatures()
     {
         Filtorb = new FiltorbPrefab(PrefabInfo.WithTechType("Filtorb")
-            .WithIcon(LoadIcon("Filtorb_Item")));
+            .WithIcon(LoadIcon("Filtorb_Item")),
+            Plugin.AssetBundle.LoadAsset<GameObject>("Filtorb_Prefab"));
         Filtorb.Register();
+        
+        FloralFiltorb = new FiltorbPrefab(PrefabInfo.WithTechType("FloralFiltorb")
+                .WithIcon(LoadIcon("FloralFiltorb_Item")),
+            Plugin.AssetBundle.LoadAsset<GameObject>("FloralFiltorb_Prefab"));
+        FloralFiltorb.Register();
         
         Axetail = new AxetailPrefab(PrefabInfo.WithTechType("Axetail")
             .WithIcon(LoadIcon("Axetail_Item")));
