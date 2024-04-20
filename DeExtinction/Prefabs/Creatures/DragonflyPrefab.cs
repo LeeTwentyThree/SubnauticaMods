@@ -32,9 +32,11 @@ public class DragonflyPrefab : CreatureAsset
             BioReactorCharge = 600f,
             SizeDistribution = new AnimationCurve(new Keyframe(0, 0.9f), new Keyframe(1, 1)),
             LocomotionData = new LocomotionData(1, 0.18f, 3, 0f, false, true),
-            StayAtLeashData = new StayAtLeashData(0.4f, FlyVelocity, 35f),
+            StayAtLeashData = new StayAtLeashData(0.5f, FlyVelocity, 35f),
             BehaviourLODData = new BehaviourLODData(50, 200, 400),
-            AnimateByVelocityData = new AnimateByVelocityData(FlyVelocity, 30, 5)
+            AnimateByVelocityData = new AnimateByVelocityData(FlyVelocity, 30, 5),
+            FleeOnDamageData = null,
+            TraitsData = new CreatureTraitsData(0.01f)
         };
 
         template.SetCreatureComponentType<BirdBehaviour>();
@@ -45,15 +47,17 @@ public class DragonflyPrefab : CreatureAsset
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
     {
         ((BirdBehaviour) components.Creature).worldForces = components.WorldForces;
+        components.Creature.initialHunger = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 0.3f));
         
         var wf = components.WorldForces;
-        wf.underwaterGravity = 0;
+        wf.underwaterGravity = -3;
         wf.aboveWaterGravity = 0;
         wf.aboveWaterDrag = 0;
-        wf.underwaterDrag = 0.1f;
+        wf.underwaterDrag = 2;
         var flyAboveMinHeight = prefab.AddComponent<FlyAboveMinHeight>();
         flyAboveMinHeight.minHeight = 14;
         flyAboveMinHeight.flyVelocity = FlyVelocity;
+        flyAboveMinHeight.evaluatePriority = 0.4f;
 
 #if SUBNAUTICA
         var birdsFlapping = prefab.AddComponent<BirdsFlapping>();
@@ -72,7 +76,7 @@ public class DragonflyPrefab : CreatureAsset
         drowning.damage = 20;
         drowning.animator = components.Animator;
 
-        prefab.AddComponent<BirdHuntBehaviour>().evaluatePriority = 0.5f;
+        prefab.AddComponent<BirdHuntBehaviour>().evaluatePriority = 0.6f;
 
         var tailRoot = prefab.SearchChild("Tail");
         var fakeRoot = prefab.transform.Find("FakeTrailManagerRoot");
@@ -80,6 +84,9 @@ public class DragonflyPrefab : CreatureAsset
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Tail");
         var trailManager = trailManagerBuilder.Apply();
         trailManager.rootSegment = fakeRoot;
+
+        prefab.AddComponent<RandomizeHungerOnStart>();
+        
         yield break;
     }
 

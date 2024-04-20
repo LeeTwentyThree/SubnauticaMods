@@ -6,7 +6,7 @@ public class SlowDrowning : MonoBehaviour
 {
     public float damage = 2f;
     public float damageInterval = 1f;
-    public float oxygenCapacitySeconds = 5f;
+    public float oxygenCapacitySeconds = 10f;
     public Animator animator;
 
     private bool _submerged;
