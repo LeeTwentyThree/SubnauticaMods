@@ -12,12 +12,15 @@ public class BirdHuntBehaviour : CreatureAction
     public float resurfaceVelocity = 8;
     public float minHungerForAttacks = 0.8f;
     public float maxAttackDuration = 20;
+    public float maxUnderwaterTime = 4f;
     public EcoTargetType preyTargetType = EcoTargetType.SmallFish;
 
     private float _timeCanAttackAgain;
     private bool _attacking;
     private float _giveUpTime;
     private GameObject _target;
+    private LiveMixin _targetLiveMixin;
+    
     private WorldForces _worldForces;
     private Locomotion _locomotion;
     private float _defaultForwardRotationSpeed;
@@ -25,6 +28,9 @@ public class BirdHuntBehaviour : CreatureAction
 
     private EcoRegion.TargetFilter _isTargetValidFilter;
     private bool _submergedDuringAttack;
+    private bool _leavingWaterDuringAttack;
+    private float _timeSubmergeStart;
+    private static readonly int Flapping = Animator.StringToHash("flapping");
 
     private void Start()
     {
@@ -64,7 +70,7 @@ public class BirdHuntBehaviour : CreatureAction
     private bool IsTargetValid(IEcoTarget target)
     {
         var targetObject = target.GetGameObject();
-        
+
         if (targetObject == null)
         {
             return false;
@@ -97,10 +103,12 @@ public class BirdHuntBehaviour : CreatureAction
         _giveUpTime = Time.time + maxAttackDuration;
         _worldForces.aboveWaterGravity = 0.5f;
         _submergedDuringAttack = false;
+        _leavingWaterDuringAttack = false;
         _locomotion.forwardRotationSpeed = 0.4f;
         _locomotion.maxAcceleration = 5;
+        creature.GetAnimator().SetBool(Flapping, true);
     }
-    
+
 #if SUBNAUTICA
     public override void StopPerform(Creature creature, float time)
 #elif BELOWZERO
@@ -113,11 +121,14 @@ public class BirdHuntBehaviour : CreatureAction
             var forceFishToSurface = _target.GetComponent<ForceFishToSurface>();
             if (forceFishToSurface) forceFishToSurface.evaluatePriority = 0;
         }
+
         _target = null;
+        _targetLiveMixin = null;
         _timeCanAttackAgain = Time.time + minAttackDelay;
         _worldForces.aboveWaterGravity = 0f;
         _locomotion.forwardRotationSpeed = _defaultForwardRotationSpeed;
         _locomotion.maxAcceleration = _defaultMaxAccel;
+        creature.GetAnimator().SetBool(Flapping, false);
     }
 
 #if SUBNAUTICA
@@ -128,14 +139,21 @@ public class BirdHuntBehaviour : CreatureAction
     {
         if (Ocean.GetDepthOf(gameObject) > 0)
         {
-            swimBehaviour.SwimTo(GetPositionOfSeaBelow() + Vector3.up * resurfaceVelocity, resurfaceVelocity);
+            if (!_submergedDuringAttack)
+                _timeSubmergeStart = Time.time;
             _submergedDuringAttack = true;
+            if (Time.time > _timeSubmergeStart + maxUnderwaterTime || _target == null ||
+                (_targetLiveMixin != null && !_targetLiveMixin.IsAlive()))
+            {
+                swimBehaviour.SwimTo(GetPositionOfSeaBelow() + Vector3.up * resurfaceVelocity, resurfaceVelocity);
+                _leavingWaterDuringAttack = true;
+            }
         }
     }
 
     private void Update()
     {
-        if (_attacking && _target != null && !_submergedDuringAttack)
+        if (_attacking && _target != null && !_leavingWaterDuringAttack)
         {
             swimBehaviour.SwimTo(_target.transform.position, diveVelocity);
         }
@@ -143,19 +161,22 @@ public class BirdHuntBehaviour : CreatureAction
 
     private void ScanForPrey()
     {
-        if (!isActiveAndEnabled || Time.time < _timeCanAttackAgain || creature.Hunger.Value < minHungerForAttacks || EcoRegionManager.main == null || _attacking || _target != null)
+        if (!isActiveAndEnabled || Time.time < _timeCanAttackAgain || creature.Hunger.Value < minHungerForAttacks ||
+            EcoRegionManager.main == null || _attacking || _target != null)
         {
             return;
         }
 
-        var nearestTarget = EcoRegionManager.main.FindNearestTarget(preyTargetType, GetPositionOfSeaBelow(), _isTargetValidFilter, 2);
+        var nearestTarget =
+            EcoRegionManager.main.FindNearestTarget(preyTargetType, GetPositionOfSeaBelow(), _isTargetValidFilter, 2);
 
         if (nearestTarget == null || nearestTarget.GetGameObject() == null)
         {
             return;
         }
-        
+
         _target = nearestTarget.GetGameObject();
+        _targetLiveMixin = _target.GetComponent<LiveMixin>();
     }
 
     private Vector3 GetPositionOfSeaBelow()

@@ -6,7 +6,7 @@ public class SlowDrowning : MonoBehaviour
 {
     public float damage = 2f;
     public float damageInterval = 1f;
-    public float oxygenCapacitySeconds = 10f;
+    public float oxygenCapacitySeconds = 15f;
     public Animator animator;
 
     private bool _submerged;
@@ -25,7 +25,6 @@ public class SlowDrowning : MonoBehaviour
         _liveMixin = GetComponent<LiveMixin>();
     }
 
-    // Token: 0x06000995 RID: 2453 RVA: 0x0003E080 File Offset: 0x0003C280
     private void Update()
     {
         var currentlySubmerged = Ocean.GetDepthOf(gameObject) > 0;

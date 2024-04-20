@@ -50,7 +50,7 @@ public class DragonflyPrefab : CreatureAsset
         components.Creature.initialHunger = new AnimationCurve(new Keyframe(0, 0), new Keyframe(1, 0.3f));
         
         var wf = components.WorldForces;
-        wf.underwaterGravity = -3;
+        wf.underwaterGravity = -1;
         wf.aboveWaterGravity = 0;
         wf.aboveWaterDrag = 0;
         wf.underwaterDrag = 2;
@@ -86,6 +86,9 @@ public class DragonflyPrefab : CreatureAsset
         trailManager.rootSegment = fakeRoot;
 
         prefab.AddComponent<RandomizeHungerOnStart>();
+
+        var birdAttack = prefab.transform.Find("FishAttackTrigger").gameObject.AddComponent<BirdGrabFish>();
+        birdAttack.fishParent = prefab.transform.Find("FishParent");
         
         yield break;
     }
