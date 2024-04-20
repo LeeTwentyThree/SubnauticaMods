@@ -175,6 +175,18 @@ internal static class CreaturePrefabManager
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
+            FloralFiltorb,
+            null,
+            null,
+            LoadIcon("Filtorb_Cooked"),
+            null,
+            null,
+            LoadIcon("Filtorb_Cured"),
+            new EdibleData(26, 18, true),
+            new VFXFabricatingData("CraftModel", 0, 0.3f)
+        );
+        
+        CookedCreatureHandler.RegisterAllCreatureFood(
             Axetail,
             null,
             null,
