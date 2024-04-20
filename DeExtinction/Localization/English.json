@@ -123,8 +123,13 @@
     "Tooltip_Twisteel": "Thin eel-like organism, raised in containment.",
     "TwisteelEgg": "Twisteel egg",
     "Tooltip_TwisteelEgg": "Twisteels hatch from these.",
-    "Ency_Twisteel": "Twisteel",
-    "EncyDesc_Twisteel": "A large eel-like predator found in a variety of environments.\n\n1. Body:\nA long and flexible body allows the Twisteel to snake around the environment with a low profile while hunting for prey, often in small groups. The Twisteel appears to share many characteristics with other shark-like creatures found on Planet 4546B.\n\n2. Jaws:\nDistantly related to other lifeforms on the planet possessing a quad-jaw arrangement, the lateral pair of jaws have been reduced to a vestigial point. The remaining jaws reach lengths of up to 3m, and are filled with rows of large teeth to trap relatively large prey items.\n\nAssessment: Avoid",
+    "Ency_Twisteel": "Elder Twisteel",
+    "EncyDesc_Twisteel": "A large eel-like predator found in a variety of environments. After reaching adulthood, Twisteels leave their nesting area and only ever return to lay eggs.\n\n1. Body:\nA long and flexible body allows the Twisteel to snake around the environment with a low profile while hunting for prey, often in small groups. The Twisteel appears to share many characteristics with other shark-like creatures found on Planet 4546B.\n\n2. Jaws:\nDistantly related to other lifeforms on the planet possessing a quad-jaw arrangement, the lateral pair of jaws have been reduced to a vestigial point. The remaining jaws reach lengths of up to 3m, and are filled with rows of large teeth to trap relatively large prey items.\n\nAssessment: Avoid",
+
+    "TwisteelJuvenile": "Twisteel",
+    "Tooltip_TwisteelJuvenile": "Thin eel-like organism, raised in containment.",
+    "Ency_TwisteelJuvenile": "Twisteel",
+    "EncyDesc_TwisteelJuvenile": "An eel-like predator found in a deep canyon.\n\n1. Body:\nA long and flexible body allows the Twisteel to snake around the environment with a low profile while hunting for prey, often in small groups. The Twisteel appears to share many characteristics with other shark-like creatures found on Planet 4546B.\n\n2. Jaws:\nDistantly related to other lifeforms on the planet possessing a quad-jaw arrangement, the lateral pair of jaws have been reduced to a vestigial point. The remaining jaws reach lengths of up to 3m, and are filled with rows of large teeth to trap relatively large prey items.\n\nAssessment: Avoid",
 
     "GulperLeviathan": "Gulper leviathan",
     "Tooltip_GulperLeviathan": "Leviathan-class predator with a huge mouth. How did you pick this up?",
