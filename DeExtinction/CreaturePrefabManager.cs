@@ -25,6 +25,7 @@ internal static class CreaturePrefabManager
     public static GrandGliderPrefab GrandGlider { get; private set; }
     public static TwisteelPrefab Twisteel { get; private set; }
     public static GulperLeviathanPrefab GulperPrefab { get; private set; }
+    public static GulperLeviathanPrefab GulperJuvenilePrefab { get; private set; }
     public static GulperLeviathanBabyPrefab GulperBabyPrefab { get; private set; }
     public static DragonflyPrefab Dragonfly { get; private set; }
     public static PyrambassisPrefab Pyrambassis { get; private set; }
@@ -142,8 +143,13 @@ internal static class CreaturePrefabManager
         Twisteel.EggInfo = TwisteelEgg;
         Twisteel.Register();
         
-        GulperPrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathan"));
+        GulperPrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathan"),
+            Plugin.AssetBundle.LoadAsset<GameObject>("Gulper_Prefab"), "Gulper_Ency", "Gulper_Popup");
         GulperPrefab.Register();
+        
+        GulperJuvenilePrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathanJuvenile"),
+            Plugin.AssetBundle.LoadAsset<GameObject>("GulperJuvenile_Prefab"), "Gulper_Ency", "Gulper_Popup");
+        GulperJuvenilePrefab.Register();
         
         GulperBabyPrefab = new GulperLeviathanBabyPrefab(PrefabInfo.WithTechType("GulperLeviathanBaby")
             .WithIcon(LoadIcon("GulperBaby_Sprite"))

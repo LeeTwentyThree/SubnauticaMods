@@ -12,16 +12,19 @@ namespace DeExtinction.Prefabs.Creatures;
 
 internal class GulperLeviathanPrefab : CreatureAsset
 {
-    public GulperLeviathanPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
+    private readonly GameObject _prefabModel;
+
+    public GulperLeviathanPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
     {
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 8,
-            Plugin.AssetBundle.LoadAsset<Texture2D>("Gulper_Ency"),
-            Plugin.AssetBundle.LoadAsset<Sprite>("Gulper_Popup"));
+            Plugin.AssetBundle.LoadAsset<Texture2D>(encyImageName),
+            Plugin.AssetBundle.LoadAsset<Sprite>(encyPopupName));
+        _prefabModel = prefabModel;
     }
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Gulper_Prefab"),
+        var template = new CreatureTemplate(_prefabModel,
             BehaviourType.Leviathan, EcoTargetType.Leviathan, 5000)
         {
             SwimRandomData = new SwimRandomData(0.1f, 12f, new Vector3(40, 6, 40), 4f, 1f, true),
