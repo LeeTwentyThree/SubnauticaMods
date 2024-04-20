@@ -55,6 +55,9 @@ public class BirdGrabFish : MonoBehaviour
         {
             _heldFish.GetComponent<LiveMixin>().TakeDamage(60, transform.position);
             _heldFish.transform.parent = fishParent;
+            var rb = _heldFish.GetComponent<Rigidbody>();
+            if (rb) rb.isKinematic = true;
+            _heldFish.transform.localPosition = Vector3.zero;
         }
     }
     
