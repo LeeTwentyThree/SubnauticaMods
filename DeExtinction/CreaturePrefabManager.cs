@@ -187,7 +187,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("Filtorb_Cured"),
             new EdibleData(5, 20, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -199,7 +199,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("Filtorb_Cured"),
             new EdibleData(26, 18, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -211,7 +211,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("Axetail_Cured"),
             new EdibleData(20, 13, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
 
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -223,7 +223,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("JellySpinner_Cured"),
             new EdibleData(9, 2, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -235,7 +235,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("RibbonRay_Cured"),
             new EdibleData(36, 7, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -247,7 +247,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("Trianglefish_Cured"),
             new EdibleData(22, 3, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -259,7 +259,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("RCP_Cured"),
             new EdibleData(30, 9, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -271,7 +271,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("SCP_Cured"),
             new EdibleData(30, 9, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -283,7 +283,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("ECP_Cured"),
             new EdibleData(30, 9, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -295,7 +295,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("ACP_Cured"),
             new EdibleData(30, 9, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
@@ -307,7 +307,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("CCP_Cured"),
             new EdibleData(30, 9, true),
-            new VFXFabricatingData("CraftModel", 0, 0.3f)
+            new VFXFabricatingData("CraftModel", 0, 0.3f, new Vector3(0, 0.03f, 0f), 30, new Vector3(270, 90, 0))
         );
     }
     
