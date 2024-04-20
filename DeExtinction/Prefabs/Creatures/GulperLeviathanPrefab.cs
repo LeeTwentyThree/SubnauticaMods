@@ -14,11 +14,11 @@ internal class GulperLeviathanPrefab : CreatureAsset
 {
     private readonly GameObject _prefabModel;
 
-    public GulperLeviathanPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
+    public GulperLeviathanPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
     {
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 8,
-            Plugin.AssetBundle.LoadAsset<Texture2D>(encyImageName),
-            Plugin.AssetBundle.LoadAsset<Sprite>(encyPopupName));
+            Plugin.AssetBundle.LoadAsset<Texture2D>("Gulper_Ency"),
+            Plugin.AssetBundle.LoadAsset<Sprite>("Gulper_Popup"));
         _prefabModel = prefabModel;
     }
 

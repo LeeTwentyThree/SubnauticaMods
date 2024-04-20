@@ -12,18 +12,21 @@ namespace DeExtinction.Prefabs.Creatures;
 
 public class TwisteelPrefab : CreatureAsset
 {
+    private readonly GameObject _prefabModel;
+
     public PrefabInfo EggInfo { get; set; }
 
-    public TwisteelPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
+    public TwisteelPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
     {
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, 7,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Twisteel_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("Twisteel_Popup"));
+        _prefabModel = prefabModel;
     }
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Twisteel_Prefab"),
+        var template = new CreatureTemplate(_prefabModel,
             BehaviourType.Shark, EcoTargetType.Shark, 250)
         {
             CellLevel = LargeWorldEntity.CellLevel.Medium,

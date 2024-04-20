@@ -24,6 +24,7 @@ internal static class CreaturePrefabManager
     public static ThalassaceanPrefab JasperThalassacean { get; private set; }
     public static GrandGliderPrefab GrandGlider { get; private set; }
     public static TwisteelPrefab Twisteel { get; private set; }
+    public static TwisteelPrefab TwisteelJuvenile { get; private set; }
     public static GulperLeviathanPrefab GulperPrefab { get; private set; }
     public static GulperLeviathanPrefab GulperJuvenilePrefab { get; private set; }
     public static GulperLeviathanBabyPrefab GulperBabyPrefab { get; private set; }
@@ -137,18 +138,27 @@ internal static class CreaturePrefabManager
 
         Twisteel = new TwisteelPrefab(PrefabInfo.WithTechType("Twisteel")
             .WithIcon(LoadIcon("Twisteel_Item"))
-            .WithSizeInInventory(new Vector2int(3, 3)));
+            .WithSizeInInventory(new Vector2int(3, 3)),
+            Plugin.AssetBundle.LoadAsset<GameObject>("Twisteel_Prefab")
+            );
         TwisteelEgg = CreateEggPrefab("TwisteelEgg", "TwisteelEgg_Prefab",
             "TwisteelEgg_Item", new Vector2int(2, 2), Twisteel.PrefabInfo.TechType, 1.5f);
         Twisteel.EggInfo = TwisteelEgg;
         Twisteel.Register();
         
+        TwisteelJuvenile = new TwisteelPrefab(PrefabInfo.WithTechType("TwisteelJuvenile")
+                .WithIcon(LoadIcon("Twisteel_Item"))
+                .WithSizeInInventory(new Vector2int(2, 2)),
+            Plugin.AssetBundle.LoadAsset<GameObject>("TwisteelJuvenile_Prefab")
+        );
+        TwisteelJuvenile.Register();
+        
         GulperPrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathan"),
-            Plugin.AssetBundle.LoadAsset<GameObject>("Gulper_Prefab"), "Gulper_Ency", "Gulper_Popup");
+            Plugin.AssetBundle.LoadAsset<GameObject>("Gulper_Prefab"));
         GulperPrefab.Register();
         
         GulperJuvenilePrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathanJuvenile"),
-            Plugin.AssetBundle.LoadAsset<GameObject>("GulperJuvenile_Prefab"), "Gulper_Ency", "Gulper_Popup");
+            Plugin.AssetBundle.LoadAsset<GameObject>("GulperJuvenile_Prefab"));
         GulperJuvenilePrefab.Register();
         
         GulperBabyPrefab = new GulperLeviathanBabyPrefab(PrefabInfo.WithTechType("GulperLeviathanBaby")
