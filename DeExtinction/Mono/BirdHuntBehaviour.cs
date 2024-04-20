@@ -6,9 +6,10 @@ namespace DeExtinction.Mono;
 public class BirdHuntBehaviour : CreatureAction
 {
     public float minAttackDelay = 20f;
-    public float maxHorizontalDistance = 16f;
+    public float maxHorizontalDistance = 10f;
     public float maxFishDepth = 10f;
     public float diveVelocity = 12f;
+    public float swimVelocity = 20;
     public float resurfaceVelocity = 8;
     public float minHungerForAttacks = 0.8f;
     public float maxAttackDuration = 20;
@@ -30,7 +31,9 @@ public class BirdHuntBehaviour : CreatureAction
     private bool _submergedDuringAttack;
     private bool _leavingWaterDuringAttack;
     private float _timeSubmergeStart;
+    
     private static readonly int Flapping = Animator.StringToHash("flapping");
+    private static readonly int Swimming = Animator.StringToHash("swimming");
 
     private void Start()
     {
@@ -129,6 +132,7 @@ public class BirdHuntBehaviour : CreatureAction
         _locomotion.forwardRotationSpeed = _defaultForwardRotationSpeed;
         _locomotion.maxAcceleration = _defaultMaxAccel;
         creature.GetAnimator().SetBool(Flapping, false);
+        creature.GetAnimator().SetBool(Swimming, false);
     }
 
 #if SUBNAUTICA
@@ -140,7 +144,11 @@ public class BirdHuntBehaviour : CreatureAction
         if (Ocean.GetDepthOf(gameObject) > 0)
         {
             if (!_submergedDuringAttack)
+            {
                 _timeSubmergeStart = Time.time;
+                creature.GetAnimator().SetBool(Swimming, true);
+            }
+
             _submergedDuringAttack = true;
             if (Time.time > _timeSubmergeStart + maxUnderwaterTime || _target == null ||
                 (_targetLiveMixin != null && !_targetLiveMixin.IsAlive()))
@@ -155,7 +163,7 @@ public class BirdHuntBehaviour : CreatureAction
     {
         if (_attacking && _target != null && !_leavingWaterDuringAttack)
         {
-            swimBehaviour.SwimTo(_target.transform.position, diveVelocity);
+            swimBehaviour.SwimTo(_target.transform.position, _submergedDuringAttack ? swimVelocity : diveVelocity);
         }
     }
 

@@ -41,7 +41,7 @@ public class BirdGrabFish : MonoBehaviour
         fishTransform.parent = fishParent;
         fishTransform.localPosition = Vector3.zero;
         fishTransform.localRotation = Quaternion.identity;
-        foreach (var collider in fish.GetComponentsInChildren<Collider>())
+        foreach (var collider in fish.GetComponentsInChildren<Collider>(true))
         {
             collider.enabled = false;
         }
@@ -54,6 +54,7 @@ public class BirdGrabFish : MonoBehaviour
         if (_heldFish != null)
         {
             _heldFish.GetComponent<LiveMixin>().TakeDamage(60, transform.position);
+            _heldFish.transform.parent = fishParent;
         }
     }
     
