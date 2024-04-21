@@ -16,7 +16,7 @@ public class DragonflyPrefab : CreatureAsset
     
     public DragonflyPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, 4,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Carnivores, null, null, 4,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Dragonfly_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("Dragonfly_Popup"));
     }

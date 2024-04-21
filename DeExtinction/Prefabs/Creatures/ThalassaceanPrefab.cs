@@ -19,7 +19,7 @@ public class ThalassaceanPrefab : CreatureAsset
     public ThalassaceanPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
     {
         _prefabModel = prefabModel;
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, 8,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Carnivores, null, null, 8,
             Plugin.AssetBundle.LoadAsset<Texture2D>(encyImageName),
             Plugin.AssetBundle.LoadAsset<Sprite>(encyPopupName));
     }

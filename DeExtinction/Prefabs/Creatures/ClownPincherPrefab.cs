@@ -16,7 +16,7 @@ internal class ClownPincherPrefab : CreatureAsset
     public ClownPincherPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
     {
         _prefabModel = prefabModel;
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Scavengers", null, null, 2,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Scavengers, null, null, 2,
             Plugin.AssetBundle.LoadAsset<Texture2D>(encyImageName),
             Plugin.AssetBundle.LoadAsset<Sprite>(encyPopupName));
     }

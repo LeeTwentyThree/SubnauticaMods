@@ -15,7 +15,7 @@ public class PyrambassisPrefab : CreatureAsset
 
     public PyrambassisPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, 6,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Carnivores, null, null, 6,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Pyrambassis_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("Pyrambassis_Popup"));
     }

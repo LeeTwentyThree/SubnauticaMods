@@ -11,7 +11,7 @@ internal class AxetailPrefab : CreatureAsset
 {
     public AxetailPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/SmallHerbivores", null, null, 3,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.SmallHerbivores, null, null, 3,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Axetail_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("Axetail_Popup"));
     }

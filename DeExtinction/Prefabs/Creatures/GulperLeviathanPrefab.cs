@@ -16,7 +16,7 @@ internal class GulperLeviathanPrefab : CreatureAsset
 
     public GulperLeviathanPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 8,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Leviathans, null, null, 8,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Gulper_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("Gulper_Popup"));
         _prefabModel = prefabModel;

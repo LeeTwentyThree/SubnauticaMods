@@ -19,7 +19,7 @@ public class TwisteelPrefab : CreatureAsset
 
     public TwisteelPrefab(PrefabInfo prefabInfo, GameObject prefabModel, bool juvenile) : base(prefabInfo)
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, _juvenile ? 4 : 8,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Carnivores, null, null, _juvenile ? 4 : 8,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Twisteel_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("Twisteel_Popup"));
         _prefabModel = prefabModel;

@@ -11,7 +11,7 @@ internal class JellySpinnerPrefab : CreatureAsset
 {
     public JellySpinnerPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/SmallHerbivores", null, null, 1,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.SmallHerbivores, null, null, 1,
             Plugin.AssetBundle.LoadAsset<Texture2D>("JellySpinner_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("JellySpinner_Popup"));
     }

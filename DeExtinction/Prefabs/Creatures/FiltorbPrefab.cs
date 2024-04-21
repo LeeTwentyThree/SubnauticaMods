@@ -13,7 +13,7 @@ internal class FiltorbPrefab : CreatureAsset
 
     public FiltorbPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/SmallHerbivores", null, null, 3,
+        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.SmallHerbivores, null, null, 3,
             Plugin.AssetBundle.LoadAsset<Texture2D>($"{prefabInfo.ClassID}_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>($"{prefabInfo.ClassID}_Popup"));
         _prefabModel = prefabModel;
