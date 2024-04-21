@@ -26,7 +26,7 @@ public static class CreatureAudio
             {
                 "ClownPincherIdle1", "ClownPincherIdle2", "ClownPincherIdle3", "ClownPincherIdle4", "ClownPincherIdle5"
             },
-            CreaturesBus, 2, 16);
+            CreaturesBus, 2, 8f);
 
         RegisterSoundWithVariants("GulperBite",
             new[]
