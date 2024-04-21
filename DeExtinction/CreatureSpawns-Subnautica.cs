@@ -698,13 +698,19 @@ public static partial class CreatureSpawns
                 {
                     biome = BiomeType.SafeShallows_Grass,
                     count = 2,
-                    probability = 0.24f
+                    probability = 0.6f
+                },
+                new()
+                {
+                    biome = BiomeType.SafeShallows_Plants,
+                    count = 2,
+                    probability = 0.2f
                 },
                 new()
                 {
                     biome = BiomeType.SafeShallows_SandFlat,
                     count = 2,
-                    probability = 0.23f
+                    probability = 0.5f
                 },
                 new()
                 {
