@@ -39,7 +39,7 @@ public class TwisteelPrefab : CreatureAsset
             AvoidObstaclesData = new AvoidObstaclesData(0.4f, _juvenile ? 4f : 6f, true, 9f, 10f),
             BioReactorCharge = 630,
             Mass = 300,
-            StayAtLeashData = new StayAtLeashData(0.2f, _juvenile ? 4f : 6f, 30f),
+            StayAtLeashData = new StayAtLeashData(0.2f, _juvenile ? 4f : 6f, _juvenile ? 15 : 30),
             LocomotionData = new LocomotionData(10f, 0.3f),
             EyeFOV = -0.7f,
             BehaviourLODData = new BehaviourLODData(20, 100, 150),
