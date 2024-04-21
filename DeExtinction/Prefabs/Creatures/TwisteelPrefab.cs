@@ -51,7 +51,8 @@ public class TwisteelPrefab : CreatureAsset
                 new(EcoTargetType.Shark, 1f, 30, 2),
                 new(EcoTargetType.SmallFish, 0.5f, 15, 1, true, false, 0.3f),
                 new(EcoTargetType.MediumFish, 0.5f, 15, 1, true, false, 0.5f),
-            }
+            },
+            SwimBehaviourData = new SwimBehaviourData(0.8f)
         };
         template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.01f, 0.1f, 0.6f, 1.5f, false, true,
             EggInfo.ClassID));
@@ -87,6 +88,8 @@ public class TwisteelPrefab : CreatureAsset
         trailManagerBuilder.SetTrailArrayToChildrenWithKeywords("Spine");
         var trailManager = trailManagerBuilder.Apply();
         trailManager.rootSegment = prefab.transform.Find("FakeTrailManagerRoot");
+
+        components.Rigidbody.inertiaTensor = new Vector3(1526.97f, 1526.97f, 62.35f);
 
         yield break;
     }
