@@ -6,7 +6,7 @@ namespace DeExtinction;
 
 public static partial class CreatureSpawns
 {
-    public static partial void Register()
+    public static partial void RegisterLootDistribution()
     {
         RegisterFishSpawns(CreaturePrefabManager.AmberClownPincher,
             new List<LootDistributionData.BiomeData>()
@@ -837,6 +837,11 @@ public static partial class CreatureSpawns
                     count = 1
                 }
             });
+    }
+
+    public static partial void RegisterCoordinatedSpawns()
+    {
+        
     }
 
     public static partial void ModifyBaseGameSpawns()

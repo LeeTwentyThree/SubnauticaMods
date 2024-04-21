@@ -6,8 +6,9 @@ namespace DeExtinction;
 
 public static partial class CreatureSpawns
 {
-    public static partial void Register();
+    public static partial void RegisterLootDistribution();
     public static partial void ModifyBaseGameSpawns();
+    public static partial void RegisterCoordinatedSpawns();
 
     private static void RegisterFishSpawns(CreatureAsset creature, List<LootDistributionData.BiomeData> biomeData)
     {
