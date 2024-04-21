@@ -84,7 +84,7 @@ public static class CreatureAudio
             {
                 "TwisteelRoar_Attack", "TwisteelBite1", "TwisteelBite2"
             },
-            CreaturesBus, 5, 40);
+            CreaturesBus, 5, 25);
         
         RegisterSoundWithVariants("TwisteelCinematicAttack",
             new[]
