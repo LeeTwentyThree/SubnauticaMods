@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using Nautilus.Assets;
 using Nautilus.Handlers;
+using UnityEngine;
 
 #if SUBNAUTICA
 namespace DeExtinction;
@@ -162,6 +164,12 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.Kelp_GrassDense,
+                    probability = 0.6f,
+                    count = 4
+                },
+                new()
+                {
+                    biome = BiomeType.Kelp_Sand,
                     probability = 0.6f,
                     count = 4
                 },
@@ -369,7 +377,7 @@ public static partial class CreatureSpawns
                 {
                     biome = BiomeType.DeepGrandReef_Ground,
                     count = 3,
-                    probability = 0.8f
+                    probability = 0.35f
                 },
                 new()
                 {
@@ -397,19 +405,19 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.Kelp_CaveFloor,
-                    count = 5,
+                    count = 4,
                     probability = 0.9f
                 },
                 new()
                 {
                     biome = BiomeType.Kelp_Sand,
                     count = 3,
-                    probability = 0.9f
+                    probability = 0.4f
                 },
                 new()
                 {
                     biome = BiomeType.Kelp_DenseVine,
-                    count = 3,
+                    count = 2,
                     probability = 0.1f
                 },
                 new()
@@ -781,13 +789,13 @@ public static partial class CreatureSpawns
                 {
                     biome = BiomeType.BloodKelp_UniqueCreatures,
                     probability = 0.04f,
-                    count = 1
+                    count = 2
                 },
                 new()
                 {
                     biome = BiomeType.BloodKelp_TrenchWall,
                     probability = 0.1f,
-                    count = 1
+                    count = 2
                 },
                 new()
                 {
@@ -805,11 +813,17 @@ public static partial class CreatureSpawns
                 {
                     biome = BiomeType.BloodKelp_Wall,
                     probability = 0.02f,
-                    count = 1
+                    count = 2
+                },
+                new()
+                {
+                    biome = BiomeType.DeepGrandReef_Wall,
+                    probability = 0.05f,
+                    count = 2
                 }
             });
-        
-                RegisterFishSpawns(CreaturePrefabManager.Pyrambassis,
+
+        RegisterFishSpawns(CreaturePrefabManager.Pyrambassis,
             new List<LootDistributionData.BiomeData>
             {
                 new()
@@ -821,6 +835,12 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.DeepGrandReef_Ground,
+                    probability = 0.02f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.DeepGrandReef_BlueCoral,
                     probability = 0.01f,
                     count = 1
                 },
@@ -843,28 +863,273 @@ public static partial class CreatureSpawns
                     count = 1
                 }
             });
+
+
+        RegisterFishSpawns(CreaturePrefabManager.Dragonfly,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.Mountains_Birds,
+                    probability = 2.5f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.FloatingIslands_Birds,
+                    probability = 0.2f,
+                    count = 1
+                }
+            });
+
+        RegisterEggSpawns(CreaturePrefabManager.GrandGliderEgg,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.GrandReef_CaveFloor,
+                    count = 1,
+                    probability = 0.5f
+                },
+                new()
+                {
+                    biome = BiomeType.Mountains_CaveFloor,
+                    count = 1,
+                    probability = 3f
+                },
+                new()
+                {
+                    biome = BiomeType.Mesas_Top,
+                    count = 1,
+                    probability = 5f
+                },
+                new()
+                {
+                    biome = BiomeType.CragField_Ground,
+                    count = 1,
+                    probability = 0.2f
+                },
+                new()
+                {
+                    biome = BiomeType.CragField_Rock,
+                    count = 1,
+                    probability = 0.2f
+                },
+                new()
+                {
+                    biome = BiomeType.CragField_Sand,
+                    count = 1,
+                    probability = 0.2f
+                }
+            });
+
+        RegisterEggSpawns(CreaturePrefabManager.GulperLeviathanEgg,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.UnderwaterIslands_IslandPlants,
+                    count = 1,
+                    probability = 0.24f
+                }
+            });
+
+        RegisterEggSpawns(CreaturePrefabManager.JasperThalassaceanEgg,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.LostRiverCorridor_LakeFloor,
+                    count = 1,
+                    probability = 1f
+                },
+                new()
+                {
+                    biome = BiomeType.LostRiverJunction_LakeFloor,
+                    count = 1,
+                    probability = 1f
+                },
+                new()
+                {
+                    biome = BiomeType.BonesField_Lake_Floor,
+                    count = 1,
+                    probability = 1f
+                },
+                new()
+                {
+                    biome = BiomeType.BonesField_Cave_Ground,
+                    count = 1,
+                    probability = 1f
+                },
+                new()
+                {
+                    biome = BiomeType.Canyon_Lake_Floor,
+                    count = 1,
+                    probability = 1f
+                }
+            });
+
+        RegisterEggSpawns(CreaturePrefabManager.StellarThalassaceanEgg,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.GrandReef_CaveFloor,
+                    count = 1,
+                    probability = 2f
+                },
+                new()
+                {
+                    biome = BiomeType.KooshZone_CaveFloor,
+                    count = 1,
+                    probability = 2f
+                },
+                new()
+                {
+                    biome = BiomeType.Dunes_CaveFloor,
+                    count = 1,
+                    probability = 2f
+                }
+            });
+
+        RegisterEggSpawns(CreaturePrefabManager.TwisteelEgg,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.UnderwaterIslands_IslandCaveFloor,
+                    count = 1,
+                    probability = 0.8f
+                },
+                new()
+                {
+                    biome = BiomeType.UnderwaterIslands_ValleyFloor,
+                    count = 1,
+                    probability = 0.09f
+                },
+                new()
+                {
+                    biome = BiomeType.BloodKelp_Grass,
+                    count = 1,
+                    probability = 0.05f
+                }
+            });
     }
 
     public static partial void RegisterCoordinatedSpawns()
     {
-        
+        // --- GULPER LEVIATHAN ---
+
+        // Mountains & Bulb Zone 1
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(1169, -370, 903)));
+        // Mountains & Bulb Zone 2
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(1400, -348, 1281)));
+        // Underwater Islands 1
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(-72, -300, 867)));
+        // Underwater Islands 1
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(-174, -460, 1070)));
+        // Underwater Islands & Mountains Border
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(-49, -308, 1184)));
+        // Underwater Islands & Bulb Zone Border
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(-265, -287, 1118)));
+        // Floating Island
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(-717, -100, -1088)));
+        // Lifepod 2
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(-573, -448, 1311)));
+        // Blood Kelp Trench
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperPrefab.ClassID,
+            new Vector3(-970, -216, -509)));
+
+        // --- GULPER LEVIATHAN BABY ---
+
+        // Mountain Island
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+            new Vector3(364, -10, 1172)));
+        // Mountains & Bulb Zone Border
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+            new Vector3(1135, -364, 900)));
+        // Floating Island 1
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+            new Vector3(-711, -12, -1071)));
+        // Floating Island 2
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.GulperBabyPrefab.ClassID,
+            new Vector3(-690, -3, -948)));
+
+        // --- GULPER LEVIATHAN EGG ---
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(
+            CreaturePrefabManager.GulperLeviathanEgg.TechType,
+            new SpawnLocation[]
+            {
+                new(new Vector3(-702.51f, -0.86f, -963.24f), new Vector3(18, 358, 345)),
+                new(new Vector3(-715.52f, -0.97f, -951.93f), new Vector3(0, 0, 250)),
+                new(new Vector3(-696.33f, -1f, -1069.41f), new Vector3(13, 0, 2)),
+                new(new Vector3(-727.81f, 0.10f, -1085.91f), new Vector3(278, 0, 354)),
+                new(new Vector3(393.37f, -9.91f, 1187.26f), new Vector3(77, 60, 180)),
+                new(new Vector3(-831.56f, -1.95f, -966.07f), new Vector3(77, 60, 180))
+            }
+        );
+
+
+        // -- DRAGONFLY --
+
+        var dragonflyRandomGenerator = new System.Random(19872024);
+        for (int i = 0; i < 100; i++)
+        {
+            var angle = (float) dragonflyRandomGenerator.NextDouble() * Mathf.PI * 2f;
+            var distance = (float) dragonflyRandomGenerator.NextDouble() * 1800;
+            var height = 30 + (float) dragonflyRandomGenerator.NextDouble() * 70;
+            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+                new Vector3(Mathf.Cos(angle) * distance, height, Mathf.Sin(angle) * distance)));
+        }
+
+        // Aurora dragonflies
+
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+            new Vector3(1438.42f, 59.95f, 371.04f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+            new Vector3(1497.71f, 32.29f, 333.62f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+            new Vector3(1544.99f, 27.92f, 274.32f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+            new Vector3(1490.97f, 36.88f, 264.48f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
+            new Vector3(1204.73f, 125.56f, 55.31f)));
     }
 
     public static partial void ModifyBaseGameSpawns()
     {
         var boneSharkClassId = CraftData.GetClassIdForTechType(TechType.BoneShark);
-        LootDistributionHandler.EditLootDistributionData(boneSharkClassId, BiomeType.UnderwaterIslands_OpenDeep_CreatureOnly, 0f, 0);
-        LootDistributionHandler.EditLootDistributionData(boneSharkClassId, BiomeType.UnderwaterIslands_ValleyFloor, 0f, 0);
-        LootDistributionHandler.EditLootDistributionData(boneSharkClassId, BiomeType.UnderwaterIslands_IslandSides, 0f, 0);
-        LootDistributionHandler.EditLootDistributionData(boneSharkClassId, BiomeType.UnderwaterIslands_ValleyLedge, 0f, 0);
+        LootDistributionHandler.EditLootDistributionData(boneSharkClassId,
+            BiomeType.UnderwaterIslands_OpenDeep_CreatureOnly, 0f, 0);
+        LootDistributionHandler.EditLootDistributionData(boneSharkClassId, BiomeType.UnderwaterIslands_ValleyFloor, 0f,
+            0);
+        LootDistributionHandler.EditLootDistributionData(boneSharkClassId, BiomeType.UnderwaterIslands_IslandSides, 0f,
+            0);
+        LootDistributionHandler.EditLootDistributionData(boneSharkClassId, BiomeType.UnderwaterIslands_ValleyLedge, 0f,
+            0);
         var bloomPlanktonClassId = CraftData.GetClassIdForTechType(TechType.Bloom);
         LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.TreeCove_Ground, 0.05f, 1);
         LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.TreeCove_Wall, 0.05f, 1);
         LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.TreeCove_Ceiling, 0.05f, 1);
-        LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.TreeCove_TreeOpen_CreatureOnly, 0.25f, 1);
+        LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.TreeCove_TreeOpen_CreatureOnly,
+            0.25f, 1);
         LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.Kelp_CaveFloor, 0.3f, 1);
-        LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.GrassyPlateaus_CaveCeiling, 0.4f, 1);
-        LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.DeepGrandReef_Ceiling, 0.25f, 1);
+        LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.GrassyPlateaus_CaveCeiling,
+            0.4f, 1);
+        LootDistributionHandler.EditLootDistributionData(bloomPlanktonClassId, BiomeType.DeepGrandReef_Ceiling, 0.25f,
+            1);
+        var whiteCaveCrawler = "7ce2ca9d-6154-4988-9b02-38f670e741b8";
+        LootDistributionHandler.EditLootDistributionData(whiteCaveCrawler, BiomeType.DeepGrandReef_Ceiling, 0.5f, 3);
+        LootDistributionHandler.EditLootDistributionData(whiteCaveCrawler, BiomeType.DeepGrandReef_Wall, 0.2f, 3);
+        LootDistributionHandler.EditLootDistributionData(whiteCaveCrawler, BiomeType.SeaTreaderPath_CaveCeiling, 2f, 1);
     }
 }
 #endif

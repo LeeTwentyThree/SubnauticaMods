@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ECCLibrary;
+using Nautilus.Assets;
 using Nautilus.Handlers;
 
 namespace DeExtinction;
@@ -13,5 +14,10 @@ public static partial class CreatureSpawns
     private static void RegisterFishSpawns(CreatureAsset creature, List<LootDistributionData.BiomeData> biomeData)
     {
         LootDistributionHandler.AddLootDistributionData(creature.PrefabInfo.ClassID, creature.PrefabInfo.PrefabFileName, biomeData);
+    }
+    
+    private static void RegisterEggSpawns(PrefabInfo eggInfo, List<LootDistributionData.BiomeData> biomeData)
+    {
+        LootDistributionHandler.AddLootDistributionData(eggInfo.ClassID, eggInfo.PrefabFileName, biomeData);
     }
 }
