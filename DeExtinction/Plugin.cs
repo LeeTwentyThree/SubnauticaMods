@@ -47,6 +47,9 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
         UWE.CoroutineHost.StartCoroutine(AddEcoTargetTypesToClownPincherFood());
+        
+        CreatureSpawns.Register();
+        CreatureSpawns.ModifyBaseGameSpawns();
     }
 
     private IEnumerator AddEcoTargetTypesToClownPincherFood()
