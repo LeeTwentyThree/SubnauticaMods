@@ -54,7 +54,11 @@ internal class GulperLeviathanPrefab : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
+#if SUBNAUTICA
         MaterialUtils.ApplySNShaders(prefab, 8, 3, 3);
+#elif BELOWZERO
+        MaterialUtils.ApplySNShaders(prefab, 7.5f, 2, 3);
+#endif
     }
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
