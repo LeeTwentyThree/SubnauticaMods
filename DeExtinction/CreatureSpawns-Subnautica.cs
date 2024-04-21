@@ -1084,7 +1084,7 @@ public static partial class CreatureSpawns
         for (int i = 0; i < 100; i++)
         {
             var angle = (float) dragonflyRandomGenerator.NextDouble() * Mathf.PI * 2f;
-            var distance = (float) dragonflyRandomGenerator.NextDouble() * 1800;
+            var distance = Mathf.Pow((float) dragonflyRandomGenerator.NextDouble(), 1/2f) * 1500f;
             var height = 30 + (float) dragonflyRandomGenerator.NextDouble() * 70;
             CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(CreaturePrefabManager.Dragonfly.ClassID,
                 new Vector3(Mathf.Cos(angle) * distance, height, Mathf.Sin(angle) * distance)));
