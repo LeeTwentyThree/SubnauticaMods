@@ -75,8 +75,8 @@ public class TwisteelPrefab : CreatureAsset
         
         var voice = prefab.AddComponent<CreatureVoice>();
         voice.emitter = voiceEmitter;
-        voice.minInterval = 15;
-        voice.maxInterval = 22;
+        voice.minInterval = 23;
+        voice.maxInterval = 60;
         voice.closeIdleSound = AudioUtils.GetFmodAsset("TwisteelRoar");
         voice.farThreshold = 70;
         voice.playSoundOnStart = false;
