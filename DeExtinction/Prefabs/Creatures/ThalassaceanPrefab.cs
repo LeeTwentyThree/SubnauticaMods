@@ -69,8 +69,8 @@ public class ThalassaceanPrefab : CreatureAsset
         var voice = prefab.AddComponent<CreatureVoice>();
         voice.emitter = voiceEmitter;
         voice.closeIdleSound = AudioUtils.GetFmodAsset("ThalassaceanRoar");
-        voice.minInterval = 18;
-        voice.maxInterval = 30;
+        voice.minInterval = 30;
+        voice.maxInterval = 50;
 
         yield break;
     }
