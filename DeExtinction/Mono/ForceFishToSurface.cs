@@ -18,6 +18,7 @@ public class ForceFishToSurface : CreatureAction
     public override void Perform(float time, float deltaTime)
 #endif
     {
+        if (swimBehaviour == null) return;
         swimBehaviour.SwimTo(new Vector3(transform.position.x, Ocean.GetOceanLevel(), transform.position.z), _swimSpeed);
     }
 }
