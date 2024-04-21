@@ -56,7 +56,8 @@ public class BirdGrabFish : MonoBehaviour
 
     private void Bite()
     {
-        if (_heldFish) _heldFish.transform.localScale -= Vector3.one * (0.2f * _originalFishScale);
+        if (_heldFish == null) return;
+        _heldFish.transform.localScale = Vector3.one * Mathf.Clamp(_heldFish.transform.localScale.x - 0.2f * _originalFishScale, 0, _originalFishScale);
     }
     
     private void Kill()
