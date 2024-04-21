@@ -9,8 +9,8 @@ public class BirdHuntBehaviour : CreatureAction
     public float maxHorizontalDistance = 10f;
     public float maxFishDepth = 10f;
     public float diveVelocity = 12f;
-    public float swimVelocity = 20;
-    public float resurfaceVelocity = 8;
+    public float swimVelocity = 50;
+    public float resurfaceVelocity = 10;
     public float minHungerForAttacks = 0.8f;
     public float maxAttackDuration = 20;
     public float maxUnderwaterTime = 4f;
@@ -97,7 +97,7 @@ public class BirdHuntBehaviour : CreatureAction
         _attacking = true;
         if (_target)
         {
-            _target.EnsureComponent<ForceFishToSurface>().evaluatePriority = 5;
+            // _target.EnsureComponent<ForceFishToSurface>().evaluatePriority = 5;
             var otherCreature = _target.GetComponent<Creature>();
             otherCreature.ScanCreatureActions();
             otherCreature.UpdateBehaviour(Time.time, Time.time - otherCreature.lastUpdateTime);
@@ -119,11 +119,13 @@ public class BirdHuntBehaviour : CreatureAction
 #endif
     {
         _attacking = false;
+        /*
         if (_target != null)
         {
             var forceFishToSurface = _target.GetComponent<ForceFishToSurface>();
             if (forceFishToSurface) forceFishToSurface.evaluatePriority = 0;
         }
+        */
 
         _target = null;
         _targetLiveMixin = null;
@@ -147,6 +149,7 @@ public class BirdHuntBehaviour : CreatureAction
             {
                 _timeSubmergeStart = Time.time;
                 creature.GetAnimator().SetBool(Swimming, true);
+                _locomotion.maxAcceleration = 10;
             }
 
             _submergedDuringAttack = true;
@@ -163,7 +166,7 @@ public class BirdHuntBehaviour : CreatureAction
     {
         if (_attacking && _target != null && !_leavingWaterDuringAttack)
         {
-            swimBehaviour.SwimTo(_target.transform.position, _submergedDuringAttack ? swimVelocity : diveVelocity);
+            swimBehaviour.SwimTo(_target.transform.position + new Vector3(0, 0.5f, 0), _submergedDuringAttack ? swimVelocity : diveVelocity);
         }
     }
 
