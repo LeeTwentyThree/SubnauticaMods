@@ -151,15 +151,18 @@ public class BirdHuntBehaviour : CreatureAction
             {
                 _timeSubmergeStart = Time.time;
                 creature.GetAnimator().SetBool(Swimming, true);
-                _locomotion.maxAcceleration = 10;
+                _locomotion.maxAcceleration = 20;
+                _locomotion.forwardRotationSpeed = 1f;
             }
 
             _submergedDuringAttack = true;
-            if (Time.time > _timeSubmergeStart + maxUnderwaterTime || _target == null ||
+            if (!_leavingWaterDuringAttack && Time.time > _timeSubmergeStart + maxUnderwaterTime || _target == null ||
                 (_targetLiveMixin != null && !_targetLiveMixin.IsAlive()) || grabFish.IsHoldingFish)
             {
                 swimBehaviour.SwimTo(GetPositionOfSeaBelow() + Vector3.up * resurfaceVelocity, resurfaceVelocity);
                 _leavingWaterDuringAttack = true;
+                _locomotion.maxAcceleration = 10;
+                _locomotion.forwardRotationSpeed = 0.4f;
             }
         }
     }

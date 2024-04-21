@@ -4,7 +4,9 @@ namespace DeExtinction.Mono;
 
 public class BirdGrabFish : MonoBehaviour
 {
+    public Creature creature;
     public Transform fishParent;
+    
     private GameObject _heldFish;
     private float _originalFishScale;
 
@@ -13,10 +15,10 @@ public class BirdGrabFish : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (_heldFish != null) return;
-        var creature = other.gameObject.GetComponentInParent<Creature>();
-        if (creature == null) return;
-        if (IsCreatureValid(creature))
-            GrabFish(creature);
+        var otherCreature = other.gameObject.GetComponentInParent<Creature>();
+        if (otherCreature == null) return;
+        if (IsCreatureValid(otherCreature))
+            GrabFish(otherCreature);
     }
 
     private bool IsCreatureValid(Creature creature)
@@ -35,36 +37,36 @@ public class BirdGrabFish : MonoBehaviour
         return false;
     }
 
-    private void GrabFish(Creature fish)
+    private void GrabFish(Creature prey)
     {
-        _heldFish = fish.gameObject;
+        _heldFish = prey.gameObject;
         _originalFishScale = _heldFish.transform.localScale.x;
-        fish.GetComponent<Rigidbody>().isKinematic = true;
-        fish.gameObject.AddComponent<FishBleedOut>();
-        var fishTransform = fish.transform;
+        prey.GetComponent<Rigidbody>().isKinematic = true;
+        prey.gameObject.AddComponent<FishBleedOut>().dealer = creature.gameObject;
+        var fishTransform = prey.transform;
         fishTransform.parent = fishParent;
         fishTransform.localPosition = Vector3.zero;
         fishTransform.localRotation = Quaternion.identity;
-        foreach (var collider in fish.GetComponentsInChildren<Collider>(true))
+        foreach (var collider in prey.GetComponentsInChildren<Collider>(true))
         {
             collider.enabled = false;
         }
         Invoke(nameof(Kill), 2);
-        Invoke(nameof(Eat), 6);
+        Invoke(nameof(Eat), 8);
         InvokeRepeating(nameof(Bite), 1f, 1f);
     }
 
     private void Bite()
     {
         if (_heldFish == null) return;
-        _heldFish.transform.localScale = Vector3.one * Mathf.Clamp(_heldFish.transform.localScale.x - 0.2f * _originalFishScale, 0, _originalFishScale);
+        _heldFish.transform.localScale = Vector3.one * Mathf.Clamp(_heldFish.transform.localScale.x - 0.1f * _originalFishScale, 0, _originalFishScale);
     }
     
     private void Kill()
     {
         if (_heldFish != null)
         {
-            _heldFish.GetComponent<LiveMixin>().TakeDamage(60, transform.position);
+            _heldFish.GetComponent<LiveMixin>().TakeDamage(60, transform.position, DamageType.Normal, creature.gameObject);
         }
     }
 
@@ -82,5 +84,6 @@ public class BirdGrabFish : MonoBehaviour
     private void Eat()
     {
         Destroy(_heldFish);
+        creature.Hunger.Value = 0;
     }
 }

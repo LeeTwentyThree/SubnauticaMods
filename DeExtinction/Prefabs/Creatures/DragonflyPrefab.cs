@@ -90,6 +90,7 @@ public class DragonflyPrefab : CreatureAsset
 
         var birdGrabFish = prefab.transform.Find("FishAttackTrigger").gameObject.AddComponent<BirdGrabFish>();
         birdGrabFish.fishParent = prefab.transform.Find("FishParent");
+        birdGrabFish.creature = components.Creature;
         hunt.grabFish = birdGrabFish;
         
         yield break;
