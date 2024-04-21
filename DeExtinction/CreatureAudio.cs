@@ -11,81 +11,87 @@ public static class CreatureAudio
 {
     private static AssetBundle Bundle => Plugin.AssetBundle;
 
+#if SUBNAUTICA
+    private const string CreaturesBus = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures";
+#elif BELOWZERO
+    private const string CreaturesBus = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures underwater";
+#endif
+
     public static void RegisterAudio()
     {
         RegisterSound("ClownPincherEating", "ClownPincherEating",
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 0.5f, 8f);
+            CreaturesBus , 0.5f, 8f);
         RegisterSoundWithVariants("ClownPincherIdle",
             new[]
             {
                 "ClownPincherIdle1", "ClownPincherIdle2", "ClownPincherIdle3", "ClownPincherIdle4", "ClownPincherIdle5"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 2, 16);
+            CreaturesBus, 2, 16);
 
         RegisterSoundWithVariants("GulperBite",
             new[]
             {
                 "GulperBite1", "GulperBite2"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 40);
+            CreaturesBus, 10, 40);
 
         RegisterSound("GulperBitePlayer", "GulperBitePlayer",
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 40);
+            CreaturesBus, 10, 40);
         
         RegisterSound("GulperAttackSeamoth", "GulperSeamoth1",
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 40);
+            CreaturesBus, 10, 40);
 
         RegisterSound("GulperAttackExosuit", "GulperExosuit",
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 40);
+            CreaturesBus, 10, 40);
 
         RegisterSoundWithVariants("GulperClawAttack",
             new[]
             {
                 "GulperClawAttack1", "GulperClawAttack2", "GulperClawAttack3"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 50);
+            CreaturesBus, 10, 50);
 
         RegisterSoundWithVariants("GulperRoar",
             new[]
             {
                 "GulperRoar1", "GulperRoar2", "GulperRoar3", "GulperRoar4"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 200);
+            CreaturesBus, 10, 200);
 
         RegisterSoundWithVariants("GulperRoarFar",
             new[]
             {
                 "GulperRoarFar1", "GulperRoarFar2", "GulperRoarFar3"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 400);
+            CreaturesBus, 10, 400);
         
         RegisterSoundWithVariants("ThalassaceanRoar",
             new[]
             {
                 "ThalassaceanRoar1", "ThalassaceanRoar2", "ThalassaceanRoar3", "ThalassaceanRoar4"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 10, 120);
+            CreaturesBus, 10, 120);
         
         RegisterSoundWithVariants("TwisteelRoar",
             new[]
             {
                 "TwisteelRoar_Long", "TwisteelRoar_Short", "TwisteelRoar_Shriek1", "TwisteelRoar_Shriek2"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 5, 50);
+            CreaturesBus, 5, 50);
         
         RegisterSoundWithVariants("TwisteelAttack",
             new[]
             {
                 "TwisteelRoar_Attack", "TwisteelBite1", "TwisteelBite2"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 5, 40);
+            CreaturesBus, 5, 40);
         
         RegisterSoundWithVariants("TwisteelCinematicAttack",
             new[]
             {
                 "TwisteelCinematicAttack"
             },
-            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 5, 40);
+            CreaturesBus, 5, 40);
     }
 
     private static void Register2DSound(string id, string clipName, string bus)
