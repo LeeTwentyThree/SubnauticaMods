@@ -21,6 +21,11 @@ public class GulperMeleeAttackMouth : MeleeAttack
         _playerDeathCinematic.animatedTransform = gameObject.SearchChild("PlayerCam").transform;
         _playerDeathCinematic.animator = creature.GetAnimator();
         _playerDeathCinematic.animParamReceivers = Array.Empty<GameObject>();
+#if SUBNAUTICA
+        _playerDeathCinematic.playerViewAnimationName = "reaper_attack";
+#elif BELOWZERO
+        _playerDeathCinematic.playerViewAnimationName = "shadowLevi_player_attack";
+#endif
         _throat = gameObject.SearchChild("Throat").transform;
         _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
         _emitter.followParent = true;

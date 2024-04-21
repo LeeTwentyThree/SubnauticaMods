@@ -19,6 +19,11 @@ public class TwisteelMeleeAttack : MeleeAttack
         _playerDeathCinematic.animatedTransform = playerCameraAnimatedTransform;
         _playerDeathCinematic.animator = creature.GetAnimator();
         _playerDeathCinematic.animParamReceivers = new GameObject[0];
+#if SUBNAUTICA
+        _playerDeathCinematic.playerViewAnimationName = "reaper_attack";
+#elif BELOWZERO
+        _playerDeathCinematic.playerViewAnimationName = "shadowLevi_player_attack";
+#endif
     }
 
     public override void OnTouch(Collider collider)
