@@ -168,7 +168,7 @@ public class BirdHuntBehaviour : CreatureAction
     {
         if (_attacking && _target != null && !_leavingWaterDuringAttack)
         {
-            swimBehaviour.SwimTo(_target.transform.position + new Vector3(0, 0.5f, 0), _submergedDuringAttack ? swimVelocity : diveVelocity);
+            swimBehaviour.SwimTo(_target.transform.position + Vector3.up, _submergedDuringAttack ? swimVelocity : diveVelocity);
         }
     }
 
