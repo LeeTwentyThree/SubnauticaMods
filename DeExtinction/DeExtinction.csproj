@@ -59,7 +59,7 @@
 
 	<ItemGroup Condition="'$(Configuration)|$(Platform)' == 'BZ|AnyCPU'">
 		<Reference Include="ECCLibrary" >
-			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\BepInEx\plugins\ECCLibrary\ECCLibrary.dll</HintPath>
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\BepInEx\plugins\ECCLibraryBZ\ECCLibrary.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
