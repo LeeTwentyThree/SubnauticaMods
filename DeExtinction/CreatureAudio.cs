@@ -119,7 +119,7 @@ public static class CreatureAudio
         var sounds = AudioUtils.CreateSounds(clipList, AudioUtils.StandardSoundModes_3D);
         sounds.ForEach(sound => sound.set3DMinMaxDistance(minDistance, maxDistance));
 
-        var multiSoundsEvent = new FModMultiSounds(sounds.ToArray(), bus, false);
+        var multiSoundsEvent = new FModMultiSounds(sounds.ToArray(), bus, true);
 
         CustomSoundHandler.RegisterCustomSound(id, multiSoundsEvent);
     }
