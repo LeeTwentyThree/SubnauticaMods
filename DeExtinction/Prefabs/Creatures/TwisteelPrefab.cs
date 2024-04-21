@@ -13,15 +13,17 @@ namespace DeExtinction.Prefabs.Creatures;
 public class TwisteelPrefab : CreatureAsset
 {
     private readonly GameObject _prefabModel;
+    private readonly bool _juvenile;
 
     public PrefabInfo EggInfo { get; set; }
 
-    public TwisteelPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
+    public TwisteelPrefab(PrefabInfo prefabInfo, GameObject prefabModel, bool juvenile) : base(prefabInfo)
     {
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Carnivores", null, null, 7,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Twisteel_Ency"),
             Plugin.AssetBundle.LoadAsset<Sprite>("Twisteel_Popup"));
         _prefabModel = prefabModel;
+        _juvenile = juvenile;
     }
 
     protected override CreatureTemplate CreateTemplate()
@@ -30,14 +32,14 @@ public class TwisteelPrefab : CreatureAsset
             BehaviourType.Shark, EcoTargetType.Shark, 250)
         {
             CellLevel = LargeWorldEntity.CellLevel.Medium,
-            SwimRandomData = new SwimRandomData(0.1f, 6f, new Vector3(20, 4, 20), 5f, 0.8f),
+            SwimRandomData = new SwimRandomData(0.1f, _juvenile ? 4f : 6f, new Vector3(20, 4, 20), 5f, 0.8f),
             AggressiveToPilotingVehicleData = new AggressiveToPilotingVehicleData(25, 0.1f),
-            AttackLastTargetData = new AttackLastTargetData(0.5f, 10f, 0.6f, 9f),
-            AnimateByVelocityData = new AnimateByVelocityData(12),
-            AvoidObstaclesData = new AvoidObstaclesData(0.4f, 6f, true, 9f, 10f),
+            AttackLastTargetData = new AttackLastTargetData(0.5f, _juvenile ? 13f : 15f, 0.6f, 9f),
+            AnimateByVelocityData = new AnimateByVelocityData(_juvenile ? 11 : 13),
+            AvoidObstaclesData = new AvoidObstaclesData(0.4f, _juvenile ? 4f : 6f, true, 9f, 10f),
             BioReactorCharge = 630,
             Mass = 300,
-            StayAtLeashData = new StayAtLeashData(0.2f, 6f, 30f),
+            StayAtLeashData = new StayAtLeashData(0.2f, _juvenile ? 4f : 6f, 30f),
             LocomotionData = new LocomotionData(10f, 0.3f),
             EyeFOV = -0.7f,
             BehaviourLODData = new BehaviourLODData(20, 100, 150),
@@ -66,7 +68,7 @@ public class TwisteelPrefab : CreatureAsset
         voiceEmitter.followParent = true;
 
         var mouthObject = prefab.transform.Find("Twisteel/Twisteel_Anim/Spine1/Head").gameObject;
-        var twisteelMeleeAttack = CreaturePrefabUtils.AddMeleeAttack<TwisteelMeleeAttack>(prefab, components, mouthObject, true, 25, 3, true);
+        var twisteelMeleeAttack = CreaturePrefabUtils.AddMeleeAttack<TwisteelMeleeAttack>(prefab, components, mouthObject, true, 30, 3, true);
         twisteelMeleeAttack.playerCameraAnimatedTransform = mouthObject.transform.Find("PlayerCam");
         twisteelMeleeAttack.attackEmitter = attackEmitter;
         

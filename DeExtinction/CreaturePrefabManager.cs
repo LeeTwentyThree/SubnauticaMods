@@ -139,7 +139,8 @@ internal static class CreaturePrefabManager
         Twisteel = new TwisteelPrefab(PrefabInfo.WithTechType("Twisteel")
             .WithIcon(LoadIcon("Twisteel_Item"))
             .WithSizeInInventory(new Vector2int(3, 3)),
-            Plugin.AssetBundle.LoadAsset<GameObject>("Twisteel_Prefab")
+            Plugin.AssetBundle.LoadAsset<GameObject>("Twisteel_Prefab"),
+            false
             );
         TwisteelEgg = CreateEggPrefab("TwisteelEgg", "TwisteelEgg_Prefab",
             "TwisteelEgg_Item", new Vector2int(2, 2), Twisteel.PrefabInfo.TechType, 1.5f);
@@ -149,7 +150,8 @@ internal static class CreaturePrefabManager
         TwisteelJuvenile = new TwisteelPrefab(PrefabInfo.WithTechType("TwisteelJuvenile")
                 .WithIcon(LoadIcon("Twisteel_Item"))
                 .WithSizeInInventory(new Vector2int(2, 2)),
-            Plugin.AssetBundle.LoadAsset<GameObject>("TwisteelJuvenile_Prefab")
+            Plugin.AssetBundle.LoadAsset<GameObject>("TwisteelJuvenile_Prefab"),
+            true
         );
         TwisteelJuvenile.Register();
         
