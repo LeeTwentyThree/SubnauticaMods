@@ -8,6 +8,8 @@ public class BirdGrabFish : MonoBehaviour
     private GameObject _heldFish;
     private float _originalFishScale;
 
+    public bool IsHoldingFish => _heldFish != null;
+
     private void OnTriggerEnter(Collider other)
     {
         if (_heldFish != null) return;

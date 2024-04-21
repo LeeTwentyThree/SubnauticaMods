@@ -15,6 +15,8 @@ public class BirdHuntBehaviour : CreatureAction
     public float maxAttackDuration = 20;
     public float maxUnderwaterTime = 4f;
     public EcoTargetType preyTargetType = EcoTargetType.SmallFish;
+    
+    public BirdGrabFish grabFish;
 
     private float _timeCanAttackAgain;
     private bool _attacking;
@@ -154,7 +156,7 @@ public class BirdHuntBehaviour : CreatureAction
 
             _submergedDuringAttack = true;
             if (Time.time > _timeSubmergeStart + maxUnderwaterTime || _target == null ||
-                (_targetLiveMixin != null && !_targetLiveMixin.IsAlive()))
+                (_targetLiveMixin != null && !_targetLiveMixin.IsAlive()) || grabFish.IsHoldingFish)
             {
                 swimBehaviour.SwimTo(GetPositionOfSeaBelow() + Vector3.up * resurfaceVelocity, resurfaceVelocity);
                 _leavingWaterDuringAttack = true;
