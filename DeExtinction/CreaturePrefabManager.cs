@@ -3,6 +3,7 @@ using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Assets.PrefabTemplates;
+using Nautilus.Handlers;
 using UnityEngine;
 
 namespace DeExtinction;
@@ -341,6 +342,7 @@ internal static class CreaturePrefabManager
                 eggMaterial.SetFloat("_EmissionLMNight", 0.01f);
             };
         }
+        WorldEntityDatabaseHandler.AddCustomInfo(info.ClassID, info.TechType, Vector3.one, false, LargeWorldEntity.CellLevel.Medium);
         eggPrefab.SetGameObject(eggTemplate);
         eggPrefab.Register();
         return info;
