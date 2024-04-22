@@ -508,6 +508,12 @@ public static partial class CreatureSpawns
                 },
                 new()
                 {
+                    biome = BiomeType.TwistyBridges_Open,
+                    probability = 0.8f,
+                    count = 1
+                },
+                new()
+                {
                     biome = BiomeType.ArcticKelp_Open,
                     probability = 1f,
                     count = 2
