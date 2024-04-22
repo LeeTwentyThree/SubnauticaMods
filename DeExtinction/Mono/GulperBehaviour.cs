@@ -125,8 +125,8 @@ public class GulperBehaviour : MonoBehaviour
         }
 
         _voice.emitter.Play();
-        InvokeRepeating("DamageVehicle", 1f, 1f);
-        Invoke("ReleaseVehicle", attackLength);
+        InvokeRepeating(nameof(DamageVehicle), 1f, 1f);
+        Invoke(nameof(ReleaseVehicle), attackLength);
         if (Player.main.GetVehicle() == _heldVehicle)
         {
             MainCameraControl.main.ShakeCamera(4f, attackLength, MainCameraControl.ShakeMode.BuildUp, 1.2f);
