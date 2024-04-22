@@ -14,6 +14,7 @@ public class GulperMeleeAttackMouth : MeleeAttack
     private Transform _throat;
     private float _timeCanPlayCinematicAgain;
     private FMOD_CustomEmitter _emitter;
+    private static readonly int Bite = Animator.StringToHash("bite");
 
     private void Start()
     {
@@ -105,7 +106,7 @@ public class GulperMeleeAttackMouth : MeleeAttack
                     suckInWhole.target = _throat;
                     _emitter.SetAsset(_genericAttackSound);
                     _emitter.Play();
-                    creature.GetAnimator().SetTrigger("bite");
+                    creature.GetAnimator().SetTrigger(Bite);
                     return;
                 }
 
@@ -115,7 +116,7 @@ public class GulperMeleeAttackMouth : MeleeAttack
                     timeLastBite = Time.time;
                     _emitter.SetAsset(_genericAttackSound);
                     _emitter.Play();
-                    creature.GetAnimator().SetTrigger("bite");
+                    creature.GetAnimator().SetTrigger(Bite);
                     component.Aggression.Value = 0f;
                 }
             }
