@@ -63,18 +63,18 @@ public class GulperMeleeAttackMouth : MeleeAttack
                 }
                 else if (!isBaby && gulperBehaviour.GetCanGrabVehicle() && component.Aggression.Value > 0.1f)
                 {
-                    SeaMoth seamoth = target.GetComponent<SeaMoth>();
-                    if (seamoth && !seamoth.docked)
+                    Exosuit exosuit = target.GetComponent<Exosuit>();
+                    if (exosuit && !exosuit.docked)
                     {
-                        gulperBehaviour.GrabGenericSub(seamoth);
+                        gulperBehaviour.GrabExosuit(exosuit);
                         component.Aggression.Value -= 0.5f;
                         return;
                     }
-
-                    Exosuit exosuiit = target.GetComponent<Exosuit>();
-                    if (exosuiit && !exosuiit.docked)
+                    
+                    Vehicle genericVehicle = target.GetComponent<Vehicle>();
+                    if (genericVehicle && !genericVehicle.docked)
                     {
-                        gulperBehaviour.GrabExosuit(exosuiit);
+                        gulperBehaviour.GrabGenericSub(genericVehicle);
                         component.Aggression.Value -= 0.5f;
                         return;
                     }
@@ -175,6 +175,13 @@ public class GulperMeleeAttackMouth : MeleeAttack
         {
             return false;
         }
+        
+#if BELOWZERO
+        if (gameObject.GetComponentInParent<IInteriorSpace>() != null)
+        {
+            return false;
+        }        
+#endif
 
 #if SUBNAUTICA
         if (gameObject.GetComponentInParent<EscapePod>())
