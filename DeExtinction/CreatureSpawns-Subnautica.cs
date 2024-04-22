@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#if SUBNAUTICA
+using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using UnityEngine;
 
-#if SUBNAUTICA
 namespace DeExtinction;
 
 public static partial class CreatureSpawns
