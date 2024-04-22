@@ -57,7 +57,7 @@ public class PyrambassisPrefab : CreatureAsset
 
     private void AddAntennaTrailManager(GameObject prefab, CreatureComponents components, string antennaName)
     {
-        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild(antennaName), 2.5f);
+        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild(antennaName), 2.5f, 0.1f);
         trailManagerBuilder.SetTrailArrayToAllChildren();
         trailManagerBuilder.Apply();
     }
