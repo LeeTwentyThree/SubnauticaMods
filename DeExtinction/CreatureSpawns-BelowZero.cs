@@ -790,6 +790,8 @@ public static partial class CreatureSpawns
 
         // Ocean dragonflies
         RegisterDragonflySpawns(80, new Vector3(0, 0, -600), 800, 400328426, 40f, 100f);
+        // Spawn zone
+        RegisterDragonflySpawns(5, new Vector3(-200, 0, 60), 80, 2491353, 30, 60);
         // Glacial basin
         RegisterDragonflySpawns(30, new Vector3(-1250, 0, -800), 200, 58103834, 40, 140);
         // Arctic spires
