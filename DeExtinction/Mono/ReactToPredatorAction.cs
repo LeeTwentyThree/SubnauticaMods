@@ -2,10 +2,17 @@
 
 namespace DeExtinction.Mono;
 
-internal abstract class ReactToPredatorAction : CreatureAction
+public abstract class ReactToPredatorAction : CreatureAction
 {
+#if BELOWZERO
+    public override void Start()
+    {
+        base.Start();
+#endif
+#if SUBNAUTICA
     private void Start()
     {
+#endif
         Fear = gameObject.GetComponent<CreatureFear>();
     }
 
@@ -29,6 +36,12 @@ internal abstract class ReactToPredatorAction : CreatureAction
         {
             return 0f;
         }
+
+        if (!CanPerform())
+        {
+            return 0f;
+        }
+        
         IEcoTarget closestTarget = EcoRegionManager.main.FindNearestTarget(fearedTargetType, transform.position, null, 1);
         if (closestTarget != null && closestTarget.GetGameObject() != null)
         {
@@ -39,6 +52,7 @@ internal abstract class ReactToPredatorAction : CreatureAction
                 if (Fear) Fear.SetScarePosition(closestTarget.GetPosition());
             }
         }
+        
         if (PerformingAction)
         {
             if (Time.time > TimeStopAction)
@@ -49,6 +63,8 @@ internal abstract class ReactToPredatorAction : CreatureAction
 
         return PerformingAction ? evaluatePriority : 0f;
     }
+
+    protected virtual bool CanPerform() => true;
 
     public void OnFreeze()
     {

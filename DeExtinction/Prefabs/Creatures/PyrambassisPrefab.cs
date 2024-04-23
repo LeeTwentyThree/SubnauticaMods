@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DeExtinction.MaterialModifiers;
+using DeExtinction.Mono;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
@@ -51,6 +52,15 @@ public class PyrambassisPrefab : CreatureAsset
         AddAntennaTrailManager(prefab, components, "AntennaL1");
         
         AddAntennaTrailManager(prefab, components, "AntennaR1");
+
+        var acid = prefab.AddComponent<SecreteAcidWhenApproached>();
+        acid.evaluatePriority = 0.8f;
+        acid.maxReactDistance = 7f;
+        var acidPrefab = Object.Instantiate(components.LiveMixin.damageEffect, prefab.transform, true);
+        acidPrefab.SetActive(false);
+        acid.acidPrefab = acidPrefab;
+
+        CreaturePrefabUtils.AddDamageModifier(prefab, DamageType.Acid, 0f);
         
         yield break;
     }
@@ -64,6 +74,6 @@ public class PyrambassisPrefab : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
-        MaterialUtils.ApplySNShaders(prefab, 2, 3, 3, new FresnelModifier(0.8f), new ColorModifier(new Color(1, 1, 1, 2)));
+        MaterialUtils.ApplySNShaders(prefab, 2, 3, 3, new FresnelModifier(0.8f), new ColorModifier(new Color(1, 1, 1, 2)), new IgnoreParticleRenderers());
     }
 }
