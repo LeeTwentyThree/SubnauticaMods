@@ -125,9 +125,10 @@ internal static class CreaturePrefabManager
             "Jasper_Ency",
             "Jasper_Popup");
         JasperThalassaceanEgg = CreateEggPrefab("JasperThalassaceanEgg", "JasperThalassaceanEggPrefab",
-            "JasperThalassaceanEgg_Icon", new Vector2int(3, 3), JasperThalassacean.PrefabInfo.TechType, 2);
+            "JasperThalassaceanEgg_Icon", new Vector2int(3, 3), JasperThalassacean.PrefabInfo.TechType, 2, true);
         JasperThalassacean.EggInfo = StellarThalassaceanEgg;
         JasperThalassacean.Register();
+        CreatureDataUtils.SetAcidImmune(JasperThalassacean.PrefabInfo.TechType);
 
         GrandGlider = new GrandGliderPrefab(PrefabInfo.WithTechType("GrandGlider")
             .WithIcon(LoadIcon("GrandGlider_Item"))
@@ -314,7 +315,7 @@ internal static class CreaturePrefabManager
         );
     }
     
-    private static PrefabInfo CreateEggPrefab(string classId, string eggModelName, string eggIconName, Vector2int size, TechType hatchingCreature, float hatchingTime)
+    private static PrefabInfo CreateEggPrefab(string classId, string eggModelName, string eggIconName, Vector2int size, TechType hatchingCreature, float hatchingTime, bool acidImmune = false)
     {
         var info = PrefabInfo.WithTechType(classId)
             .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>(eggIconName))
@@ -342,6 +343,12 @@ internal static class CreaturePrefabManager
                 eggMaterial.SetFloat("_EmissionLMNight", 0.01f);
             };
         }
+
+        if (acidImmune)
+        {
+            CreatureDataUtils.SetAcidImmune(info.TechType);
+        }
+        
         WorldEntityDatabaseHandler.AddCustomInfo(info.ClassID, info.TechType, Vector3.one, false, LargeWorldEntity.CellLevel.Medium);
         eggPrefab.SetGameObject(eggTemplate);
         eggPrefab.Register();
