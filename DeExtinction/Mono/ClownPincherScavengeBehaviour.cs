@@ -9,7 +9,7 @@ public class ClownPincherScavengeBehaviour : CreatureAction
     public float swimVelocity;
     private float _timeSearchAgain;
     private float _timeStarted;
-    private IEcoTarget _currentTarget;
+    private GameObject _currentTarget;
     
     private EcoRegion.TargetFilter _targetFilter;
     
@@ -71,7 +71,7 @@ public class ClownPincherScavengeBehaviour : CreatureAction
         if (Time.time > _timeSearchAgain)
         {
             _timeSearchAgain = Time.time + FoodSearchInterval;
-            if (_currentTarget == null || _currentTarget.GetGameObject() == null)
+            if (_currentTarget == null)
             {
                 if (TrySearchForFood(out IEcoTarget result))
                 {
@@ -79,25 +79,27 @@ public class ClownPincherScavengeBehaviour : CreatureAction
                 }
             }
         }
-
-        if (_currentTarget == null || _currentTarget.GetGameObject() == null) return;
         
         if (clownPincher.nibble.CurrentlyEating)
         {
             swimBehaviour.LookAt(clownPincher.nibble.currentlyEating.transform);
         }
-        else
+        else if (_currentTarget != null)
         {
-            swimBehaviour.SwimTo(_currentTarget.GetPosition(), swimVelocity);
+            swimBehaviour.SwimTo(_currentTarget.transform.position, swimVelocity);
         }
     }
 
     void SetCurrentTarget(IEcoTarget newTarget)
     {
-        _currentTarget = newTarget;
         if (newTarget != null && newTarget.GetGameObject() != null)
         {
-            swimBehaviour.SwimTo(_currentTarget.GetPosition(), swimVelocity);
+            _currentTarget = newTarget.GetGameObject();
+            swimBehaviour.SwimTo(_currentTarget.transform.position, swimVelocity);
+        }
+        else
+        {
+            _currentTarget = null;
         }
     }
 
