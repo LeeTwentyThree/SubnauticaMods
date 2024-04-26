@@ -34,7 +34,7 @@ public class GulperMeleeAttackMouth : MeleeAttack
 
     public override void OnTouch(Collider collider)
     {
-        if (frozen)
+        if (frozen || !isActiveAndEnabled)
         {
             return;
         }

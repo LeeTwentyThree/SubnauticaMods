@@ -24,7 +24,7 @@ public class GulperMeleeAttackClaw : MeleeAttack
 
     public override void OnTouch(Collider collider)
     {
-        if (frozen) return;
+        if (frozen || !isActiveAndEnabled) return;
         if (liveMixin.IsAlive() && Time.time > timeLastBite + biteInterval)
         {
             _damagingTarget = collider.GetComponent<LiveMixin>();
