@@ -22,7 +22,7 @@ public static class AdministratorDropPod
 
     private static IEnumerator GetPrefab(IOut<GameObject> prefab)
     {
-        var task = PrefabDatabase.GetPrefabAsync("f2b9fe45-39d6-4307-b1e0-143eb1937d6e");
+        var task = PrefabDatabase.GetPrefabAsync("00037e80-3037-48cf-b769-dc97c761e5f6");
         yield return task;
         task.TryGetPrefab(out var original);
         var pod = Object.Instantiate(original);
