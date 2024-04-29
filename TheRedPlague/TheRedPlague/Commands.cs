@@ -43,4 +43,10 @@ public static class Commands
     {
         Mono.PrawnSuitCinematic.PlayCinematic();
     }
+    
+    [ConsoleCommand("spawnadminpod")]
+    public static void SpawnAdminPod()
+    {
+        Mono.AdminDropPodFall.SpawnAdministratorDropPod();
+    }
 }

@@ -74,6 +74,8 @@ public static class ModPrefabs
         RegisterEquipment();
         
         RegisterDataboxes();
+
+        RegisterDropPodPrefabs();
         
         CyclopsWreckPrefab.Register();
     }
@@ -478,6 +480,11 @@ public static class ModPrefabs
     {
         new DataboxPrefab(PlagueKnifeDatabox, PlagueKnife.Info.TechType).Register();
         new DataboxPrefab(BoneArmorDatabox, BoneArmor.Info.TechType).Register();
+    }
+
+    private static void RegisterDropPodPrefabs()
+    {
+        AdministratorDropPod.Register();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale,
