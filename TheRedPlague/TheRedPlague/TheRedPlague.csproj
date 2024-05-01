@@ -40,6 +40,9 @@
       <Reference Include="WeatherMod">
         <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\WeatherMod\WeatherMod.dll</HintPath>
       </Reference>
+      <Reference Include="WorldHeightLib">
+        <HintPath>..\..\Dependencies\WorldHeightLib.dll</HintPath>
+      </Reference>
     </ItemGroup>
 
 
