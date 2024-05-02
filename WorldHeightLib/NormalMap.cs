@@ -12,6 +12,6 @@ public class NormalMap : MapBase<Vector3>
 
     protected override Vector3 GetValueFromPixel(Color32 color)
     {
-        return new Vector3((color.r - 0.5f) * 2, (color.b - 0.5f) * 2, (color.g - 0.5f) * 2);
+        return new Vector3((color.r / 255f - 0.5f) * 2, (color.b / 255f - 0.5f) * 2, (color.g / 255f - 0.5f) * 2);
     }
 }
