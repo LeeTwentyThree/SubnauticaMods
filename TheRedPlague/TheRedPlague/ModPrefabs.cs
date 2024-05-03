@@ -78,6 +78,11 @@ public static class ModPrefabs
         RegisterDropPodPrefabs();
         
         CyclopsWreckPrefab.Register();
+
+        if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("WorldHeightLib"))
+        {
+            RegisterFleshBlobs();
+        }
     }
 
     private static void RegisterBiomes()
@@ -485,6 +490,11 @@ public static class ModPrefabs
     private static void RegisterDropPodPrefabs()
     {
         AdministratorDropPod.Register();
+    }
+    
+    private static void RegisterFleshBlobs()
+    {
+        FleshBlobLeaders.RegisterAll();
     }
 
     private static CustomPrefab MakeInfectedClone(PrefabInfo info, string cloneClassID, float scale,
