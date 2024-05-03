@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TheRedPlague.PrefabFiles;
 
-public class AdminDropPodBeacon
+public static class AdminDropPodBeacon
 {
     public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("AdminDropPodBeacon");
 
@@ -21,6 +21,7 @@ public class AdminDropPodBeacon
 
     private static void ModifyPrefab(GameObject prefab)
     {
-        
+        var ping = prefab.GetComponent<PingInstance>();
+        ping.SetType(AdministratorDropPod.PingType);
     }
 }

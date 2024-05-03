@@ -496,6 +496,7 @@ public static class ModPrefabs
     private static void RegisterDropPodPrefabs()
     {
         AdministratorDropPod.Register();
+        AdminDropPodBeacon.Register();
     }
     
     private static void RegisterFleshBlobs()
