@@ -406,6 +406,12 @@ public static class ModPrefabs
 
             go.AddComponent<InfectAnything>().infectionHeightStrength = 0.2f;
             go.AddComponent<Pickupable>();
+            var rb = go.EnsureComponent<Rigidbody>();
+            rb.mass = 13;
+            rb.useGravity = false;
+            var wf = go.EnsureComponent<WorldForces>();
+            wf.useRigidbody = rb;
+            wf.underwaterDrag = 2;
         };
         amalgamatedBonePrefab.SetGameObject(amalgamatedBoneTemplate);
         amalgamatedBonePrefab.SetSpawns(new LootDistributionData.BiomeData
