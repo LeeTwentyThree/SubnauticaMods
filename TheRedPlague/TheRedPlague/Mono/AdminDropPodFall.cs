@@ -10,7 +10,7 @@ public class AdminDropPodFall : MonoBehaviour
 {
     private static readonly Vector3 _spawnPos = new Vector3(180, 4000, 2316);
     private static readonly Vector3 _finalPos = new Vector3(-175.090f, -667.283f, 3285.797f);
-    private static readonly float _silenceGrabDepth = -20;
+    private static readonly float _silenceGrabDepth = -15;
     private static readonly Vector3 _finalEulerAngles = new Vector3(8, 34.3f, 0.36f);
 
     private AnimationState _state;
@@ -55,6 +55,7 @@ public class AdminDropPodFall : MonoBehaviour
         var ping = fallingPod.AddComponent<PingInstance>();
         ping.SetType(AdministratorDropPod.PingType);
         ping.origin = fallingPod.transform;
+        ping.SetColor(4);
         fallingPod.SetActive(true);
     }
 
@@ -121,7 +122,7 @@ public class AdminDropPodFall : MonoBehaviour
 
                 var angle = _grabStartAngle + (Time.time - _grabStartTime) * 3f * Mathf.PI / _grabDuration;
                 
-                transform.position = new Vector3(_grabPathCenter.x + Mathf.Cos(angle) * _grabPathRadius, _silenceGrabDepth,
+                transform.position = new Vector3(_grabPathCenter.x + Mathf.Cos(angle) * _grabPathRadius, _silenceGrabDepth - (Time.time - _grabStartTime) * 10f,
                     _grabPathCenter.y + Mathf.Sin(angle) * _grabPathRadius);
                 
                 break;

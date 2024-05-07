@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Utility;
-using TheRedPlague.Mono;
+using TheRedPlague.Mono.Tools;
 
 namespace TheRedPlague.PrefabFiles;
 

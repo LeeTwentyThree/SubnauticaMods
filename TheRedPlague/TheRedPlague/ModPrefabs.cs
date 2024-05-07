@@ -485,6 +485,8 @@ public static class ModPrefabs
         BoneArmor.Register();
 
         PlagueKnife.Register();
+        
+        AirStrikeDevice.Register();
     }
     
     private static void RegisterDataboxes()

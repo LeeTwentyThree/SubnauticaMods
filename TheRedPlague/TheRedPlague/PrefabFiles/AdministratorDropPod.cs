@@ -33,6 +33,11 @@ public static class AdministratorDropPod
             .GetComponent<Renderer>();
         var exteriorMaterial = exteriorRenderer.materials[2];
         exteriorMaterial.mainTexture = Plugin.AssetBundle.LoadAsset<Texture2D>("AdministratorEscapePodDecal");
+
+        var light = pod.AddComponent<Light>();
+        light.intensity = 0.5f;
+        light.color = Color.red;
+        light.range = 20;
         
         prefab.Set(pod);
     }

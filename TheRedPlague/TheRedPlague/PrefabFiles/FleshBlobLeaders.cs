@@ -31,7 +31,9 @@ public static class FleshBlobLeaders
         obj.SetActive(false);
         PrefabUtils.AddBasicComponents(obj, null, TechType.None, LargeWorldEntity.CellLevel.Global);
         MaterialUtils.ApplySNShaders(obj);
-        obj.AddComponent<FleshBlobLeaderBehaviour>();
+        var behaviour = obj.AddComponent<FleshBlobLeaderBehaviour>();
+        var movement = obj.AddComponent<FleshBlobMovement>();
+        behaviour.movement = movement;
         prefab.Set(obj);
 
         var renderers = obj.GetComponentsInChildren<Renderer>();
@@ -63,6 +65,23 @@ public static class FleshBlobLeaders
         cubeRenderer.material = cubeMaterial;
 
         obj.transform.Find("VFX/PlagueTornado-Blobs").gameObject.AddComponent<InfectAnything>();
+
+        var sounds = obj.AddComponent<FleshBlobSoundController>();
+
+        var tornadoEmitter = obj.AddComponent<FMOD_CustomEmitter>();
+        tornadoEmitter.SetAsset(AudioUtils.GetFmodAsset("FleshBlobTornadoLoop"));
+        tornadoEmitter.followParent = true;
+        obj.AddComponent<FleshBlobTornadoSounds>().emitter = tornadoEmitter;
+
+        obj.AddComponent<FleshBlobGravity>();
+
+        var killTriggerParent = obj.transform.Find("KillTriggers").gameObject;
+        var killTriggerManager = obj.AddComponent<FleshBlobKillTriggerManager>();
+        killTriggerManager.triggerParent = killTriggerParent;
+        foreach (Transform child in killTriggerParent.transform)
+        {
+            child.gameObject.AddComponent<FleshBlobKillTrigger>().manager = killTriggerManager;
+        }
         
         yield break;
     }

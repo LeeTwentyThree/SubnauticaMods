@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheRedPlague.Mono;
+namespace TheRedPlague.Mono.Tools;
 
 public class PlagueKnifeTool : Knife
 {

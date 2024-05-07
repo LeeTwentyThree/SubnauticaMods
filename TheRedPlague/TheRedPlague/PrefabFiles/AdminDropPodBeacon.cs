@@ -1,5 +1,6 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Assets.PrefabTemplates;
+using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague.PrefabFiles;
@@ -23,5 +24,7 @@ public static class AdminDropPodBeacon
     {
         var ping = prefab.GetComponent<PingInstance>();
         ping.SetType(AdministratorDropPod.PingType);
+        Object.DestroyImmediate(prefab.GetComponent<Beacon>());
+        prefab.AddComponent<SetBeaconColor>().colorIndex = 2;
     }
 }

@@ -2,7 +2,7 @@
 using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
-namespace TheRedPlague;
+namespace TheRedPlague.MaterialModifiers;
 
 public class DomeMaterialModifier : MaterialModifier
 {

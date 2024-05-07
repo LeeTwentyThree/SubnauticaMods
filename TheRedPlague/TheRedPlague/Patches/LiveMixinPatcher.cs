@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using TheRedPlague.Mono;
+using TheRedPlague.Mono.FleshBlobs;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -7,6 +8,15 @@ namespace TheRedPlague.Patches;
 [HarmonyPatch(typeof(LiveMixin))]
 public class LiveMixinPatcher
 {
+    [HarmonyPatch(nameof(LiveMixin.Awake))]
+    [HarmonyPostfix]
+    public static void AwakePostfix(LiveMixin __instance)
+    {
+        var rb = __instance.GetComponent<Rigidbody>();
+        if (rb != null && !rb.isKinematic)
+            __instance.gameObject.AddComponent<FleshBlobInfluenced>();
+    }
+    
     [HarmonyPatch(nameof(LiveMixin.TakeDamage))]
     [HarmonyPrefix]
     public static bool TakeDamagePrefix(LiveMixin __instance, float originalDamage, GameObject dealer)

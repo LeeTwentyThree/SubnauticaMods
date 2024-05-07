@@ -17,6 +17,7 @@ public static class PlayerPatcher
         __instance.gameObject.EnsureComponent<RandomFishSpawner>();
         __instance.gameObject.EnsureComponent<JumpScares>();
         __instance.gameObject.AddComponent<EnzymeRainController>();
+        MainCamera.camera.gameObject.AddComponent<PlagueScreenFXController>();
     }
     
     [HarmonyPatch(nameof(Player.EquipmentChanged))]

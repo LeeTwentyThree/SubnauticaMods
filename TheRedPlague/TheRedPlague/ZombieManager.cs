@@ -9,7 +9,8 @@ namespace TheRedPlague;
 
 public static class ZombieManager
 {
-    private static FMODAsset _biteSound = AudioUtils.GetFmodAsset("event:/creature/blood_kelp_biter/bite");
+    private static FMODAsset _biteSoundSmall = AudioUtils.GetFmodAsset("SmallZombieBite");
+    private static FMODAsset _biteSoundLarge = AudioUtils.GetFmodAsset("ZombieBite");
     
     public static bool IsZombie(GameObject creature)
     {
@@ -96,7 +97,7 @@ public static class ZombieManager
         var meleeAttack = creature.gameObject.AddComponent<MeleeAttack>();
         meleeAttack.biteAggressionThreshold = 0.1f;
         meleeAttack.biteInterval = 2;
-        meleeAttack.biteDamage = creature.liveMixin.maxHealth >= 200 ? 14 : 2;
+        meleeAttack.biteDamage = creature.liveMixin.maxHealth >= 200 ? 14 : 4;
         meleeAttack.biteAggressionDecrement = 0.2f;
         meleeAttack.lastTarget = creature.GetComponent<LastTarget>();
         meleeAttack.creature = creature;
@@ -105,8 +106,9 @@ public static class ZombieManager
         meleeAttack.canBiteVehicle = true;
         meleeAttack.canBiteCyclops = true;
         var biteEmitter = creature.gameObject.AddComponent<FMOD_StudioEventEmitter>();
-        biteEmitter.asset = _biteSound;
-        biteEmitter.path = _biteSound.path;
+        var biteSoundToUse = creature.liveMixin.maxHealth >= 200 ? _biteSoundLarge : _biteSoundSmall;
+        biteEmitter.asset = biteSoundToUse;
+        biteEmitter.path = biteSoundToUse.path;
         meleeAttack.attackSound = biteEmitter;
         
         var triggerObj = new GameObject("AttackTrigger");
