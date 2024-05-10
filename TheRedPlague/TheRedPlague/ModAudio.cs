@@ -41,6 +41,8 @@ public static class ModAudio
         RegisterSoundWithVariants("SmallZombieBite", new string[] {"SmallZombieBite1", "SmallZombieBite2", "SmallZombieBite3"},
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/creatures", 2f, 6f);
         Register2DSound("AirStrike", "AirStrike", "bus:/master/SFX_for_pause/PDA_pause/all");
+        RegisterSoundWithVariants("AirStrikeExplosion", new string[] {"Underwater Explosion", "Underwater Explosion 2"},
+            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 10f, 300f);
 
         RegisterSound("FleshBlobActivate", "FleshBlobActivate", "bus:/master/SFX_for_pause/PDA_pause/all", 10, 500);
         RegisterSound("FleshBlobTornadoLoop", "PlagueTornadoLoop", "bus:/master/SFX_for_pause/PDA_pause/all", 40, 300);

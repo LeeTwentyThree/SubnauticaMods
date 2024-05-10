@@ -1,6 +1,7 @@
 ﻿using Nautilus.Extensions;
 using Nautilus.Utility;
 using UnityEngine;
+using TheRedPlague.Mono.AirStrikes;
 
 namespace TheRedPlague.Mono.Tools;
 
@@ -17,6 +18,12 @@ public class AirStrikeTool : PlayerTool
         // _throwing = true;
         //Invoke(nameof(Throw), 0.5f);
         Throw();
+    }
+
+    private void Start()
+    {
+        // pre-warm the prefab
+        AirStrikeController.GetOrCreateInstance();
     }
 
     private void Throw()
@@ -44,5 +51,17 @@ public class AirStrikeTool : PlayerTool
         Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("AirStrike"), transform.position);
         Subtitles.Add("AirStrikeSubtitles");
         _triggered = true;
+        AirStrikeController.GetOrCreateInstance().AirStrikePreciseLocation(transform.position);
+        Destroy(gameObject, 30);
+    }
+
+    public override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (!isActiveAndEnabled) return;
+        var controller = AirStrikeController.GetOrCreateInstance();
+        if (controller.ExplosionEffect == null) return;
+        var explodeFx = Instantiate(controller.ExplosionEffect, transform.position, Quaternion.identity);
+        explodeFx.transform.localScale = Vector3.one * 0.6f;
     }
 }
