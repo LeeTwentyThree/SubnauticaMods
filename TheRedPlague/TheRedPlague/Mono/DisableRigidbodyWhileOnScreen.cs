@@ -16,7 +16,8 @@ public class DisableRigidbodyWhileOnScreen : MonoBehaviour
     private Creature _creature;
 
     private float _timeCanPlaySoundAgain;
-    
+    private float _timeUnfreezeEnd;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -27,7 +28,7 @@ public class DisableRigidbodyWhileOnScreen : MonoBehaviour
 
     private void Update()
     {
-        var canMove = !JumpScareUtils.IsPositionOnScreen(transform.position, 0.2f);
+        var canMove = !JumpScareUtils.IsPositionOnScreen(transform.position, 0.2f) && Time.time > _timeUnfreezeEnd;
         _rb.isKinematic = !canMove;
         _animator.speed = canMove ? 1 : 0;
 
@@ -42,5 +43,10 @@ public class DisableRigidbodyWhileOnScreen : MonoBehaviour
         }
 
         _wasAttackingPlayer = attacking;
+    }
+    
+    public void UnfreezeForDuration(float duration)
+    {
+        _timeUnfreezeEnd = Time.time + duration;
     }
 }

@@ -15,13 +15,13 @@ public class MutantAttackTrigger : MonoBehaviour
     private float _timeCanAttackAgain;
     private static FMODAsset _zombieBiteSound = AudioUtils.GetFmodAsset("ZombieBite");
 
-    private MoveTowardsPlayerWhenOffScreen _moveTowardsPlayerWhenOffScreen;
+    private DisableRigidbodyWhileOnScreen _disableRigidbodyWhileOnScreen;
 
     private void Start()
     {
         _model = transform.parent.GetChild(0)?.gameObject;
         if (heavilyMutated)
-            _moveTowardsPlayerWhenOffScreen = GetComponentInParent<MoveTowardsPlayerWhenOffScreen>();
+            _disableRigidbodyWhileOnScreen = GetComponentInParent<DisableRigidbodyWhileOnScreen>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,8 +53,8 @@ public class MutantAttackTrigger : MonoBehaviour
         {
             player.liveMixin.TakeDamage(calculatedDamage, transform.position);
             Utils.PlayFMODAsset(_zombieBiteSound, transform.position);
-            if (_moveTowardsPlayerWhenOffScreen)
-                _moveTowardsPlayerWhenOffScreen.UnfreezeForDuration(3);
+            if (_disableRigidbodyWhileOnScreen)
+                _disableRigidbodyWhileOnScreen.UnfreezeForDuration(3);
         }
     }
 
