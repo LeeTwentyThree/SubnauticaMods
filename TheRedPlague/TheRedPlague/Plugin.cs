@@ -7,6 +7,7 @@ using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Utility;
+using TheRedPlague.Mono.FleshBlobs;
 using UnityEngine;
 
 namespace TheRedPlague;

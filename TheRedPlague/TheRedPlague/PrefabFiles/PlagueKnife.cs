@@ -21,11 +21,10 @@ public static class PlagueKnife
         plagueKnifeTemplate.ModifyPrefab += ModifyPrefab;
         plagueKnife.SetGameObject(plagueKnifeTemplate);
         plagueKnife.SetEquipment(EquipmentType.Hand);
-        plagueKnife.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.Knife, 1),
-                new CraftData.Ingredient(ModPrefabs.WarperHeart.TechType, 3)))
+        plagueKnife.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.Knife),
+                new CraftData.Ingredient(ModPrefabs.WarperHeart.TechType, 3), new CraftData.Ingredient(ModPrefabs.AmalgamatedBone.TechType)))
             .WithCraftingTime(5)
-            .WithFabricatorType(CraftTree.Type.Workbench)
-            .WithStepsToFabricatorTab("PlagueEquipment");
+            .WithFabricatorType(AdminFabricator.AdminCraftTree);
         plagueKnife.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Tools);
         plagueKnife.Register();
         KnownTechHandler.SetAnalysisTechEntry(ModPrefabs.AmalgamatedBone.TechType, new[] {Info.TechType},

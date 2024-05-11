@@ -28,12 +28,9 @@ public static class ModCompatibility
                     new string[0],
                     new AttachableParasite(TechType.Gasopod, 4f),
                     new AttachableParasite(TechType.Stalker, 6f),
-                    new AttachableParasite(TechType.Eyeye, 30),
                     new AttachableParasite(TechType.Warper, 6f),
                     new AttachableParasite(TechType.SpineEel, 6f),
-                    new AttachableParasite(TechType.CrabSquid, 3f),
-                    new AttachableParasite(TechType.Crash, 16f),
-                    new AttachableParasite(TechType.Peeper, 30)
+                    new AttachableParasite(TechType.CrabSquid, 3f)
                 ),
                 new ParasiteAttachPoint(
                         new string[]

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
+using Nautilus.Crafting;
 using Nautilus.Utility;
 using TheRedPlague.MaterialModifiers;
 using TheRedPlague.Mono.Tools;
@@ -11,13 +12,18 @@ namespace TheRedPlague.PrefabFiles;
 
 public static class AirStrikeDevice
 {
-    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("AirStrikeDevice");
+    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("AirStrikeDevice", true)
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("AirStrikeDeviceIcon"));
 
     public static void Register()
     {
         var prefab = new CustomPrefab(Info);
         prefab.SetGameObject(GetPrefab);
         prefab.SetEquipment(EquipmentType.Hand);
+        prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.Titanium, 2),
+                new CraftData.Ingredient(TechType.WiringKit)))
+            .WithCraftingTime(4)
+            .WithFabricatorType(AdminFabricator.AdminCraftTree);
         prefab.Register();
     }
 
@@ -44,6 +50,7 @@ public static class AirStrikeDevice
         tool.ikAimRightArm = true;
         obj.GetComponentInChildren<TextMeshProUGUI>().font = FontUtils.Aller_W_Bd;
         prefab.Set(obj);
+        PrefabUtils.AddVFXFabricating(obj, "WorldModel", 0, 0.5f);
         yield break;
     }
 }

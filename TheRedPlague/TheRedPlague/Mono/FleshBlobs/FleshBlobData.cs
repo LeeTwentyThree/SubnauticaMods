@@ -44,6 +44,11 @@ public static class FleshBlobData
             new Vector2(1400, 1550), new Vector2(200, 1000), new Vector2(1580, 1200), new Vector2(500, 800),
             new Vector2(700, 180), new Vector2(1330, 650)),
         // Southeast
-        new FleshBlobPath(new Vector2(200, -1000), new Vector2(400, -540), new Vector2(500, -800), new Vector2(660, -760), new Vector2(-640, -1100), new Vector2(360, -1444), new Vector2(-70, -1130))
+        new FleshBlobPath(new Vector2(200, -1000), new Vector2(400, -540), new Vector2(500, -800),
+            new Vector2(660, -760), new Vector2(-640, -1100), new Vector2(360, -1444), new Vector2(-70, -1130)),
+        // Plague heart island
+        new FleshBlobPath(new Vector2(-1438.00f, 291.77f), new Vector2(-1354.77f, 312.60f), new Vector2(-1343, 318),
+            new Vector2(-1305.97f, 301.15f), new Vector2(-1275.35f, 262.93f), new Vector2(-1311.97f, 178.71f),
+            new Vector2(-1382.28f, 235.76f), new Vector2(-1412.04f, 213.54f), new Vector2(-1453.31f, 263.35f))
     };
 }

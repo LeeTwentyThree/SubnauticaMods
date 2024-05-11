@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TheRedPlague.Mono.FleshBlobs;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,6 +17,9 @@ public class AirStrikeDrone : MonoBehaviour
 
     private int _bombsToDrop = 3;
     private float _delayBetweenDrops = 0.5f;
+    private float _bombFleshBlobsDistance = 80;
+
+    private bool _attackedFleshBlob;
 
     public void SetUp(float dropDelay, float velocity, float maxDepth)
     {
@@ -27,6 +31,7 @@ public class AirStrikeDrone : MonoBehaviour
     private void Start()
     {
         _dropBombTime = Time.time + _dropDelay + Random.Range(-0.5f, 0.5f);
+        InvokeRepeating(nameof(TargetFleshBlobs), 1, 0.5f);
     }
 
     private void Update()
@@ -37,6 +42,17 @@ public class AirStrikeDrone : MonoBehaviour
             StartCoroutine(DropBombCoroutine());
             Destroy(gameObject, 120);
             _droppedBombs = true;
+        }
+    }
+
+    private void TargetFleshBlobs()
+    {
+        if (_attackedFleshBlob) return;
+        var closestFleshBlob = FleshBlobGrowth.GetClosestForDroneStrike(transform.position, _bombFleshBlobsDistance);
+        if (closestFleshBlob != null)
+        {
+            DropBomb();
+            _attackedFleshBlob = true;
         }
     }
 

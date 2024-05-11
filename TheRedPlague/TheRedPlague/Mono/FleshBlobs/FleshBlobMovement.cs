@@ -12,6 +12,12 @@ public class FleshBlobMovement : MonoBehaviour
     public float upwardsFactor = 1f;
 
     private float _timeUnfreeze;
+    private FleshBlobGrowth _growth;
+
+    private void Start()
+    {
+        _growth = GetComponent<FleshBlobGrowth>();
+    }
 
     private void Update()
     {
@@ -19,7 +25,7 @@ public class FleshBlobMovement : MonoBehaviour
         var pos2d = Position2D;
         var moveTowards = Vector2.MoveTowards(pos2d, targetPosition, speed * Time.deltaTime);
         var normal = GetUpDirection(pos2d);
-        transform.position = new Vector3(moveTowards.x, Mathf.MoveTowards(transform.position.y, GetYPosition(pos2d, normal), Time.deltaTime * 10), moveTowards.y);
+        transform.position = new Vector3(moveTowards.x, Mathf.MoveTowards(transform.position.y, GetYPosition(pos2d, normal), Time.deltaTime * 10 * _growth.Size), moveTowards.y);
         var up = Vector3.Slerp(transform.up, normal, Time.deltaTime * rotateSpeed);
         transform.up = up;
     }
@@ -35,7 +41,7 @@ public class FleshBlobMovement : MonoBehaviour
     {
         if (WorldHeightLib.HeightMap.Instance.TryGetValueAtPosition(pos, out var y))
         {
-            return y - (normal * inGroundDepth).y;
+            return y - (normal * inGroundDepth * _growth.Size).y;
         }
         return -2000;
     }

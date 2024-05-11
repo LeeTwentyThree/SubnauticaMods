@@ -1,4 +1,5 @@
 ﻿using Nautilus.Handlers;
+using TheRedPlague.PrefabFiles;
 using UnityEngine;
 
 namespace TheRedPlague;
@@ -151,5 +152,11 @@ public static class CoordinatedSpawns
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.MutantDiver2.ClassID, new Vector3(-173.39f, -810.16f, 332.21f)));
         
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.BoneArmorDatabox.ClassID, new Vector3(-170.754f, -812.900f, 333.665f), new Vector3(0, 0, 43.07f)));
+        
+        // Administrator drop pod
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.SkeletonCorpse.ClassID, new Vector3(-175.49f, -664.36f, 3286.42f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.MutantDiver4.ClassID, new Vector3(-175.12f, -659.21f, 3286.98f)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PlagueKnife.Info.ClassID, new Vector3(-175.803f, -666.628f, 3286.333f), new Vector3(82.25f, 211.03f, 182.54f)));
     }
 }

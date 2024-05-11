@@ -71,11 +71,13 @@ public static class ModPrefabs
 
         RegisterCreaturesAndCorpses();
 
+        RegisterDropPodPrefabs();
+
         RegisterEquipment();
         
+        RegisterFood();
+        
         RegisterDataboxes();
-
-        RegisterDropPodPrefabs();
         
         CyclopsWreckPrefab.Register();
 
@@ -459,10 +461,10 @@ public static class ModPrefabs
 
     private static void RegisterCreaturesAndCorpses()
     {
-        var infectedCorpse = new CorpsePrefab(InfectedCorpseInfo, "DiverCorpse", true);
+        var infectedCorpse = new CorpsePrefab(InfectedCorpseInfo, "DiverCorpse", true, false);
         infectedCorpse.Register();
 
-        var skeletonCorpse = new CorpsePrefab(SkeletonCorpse, "SkeletonRagdoll", true);
+        var skeletonCorpse = new CorpsePrefab(SkeletonCorpse, "SkeletonRagdoll", true, false);
         skeletonCorpse.Register();
 
         var mutantDiver1 = new Mutant(MutantDiver1, "MutatedDiver1", false);
@@ -488,6 +490,38 @@ public static class ModPrefabs
         
         AirStrikeDevice.Register();
     }
+
+    private static void RegisterFood()
+    {
+        var hamInfo = PrefabInfo.WithTechType("RedPlagueHam")
+            .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("Ham"));
+        new CustomPrefab(hamInfo).Register();
+        var cheeseInfo = PrefabInfo.WithTechType("RedPlagueCheese")
+            .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("Cheese"));
+        new CustomPrefab(cheeseInfo).Register();
+
+        var theRegularInfo = PrefabInfo.WithTechType("TheRegular", true)
+            .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("TheRegular"));
+        var theRegularObject = Plugin.AssetBundle.LoadAsset<GameObject>("TheRegularSandwich");
+        PrefabUtils.AddBasicComponents(theRegularObject, theRegularInfo.ClassID, theRegularInfo.TechType, LargeWorldEntity.CellLevel.Near);
+        MaterialUtils.ApplySNShaders(theRegularObject);
+        var eatable = theRegularObject.EnsureComponent<Eatable>();
+        eatable.decomposes = false;
+        eatable.foodValue = 20;
+        eatable.waterValue = -2;
+        theRegularObject.EnsureComponent<Pickupable>();
+        var rb = theRegularObject.EnsureComponent<Rigidbody>();
+        rb.useGravity = false;
+        var wf = theRegularObject.EnsureComponent<WorldForces>();
+        wf.useRigidbody = rb;
+        PrefabUtils.AddVFXFabricating(theRegularObject, "ham-and-cheese", 0, 0.3f);
+        var theRegularPrefab = new CustomPrefab(theRegularInfo);
+        theRegularPrefab.SetGameObject(theRegularObject);
+        theRegularPrefab.SetRecipe(new RecipeData(new CraftData.Ingredient(hamInfo.TechType, 2),
+                new CraftData.Ingredient(cheeseInfo.TechType)))
+            .WithFabricatorType(AdminFabricator.AdminCraftTree);
+        theRegularPrefab.Register();
+    }
     
     private static void RegisterDataboxes()
     {
@@ -499,6 +533,7 @@ public static class ModPrefabs
     {
         AdministratorDropPod.Register();
         AdminDropPodBeacon.Register();
+        AdminFabricator.Register();
     }
     
     private static void RegisterFleshBlobs()

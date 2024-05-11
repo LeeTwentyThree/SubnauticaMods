@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Nautilus.Assets;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using TheRedPlague.Mono;
 using TheRedPlague.Mono.FleshBlobs;
@@ -23,6 +24,11 @@ public static class FleshBlobLeaders
             prefab.Register();
             Infos[i] = info;
         }
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(Infos[0].TechType, new SpawnLocation(new Vector3(-1195, -185, 400)), new SpawnLocation(new Vector3(-1660, -330, 20)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(Infos[1].TechType, new SpawnLocation(new Vector3(-1605, -230, 670)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(Infos[2].TechType, new SpawnLocation(new Vector3(-333, -54, -67)));
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(Infos[7].TechType, new SpawnLocation(new Vector3(-1438, -340, 291)), new SpawnLocation(new Vector3(-1305, -300, 301)));
     }
 
     public static IEnumerator GetGameObject(IOut<GameObject> prefab)
@@ -71,7 +77,10 @@ public static class FleshBlobLeaders
         var tornadoEmitter = obj.AddComponent<FMOD_CustomEmitter>();
         tornadoEmitter.SetAsset(AudioUtils.GetFmodAsset("FleshBlobTornadoLoop"));
         tornadoEmitter.followParent = true;
-        obj.AddComponent<FleshBlobTornadoSounds>().emitter = tornadoEmitter;
+        
+        var tornadoController = obj.AddComponent<FleshBlobTornadoController>();
+        tornadoController.tornadoEmitter = tornadoEmitter;
+        tornadoController.vfxParent = obj.transform.Find("VFX").gameObject;
 
         obj.AddComponent<FleshBlobGravity>();
 
@@ -82,6 +91,8 @@ public static class FleshBlobLeaders
         {
             child.gameObject.AddComponent<FleshBlobKillTrigger>().manager = killTriggerManager;
         }
+
+        obj.AddComponent<FleshBlobGrowth>();
         
         yield break;
     }

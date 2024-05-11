@@ -1,4 +1,5 @@
 ﻿using Nautilus.Utility;
+using TheRedPlague.Mono.FleshBlobs;
 using UnityEngine;
 
 namespace TheRedPlague.Mono.AirStrikes;
@@ -26,16 +27,24 @@ public class DetonateBombInWater : MonoBehaviour
     private void OnDestroy()
     {
         Instantiate(explosionPrefab, transform.position, Quaternion.Euler(Vector3.up * Random.value * 360)).SetActive(true);
-        var targets = UWE.Utils.OverlapSphereIntoSharedBuffer(transform.position, _explosionRadius, -1, QueryTriggerInteraction.Ignore);
+        DamageInRange(10000, _explosionRadius, true);
+        DamageInRange(10000, _explosionRadius * 3, false);
+        Utils.PlayFMODAsset(_explodeSound, transform.position);
+        FleshBlobGrowth.GrowAllInRange(transform.position, 300, 0.1f);
+    }
+
+    private void DamageInRange(float damage, float range, bool affectPlayer)
+    {
+        var targets = UWE.Utils.OverlapSphereIntoSharedBuffer(transform.position, range, -1, QueryTriggerInteraction.Ignore);
         for (var i = 0; i < targets; i++)
         {
             var collider = UWE.Utils.sharedColliderBuffer[i];
             if (collider == null) continue;
             var liveMixin = collider.GetComponentInParent<LiveMixin>();
             if (liveMixin == null) continue;
-            liveMixin.TakeDamage(10000, transform.position, DamageType.Explosive);
+            if (!affectPlayer && liveMixin.gameObject == Player.main.gameObject) continue;
+            liveMixin.TakeDamage(damage, transform.position, DamageType.Explosive);
         }
-        Utils.PlayFMODAsset(_explodeSound, transform.position);
     }
 
     private void OnCollisionEnter(Collision other)

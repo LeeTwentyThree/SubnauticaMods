@@ -22,9 +22,8 @@ public static class BoneArmor
         prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.ReinforcedDiveSuit, 1),
                 new CraftData.Ingredient(ModPrefabs.WarperHeart.TechType, 1),
                 new CraftData.Ingredient(ModPrefabs.AmalgamatedBone.TechType, 8)))
-            .WithCraftingTime(5)
-            .WithFabricatorType(CraftTree.Type.Workbench)
-            .WithStepsToFabricatorTab("PlagueEquipment");
+            .WithCraftingTime(10)
+            .WithFabricatorType(AdminFabricator.AdminCraftTree);
         prefab.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Equipment);
         prefab.Register();
         
@@ -75,6 +74,8 @@ public static class BoneArmor
         var wf = obj.EnsureComponent<WorldForces>();
         wf.useRigidbody = rb;
         obj.AddComponent<Pickupable>();
+
+        PrefabUtils.AddVFXFabricating(obj, "Model", 0, 0.5f, Vector3.up * 0.3f, 0.8f);
 
         prefab.Set(obj);
         yield break;

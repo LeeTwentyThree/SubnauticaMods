@@ -39,6 +39,19 @@ public static class AdministratorDropPod
         light.color = Color.red;
         light.range = 20;
         
+        var oldFabricator = pod.transform.Find("life_pod_exploded_02_02/interior/fabricator_01_base").gameObject;
+        oldFabricator.SetActive(false);
+
+        var adminFabTask = CraftData.GetPrefabForTechTypeAsync(AdminFabricator.Info.TechType);
+        yield return adminFabTask;
+        var adminFabricator = UWE.Utils.InstantiateDeactivated(adminFabTask.GetResult());
+        Object.DestroyImmediate(adminFabricator.GetComponent<LargeWorldEntity>());
+        Object.DestroyImmediate(adminFabricator.GetComponent<PrefabIdentifier>());
+        adminFabricator.transform.parent = oldFabricator.transform.parent;
+        adminFabricator.transform.localPosition = oldFabricator.transform.localPosition;
+        adminFabricator.transform.localEulerAngles = new Vector3(0, 0, 180);
+        adminFabricator.SetActive(true);
+        
         prefab.Set(pod);
     }
 }

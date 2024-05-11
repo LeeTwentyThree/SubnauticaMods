@@ -48,6 +48,10 @@ public class FleshBlobKillTriggerManager : MonoBehaviour
     {
         Player.main.rigidBody.isKinematic = false;
         Player.main.liveMixin.TakeDamage(4589413);
+        if (NoDamageConsoleCommand.main != null && NoDamageConsoleCommand.main.GetNoDamageCheat())
+        {
+            Player.main.liveMixin.Kill();
+        }
         // DeathScare.PlayMutantDeathScare("MutatedDiver4", true);
     }
     

@@ -74,8 +74,8 @@ public class PlagueScreenFXController : MonoBehaviour
         {
             return 1f;
         }
-        var closestFleshBlob = FleshBlobGravity.GetClosest(transform.position);
+        var closestFleshBlob = FleshBlobGravity.GetStrongest(transform.position);
         if (closestFleshBlob == null) return 0f;
-        return Mathf.InverseLerp(maxDistance, minDistance, Vector3.Distance(closestFleshBlob.transform.position, transform.position));
+        return Mathf.InverseLerp(maxDistance, minDistance, Vector3.Distance(closestFleshBlob.transform.position, transform.position) * closestFleshBlob.growth.Size);
     }
 }

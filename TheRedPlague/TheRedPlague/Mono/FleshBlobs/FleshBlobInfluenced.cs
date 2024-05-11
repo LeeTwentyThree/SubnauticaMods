@@ -20,15 +20,12 @@ public class FleshBlobInfluenced : MonoBehaviour
         if (Time.time > _timeQueryAgain)
         {
             _timeQueryAgain = Time.time + 0.5f;
-            var target = FleshBlobGravity.GetClosest(transform.position);
+            var target = FleshBlobGravity.GetStrongest(transform.position);
             if (target != null)
             {
                 _targetTransform = target.transform;
-                _gravitationalForce =
-                    Mathf.Clamp(
-                        target.gravitationalConstant /
-                        Vector3.SqrMagnitude(transform.position - _targetTransform.position), 0, 50);
-                if (Vector3.SqrMagnitude(target.transform.position - transform.position) < 30 * 30)
+                _gravitationalForce = target.GetGravitationalForceMagnitude(transform.position);
+                if (Vector3.SqrMagnitude(_targetTransform.position - transform.position) < 30 * 30 * target.growth.Size * target.growth.Size)
                 {
                     var lm = GetComponent<LiveMixin>();
                     if (lm && lm.IsAlive()) lm.TakeDamage(10000);
