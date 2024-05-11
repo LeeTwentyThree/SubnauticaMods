@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using UnityEngine;
@@ -47,10 +48,16 @@ public static class AdministratorDropPod
         var adminFabricator = UWE.Utils.InstantiateDeactivated(adminFabTask.GetResult());
         Object.DestroyImmediate(adminFabricator.GetComponent<LargeWorldEntity>());
         Object.DestroyImmediate(adminFabricator.GetComponent<PrefabIdentifier>());
+        Object.DestroyImmediate(adminFabricator.GetComponent<SkyApplier>());
         adminFabricator.transform.parent = oldFabricator.transform.parent;
         adminFabricator.transform.localPosition = oldFabricator.transform.localPosition;
-        adminFabricator.transform.localEulerAngles = new Vector3(0, 0, 180);
+        adminFabricator.transform.localEulerAngles = new Vector3(270, 180, 0);
         adminFabricator.SetActive(true);
+
+        var secondSkyApplier = pod.GetComponents<SkyApplier>()[1];
+        var renderers = new List<Renderer>(secondSkyApplier.renderers);
+        renderers.AddRange(adminFabricator.GetComponentsInChildren<Renderer>(true));
+        secondSkyApplier.renderers = renderers.ToArray();
         
         prefab.Set(pod);
     }
