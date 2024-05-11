@@ -75,7 +75,7 @@ public static class BoneArmor
         wf.useRigidbody = rb;
         obj.AddComponent<Pickupable>();
 
-        PrefabUtils.AddVFXFabricating(obj, "Model", 0, 0.5f, Vector3.up * 0.3f, 0.8f);
+        PrefabUtils.AddVFXFabricating(obj, "Model", -0.55f, 0.33f, Vector3.up * 0.3f, 0.8f);
 
         prefab.Set(obj);
         yield break;
