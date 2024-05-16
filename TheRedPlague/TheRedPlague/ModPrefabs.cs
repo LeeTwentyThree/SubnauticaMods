@@ -514,7 +514,7 @@ public static class ModPrefabs
         rb.useGravity = false;
         var wf = theRegularObject.EnsureComponent<WorldForces>();
         wf.useRigidbody = rb;
-        PrefabUtils.AddVFXFabricating(theRegularObject, "ham-and-cheese", 0, 0.3f);
+        PrefabUtils.AddVFXFabricating(theRegularObject, "ham-and-cheese", 0, 0.3f, new Vector3(0, 0.024f, 0), 50, new Vector3(270, 0, 0));
         var theRegularPrefab = new CustomPrefab(theRegularInfo);
         theRegularPrefab.SetGameObject(theRegularObject);
         theRegularPrefab.SetRecipe(new RecipeData(new CraftData.Ingredient(hamInfo.TechType, 2),

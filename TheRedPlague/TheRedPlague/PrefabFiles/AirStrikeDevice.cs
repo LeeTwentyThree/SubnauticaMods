@@ -50,7 +50,7 @@ public static class AirStrikeDevice
         tool.ikAimRightArm = true;
         obj.GetComponentInChildren<TextMeshProUGUI>().font = FontUtils.Aller_W_Bd;
         prefab.Set(obj);
-        PrefabUtils.AddVFXFabricating(obj, "WorldModel", 0, 0.5f);
+        PrefabUtils.AddVFXFabricating(obj, "WorldModel", 0, 0.2f, Vector3.zero, 1, new Vector3(270, 0, 0));
         yield break;
     }
 }
