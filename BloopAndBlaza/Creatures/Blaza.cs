@@ -50,7 +50,7 @@ public class Blaza : CreatureAsset
         blazaEmitter.followParent = true;
         voice.emitter = blazaEmitter;
 
-        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine_NoPhys"));
+        var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine.016"));
         trailManagerBuilder.SetTrailArrayToAllChildren();
         trailManagerBuilder.Apply();
         
