@@ -46,6 +46,9 @@ public class Blaza : CreatureAsset
         voice.maxInterval = 25;
         voice.animator = components.Animator;
         voice.animatorTriggerParam = "roar";
+        var blazaEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
+        blazaEmitter.followParent = true;
+        voice.emitter = blazaEmitter;
 
         var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine_NoPhys"));
         trailManagerBuilder.SetTrailArrayToAllChildren();
