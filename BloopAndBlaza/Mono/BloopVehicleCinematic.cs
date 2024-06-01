@@ -31,7 +31,7 @@ public class BloopVehicleCinematic : MonoBehaviour
         }
         yield return new WaitForSeconds(1.5f);
         _playing = false;
-        GetComponent<LiveMixin>().TakeDamage(400f);
+        GetComponent<LiveMixin>().TakeDamage(20000f);
         if (killPlayer)
         {
             Player.main.liveMixin.Kill(DamageType.Normal);
