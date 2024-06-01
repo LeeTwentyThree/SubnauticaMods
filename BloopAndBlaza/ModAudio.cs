@@ -16,14 +16,14 @@ public static class ModAudio
     public static void RegisterAllAudio()
     {
         // Blaza:
-        RegisterSoundWithVariants("BlazaIdle", new string[] {"BlazaIdle1", "BlazaIdle2", "BlazaIdle3", "BlazaIdle4", "BlazaIdle5"}, CreaturesBus, 5f, 50f);
+        RegisterSoundWithVariants("BlazaIdle", new string[] {"BlazaIdle1", "BlazaIdle2", "BlazaIdle3", "BlazaIdle4", "BlazaIdle5"}, CreaturesBus, 5f, 150f);
         RegisterSoundWithVariants("BlazaBite", new string[] {"BlazaBite1", "BlazaBite2"}, CreaturesBus, 5f, 30f);
         RegisterSound("BlazaExosuitAttack", "BlazaExosuit", CreaturesBus, 5f, 30f);
         RegisterSound("BlazaSeamothAttack", "BlazaSeamoth", CreaturesBus, 5f, 30f);
 
         // Bloop:
         RegisterSoundWithVariants("BloopIdle", new string[] {"BloopRoar1", "BloopRoar2", "BloopRoar3", "BloopRoar4", "BloopRoar5"}, CreaturesBus, 20f, 100f);
-        RegisterSound("BloopVortexAttack", "BloopVortexAttack", CreaturesBus, 5f, 30f);
+        RegisterSound("BloopVortexAttack", "BloopVortexAttack", CreaturesBus, 5f, 40f);
         RegisterSoundWithVariants("BloopSwim", new string[] {"BloopSwim1", "BloopSwim2", "BloopSwim3", "BloopSwim4", "BloopSwim5"}, CreaturesBus, 5f, 40f);
     }
     
