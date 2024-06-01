@@ -18,8 +18,8 @@ public class BlazaBehaviour : MonoBehaviour
     private Transform _vehicleHoldPoint;
     private BlazaMeleeAttack _mouthAttack;
     private CreatureVoice _voice;
-    private static readonly FMODAsset _seamothSounds = AudioUtils.GetFmodAsset("BlazaSeamoth");
-    private static readonly FMODAsset _exosuitSounds = AudioUtils.GetFmodAsset("BlazaExosuit");
+    private static readonly FMODAsset _seamothSounds = AudioUtils.GetFmodAsset("BlazaSeamothAttack");
+    private static readonly FMODAsset _exosuitSounds = AudioUtils.GetFmodAsset("BlazaExosuitAttack");
     private static readonly FMODAsset _roarSound = AudioUtils.GetFmodAsset("BlazaIdle");
 
     private readonly float _damagePerSecond = 23f;
