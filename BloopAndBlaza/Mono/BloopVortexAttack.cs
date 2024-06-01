@@ -74,7 +74,7 @@ public class BloopVortexAttack : CreatureAction
         if (Time.time > timeLastCurrent + currentInterval)
         {
             WorldForces.AddCurrent(mouth.transform.position, DayNightCycle.main.timePassed, 20f, -transform.forward,
-                100f, 3f);
+                500f, 3f);
             timeLastCurrent = Time.time;
         }
     }
