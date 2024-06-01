@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoveTrashFromWorld", "RemoveTrashFromWorld.csproj", "{EAD0345C-23B6-4243-8568-031EFCEA6D59}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EAD0345C-23B6-4243-8568-031EFCEA6D59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAD0345C-23B6-4243-8568-031EFCEA6D59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAD0345C-23B6-4243-8568-031EFCEA6D59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAD0345C-23B6-4243-8568-031EFCEA6D59}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
