@@ -45,6 +45,10 @@ public class BloopMeleeAttack : MeleeAttack
 
                 LiveMixin liveMixin = target.GetComponent<LiveMixin>();
                 if (liveMixin == null) return;
+                if (liveMixin.invincibleInCreative && GameModeUtils.IsInvisible())
+                {
+                    return;
+                }
                 if (!liveMixin.IsAlive())
                 {
                     return;
