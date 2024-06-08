@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModStructureHelperPlugin", "ModStructureHelperPlugin\ModStructureHelperPlugin.csproj", "{A1761B71-4D44-40B5-87E8-F165249CE82B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModStructureFormat", "ModStructureFormat\ModStructureFormat.csproj", "{817C165D-3E22-4689-A722-116A5B8B2AED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1761B71-4D44-40B5-87E8-F165249CE82B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1761B71-4D44-40B5-87E8-F165249CE82B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1761B71-4D44-40B5-87E8-F165249CE82B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1761B71-4D44-40B5-87E8-F165249CE82B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{817C165D-3E22-4689-A722-116A5B8B2AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817C165D-3E22-4689-A722-116A5B8B2AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817C165D-3E22-4689-A722-116A5B8B2AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817C165D-3E22-4689-A722-116A5B8B2AED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
