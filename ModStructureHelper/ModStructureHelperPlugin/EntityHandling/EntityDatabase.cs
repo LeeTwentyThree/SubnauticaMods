@@ -51,7 +51,7 @@ public class EntityDatabase : MonoBehaviour
             entities.Add(entity.Key, entityData);
         }
         RebuildFolderStructure();
-        ErrorMessage.AddMessage($"Loaded {data.Count} entities from the prefab database into {folders.Count} folders!");
+        // ErrorMessage.AddMessage($"Loaded {data.Count} entities from the prefab database into {folders.Count} folders!");
     }
 
     private static string GetPathWithModName(string path, string classId)

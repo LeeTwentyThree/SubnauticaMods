@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using ModStructureHelperPlugin;
 using UnityEngine;
 
 namespace RuntimeHandle
@@ -27,7 +28,7 @@ namespace RuntimeHandle
 
         protected virtual void InitializeMaterial()
         {
-            _material = new Material(Resources.Load("Shaders/HandleShader") as Shader);
+            _material = new Material(Plugin.AssetBundle.LoadAsset<Shader>("HandleShader"));
             _material.color = _defaultColor;
         }
         

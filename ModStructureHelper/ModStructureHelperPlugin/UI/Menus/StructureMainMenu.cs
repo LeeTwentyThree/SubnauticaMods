@@ -4,14 +4,14 @@ public class StructureMainMenu : StructureHelperMenuBase
 {
     public void OnButtonStopEditing()
     {
-        ui.promptHandler.Ask("Unload? All unsaved changes will be lost.", new PromptChoice("Yes", StopEditingStructure), new PromptChoice("No"),  new PromptChoice("Idk"));
+        ui.promptHandler.Ask("Stop editing the current structure? All unsaved changes will be lost on game reload.", new PromptChoice("Yes", StopEditingStructure), new PromptChoice("No"),  new PromptChoice("Idk"));
     }
 
     private void StopEditingStructure()
     {
-        if (StructureInstance.main)
+        if (StructureInstance.Main)
         {
-            Destroy(StructureInstance.main.gameObject);
+            Destroy(StructureInstance.Main.gameObject);
         }
     }
     

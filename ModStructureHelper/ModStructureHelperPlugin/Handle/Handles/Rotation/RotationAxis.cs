@@ -1,3 +1,4 @@
+using ModStructureHelperPlugin;
 using UnityEngine;
 
 namespace RuntimeHandle
@@ -41,7 +42,7 @@ namespace RuntimeHandle
         
         protected override void InitializeMaterial()
         {
-            _material = new Material(Resources.Load("Shaders/AdvancedHandleShader") as Shader);
+            _material = new Material(Plugin.AssetBundle.LoadAsset<Shader>("AdvancedHandleShader"));
             _material.color = _defaultColor;
         }
 
@@ -64,7 +65,7 @@ namespace RuntimeHandle
             }
             
             Vector3 hitPoint     = cameraRay.GetPoint(hitT);
-            Vector3 hitDirection = (hitPoint - _parentTransformHandle.target.position).normalized;
+            Vector3 hitDirection = (hitPoint - _parentTransformHandle.Target.position).normalized;
             float   x            = Vector3.Dot(hitDirection, _tangent);
             float   y            = Vector3.Dot(hitDirection, _biTangent);
             float   angleRadians = Mathf.Atan2(y, x);
@@ -78,12 +79,12 @@ namespace RuntimeHandle
 
             if (_parentTransformHandle.space == HandleSpace.LOCAL)
             {
-                _parentTransformHandle.target.localRotation = _startRotation * Quaternion.AngleAxis(angleDegrees, _axis);
+                _parentTransformHandle.Target.localRotation = _startRotation * Quaternion.AngleAxis(angleDegrees, _axis);
             }
             else
             {
                 Vector3 invertedRotatedAxis = Quaternion.Inverse(_startRotation) * _axis;
-                _parentTransformHandle.target.rotation = _startRotation * Quaternion.AngleAxis(angleDegrees, invertedRotatedAxis);
+                _parentTransformHandle.Target.rotation = _startRotation * Quaternion.AngleAxis(angleDegrees, invertedRotatedAxis);
             }
 
             _arcMesh = MeshUtils.CreateArc(transform.position, _hitPoint, _rotatedAxis, 2, angleRadians, Mathf.Abs(Mathf.CeilToInt(angleDegrees)) + 1);
@@ -107,9 +108,9 @@ namespace RuntimeHandle
             
             base.StartInteraction(p_hitPoint);
             
-            _startRotation = _parentTransformHandle.space == HandleSpace.LOCAL ? _parentTransformHandle.target.localRotation : _parentTransformHandle.target.rotation;
+            _startRotation = _parentTransformHandle.space == HandleSpace.LOCAL ? _parentTransformHandle.Target.localRotation : _parentTransformHandle.Target.rotation;
 
-            _arcMaterial = new Material(Shader.Find("sHTiF/HandleShader"));
+            _arcMaterial = new Material(Plugin.AssetBundle.LoadAsset<Shader>("HandleShader"));
             _arcMaterial.color = new Color(1,1,0,.4f);
             _arcMaterial.renderQueue = 5000;
             //_arcMesh.gameObject.SetActive(true);
@@ -123,7 +124,7 @@ namespace RuntimeHandle
                 _rotatedAxis     = _axis;
             }
 
-            _axisPlane = new Plane(_rotatedAxis, _parentTransformHandle.target.position);
+            _axisPlane = new Plane(_rotatedAxis, _parentTransformHandle.Target.position);
 
             Vector3 startHitPoint;
             Ray     cameraRay = Camera.main.ScreenPointToRay(RuntimeTransformHandle.GetMousePosition());
@@ -136,7 +137,7 @@ namespace RuntimeHandle
                 startHitPoint = _axisPlane.ClosestPointOnPlane(p_hitPoint);
             }
             
-            _tangent   = (startHitPoint - _parentTransformHandle.target.position).normalized;
+            _tangent   = (startHitPoint - _parentTransformHandle.Target.position).normalized;
             _biTangent = Vector3.Cross(_rotatedAxis, _tangent);
         }
         

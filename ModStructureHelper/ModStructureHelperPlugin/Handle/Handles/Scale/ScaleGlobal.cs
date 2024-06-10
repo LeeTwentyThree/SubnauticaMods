@@ -37,7 +37,7 @@ namespace RuntimeHandle
             Vector3 mouseVector = (RuntimeTransformHandle.GetMousePosition() - p_previousPosition);
             float d = (mouseVector.x + mouseVector.y) * Time.deltaTime * 2;
             delta += d;
-            _parentTransformHandle.target.localScale = _startScale + Vector3.Scale(_startScale,_axis) * delta;
+            _parentTransformHandle.Target.localScale = _startScale + Vector3.Scale(_startScale,_axis) * delta;
             
             base.Interact(p_previousPosition);
         }
@@ -45,7 +45,7 @@ namespace RuntimeHandle
         public override void StartInteraction(Vector3 p_hitPoint)
         {
             base.StartInteraction(p_hitPoint);
-            _startScale = _parentTransformHandle.target.localScale;
+            _startScale = _parentTransformHandle.Target.localScale;
         }
     }
 }

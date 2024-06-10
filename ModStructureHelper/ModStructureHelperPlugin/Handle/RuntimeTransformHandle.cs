@@ -33,7 +33,9 @@ namespace RuntimeHandle
         private RotationHandle _rotationHandle;
         private ScaleHandle _scaleHandle;
 
-        public Transform target;
+        public Transform Target { get; private set; }
+
+        private bool _targetRbWasKinematic;
 
         public UnityEvent startedDraggingHandle = new UnityEvent();
         public UnityEvent isDraggingHandle = new UnityEvent();
@@ -48,10 +50,10 @@ namespace RuntimeHandle
 
             _previousType = type;
 
-            if (target == null)
-                target = transform;
+            if (Target == null)
+                Target = transform;
 
-            if (disableWhenNoTarget && target == transform)
+            if (disableWhenNoTarget && Target == transform)
                 gameObject.SetActive(false);
 
             CreateHandles();
@@ -124,10 +126,10 @@ namespace RuntimeHandle
 
             _previousMousePosition = GetMousePosition();
 
-            transform.position = target.transform.position;
+            transform.position = Target.transform.position;
             if (space == HandleSpace.LOCAL || type == HandleType.SCALE)
             {
-                transform.rotation = target.transform.rotation;
+                transform.rotation = Target.transform.rotation;
             }
             else
             {
@@ -154,7 +156,7 @@ namespace RuntimeHandle
         {
             return Input.mousePosition;
         }
-
+        
         void HandleOverEffect(HandleBase p_axis, Vector3 p_hitPoint)
         {
             if (_draggingHandle == null && _previousAxis != null && (_previousAxis != p_axis || !_previousAxis.CanInteract(p_hitPoint)))
@@ -192,7 +194,7 @@ namespace RuntimeHandle
         static public RuntimeTransformHandle Create(Transform p_target, HandleType p_handleType)
         {
             RuntimeTransformHandle runtimeTransformHandle = new GameObject().AddComponent<RuntimeTransformHandle>();
-            runtimeTransformHandle.target = p_target;
+            runtimeTransformHandle.Target = p_target;
             runtimeTransformHandle.type = p_handleType;
 
             return runtimeTransformHandle;
@@ -201,21 +203,30 @@ namespace RuntimeHandle
         #region public methods to control handles
         public void SetTarget(Transform newTarget)
         {
-            target = newTarget;
+            if (Target != null)
+            {
+                var rb = Target.gameObject.GetComponent<Rigidbody>();
+                if (rb) rb.isKinematic = _targetRbWasKinematic;
+            }
+            Target = newTarget;
+            var newRb = newTarget.gameObject.GetComponent<Rigidbody>();
+            _targetRbWasKinematic = !newRb || newRb.isKinematic;
         }
-
+        
+        /*
         public void SetTarget(GameObject newTarget)
         {
-            target = newTarget.transform;
+            Target = newTarget.transform;
 
-            if (target == null)
-                target = transform;
+            if (Target == null)
+                Target = transform;
 
-            if (disableWhenNoTarget && target == transform)
+            if (disableWhenNoTarget && Target == transform)
                 gameObject.SetActive(false);
-            else if(disableWhenNoTarget && target != transform)
+            else if(disableWhenNoTarget && Target != transform)
                 gameObject.SetActive(true);
         }
+        */
 
         public void SetHandleMode(int mode)
         {

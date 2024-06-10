@@ -7,6 +7,7 @@ public class EntityInstance : MonoBehaviour
 {
     private Entity.CellLevel _cellLevel;
     private string _classId;
+    private string _id;
     public Entity.Priority priority;
     
     private void Awake()
@@ -18,12 +19,16 @@ public class EntityInstance : MonoBehaviour
             _cellLevel = Entity.CellLevel.Unknown;
         var prefabIdentifier = gameObject.GetComponent<PrefabIdentifier>();
         if (prefabIdentifier)
+        {
             _classId = prefabIdentifier.ClassId;
+            _id = prefabIdentifier.Id;
+        }
+
         DestroyImmediate(lwe);
     }
     
     public Entity GetEntityDataStruct()
     {
-        return new Entity(_classId, "Placeholder", transform.position, transform.eulerAngles, transform.localScale, _cellLevel, priority);
+        return new Entity(_classId, _id, transform.position, transform.eulerAngles, transform.localScale, _cellLevel, priority);
     }
 }

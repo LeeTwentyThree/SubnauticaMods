@@ -19,4 +19,6 @@ public abstract class EntityBrowserEntryBase
     {
         return PathUtils.GetParentDirectory(Path);
     }
+    
+    public virtual void OnConstructButton(GameObject button) {}
 }

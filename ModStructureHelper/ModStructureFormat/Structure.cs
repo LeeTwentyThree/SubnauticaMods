@@ -26,7 +26,7 @@ public class Structure
     
     public void SaveToFile(string jsonFilePath)
     {
-        File.WriteAllText(jsonFilePath, JsonUtility.ToJson(this));
+        File.WriteAllText(jsonFilePath, JsonConvert.SerializeObject(this));
     }
 
     public void SortByPriority()

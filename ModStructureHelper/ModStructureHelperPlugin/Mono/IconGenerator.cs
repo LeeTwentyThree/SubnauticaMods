@@ -56,7 +56,9 @@ public class IconGenerator : MonoBehaviour
         model.transform.position = _instance.transform.position;
         DestroyImmediate(model.GetComponent<LargeWorldEntity>());
         var bounds = GetObjectBounds(model);
-        _instance.cam.transform.position = model.transform.position + Vector3.ClampMagnitude(bounds.extents, 30) + new Vector3(1.5f, -0.5f, 2);
+        var distance = Mathf.Clamp(Mathf.Max(bounds.extents.x, bounds.extents.z), 1, 60);
+        _instance.cam.transform.position = bounds.center - _instance.cam.transform.forward * distance * 2;
+        _instance.cam.farClipPlane = 200;
         yield return null;
         RenderTexture.active = _instance.renderTexture;
         Texture2D tex = new Texture2D(256, 256, TextureFormat.RGBA32, false, true);

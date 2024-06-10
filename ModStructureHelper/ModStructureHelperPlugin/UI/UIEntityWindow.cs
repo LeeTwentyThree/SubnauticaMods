@@ -217,6 +217,7 @@ public class UIEntityWindow : MonoBehaviour
         {
             var entry = button.GetBrowserEntry();
             if (entry is not EntityBrowserEntity entity) continue;
+            if (entity.EntityData.ClassId == "PrecursorCacheBaseModel") continue;
             var classId = entity.EntityData.ClassId;
             if (IconGenerator.HasIcon(classId)) continue;
             var task = PrefabDatabase.GetPrefabAsync(classId);
