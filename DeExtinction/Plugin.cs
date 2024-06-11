@@ -75,5 +75,6 @@ public class Plugin : BaseUnityPlugin
         var locomotion = result.GetComponent<Locomotion>();
         locomotion.forwardRotationSpeed = 0.001f;
         locomotion.upRotationSpeed = 0.001f;
+        result.GetComponent<Rigidbody>().maxAngularVelocity = 1;
     }
 }
