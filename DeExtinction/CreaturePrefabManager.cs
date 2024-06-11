@@ -227,7 +227,7 @@ internal static class CreaturePrefabManager
             null,
             LoadIcon("JellySpinner_Cured"),
             new EdibleData(9, 2, true),
-            new VFXFabricatingData("CraftModel", -0.2f, 0.3f, new Vector3(0, 0.06f, 0f), 30, new Vector3(0, 270, 180))
+            new VFXFabricatingData("CraftModel", -0.2f, 0.3f, new Vector3(0, 0.06f, 0f), 1, new Vector3(0, 270, 180))
         );
         
         CookedCreatureHandler.RegisterAllCreatureFood(
