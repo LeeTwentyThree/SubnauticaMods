@@ -46,6 +46,9 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
         UWE.CoroutineHost.StartCoroutine(AddEcoTargetTypesToClownPincherFood());
+        #if SN1
+        UWE.CoroutineHost.StartCoroutine(ModifyBloomPlankton());
+        #endif
         
         CreatureSpawns.RegisterLootDistribution();
         CreatureSpawns.RegisterCoordinatedSpawns();
@@ -61,5 +64,16 @@ public class Plugin : BaseUnityPlugin
             var result = task.GetResult();
             if (result) result.AddComponent<EcoTarget>().type = ClownPincherFoodEcoTargetType;
         }
+    }
+
+    private IEnumerator ModifyBloomPlankton()
+    {
+        var task = CraftData.GetPrefabForTechTypeAsync(TechType.Bloom);
+        yield return task;
+        var result = task.GetResult();
+        if (!result) yield break;
+        var locomotion = result.GetComponent<Locomotion>();
+        locomotion.forwardRotationSpeed = 0.001f;
+        locomotion.upRotationSpeed = 0.001f;
     }
 }
