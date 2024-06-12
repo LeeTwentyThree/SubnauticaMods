@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
 
 public class SelectionTool : ToolBase
 {
     public override ToolType Type => ToolType.Select;
+
+    public override bool MultitaskTool => true;
+
+    private void Start()
+    {
+        EnableTool();
+    }
 
     protected override void OnToolEnabled()
     {
@@ -29,6 +37,12 @@ public class SelectionTool : ToolBase
 
     private void HandleObjectSelection(GameObject obj)
     {
+        if (StructureInstance.Main == null)
+        {
+            ErrorMessage.AddMessage("Cannot select objects while not editing any structure!");
+            return;
+        }
+        
         var isSelected = SelectionManager.IsSelected(obj);
         
         if (Input.GetKey(KeyCode.LeftControl))
