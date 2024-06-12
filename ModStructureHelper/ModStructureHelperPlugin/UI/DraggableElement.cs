@@ -37,7 +37,7 @@ public class DraggableElement : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     private void Update()
     {
-        var mouseDelta = (Input.mousePosition - _previousMousePosition) * Time.deltaTime;
+        var mouseDelta = Input.mousePosition - _previousMousePosition;
         _previousMousePosition = Input.mousePosition;
         if (!_draggin) return;
         var position = transform.position;
