@@ -10,19 +10,19 @@ public struct Entity
 {
     public string classId;
     public string id;
-    public Vector3 position;
-    public Vector3 eulerAngles;
-    public Vector3 scale;
+    public Coord3 position;
+    public Coord4 rotation;
+    public Coord3 scale;
     public CellLevel cellLevel;
     public Priority priority;
 
-    public Entity(string classId, string id, Vector3 position, Vector3 eulerAngles, Vector3 scale, CellLevel cellLevel, Priority priority)
+    public Entity(string classId, string id, Vector3 position, Quaternion rotation, Vector3 scale, CellLevel cellLevel, Priority priority = Priority.Normal)
     {
         this.classId = classId;
         this.id = id;
-        this.position = position;
-        this.eulerAngles = eulerAngles;
-        this.scale = scale;
+        this.position = new Coord3(position);
+        this.rotation = new Coord4(rotation);
+        this.scale = new Coord3(scale);
         this.cellLevel = cellLevel;
         this.priority = priority;
     }

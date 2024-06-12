@@ -21,6 +21,11 @@ public class PromptHandler : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+
+        if (choices.Length == 0)
+        {
+            CreateButton(new PromptChoice("Okay"));
+        }
         foreach (var choice in choices)
         {
             CreateButton(choice);

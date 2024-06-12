@@ -142,6 +142,9 @@ public class UIEntityWindow : MonoBehaviour
                 RenderBrowserEntry(entity);
             }
         }
+        
+        StopAllCoroutines();
+        StartCoroutine(GenerateSpritesForPage());
     }
 
     // Does anyone here know regex? On top of cases, we could ignore spaces and underscores too

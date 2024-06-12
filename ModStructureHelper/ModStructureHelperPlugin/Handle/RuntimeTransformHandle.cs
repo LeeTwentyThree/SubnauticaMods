@@ -8,6 +8,8 @@ namespace RuntimeHandle
      */
     public class RuntimeTransformHandle : MonoBehaviour
     {
+        public static RuntimeTransformHandle main;
+        
         public HandleAxes axes = HandleAxes.XYZ;
         public HandleSpace space = HandleSpace.LOCAL;
         public HandleType type = HandleType.POSITION;
@@ -45,8 +47,10 @@ namespace RuntimeHandle
 
         void Start()
         {
+            main = this;
+            
             if (handleCamera == null)
-                handleCamera = Camera.main;
+                handleCamera = MainCamera.camera;
 
             _previousType = type;
 
@@ -126,6 +130,8 @@ namespace RuntimeHandle
 
             _previousMousePosition = GetMousePosition();
 
+            if (Target == null) return;
+            
             transform.position = Target.transform.position;
             if (space == HandleSpace.LOCAL || type == HandleType.SCALE)
             {
@@ -209,8 +215,10 @@ namespace RuntimeHandle
                 if (rb) rb.isKinematic = _targetRbWasKinematic;
             }
             Target = newTarget;
+            if (newTarget == null) return;
             var newRb = newTarget.gameObject.GetComponent<Rigidbody>();
             _targetRbWasKinematic = !newRb || newRb.isKinematic;
+            newRb.isKinematic = true;
         }
         
         /*

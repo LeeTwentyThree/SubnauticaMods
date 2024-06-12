@@ -7,7 +7,7 @@ namespace ModStructureHelperPlugin;
 
 public static class EntityUtility
 {
-    public static IEnumerator SpawnEntitiesFromStructure(Structure structure, List<EntityInstance> resultsList)
+    public static IEnumerator SpawnEntitiesFromStructure(Structure structure)
     {
         if (!structure.IsSorted)
             structure.SortByPriority();
@@ -22,15 +22,22 @@ public static class EntityUtility
                 loadedPrefabs.Add(data.classId, prefab);
             }
 
-            var obj = Object.Instantiate(prefab);
-            obj.transform.position = data.position;
-            obj.transform.eulerAngles = data.eulerAngles;
-            obj.transform.localScale = data.scale;
+            var structureInstance = StructureInstance.Main;
+            if (structureInstance == null)
+            {
+                ErrorMessage.AddMessage("Structure instance was unloaded! Canceling structure spawning.");
+                yield break;
+            }
 
-            var entityInstance = obj.AddComponent<EntityInstance>();
-            entityInstance.priority = data.priority;
-
-            resultsList.Add(entityInstance);
+            if (prefab == null)
+            {
+                ErrorMessage.AddMessage($"Prefab for Class Id '{data.classId}' is null!");
+                continue;
+            }
+            var obj = structureInstance.SpawnPrefabIntoStructure(prefab);
+            obj.transform.position = data.position.ToVector3();
+            obj.transform.rotation = data.rotation.ToQuaternion();
+            obj.transform.localScale = data.scale.ToVector3();
         }
     }
 }

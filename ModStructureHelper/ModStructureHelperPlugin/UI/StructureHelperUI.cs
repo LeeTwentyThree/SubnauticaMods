@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using ModStructureHelperPlugin.UI.Menus;
-using UnityEngine.Serialization;
 
 namespace ModStructureHelperPlugin.UI;
 
@@ -24,6 +23,11 @@ public class StructureHelperUI : MonoBehaviour
         main = this;
     }
 
+    private void Start()
+    {
+        SetMenuActive(MenuType.Main);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -34,6 +38,7 @@ public class StructureHelperUI : MonoBehaviour
 
     private void OnEnable()
     {
+        inputGroup.enabled = true;
         inputGroup.Select();
     }
 
@@ -74,6 +79,12 @@ public class StructureHelperUI : MonoBehaviour
 
         Plugin.Logger.LogError($"Menu not found by type '{type}'!");
         return null;
+    }
+
+    public void SetInputGroupOverride(bool active)
+    {
+        inputGroup.enabled = active;
+        if (active) inputGroup.Select();
     }
 }
 

@@ -5,30 +5,49 @@ namespace ModStructureHelperPlugin;
 
 public class EntityInstance : MonoBehaviour
 {
-    private Entity.CellLevel _cellLevel;
-    private string _classId;
-    private string _id;
-    public Entity.Priority priority;
+    public ManagedEntity ManagedEntity;
+    
+    // Non-changeable properties
+    public Entity.CellLevel CellLevel { get; private set; }
+    public string ClassId { get; private set; }
+    public string Id { get; private set; }
+    
+    // Changeable properties
+    public Entity.Priority Priority { get; set; }
     
     private void Awake()
     {
         var lwe = gameObject.GetComponent<LargeWorldEntity>();
         if (lwe)
-            _cellLevel = (Entity.CellLevel) (int) lwe.cellLevel;
+            CellLevel = (Entity.CellLevel) (int) lwe.cellLevel;
         else
-            _cellLevel = Entity.CellLevel.Unknown;
+            CellLevel = Entity.CellLevel.Unknown;
         var prefabIdentifier = gameObject.GetComponent<PrefabIdentifier>();
         if (prefabIdentifier)
         {
-            _classId = prefabIdentifier.ClassId;
-            _id = prefabIdentifier.Id;
+            ClassId = prefabIdentifier.ClassId;
+            Id = prefabIdentifier.Id;
         }
 
-        DestroyImmediate(lwe);
+        StructureInstance.OnStructureInstanceUpdated += OnStructureInstanceUpdated;
+
+        // DestroyImmediate(lwe);
     }
     
     public Entity GetEntityDataStruct()
     {
-        return new Entity(_classId, _id, transform.position, transform.eulerAngles, transform.localScale, _cellLevel, priority);
+        return new Entity(ClassId, Id, transform.position, transform.rotation, transform.localScale, CellLevel, Priority);
+    }
+
+    private void OnDestroy()
+    {
+        ManagedEntity.RemoveCurrentEntityInstance();
+        StructureInstance.OnStructureInstanceUpdated -= OnStructureInstanceUpdated;
+    }
+
+    private void OnStructureInstanceUpdated(StructureInstance instance)
+    {
+        if (instance == null)
+            Destroy(this);
     }
 }

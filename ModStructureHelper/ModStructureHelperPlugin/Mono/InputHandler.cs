@@ -11,9 +11,21 @@ public class InputHandler : MonoBehaviour
         {
             StructureHelperUI.SetUIEnabled(!StructureHelperUI.IsActive);
         }
-        if (StructureHelperUI.main && StructureHelperUI.main.isActiveAndEnabled && Input.GetKeyDown(KeyCode.LeftControl) && Input.GetKeyDown(Plugin.ModConfig.SaveKeyBind))
+
+        if (!StructureHelperUI.main || !StructureHelperUI.main.isActiveAndEnabled) return;
+        
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(Plugin.ModConfig.SaveKeyBind))
         {
             StructureInstance.TrySave();
+        }
+        
+        if (Input.GetMouseButtonDown(1))
+        {
+            StructureHelperUI.main.SetInputGroupOverride(false);
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            StructureHelperUI.main.SetInputGroupOverride(true);
         }
     }
 }

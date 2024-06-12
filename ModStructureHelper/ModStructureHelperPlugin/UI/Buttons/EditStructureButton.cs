@@ -9,6 +9,7 @@ public class EditStructureButton : MonoBehaviour
     public Structure structure;
     public string path;
 
+    [SerializeField] private StructureHelperUI ui;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI pathText;
     
@@ -24,5 +25,6 @@ public class EditStructureButton : MonoBehaviour
     {
         ErrorMessage.AddMessage("Loading structure!");
         StructureInstance.CreateNewInstance(structure, path);
+        ui.SetMenuActive(MenuType.Editing);
     }
 }
