@@ -44,6 +44,8 @@ public abstract class ToolBase : MonoBehaviour
     
     public virtual void DisableOtherTools()
     {
+        if (MultitaskTool) return;
+        
         foreach (var tool in manager.tools)
         {
             if (!tool.MultitaskTool)
