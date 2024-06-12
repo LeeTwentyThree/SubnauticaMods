@@ -38,6 +38,7 @@ public static class EntityUtility
             obj.transform.position = data.position.ToVector3();
             obj.transform.rotation = data.rotation.ToQuaternion();
             obj.transform.localScale = data.scale.ToVector3();
+            obj.GetComponent<UniqueIdentifier>().Id = data.id;
         }
     }
 }
