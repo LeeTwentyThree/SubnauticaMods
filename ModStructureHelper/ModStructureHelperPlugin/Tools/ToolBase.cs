@@ -35,6 +35,7 @@ public abstract class ToolBase : MonoBehaviour
 
     public void EnableTool()
     {
+        if (ToolEnabled) return;
         iconBackground.sprite = activeBackground;
         ToolEnabled = true;
         OnToolEnabled();
@@ -42,10 +43,12 @@ public abstract class ToolBase : MonoBehaviour
 
     public void DisableTool()
     {
+        if (!ToolEnabled) return;
         iconBackground.sprite = inactiveBackground;
         ToolEnabled = false;
         OnToolDisabled();
-        
+
+        if (!DisableSelectTool) return;
         if (!_iDisabledTheSelectToolAndMustReenableItForTheGreaterGood) return;
         foreach (var tool in manager.tools)
         {
@@ -54,6 +57,8 @@ public abstract class ToolBase : MonoBehaviour
                 tool.EnableTool();
             }
         }
+
+        _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood = false;
         SelectionManager.ClearSelection();
     }
     
