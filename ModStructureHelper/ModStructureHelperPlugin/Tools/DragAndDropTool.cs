@@ -13,7 +13,11 @@ public class DragAndDropTool : ToolBase
 
     protected override void OnToolEnabled()
     {
-        
+        foreach (var tool in manager.tools)
+        {
+            if (tool is SelectionTool) tool.DisableTool();
+        }
+        manager.handle.gameObject.SetActive(false);
     }
 
     protected override void OnToolDisabled()
@@ -61,7 +65,7 @@ public class DragAndDropTool : ToolBase
             return;
         }
         _currentlySelected = obj;
-        _currentlySelectedColliders = GetComponentsInChildren<Collider>(true);
+        _currentlySelectedColliders = obj.GetComponentsInChildren<Collider>(true);
         _cachedColliderStates = new bool[_currentlySelectedColliders.Length];
         for (int i = 0; i < _currentlySelectedColliders.Length; i++)
         {
