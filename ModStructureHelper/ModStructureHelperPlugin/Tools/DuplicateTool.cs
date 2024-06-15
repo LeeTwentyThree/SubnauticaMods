@@ -14,7 +14,7 @@ public class DuplicateTool : ToolBase
 
     protected override void OnToolEnabled()
     {
-        DuplicateAllSelectedObjects();
+        StartCoroutine(DuplicateAllSelectedObjects());
         DisableTool();
     }
 
