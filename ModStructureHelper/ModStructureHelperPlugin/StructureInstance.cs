@@ -52,10 +52,7 @@ public class StructureInstance : MonoBehaviour
     {
         var obj = Instantiate(prefab);
         obj.SetActive(true);
-        var instance = obj.EnsureComponent<EntityInstance>();
-        var managedEntity = new ManagedEntity(instance);
-        instance.ManagedEntity = managedEntity;
-        _managedEntities.Add(managedEntity);
+        RegisterNewEntity(obj.GetComponent<PrefabIdentifier>());
         return obj;
     }
     
@@ -114,7 +111,7 @@ public class StructureInstance : MonoBehaviour
         {
             if (identifier is PrefabIdentifier prefabIdentifier)
             {
-                AttemptEntityRegistration(prefabIdentifier);
+                RegisterExistingEntity(prefabIdentifier);
             }
         }
 
@@ -144,7 +141,15 @@ public class StructureInstance : MonoBehaviour
         }
     }
 
-    public void AttemptEntityRegistration(PrefabIdentifier prefabIdentifier)
+    public void RegisterNewEntity(PrefabIdentifier prefabIdentifier)
+    {
+        var instance = prefabIdentifier.gameObject.EnsureComponent<EntityInstance>();
+        var managedEntity = new ManagedEntity(instance);
+        instance.ManagedEntity = managedEntity;
+        _managedEntities.Add(managedEntity);
+    }
+    
+    public void RegisterExistingEntity(PrefabIdentifier prefabIdentifier)
     {
         foreach (var managedEntity in _managedEntities)
         {

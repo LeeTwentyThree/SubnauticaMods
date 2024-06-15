@@ -16,7 +16,7 @@ public static class UniqueIdentifierPatches
         // add the spawned object to the current structure if it was in the data
         if (StructureInstance.Main != null)
         {
-            StructureInstance.Main.AttemptEntityRegistration(prefabIdentifier);
+            StructureInstance.Main.RegisterExistingEntity(prefabIdentifier);
         }
     }
 }

@@ -50,7 +50,7 @@ public static class EntityUtility
                 continue;
             }
             prefabIdentifier.GetComponent<UniqueIdentifier>().Id = data.id;
-            structureInstance.AttemptEntityRegistration(prefabIdentifier);
+            structureInstance.RegisterExistingEntity(prefabIdentifier);
         }
     }
 }
