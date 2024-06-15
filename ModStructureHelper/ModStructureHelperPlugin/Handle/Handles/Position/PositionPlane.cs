@@ -95,6 +95,7 @@ namespace RuntimeHandle
 
         void Update()
         {
+            if (_parentTransformHandle.Target == null) return;
             Vector3 axis1 = _axis1;
             Vector3 raxis1 = _parentTransformHandle.space == HandleSpace.LOCAL
                 ? _parentTransformHandle.Target.rotation * axis1

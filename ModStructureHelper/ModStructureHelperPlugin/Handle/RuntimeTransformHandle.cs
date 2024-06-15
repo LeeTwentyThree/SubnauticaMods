@@ -90,6 +90,12 @@ namespace RuntimeHandle
 
         void Update()
         {
+            if (Target == null)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+            
             if (autoScale)
                 transform.localScale =
                     Vector3.one * (Vector3.Distance(handleCamera.transform.position, transform.position) * autoScaleFactor) / 15;
@@ -129,8 +135,6 @@ namespace RuntimeHandle
             }
 
             _previousMousePosition = GetMousePosition();
-
-            if (Target == null) return;
             
             transform.position = Target.transform.position;
             if (space == HandleSpace.LOCAL || type == HandleType.SCALE)
