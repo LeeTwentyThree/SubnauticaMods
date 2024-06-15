@@ -16,8 +16,11 @@ public abstract class ToolBase : MonoBehaviour
     public abstract ToolType Type { get; }
     public virtual bool MultitaskTool => false;
     public virtual bool PairedWithControl => false;
+    public virtual bool DisableSelectTool => false;
     
     public bool ToolEnabled { get; private set; }
+    
+    private bool _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood;
     
     private void OnEnable()
     {
@@ -42,6 +45,16 @@ public abstract class ToolBase : MonoBehaviour
         iconBackground.sprite = inactiveBackground;
         ToolEnabled = false;
         OnToolDisabled();
+        
+        if (!_iDisabledTheSelectToolAndMustReenableItForTheGreaterGood) return;
+        foreach (var tool in manager.tools)
+        {
+            if (tool.Type == ToolType.Select)
+            {
+                tool.EnableTool();
+            }
+        }
+        SelectionManager.ClearSelection();
     }
     
     protected abstract void OnToolEnabled();
@@ -51,6 +64,18 @@ public abstract class ToolBase : MonoBehaviour
     
     public virtual void DisableOtherTools()
     {
+        if (DisableSelectTool)
+        {
+            foreach (var tool in manager.tools)
+            {
+                if (tool.Type == ToolType.Select & tool.ToolEnabled)
+                {
+                    tool.DisableTool();
+                    _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood = true;
+                }
+            }
+        }
+        
         if (MultitaskTool) return;
         
         foreach (var tool in manager.tools)

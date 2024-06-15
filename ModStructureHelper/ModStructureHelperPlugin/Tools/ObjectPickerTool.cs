@@ -5,31 +5,16 @@ namespace ModStructureHelperPlugin.Tools;
 public class ObjectPickerTool : ToolBase
 {
     public override ToolType Type => ToolType.ObjectPicker;
+    public override bool DisableSelectTool => true;
 
-    private bool _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood;
-    
     protected override void OnToolEnabled()
     {
-        foreach (var tool in manager.tools)
-        {
-            if (tool.Type == ToolType.Select & tool.ToolEnabled)
-            {
-                tool.DisableTool();
-                _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood = true;
-            }
-        }
+
     }
 
     protected override void OnToolDisabled()
     {
-        if (!_iDisabledTheSelectToolAndMustReenableItForTheGreaterGood) return;
-        foreach (var tool in manager.tools)
-        {
-            if (tool.Type == ToolType.Select)
-            {
-                tool.EnableTool();
-            }
-        }
+
     }
 
     public override void UpdateTool()

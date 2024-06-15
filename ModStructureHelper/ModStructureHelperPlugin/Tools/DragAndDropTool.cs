@@ -10,14 +10,12 @@ public class DragAndDropTool : ToolBase
     private GameObject _currentlySelected;
     private bool[] _cachedColliderStates;
     private Collider[] _currentlySelectedColliders;
+    
+    public override bool DisableSelectTool => true;
 
     protected override void OnToolEnabled()
     {
-        foreach (var tool in manager.tools)
-        {
-            if (tool is SelectionTool) tool.DisableTool();
-        }
-        manager.handle.gameObject.SetActive(false);
+
     }
 
     protected override void OnToolDisabled()
