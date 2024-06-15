@@ -45,7 +45,7 @@ public class EntityInstance : MonoBehaviour
     {
         if (!HasSolidCollisions())
         {
-            gameObject.AddComponent<SphereCollider>().radius = 2;
+            gameObject.AddComponent<SphereCollider>().radius = 1;
         }
     }
 
