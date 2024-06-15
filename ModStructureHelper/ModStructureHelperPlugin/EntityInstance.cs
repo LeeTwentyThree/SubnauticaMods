@@ -15,7 +15,7 @@ public class EntityInstance : MonoBehaviour
     // Changeable properties
     public Entity.Priority Priority { get; set; }
 
-    private Rigidbody rigidbody;
+    private Rigidbody _rigidbody;
     
     private void Awake()
     {
@@ -35,8 +35,8 @@ public class EntityInstance : MonoBehaviour
 
         AccountForLackOfCollisions();
 
-        rigidbody = GetComponent<Rigidbody>();
-        if (rigidbody) rigidbody.isKinematic = true;
+        _rigidbody = GetComponent<Rigidbody>();
+        if (_rigidbody) _rigidbody.isKinematic = true;
 
         // DestroyImmediate(lwe);
     }
@@ -71,7 +71,7 @@ public class EntityInstance : MonoBehaviour
 
     private void Update()
     {
-        if (rigidbody) rigidbody.isKinematic = true;
+        if (_rigidbody) _rigidbody.isKinematic = true;
     }
 
     private void OnDestroy()
