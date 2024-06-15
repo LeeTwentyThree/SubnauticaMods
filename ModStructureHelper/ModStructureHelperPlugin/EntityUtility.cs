@@ -29,6 +29,11 @@ public static class EntityUtility
                 yield break;
             }
 
+            if (structureInstance.IsEntityLoadedIntoWorld(data.id))
+            {
+                continue;
+            }
+
             if (prefab == null)
             {
                 ErrorMessage.AddMessage($"Prefab for Class Id '{data.classId}' is null!");

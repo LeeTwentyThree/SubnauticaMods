@@ -181,4 +181,6 @@ public class StructureInstance : MonoBehaviour
     public int GetTotalEntityCount() => _managedEntities.Count;
 
     public int GetLoadedEntityCount() => _managedEntities.Count(entity => entity.EntityInstance != null);
+
+    public bool IsEntityLoadedIntoWorld(string id) => _managedEntities.Any(entity => entity.Id == id && entity.EntityInstance != null);
 }
