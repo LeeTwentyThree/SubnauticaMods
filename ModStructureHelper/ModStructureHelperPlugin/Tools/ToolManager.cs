@@ -28,7 +28,7 @@ public class ToolManager : MonoBehaviour
     {
         foreach (var tool in tools)
         {
-            if (Input.GetKeyDown(GetKeyBindForTool(tool.Type)))
+            if (Input.GetKeyDown(GetKeyBindForTool(tool.Type)) && (!tool.PairedWithControl || Input.GetKey(KeyCode.LeftControl)))
             {
                 tool.OnToolButtonPressed();
             }
@@ -48,6 +48,8 @@ public class ToolManager : MonoBehaviour
                 return Plugin.ModConfig.RotateBind;
             case ToolType.Scale:
                 return Plugin.ModConfig.ScaleBind;
+            case ToolType.DragAndDrop:
+                return Plugin.ModConfig.DragBind;
             case ToolType.BrowseEntities:
                 return Plugin.ModConfig.EntityEditorBind;
             case ToolType.Paint:
@@ -56,6 +58,12 @@ public class ToolManager : MonoBehaviour
                 return Plugin.ModConfig.ToggleGlobalSpaceBind;
             case ToolType.Snapping:
                 return Plugin.ModConfig.ToggleSnappingBind;
+            case ToolType.ObjectPicker:
+                return Plugin.ModConfig.PickObjectBind;
+            case ToolType.CableGenerator:
+                return Plugin.ModConfig.CableEditorBind;
+            case ToolType.Duplicate:
+                return Plugin.ModConfig.DuplicateBind;
             case ToolType.Delete:
                 return Plugin.ModConfig.DeleteBind;
             default:

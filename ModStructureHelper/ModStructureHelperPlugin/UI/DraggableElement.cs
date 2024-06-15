@@ -42,8 +42,8 @@ public class DraggableElement : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if (!_draggin) return;
         var position = transform.position;
         position = new Vector3(
-            Mathf.Clamp(position.x + mouseDelta.x, -Screen.width / 2, Screen.width / 2),
-            Mathf.Clamp(position.y + mouseDelta.y, -Screen.height / 2, Screen.height / 2),
+            Mathf.Clamp(position.x + mouseDelta.x, 0, Screen.width),
+            Mathf.Clamp(position.y + mouseDelta.y, 0, Screen.height),
             position.z);
         transform.position = position;
     }

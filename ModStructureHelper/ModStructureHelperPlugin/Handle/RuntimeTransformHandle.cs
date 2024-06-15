@@ -209,6 +209,7 @@ namespace RuntimeHandle
         #region public methods to control handles
         public void SetTarget(Transform newTarget)
         {
+            gameObject.SetActive(newTarget != null);
             if (Target != null)
             {
                 var rb = Target.gameObject.GetComponent<Rigidbody>();

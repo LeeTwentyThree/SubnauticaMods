@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace ModStructureHelperPlugin.UI;
@@ -7,25 +6,38 @@ namespace ModStructureHelperPlugin.UI;
 public class DisableButtonIfNoStructureExists : MonoBehaviour
 {
     [SerializeField] private Button button;
+    [SerializeField] private GameObject objectToDisable;
+    [SerializeField] private Mode mode;
+    [SerializeField] private bool inverted;
 
     private void OnValidate()
     {
-        if (button == null) button = GetComponent<Button>();
+        if (button == null && mode == Mode.DisableButton) button = GetComponent<Button>();
     }
 
     private void OnEnable()
     {
-        StructureInstance.OnStructureInstanceUpdated += OnStructureInstanceUpdated;
-        button.interactable = StructureInstance.Main != null;
+        StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
+        OnStructureInstanceChanged(StructureInstance.Main);
     }
 
     private void OnDisable()
     {
-        StructureInstance.OnStructureInstanceUpdated -= OnStructureInstanceUpdated;
+        StructureInstance.OnStructureInstanceChanged -= OnStructureInstanceChanged;
     }
 
-    private void OnStructureInstanceUpdated(StructureInstance newInstance)
+    private void OnStructureInstanceChanged(StructureInstance newInstance)
     {
-        button.interactable = newInstance != null;
+        var shouldEnable = newInstance != null;
+        if (inverted) shouldEnable = !shouldEnable;
+        if (mode == Mode.DisableButton)
+            button.interactable = shouldEnable;
+        else objectToDisable.SetActive(shouldEnable);
+    }
+
+    private enum Mode
+    {
+        DisableButton,
+        DisableObject
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ModStructureFormat;
 using UnityEngine;
@@ -15,9 +14,8 @@ public class StructureInstance : MonoBehaviour
 
     private List<ManagedEntity> _managedEntities = new List<ManagedEntity>();
 
-    public delegate void OnStructureInstanceUpdatedHandler(StructureInstance newInstance);
-
-    public static event OnStructureInstanceUpdatedHandler OnStructureInstanceUpdated; 
+    public delegate void OnStructureInstanceChangedHandler(StructureInstance newInstance);
+    public static event OnStructureInstanceChangedHandler OnStructureInstanceChanged; 
 
     public static void CreateNewInstance(Structure data, string path)
     {
@@ -35,7 +33,7 @@ public class StructureInstance : MonoBehaviour
         
         instance.TryGrabManagedEntities();
 
-        OnStructureInstanceUpdated?.Invoke(instance);
+        OnStructureInstanceChanged?.Invoke(instance);
     }
 
     public static void TrySave()
@@ -54,7 +52,7 @@ public class StructureInstance : MonoBehaviour
     {
         var obj = Instantiate(prefab);
         obj.SetActive(true);
-        var instance = obj.AddComponent<EntityInstance>();
+        var instance = obj.EnsureComponent<EntityInstance>();
         var managedEntity = new ManagedEntity(instance);
         instance.ManagedEntity = managedEntity;
         _managedEntities.Add(managedEntity);
@@ -102,7 +100,7 @@ public class StructureInstance : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnStructureInstanceUpdated?.Invoke(null);
+        OnStructureInstanceChanged?.Invoke(null);
     }
 
     private void Save()
@@ -159,6 +157,28 @@ public class StructureInstance : MonoBehaviour
             }
             entityInstance = prefabIdentifier.gameObject.AddComponent<EntityInstance>();
             managedEntity.SetEntityInstance(entityInstance);
+            var entityData = managedEntity.EntityData;
+            entityInstance.ManagedEntity = managedEntity;
+            entityInstance.transform.position = entityData.position.ToVector3();
+            entityInstance.transform.rotation = entityData.rotation.ToQuaternion();
+            entityInstance.transform.localScale = entityData.scale.ToVector3();
         }
     }
+
+    public void DeleteEntity(GameObject entity)
+    {
+        var entityInstance = entity.GetComponent<EntityInstance>();
+        if (entityInstance == null)
+        {
+            ErrorMessage.AddMessage($"Cannot delete {entity.name}; this object is not a proper entity instance!");
+            return;
+        }
+
+        _managedEntities.Remove(entityInstance.ManagedEntity);
+        Destroy(entity);
+    }
+
+    public int GetTotalEntityCount() => _managedEntities.Count;
+
+    public int GetLoadedEntityCount() => _managedEntities.Count(entity => entity.EntityInstance != null);
 }

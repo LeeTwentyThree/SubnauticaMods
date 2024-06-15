@@ -14,6 +14,8 @@ public class EntityInstance : MonoBehaviour
     
     // Changeable properties
     public Entity.Priority Priority { get; set; }
+
+    private Rigidbody rigidbody;
     
     private void Awake()
     {
@@ -29,9 +31,37 @@ public class EntityInstance : MonoBehaviour
             Id = prefabIdentifier.Id;
         }
 
-        StructureInstance.OnStructureInstanceUpdated += OnStructureInstanceUpdated;
+        StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
+
+        AccountForLackOfCollisions();
+
+        rigidbody = GetComponent<Rigidbody>();
+        if (rigidbody) rigidbody.isKinematic = true;
 
         // DestroyImmediate(lwe);
+    }
+
+    private void AccountForLackOfCollisions()
+    {
+        if (!HasSolidCollisions())
+        {
+            gameObject.AddComponent<SphereCollider>().radius = 2;
+        }
+    }
+
+    private bool HasSolidCollisions()
+    {
+        if (GetComponentInChildren<Collider>() == null)
+        {
+            return false;
+        }
+
+        foreach (var collision in GetComponentsInChildren<Collider>())
+        {
+            if (!collision.isTrigger) return true;
+        }
+
+        return false;
     }
     
     public Entity GetEntityDataStruct()
@@ -39,13 +69,18 @@ public class EntityInstance : MonoBehaviour
         return new Entity(ClassId, Id, transform.position, transform.rotation, transform.localScale, CellLevel, Priority);
     }
 
+    private void Update()
+    {
+        if (rigidbody) rigidbody.isKinematic = true;
+    }
+
     private void OnDestroy()
     {
         ManagedEntity.RemoveCurrentEntityInstance();
-        StructureInstance.OnStructureInstanceUpdated -= OnStructureInstanceUpdated;
+        StructureInstance.OnStructureInstanceChanged -= OnStructureInstanceChanged;
     }
 
-    private void OnStructureInstanceUpdated(StructureInstance instance)
+    private void OnStructureInstanceChanged(StructureInstance instance)
     {
         if (instance == null)
             Destroy(this);

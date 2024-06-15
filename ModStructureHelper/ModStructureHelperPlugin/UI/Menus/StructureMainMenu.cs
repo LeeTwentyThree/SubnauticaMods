@@ -61,7 +61,7 @@ public class StructureMainMenu : StructureHelperMenuBase
         }
 
         ui.promptHandler.Ask(
-            "Would you like to spawn in the current structure? Only use this if it currently does NOT exist in the world or your mods in any form. Otherwise, you risk corruption",
+            "Would you like to spawn in the current structure? Only use this if you are IN THE AREA IT SPAWNS IN and it either currently does NOT exist in the world or your mods in any form or has been changed since you made this save. Otherwise, you risk corruption",
             new PromptChoice("Yes", InstantiateCurrentStructure), new PromptChoice("No"));
     }
 

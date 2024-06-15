@@ -15,12 +15,19 @@ public abstract class ToolBase : MonoBehaviour
     
     public abstract ToolType Type { get; }
     public virtual bool MultitaskTool => false;
+    public virtual bool PairedWithControl => false;
     
     public bool ToolEnabled { get; private set; }
     
     private void OnEnable()
     {
-        bindText.text = GameInput.GetKeyCodeAsInputName(manager.GetKeyBindForTool(Type));
+        bindText.text = GetBindString();
+    }
+    
+    private string GetBindString()
+    {
+        var inputName = GameInput.GetKeyCodeAsInputName(manager.GetKeyBindForTool(Type));
+        return PairedWithControl ? $"Ctrl + {inputName}" : inputName;
     }
 
     public void EnableTool()

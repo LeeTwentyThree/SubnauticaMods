@@ -6,9 +6,13 @@ public enum ToolType
     Translate,
     Rotate,
     Scale,
+    DragAndDrop,
     BrowseEntities,
     Paint,
     GlobalSpace,
     Snapping,
+    ObjectPicker,
+    CableGenerator,
+    Duplicate,
     Delete
 }
