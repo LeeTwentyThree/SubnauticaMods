@@ -8,7 +8,7 @@ public class StructureMainMenu : StructureHelperMenuBase
     {
         if (StructureInstance.Main)
         {
-            ui.promptHandler.Ask("Stop editing the current structure? All unsaved changes will be lost on game reload.",
+            ui.promptHandler.Ask("Stop editing the current structure? All unsaved changes will be lost.",
                 new PromptChoice("Yes", StopEditingStructure), new PromptChoice("No"));
         }
         else
@@ -61,7 +61,7 @@ public class StructureMainMenu : StructureHelperMenuBase
         }
 
         ui.promptHandler.Ask(
-            "Would you like to spawn in the current structure? Only use this if you are IN THE AREA IT SPAWNS IN and it either currently does NOT exist in the world or your mods in any form or has been changed since you made this save. Otherwise, you risk corruption",
+            "Would you like to repair the current structure? ONLY use this if the area it spawns at is FULLY LOADED. Otherwise, you risk corruption",
             new PromptChoice("Yes", InstantiateCurrentStructure), new PromptChoice("No"));
     }
 
