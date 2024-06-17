@@ -39,7 +39,7 @@ public static class SelectionManager
     
     public static IEnumerable<GameObject> SelectedObjects => _targets;
 
-    public static bool TryGetObjectRoot(GameObject obj, out GameObject root)
+    public static bool TryGetObjectRoot(GameObject obj, out GameObject root, bool allowObjectsOutsideStructure = false)
     {
         if (obj.GetComponentInParent<Player>() != null || obj.GetComponentInChildren<Player>() != null)
         {
@@ -57,7 +57,7 @@ public static class SelectionManager
         if (componentInParent)
         {
             root = componentInParent.gameObject;
-            if (StructureInstance.Main != null)
+            if (!allowObjectsOutsideStructure && StructureInstance.Main != null)
             {
                 if (!StructureInstance.Main.IsEntityPartOfStructure(componentInParent.Id))
                 {
