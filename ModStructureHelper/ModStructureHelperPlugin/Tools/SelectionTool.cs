@@ -16,6 +16,11 @@ public class SelectionTool : ToolBase
 
     protected override void OnToolEnabled()
     {
+        foreach (var tool in manager.tools)
+        {
+            if (tool.IncompatibleWithSelectTool)
+                tool.DisableTool();
+        }
     }
 
     protected override void OnToolDisabled()

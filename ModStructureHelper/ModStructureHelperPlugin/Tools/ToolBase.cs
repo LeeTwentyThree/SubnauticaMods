@@ -16,11 +16,11 @@ public abstract class ToolBase : MonoBehaviour
     public abstract ToolType Type { get; }
     public virtual bool MultitaskTool => false;
     public virtual bool PairedWithControl => false;
-    public virtual bool DisableSelectTool => false;
+    public virtual bool IncompatibleWithSelectTool => false;
     
     public bool ToolEnabled { get; private set; }
     
-    private bool _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood;
+    private bool _selectToolDisabled;
     
     private void OnEnable()
     {
@@ -48,8 +48,8 @@ public abstract class ToolBase : MonoBehaviour
         ToolEnabled = false;
         OnToolDisabled();
 
-        if (!DisableSelectTool) return;
-        if (!_iDisabledTheSelectToolAndMustReenableItForTheGreaterGood) return;
+        if (!IncompatibleWithSelectTool) return;
+        if (!_selectToolDisabled) return;
         foreach (var tool in manager.tools)
         {
             if (tool.Type == ToolType.Select)
@@ -58,7 +58,7 @@ public abstract class ToolBase : MonoBehaviour
             }
         }
 
-        _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood = false;
+        _selectToolDisabled = false;
         SelectionManager.ClearSelection();
     }
     
@@ -69,14 +69,15 @@ public abstract class ToolBase : MonoBehaviour
     
     public virtual void DisableOtherTools()
     {
-        if (DisableSelectTool)
+        if (IncompatibleWithSelectTool)
         {
+            _selectToolDisabled = false;
             foreach (var tool in manager.tools)
             {
                 if (tool.Type == ToolType.Select & tool.ToolEnabled)
                 {
                     tool.DisableTool();
-                    _iDisabledTheSelectToolAndMustReenableItForTheGreaterGood = true;
+                    _selectToolDisabled = true;
                 }
             }
         }

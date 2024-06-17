@@ -5,7 +5,7 @@ namespace ModStructureHelperPlugin.Tools;
 public class ObjectPickerTool : ToolBase
 {
     public override ToolType Type => ToolType.ObjectPicker;
-    public override bool DisableSelectTool => true;
+    public override bool IncompatibleWithSelectTool => true;
 
     protected override void OnToolEnabled()
     {

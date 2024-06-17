@@ -11,7 +11,7 @@ public class DragAndDropTool : ToolBase
     private bool[] _cachedColliderStates;
     private Collider[] _currentlySelectedColliders;
     
-    public override bool DisableSelectTool => true;
+    public override bool IncompatibleWithSelectTool => true;
 
     protected override void OnToolEnabled()
     {
