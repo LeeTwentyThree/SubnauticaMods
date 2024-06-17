@@ -14,10 +14,12 @@ public static class UniqueIdentifierPatches
             return;
         }
 
+        /*
         if (!__instance.isActiveAndEnabled)
         {
             return;
         }
+        */
         
         // add the spawned object to the current structure if it was in the data
         if (StructureInstance.Main != null)
