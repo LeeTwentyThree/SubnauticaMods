@@ -1,4 +1,5 @@
-﻿using ModStructureFormat;
+﻿using System.Linq;
+using ModStructureFormat;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin;
@@ -38,6 +39,9 @@ public class EntityInstance : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         if (_rigidbody) _rigidbody.isKinematic = true;
 
+        var liveMixin = GetComponent<LiveMixin>();
+        if (liveMixin) liveMixin.invincible = true;
+
         // DestroyImmediate(lwe);
     }
 
@@ -56,12 +60,7 @@ public class EntityInstance : MonoBehaviour
             return false;
         }
 
-        foreach (var collision in GetComponentsInChildren<Collider>())
-        {
-            if (!collision.isTrigger) return true;
-        }
-
-        return false;
+        return GetComponentsInChildren<Collider>().Any(collider => !collider.isTrigger);
     }
     
     public Entity GetEntityDataStruct()
