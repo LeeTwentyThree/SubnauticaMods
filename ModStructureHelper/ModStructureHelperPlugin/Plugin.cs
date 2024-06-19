@@ -5,6 +5,7 @@ using HarmonyLib;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityFx.Outline;
 
 /*
  * TO-DO
@@ -26,6 +27,8 @@ public class Plugin : BaseUnityPlugin
         AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "modstructurehelper");
 
     public static ModConfig ModConfig { get; } = OptionsPanelHandler.RegisterModOptions<ModConfig>();
+    
+    public static OutlineResources OutlineResources { get; private set; }
 
     private void Awake()
     {
@@ -34,6 +37,10 @@ public class Plugin : BaseUnityPlugin
         
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
+        
+        OutlineResources = ScriptableObject.CreateInstance<OutlineResources>();
+        OutlineResources.ResetToDefaults();
+        
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
     }
 }

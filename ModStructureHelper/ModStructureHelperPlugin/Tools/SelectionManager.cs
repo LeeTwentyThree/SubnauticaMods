@@ -2,6 +2,7 @@
 using ModStructureFormat;
 using RuntimeHandle;
 using UnityEngine;
+using UnityFx.Outline;
 
 namespace ModStructureHelperPlugin.Tools;
 
@@ -13,12 +14,15 @@ public static class SelectionManager
     
     public static void SetSelectedObject(GameObject obj)
     {
+        _targets.ForEach(old => OnTargetRemovedInternal(old));
         _targets = new List<GameObject> {obj};
+        OnTargetAddedInternal(obj);
         OnUpdateTargetInternal();
     }
 
     public static void ClearSelection()
     {
+        _targets.ForEach(obj => OnTargetRemovedInternal(obj));
         _targets.Clear();
         OnUpdateTargetInternal();
     }
@@ -26,11 +30,13 @@ public static class SelectionManager
     public static void AddSelectedObject(GameObject obj)
     {
         _targets.Add(obj);
+        OnTargetAddedInternal(obj);
         OnUpdateTargetInternal();
     }
     
     public static void RemoveSelectedObject(GameObject obj)
     {
+        OnTargetRemovedInternal(obj);
         _targets.Remove(obj);
         OnUpdateTargetInternal();
     }
@@ -39,18 +45,40 @@ public static class SelectionManager
     
     public static IEnumerable<GameObject> SelectedObjects => _targets;
 
-    public static bool TryGetObjectRoot(GameObject obj, out GameObject root, bool allowObjectsOutsideStructure = false)
+    private static void OnTargetAddedInternal(GameObject newTarget)
+    {
+        if (newTarget) AddOutline(newTarget);
+    }
+    
+    private static void OnTargetRemovedInternal(GameObject target)
+    {
+        if (target == null) return;
+        Object.Destroy(target.GetComponent<OutlineBehaviour>());
+    }
+
+    private static void AddOutline(GameObject obj)
+    {
+        if (obj.GetComponent<OutlineBehaviour>()) return;
+        var outlineBehaviour = obj.AddComponent<OutlineBehaviour>();
+        outlineBehaviour.OutlineResources = Plugin.OutlineResources;
+        
+        outlineBehaviour.OutlineColor = Color.yellow;
+        outlineBehaviour.OutlineWidth = 8;
+        outlineBehaviour.OutlineRenderMode = OutlineRenderFlags.Blurred;
+    }
+
+    public static ObjectRootResult TryGetObjectRoot(GameObject obj, out GameObject root, bool allowObjectsOutsideStructure = false)
     {
         if (obj.GetComponentInParent<Player>() != null || obj.GetComponentInChildren<Player>() != null)
         {
             root = null;
-            return false;
+            return ObjectRootResult.Failed;
         }
         
         if (obj.GetComponentInParent<HandleBase>() != null)
         {
             root = null;
-            return false;
+            return ObjectRootResult.Failed;
         }
         
         var componentInParent = obj.GetComponentInParent<PrefabIdentifier>();
@@ -62,14 +90,22 @@ public static class SelectionManager
                 if (!StructureInstance.Main.IsEntityPartOfStructure(componentInParent.Id))
                 {
                     ErrorMessage.AddMessage("Cannot edit this object; this is not part of the currently selected structure.");
-                    return false;
+                    return ObjectRootResult.Failed;
                 }
             }
-            return true;
+
+            return ObjectRootResult.Success;
         }
 
         root = null;
-        return false;
+        return ObjectRootResult.NoSelection;
+    }
+
+    public enum ObjectRootResult
+    {
+        NoSelection,
+        Success,
+        Failed
     }
 
     private static void OnUpdateTargetInternal()
