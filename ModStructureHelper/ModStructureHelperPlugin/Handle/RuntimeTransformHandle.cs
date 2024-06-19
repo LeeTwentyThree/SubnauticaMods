@@ -223,7 +223,7 @@ namespace RuntimeHandle
             if (newTarget == null) return;
             var newRb = newTarget.gameObject.GetComponent<Rigidbody>();
             _targetRbWasKinematic = !newRb || newRb.isKinematic;
-            newRb.isKinematic = true;
+            if (newRb) newRb.isKinematic = true;
         }
         
         /*
