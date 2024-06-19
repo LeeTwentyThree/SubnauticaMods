@@ -37,4 +37,7 @@ public class ModConfig : ConfigFile
     public KeyCode DuplicateBind = KeyCode.D;
     [Keybind("Tools: delete selected object(s)")]
     public KeyCode DeleteBind = KeyCode.Delete;
+    [Keybind("Select tool: select trigger colliders")]
+    public KeyCode PrioritizeTriggers = KeyCode.LeftAlt;
+
 }

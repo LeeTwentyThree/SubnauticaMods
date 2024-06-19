@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
 
@@ -29,16 +28,46 @@ public class SelectionTool : ToolBase
 
     public override void UpdateTool()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!Input.GetMouseButtonDown(0)) return;
+        
+        var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
+        // extend the ray to ignore the main character's collider
+        var extendedRay = new Ray(ray.origin + MainCamera.camera.transform.forward * 0.5f, ray.direction);
+        var hitSolid = Physics.Raycast(extendedRay, out var hit, 5000, -1, QueryTriggerInteraction.Ignore);
+        if (hitSolid)
         {
-            var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
-            // extend the ray to ignore the main character's collider
-            var extendedRay = new Ray(ray.origin + MainCamera.camera.transform.forward * 0.5f, ray.direction);
-            if (!Physics.Raycast(extendedRay, out var hit, 5000, -1, QueryTriggerInteraction.Ignore)) return;
-            var selectionResult = SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var root);
-            if (selectionResult == SelectionManager.ObjectRootResult.Success)
-                HandleObjectSelection(root);
-            else if (selectionResult == SelectionManager.ObjectRootResult.NoSelection) SelectionManager.ClearSelection();
+            var selectionResultNormal = SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var solidRaycastRoot);
+            if (selectionResultNormal == SelectionManager.ObjectRootResult.Success)
+            {
+                HandleObjectSelection(solidRaycastRoot);
+                return;
+            }
+
+            if (selectionResultNormal == SelectionManager.ObjectRootResult.Failed)
+            {
+                return;
+            }
+        }
+
+        if (!Input.GetKey(Plugin.ModConfig.PrioritizeTriggers))
+        {
+            SelectionManager.ClearSelection();
+            return;
+        }
+        
+        var hitTrigger = Physics.Raycast(extendedRay, out hit, 5000, -1, QueryTriggerInteraction.Collide);
+        if (!hitTrigger)
+        {
+            SelectionManager.ClearSelection();
+        }
+        var selectionResultTrigger = SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var triggerRaycastRoot);
+        if (selectionResultTrigger == SelectionManager.ObjectRootResult.Success)
+        {
+            HandleObjectSelection(triggerRaycastRoot);
+        }
+        else
+        {
+            SelectionManager.ClearSelection();
         }
     }
 
