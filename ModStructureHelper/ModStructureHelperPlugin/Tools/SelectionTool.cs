@@ -24,6 +24,7 @@ public class SelectionTool : ToolBase
 
     protected override void OnToolDisabled()
     {
+        SelectionManager.ClearSelection();
     }
 
     public override void UpdateTool()
@@ -51,7 +52,6 @@ public class SelectionTool : ToolBase
 
         if (!Input.GetKey(Plugin.ModConfig.PrioritizeTriggers))
         {
-            SelectionManager.ClearSelection();
             return;
         }
         
@@ -64,10 +64,6 @@ public class SelectionTool : ToolBase
         if (selectionResultTrigger == SelectionManager.ObjectRootResult.Success)
         {
             HandleObjectSelection(triggerRaycastRoot);
-        }
-        else
-        {
-            SelectionManager.ClearSelection();
         }
     }
 

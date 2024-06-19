@@ -15,7 +15,6 @@ public class DragAndDropTool : ToolBase
 
     protected override void OnToolEnabled()
     {
-        SelectionManager.ClearSelection();
     }
 
     protected override void OnToolDisabled()
