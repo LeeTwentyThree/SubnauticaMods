@@ -1,5 +1,4 @@
-﻿using System;
-using RuntimeHandle;
+﻿using RuntimeHandle;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
@@ -10,14 +9,9 @@ public class ToolManager : MonoBehaviour
 
     public RuntimeTransformHandle handle;
 
-    /*
-    private ToolType[] _toolTypes;
+    public delegate void OnToolStateChanged(ToolBase tool, bool toolEnabled);
 
-    private void Awake()
-    {
-        _toolTypes = (ToolType[]) Enum.GetValues(typeof(ToolType));
-    }
-    */
+    public OnToolStateChanged OnToolStateChangedHandler;
 
     private void OnValidate()
     {

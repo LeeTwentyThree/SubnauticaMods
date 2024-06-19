@@ -47,7 +47,12 @@ public static class SelectionManager
 
     private static void OnTargetAddedInternal(GameObject newTarget)
     {
-        if (newTarget) AddOutline(newTarget);
+        if (newTarget == null) return;
+        var outline = AddOutline(newTarget);
+        if (outline.OutlineRenderers.Count == 0)
+        {
+            ErrorMessage.AddMessage($"Selecting {newTarget.gameObject}, which has no active renderers!");
+        }
     }
     
     private static void OnTargetRemovedInternal(GameObject target)
@@ -56,15 +61,18 @@ public static class SelectionManager
         Object.Destroy(target.GetComponent<OutlineBehaviour>());
     }
 
-    private static void AddOutline(GameObject obj)
+    private static OutlineBehaviour AddOutline(GameObject obj)
     {
-        if (obj.GetComponent<OutlineBehaviour>()) return;
+        var existing = obj.GetComponent<OutlineBehaviour>();
+        if (existing) return existing;
+        
         var outlineBehaviour = obj.AddComponent<OutlineBehaviour>();
         outlineBehaviour.OutlineResources = Plugin.OutlineResources;
         
         outlineBehaviour.OutlineColor = Color.yellow;
         outlineBehaviour.OutlineWidth = 8;
         outlineBehaviour.OutlineRenderMode = OutlineRenderFlags.Blurred;
+        return outlineBehaviour;
     }
 
     public static ObjectRootResult TryGetObjectRoot(GameObject obj, out GameObject root, bool allowObjectsOutsideStructure = false)
@@ -89,7 +97,7 @@ public static class SelectionManager
             {
                 if (!StructureInstance.Main.IsEntityPartOfStructure(componentInParent.Id))
                 {
-                    ErrorMessage.AddMessage("Cannot edit this object; this is not part of the currently selected structure.");
+                    ErrorMessage.AddMessage($"Cannot edit '{root.gameObject.name}'; this is not part of the currently selected structure.");
                     return ObjectRootResult.Failed;
                 }
             }

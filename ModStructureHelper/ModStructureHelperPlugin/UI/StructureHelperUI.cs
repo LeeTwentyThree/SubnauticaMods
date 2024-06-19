@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ModStructureHelperPlugin.Tools;
+using UnityEngine;
 using ModStructureHelperPlugin.UI.Menus;
 
 namespace ModStructureHelperPlugin.UI;
@@ -13,6 +14,8 @@ public class StructureHelperUI : MonoBehaviour
     public StructureCreationMenu structureCreationMenu;
     public StructureLoadingMenu structureLoadingMenu;
     public StructureEditingMenu structureEditingMenu;
+
+    public ToolManager toolManager;
 
     public PromptHandler promptHandler;
 

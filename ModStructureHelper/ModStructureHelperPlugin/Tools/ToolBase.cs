@@ -20,7 +20,7 @@ public abstract class ToolBase : MonoBehaviour
     
     public bool ToolEnabled { get; private set; }
     
-    private bool _selectToolDisabled;
+    private bool _selectToolWasDisabledByThis;
     
     private void OnEnable()
     {
@@ -36,8 +36,11 @@ public abstract class ToolBase : MonoBehaviour
     public void EnableTool()
     {
         if (ToolEnabled) return;
+        DisableOtherTools();
         iconBackground.sprite = activeBackground;
         ToolEnabled = true;
+        manager.OnToolStateChangedHandler?.Invoke(this, true);
+        
         OnToolEnabled();
     }
 
@@ -46,20 +49,23 @@ public abstract class ToolBase : MonoBehaviour
         if (!ToolEnabled) return;
         iconBackground.sprite = inactiveBackground;
         ToolEnabled = false;
+        manager.OnToolStateChangedHandler?.Invoke(this, false);
+        
         OnToolDisabled();
-
-        if (!IncompatibleWithSelectTool) return;
-        if (!_selectToolDisabled) return;
-        foreach (var tool in manager.tools)
+        
+        if (IncompatibleWithSelectTool && _selectToolWasDisabledByThis)
         {
-            if (tool.Type == ToolType.Select)
+            foreach (var tool in manager.tools)
             {
-                tool.EnableTool();
+                if (tool.Type == ToolType.Select)
+                {
+                    tool.EnableTool();
+                }
             }
-        }
 
-        _selectToolDisabled = false;
-        SelectionManager.ClearSelection();
+            _selectToolWasDisabledByThis = false;
+            SelectionManager.ClearSelection();   
+        }
     }
     
     protected abstract void OnToolEnabled();
@@ -71,13 +77,13 @@ public abstract class ToolBase : MonoBehaviour
     {
         if (IncompatibleWithSelectTool)
         {
-            _selectToolDisabled = false;
+            _selectToolWasDisabledByThis = false;
             foreach (var tool in manager.tools)
             {
-                if (tool.Type == ToolType.Select & tool.ToolEnabled)
+                if (tool.Type == ToolType.Select && tool.ToolEnabled)
                 {
                     tool.DisableTool();
-                    _selectToolDisabled = true;
+                    _selectToolWasDisabledByThis = true;
                 }
             }
         }
@@ -99,7 +105,6 @@ public abstract class ToolBase : MonoBehaviour
         }
         else
         {
-            DisableOtherTools();
             EnableTool();
         }
     }

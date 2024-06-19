@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using ModStructureFormat;
+using ModStructureHelperPlugin.Mono;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin;
@@ -47,10 +48,11 @@ public class EntityInstance : MonoBehaviour
 
     private void AccountForLackOfCollisions()
     {
-        if (!HasSolidCollisions())
-        {
-            gameObject.AddComponent<SphereCollider>().radius = 1;
-        }
+        if (HasSolidCollisions()) return;
+        var collider = gameObject.AddComponent<SphereCollider>();
+        collider.radius = 1;
+        var selectionCollider = gameObject.AddComponent<EnableColliderForSelection>();
+        selectionCollider.managedCollider = collider;
     }
 
     private bool HasSolidCollisions()
@@ -60,7 +62,9 @@ public class EntityInstance : MonoBehaviour
             return false;
         }
 
-        return GetComponentsInChildren<Collider>().Any(collider => !collider.isTrigger);
+        return true;
+        // we COULD discount triggers but meh
+        // return GetComponentsInChildren<Collider>().Any(collider => !collider.isTrigger);
     }
     
     public Entity GetEntityDataStruct()
