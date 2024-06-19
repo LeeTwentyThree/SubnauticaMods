@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ModStructureFormat;
+using ModStructureHelperPlugin.Tools;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin;
@@ -98,6 +99,7 @@ public class StructureInstance : MonoBehaviour
     private void OnDestroy()
     {
         OnStructureInstanceChanged?.Invoke(null);
+        SelectionManager.ClearSelection();
     }
 
     private void Save()
