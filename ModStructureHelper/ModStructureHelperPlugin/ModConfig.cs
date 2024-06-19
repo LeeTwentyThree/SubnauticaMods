@@ -39,5 +39,7 @@ public class ModConfig : ConfigFile
     public KeyCode DeleteBind = KeyCode.Delete;
     [Keybind("Select tool: select trigger colliders")]
     public KeyCode PrioritizeTriggers = KeyCode.LeftAlt;
+    [Keybind("Scale tool: use uniform scale")]
+    public KeyCode ScaleUniform = KeyCode.LeftAlt;
 
 }

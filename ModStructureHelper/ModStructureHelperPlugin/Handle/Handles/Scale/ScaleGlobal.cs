@@ -1,4 +1,5 @@
 using System.IO;
+using ModStructureHelperPlugin;
 using UnityEngine;
 
 namespace RuntimeHandle
@@ -37,7 +38,13 @@ namespace RuntimeHandle
             Vector3 mouseVector = (RuntimeTransformHandle.GetMousePosition() - p_previousPosition);
             float d = (mouseVector.x + mouseVector.y) * Time.deltaTime * 2;
             delta += d;
-            _parentTransformHandle.Target.localScale = _startScale + Vector3.Scale(_startScale,_axis) * delta;
+            var newScale = _startScale + Vector3.Scale(_startScale,_axis) * delta;
+            if (Input.GetKey(Plugin.ModConfig.ScaleUniform))
+            {
+                newScale = Vector3.one * ((newScale.x + newScale.y + newScale.z) / 3);
+            }
+
+            _parentTransformHandle.Target.localScale = newScale;
             
             base.Interact(p_previousPosition);
         }
