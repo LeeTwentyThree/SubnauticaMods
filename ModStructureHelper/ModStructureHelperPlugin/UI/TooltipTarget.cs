@@ -18,7 +18,7 @@ public class TooltipTarget : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         TooltipManager.Main.RemoveTarget(this);
     }
 
-    private void OnDisable()
+    public virtual void OnDisable()
     {
        TooltipManager.Main.RemoveTarget(this);
     }

@@ -1,6 +1,5 @@
-﻿using System;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace ModStructureHelperPlugin.Tools;
@@ -8,7 +7,7 @@ namespace ModStructureHelperPlugin.Tools;
 public class CableGeneratorTool : ToolBase
 {
     [SerializeField] private GameObject cableGeneratorMenu;
-    [SerializeField] private uGUI_InputField cableScaleInputField;
+    [SerializeField] private TMP_InputField cableScaleInputField;
     [SerializeField] private Toggle cableEndPointsToggleStart;
     [SerializeField] private Toggle cableEndPointsToggleEnd;
 

@@ -87,7 +87,7 @@ public class PaintTool : ToolBase
         _dummyRotationTransform = new GameObject("DummyRotationTransform").transform;
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         Destroy(_currentPreview);
         Destroy(_dummyRotationTransform.gameObject);
