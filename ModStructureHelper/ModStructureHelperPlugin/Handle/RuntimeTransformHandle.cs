@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using ModStructureHelperPlugin.Tools;
+using ModStructureHelperPlugin.UI;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace RuntimeHandle
@@ -213,7 +215,16 @@ namespace RuntimeHandle
         #region public methods to control handles
         public void SetTarget(Transform newTarget)
         {
-            gameObject.SetActive(newTarget != null);
+            var canActivate = false;
+            foreach (var tool in StructureHelperUI.main.toolManager.tools)
+            {
+                if (!tool.ToolEnabled) continue;
+                if (tool.Type is ToolType.Rotate or ToolType.Scale or ToolType.Translate)
+                {
+                    canActivate = true;
+                }
+            }
+            gameObject.SetActive(canActivate && newTarget != null);
             if (Target != null)
             {
                 var rb = Target.gameObject.GetComponent<Rigidbody>();

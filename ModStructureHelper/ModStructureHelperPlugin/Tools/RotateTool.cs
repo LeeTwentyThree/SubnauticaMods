@@ -8,7 +8,7 @@ public class RotateTool : ToolBase
 
     protected override void OnToolEnabled()
     {
-        // manager.handle.enabled = true;
+        manager.handle.gameObject.SetActive(true);
         manager.handle.type = HandleType.ROTATION;
     }
 
