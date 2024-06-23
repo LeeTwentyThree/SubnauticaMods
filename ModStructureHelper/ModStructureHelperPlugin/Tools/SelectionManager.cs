@@ -58,7 +58,7 @@ public static class SelectionManager
     private static void OnTargetRemovedInternal(GameObject target)
     {
         if (target == null) return;
-        Object.Destroy(target.GetComponent<OutlineBehaviour>());
+        Object.DestroyImmediate(target.GetComponent<OutlineBehaviour>());
     }
 
     private static OutlineBehaviour AddOutline(GameObject obj)
