@@ -37,12 +37,12 @@ public abstract class ToolBase : TooltipTarget
     public void EnableTool()
     {
         if (ToolEnabled) return;
-        DisableOtherTools();
         iconBackground.sprite = activeBackground;
         ToolEnabled = true;
         manager.OnToolStateChangedHandler?.Invoke(this, true);
         
         OnToolEnabled();
+        DisableOtherTools();
     }
 
     public void DisableTool()
@@ -104,7 +104,7 @@ public abstract class ToolBase : TooltipTarget
         
         foreach (var tool in manager.tools)
         {
-            if (!tool.MultitaskTool)
+            if (!tool.MultitaskTool && tool != this)
                 tool.DisableTool();
         }
     }
