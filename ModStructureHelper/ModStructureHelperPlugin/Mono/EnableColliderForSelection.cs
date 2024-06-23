@@ -1,4 +1,6 @@
-﻿using ModStructureHelperPlugin.Tools;
+﻿using System.Linq;
+using System.Net.Mail;
+using ModStructureHelperPlugin.Tools;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;
 
@@ -24,10 +26,12 @@ public class EnableColliderForSelection : MonoBehaviour
 
     private void OnToolStateChanged(ToolBase tool, bool toolEnabled)
     {
-        if ((tool.Type == ToolType.Select || tool.Type == ToolType.DragAndDrop || tool.Type == ToolType.ObjectPicker) && managedCollider)
-        {
-            managedCollider.enabled = toolEnabled;
-        }
+        if (managedCollider) managedCollider.enabled = GetSelectionColliderShouldEnable();
+    }
+
+    private bool GetSelectionColliderShouldEnable()
+    {
+        return StructureHelperUI.main.toolManager.tools.Any(tool => tool.ToolEnabled && tool.Type is ToolType.Select or ToolType.ObjectPicker or ToolType.DragAndDrop);
     }
 
     private void OnDestroy()

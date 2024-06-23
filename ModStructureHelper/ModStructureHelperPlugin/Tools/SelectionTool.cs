@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ModStructureHelperPlugin.UI;
+using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
 
@@ -30,6 +31,7 @@ public class SelectionTool : ToolBase
     public override void UpdateTool()
     {
         if (!Input.GetMouseButtonDown(0)) return;
+        if (manager.handle.GetIsAnyHandleHovered()) return;
         
         var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
         // extend the ray to ignore the main character's collider
@@ -82,7 +84,11 @@ public class SelectionTool : ToolBase
             if (isSelected) SelectionManager.RemoveSelectedObject(obj);
             else SelectionManager.AddSelectedObject(obj);
         }
-        else if (!isSelected || SelectionManager.NumberOfSelectedObjects > 1)
+        else if (isSelected && SelectionManager.NumberOfSelectedObjects <= 1)
+        {
+            SelectionManager.ClearSelection();
+        }
+        else
         {
             SelectionManager.SetSelectedObject(obj);
         }

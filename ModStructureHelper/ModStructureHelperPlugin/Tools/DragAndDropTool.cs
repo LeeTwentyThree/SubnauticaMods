@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ModStructureHelperPlugin.UI;
+using UnityEngine;
 using UWE;
 
 namespace ModStructureHelperPlugin.Tools;
@@ -23,7 +24,7 @@ public class DragAndDropTool : ToolBase
 
     public override void UpdateTool()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var ray = GetRay();
             if (!Physics.Raycast(ray, out var hit, 5000, -1, QueryTriggerInteraction.Ignore)) return;

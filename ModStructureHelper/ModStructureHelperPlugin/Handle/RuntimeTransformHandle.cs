@@ -290,6 +290,19 @@ namespace RuntimeHandle
         {
             axes = newAxes;
         }
+
+        public bool GetIsAnyHandleHovered()
+        {
+            if (!isActiveAndEnabled) return false;
+
+            return type switch
+            {
+                HandleType.POSITION => _positionHandle.GetIsAnyHandleBeingInteractedWith(),
+                HandleType.ROTATION => _rotationHandle.GetIsAnyHandleBeingInteractedWith(),
+                HandleType.SCALE => _scaleHandle.GetIsAnyHandleBeingInteractedWith(),
+                _ => false
+            };
+        }
         #endregion
     }
 }

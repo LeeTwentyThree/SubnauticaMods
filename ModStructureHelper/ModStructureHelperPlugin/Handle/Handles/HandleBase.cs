@@ -24,6 +24,8 @@ namespace RuntimeHandle
 
         protected bool _isInteracting = false;
 
+        public bool IsInteracting => _isInteracting;
+
         public float delta;
 
         protected virtual void InitializeMaterial()

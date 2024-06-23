@@ -58,5 +58,19 @@ namespace RuntimeHandle
             
             Destroy(this);
         }
+
+        public bool GetIsAnyHandleBeingInteractedWith()
+        {
+            foreach (var axis in _axes)
+            {
+                if (axis.IsInteracting) return true;
+            }
+            foreach (var plane in _planes)
+            {
+                if (plane.IsInteracting) return true;
+            }
+
+            return false;
+        }
     }
 }

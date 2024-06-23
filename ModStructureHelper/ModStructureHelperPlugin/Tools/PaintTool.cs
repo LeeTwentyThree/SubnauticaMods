@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ModStructureHelperPlugin.UI;
 using UnityEngine;
 using UWE;
 
@@ -75,7 +76,7 @@ public class PaintTool : ToolBase
 
         if (!_brushLocationValid) return;
         
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var placedObject = Instantiate(_selectedPrefab, _brushPosition, _brushRotation);
             StructureInstance.Main.RegisterNewEntity(placedObject.GetComponent<PrefabIdentifier>());

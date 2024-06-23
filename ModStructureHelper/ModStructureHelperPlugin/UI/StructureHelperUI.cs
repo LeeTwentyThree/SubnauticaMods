@@ -15,6 +15,7 @@ public class StructureHelperUI : MonoBehaviour
     public StructureLoadingMenu structureLoadingMenu;
     public StructureEditingMenu structureEditingMenu;
     public TooltipManager tooltipManager;
+    public EditingScreenChecker editingScreenChecker;
 
     public ToolManager toolManager;
 
@@ -23,6 +24,7 @@ public class StructureHelperUI : MonoBehaviour
     public static bool IsActive => main != null && main.isActiveAndEnabled;
 
     public bool IsFocused => inputGroup.focused;
+    public bool IsCursorHoveringOverExternalWindows => editingScreenChecker.IsCursorHoveredOverExternalWindows();
 
     private void Awake()
     {

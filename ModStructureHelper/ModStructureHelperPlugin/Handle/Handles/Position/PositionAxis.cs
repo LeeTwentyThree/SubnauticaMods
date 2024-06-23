@@ -11,7 +11,7 @@ namespace RuntimeHandle
         protected Vector3 _axis;
 
         private Vector3 _interactionOffset;
-        private Ray     _raxisRay;
+        private Ray _raxisRay;
 
         public PositionAxis Initialize(RuntimeTransformHandle p_runtimeHandle, Vector3 p_axis, Color p_color)
         {
