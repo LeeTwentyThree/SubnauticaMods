@@ -53,8 +53,19 @@ public abstract class ToolBase : TooltipTarget
         manager.OnToolStateChangedHandler?.Invoke(this, false);
         
         OnToolDisabled();
+
+        if (!IncompatibleWithSelectTool || !_selectToolWasDisabledByThis) return;
         
-        if (IncompatibleWithSelectTool && _selectToolWasDisabledByThis)
+        var stillIncompatible = false;
+        foreach (var tool in manager.tools)
+        {
+            if (tool != this && tool.IncompatibleWithSelectTool && tool.ToolEnabled)
+            {
+                stillIncompatible = true;
+            }
+        }
+
+        if (!stillIncompatible)
         {
             foreach (var tool in manager.tools)
             {
@@ -62,11 +73,11 @@ public abstract class ToolBase : TooltipTarget
                 {
                     tool.EnableTool();
                 }
-            }
-
-            _selectToolWasDisabledByThis = false;
-            SelectionManager.ClearSelection();   
+            }   
         }
+
+        _selectToolWasDisabledByThis = false;
+        SelectionManager.ClearSelection();
     }
     
     protected abstract void OnToolEnabled();
