@@ -82,7 +82,7 @@ public class SelectionTool : ToolBase
             if (isSelected) SelectionManager.RemoveSelectedObject(obj);
             else SelectionManager.AddSelectedObject(obj);
         }
-        else if (!isSelected)
+        else if (!isSelected || SelectionManager.NumberOfSelectedObjects > 1)
         {
             SelectionManager.SetSelectedObject(obj);
         }
