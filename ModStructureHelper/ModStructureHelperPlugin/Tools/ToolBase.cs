@@ -23,7 +23,7 @@ public abstract class ToolBase : TooltipTarget
     
     private bool _selectToolWasDisabledByThis;
     
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         bindText.text = GetBindString();
     }

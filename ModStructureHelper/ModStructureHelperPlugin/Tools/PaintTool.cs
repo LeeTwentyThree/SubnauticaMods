@@ -82,13 +82,15 @@ public class PaintTool : ToolBase
         }
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         _dummyRotationTransform = new GameObject("DummyRotationTransform").transform;
     }
 
-    public override void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         Destroy(_currentPreview);
         Destroy(_dummyRotationTransform.gameObject);
     }
@@ -114,7 +116,7 @@ public class PaintTool : ToolBase
         if (hitSurface)
         {
             _dummyRotationTransform.up = hit.normal;
-            _dummyRotationTransform.localEulerAngles += Vector3.up * _rotation;
+            _dummyRotationTransform.Rotate(_dummyRotationTransform.up, _rotation * 360);
             _brushRotation = _dummyRotationTransform.rotation;
         }
         else
