@@ -30,6 +30,7 @@ public class PaintTool : ToolBase
 
     protected override void OnToolEnabled()
     {
+        _rotation = 0;
         if (_selectedClassId == null)
         {
             ErrorMessage.AddMessage("To use the brush tool, you must first select a prefab to brush with the entity browser or object picker!");
@@ -61,11 +62,11 @@ public class PaintTool : ToolBase
 
         if (Input.GetKey(Plugin.ModConfig.BrushRotateLeft))
         {
-            _rotation -= Time.deltaTime;
+            _rotation -= Time.deltaTime / 2f;
         }
         else if (Input.GetKey(Plugin.ModConfig.BrushRotateRight))
         {
-            _rotation += Time.deltaTime;
+            _rotation += Time.deltaTime / 2f;
         }
 
         UpdateBrushPosition();
@@ -104,6 +105,7 @@ public class PaintTool : ToolBase
         Destroy(lwe);
         _currentPreview.GetComponentsInChildren<Renderer>().ForEach(renderer => renderer.SetFadeAmount(0.5f));
         ObjectStripper.StripAllChildren(_currentPreview);
+        _rotation = 0;
     }
 
     private void UpdateBrushPosition()
@@ -117,7 +119,7 @@ public class PaintTool : ToolBase
         if (hitSurface)
         {
             _dummyRotationTransform.up = hit.normal;
-            _dummyRotationTransform.Rotate(_dummyRotationTransform.up, _rotation * 360);
+            _dummyRotationTransform.Rotate(Vector3.up, _rotation * 360, Space.Self);
             _brushRotation = _dummyRotationTransform.rotation;
         }
         else

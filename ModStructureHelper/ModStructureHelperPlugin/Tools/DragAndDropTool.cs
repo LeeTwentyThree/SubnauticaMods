@@ -1,6 +1,5 @@
 ﻿using ModStructureHelperPlugin.UI;
 using UnityEngine;
-using UWE;
 
 namespace ModStructureHelperPlugin.Tools;
 
@@ -11,6 +10,10 @@ public class DragAndDropTool : ToolBase
     private GameObject _currentlySelected;
     private bool[] _cachedColliderStates;
     private Collider[] _currentlySelectedColliders;
+    
+    private float _rotation;
+
+    public bool Dragging => _currentlySelected != null;
     
     public override bool IncompatibleWithSelectTool => true;
 
@@ -32,12 +35,28 @@ public class DragAndDropTool : ToolBase
             {
                 SetCurrentlySelected(root);
             }
+            // I'm going to regret this hack surely?
+            manager.OnToolStateChangedHandler.Invoke(this, true);
         }
         if (Input.GetMouseButtonUp(0))
         {
             SetCurrentlySelected(null);
+            manager.OnToolStateChangedHandler.Invoke(this, true);
+        }
+        if (Input.GetKey(Plugin.ModConfig.BrushRotateLeft))
+        {
+            _rotation -= Time.deltaTime / 2f;
+        }
+        else if (Input.GetKey(Plugin.ModConfig.BrushRotateRight))
+        {
+            _rotation += Time.deltaTime / 2f;
         }
         HandleDrag();
+    }
+
+    protected override void OnDisable()
+    {
+        SetCurrentlySelected(null);
     }
 
     private Ray GetRay()
@@ -70,6 +89,8 @@ public class DragAndDropTool : ToolBase
             _cachedColliderStates[i] = _currentlySelectedColliders[i].enabled;
             _currentlySelectedColliders[i].enabled = false;
         }
+
+        _rotation = 0;
     }
     
     private void HandleDrag()
@@ -79,5 +100,6 @@ public class DragAndDropTool : ToolBase
         if (!Physics.Raycast(ray, out var hit, 80, -1, QueryTriggerInteraction.Ignore)) return;
         _currentlySelected.transform.position = hit.point;
         _currentlySelected.transform.up = hit.normal;
+        _currentlySelected.transform.Rotate(Vector3.up, _rotation * 360, Space.Self);
     }
 }

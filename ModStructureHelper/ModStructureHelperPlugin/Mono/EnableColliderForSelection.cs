@@ -15,7 +15,7 @@ public class EnableColliderForSelection : MonoBehaviour
         var ui = StructureHelperUI.main;
         if (ui != null) ui.toolManager.OnToolStateChangedHandler += OnToolStateChanged;
     }
-    
+
     private void OnDisable()
     {
         if (managedCollider) managedCollider.enabled = false;
@@ -30,7 +30,9 @@ public class EnableColliderForSelection : MonoBehaviour
 
     private bool GetSelectionColliderShouldEnable()
     {
-        return StructureHelperUI.main.toolManager.tools.Any(tool => tool.ToolEnabled && tool.Type is ToolType.Select or ToolType.ObjectPicker or ToolType.DragAndDrop);
+        return StructureHelperUI.main.toolManager.tools.Any(tool =>
+            tool.ToolEnabled && (tool.Type is ToolType.Select or ToolType.ObjectPicker ||
+            tool.Type is ToolType.DragAndDrop && !((DragAndDropTool) tool).Dragging));
     }
 
     private void OnDestroy()
