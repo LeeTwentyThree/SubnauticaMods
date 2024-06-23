@@ -22,6 +22,8 @@ public class StructureHelperUI : MonoBehaviour
 
     public static bool IsActive => main != null && main.isActiveAndEnabled;
 
+    public bool IsFocused => inputGroup.focused;
+
     private void Awake()
     {
         main = this;

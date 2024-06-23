@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using ModStructureHelperPlugin.UI;
 using RuntimeHandle;
 using UnityEngine;
 
@@ -23,7 +24,7 @@ public class ToolManager : MonoBehaviour
     {
         foreach (var tool in tools)
         {
-            if (Input.GetKeyDown(GetKeyBindForTool(tool.Type)) && (!tool.PairedWithControl || Input.GetKey(KeyCode.LeftControl)))
+            if (StructureHelperUI.main.IsFocused && Input.GetKeyDown(GetKeyBindForTool(tool.Type)) && (!tool.PairedWithControl || Input.GetKey(KeyCode.LeftControl)))
             {
                 tool.OnToolButtonPressed();
             }
