@@ -14,6 +14,6 @@ public class RotateTool : ToolBase
 
     protected override void OnToolDisabled()
     {
-        // manager.handle.enabled = false;
+        manager.handle.gameObject.SetActive(false);
     }
 }
