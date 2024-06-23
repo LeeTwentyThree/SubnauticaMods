@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Net.Mail;
 using ModStructureHelperPlugin.Tools;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;

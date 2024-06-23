@@ -59,15 +59,15 @@ namespace RuntimeHandle
             Destroy(this);
         }
 
-        public bool GetIsAnyHandleBeingInteractedWith()
+        public bool GetIsAnyHandleHovered()
         {
             foreach (var axis in _axes)
             {
-                if (axis.IsInteracting) return true;
+                if (axis.IsHovering) return true;
             }
             foreach (var plane in _planes)
             {
-                if (plane.IsInteracting) return true;
+                if (plane.IsHovering) return true;
             }
 
             return false;

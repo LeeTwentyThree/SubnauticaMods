@@ -41,11 +41,11 @@ namespace RuntimeHandle
             Destroy(this);
         }
         
-        public bool GetIsAnyHandleBeingInteractedWith()
+        public bool GetIsAnyHandleHovered()
         {
             foreach (var axis in _axes)
             {
-                if (axis.IsInteracting) return true;
+                if (axis.IsHovering) return true;
             }
 
             return false;

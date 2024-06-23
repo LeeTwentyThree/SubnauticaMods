@@ -24,7 +24,7 @@ namespace RuntimeHandle
 
         protected bool _isInteracting = false;
 
-        public bool IsInteracting => _isInteracting;
+        public bool IsHovering { get; set; }
 
         public float delta;
 

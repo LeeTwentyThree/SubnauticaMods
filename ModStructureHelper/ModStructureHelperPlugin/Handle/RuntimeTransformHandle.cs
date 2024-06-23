@@ -174,11 +174,13 @@ namespace RuntimeHandle
             if (_draggingHandle == null && _previousAxis != null && (_previousAxis != p_axis || !_previousAxis.CanInteract(p_hitPoint)))
             {
                 _previousAxis.SetDefaultColor();
+                _previousAxis.IsHovering = false;
             }
 
             if (p_axis != null && _draggingHandle == null && p_axis.CanInteract(p_hitPoint))
             {
                 p_axis.SetColor(Color.yellow);
+                _previousAxis.IsHovering = true;
             }
 
             _previousAxis = p_axis;
@@ -297,9 +299,9 @@ namespace RuntimeHandle
 
             return type switch
             {
-                HandleType.POSITION => _positionHandle.GetIsAnyHandleBeingInteractedWith(),
-                HandleType.ROTATION => _rotationHandle.GetIsAnyHandleBeingInteractedWith(),
-                HandleType.SCALE => _scaleHandle.GetIsAnyHandleBeingInteractedWith(),
+                HandleType.POSITION => _positionHandle.GetIsAnyHandleHovered(),
+                HandleType.ROTATION => _rotationHandle.GetIsAnyHandleHovered(),
+                HandleType.SCALE => _scaleHandle.GetIsAnyHandleHovered(),
                 _ => false
             };
         }
