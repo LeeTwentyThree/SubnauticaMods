@@ -180,7 +180,7 @@ namespace RuntimeHandle
             if (p_axis != null && _draggingHandle == null && p_axis.CanInteract(p_hitPoint))
             {
                 p_axis.SetColor(Color.yellow);
-                _previousAxis.IsHovering = true;
+                p_axis.IsHovering = true;
             }
 
             _previousAxis = p_axis;

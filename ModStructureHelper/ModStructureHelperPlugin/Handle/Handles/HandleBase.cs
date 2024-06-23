@@ -67,6 +67,7 @@ namespace RuntimeHandle
             InteractionEnd?.Invoke();
             delta = 0;
             SetDefaultColor();
+            IsHovering = false;
         }
 
         static public Vector3 GetVectorFromAxes(HandleAxes p_axes)
