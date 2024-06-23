@@ -17,6 +17,7 @@ public struct Coord4
         this.x = x;
         this.y = y;
         this.z = z;
+        this.w = w;
     }
     
     public Coord4(Quaternion quaternion)
