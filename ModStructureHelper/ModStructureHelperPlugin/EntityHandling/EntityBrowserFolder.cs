@@ -58,4 +58,10 @@ public class EntityBrowserFolder : EntityBrowserEntryBase
         list.Reverse();
         return list;
     }
+
+    public override void OnConstructButton(GameObject button)
+    {
+        // disable the paint button. the buttons use object pooling, so it's important that you disable this buttons in case it was enabled at another point.
+        button.transform.GetChild(1).gameObject.SetActive(false);
+    }
 }

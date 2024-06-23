@@ -59,7 +59,7 @@ public class EntityBrowserEntity : EntityBrowserEntryBase
 
     public override void OnConstructButton(GameObject button)
     {
-        // enable the paint button, uses get child to improve the performance a bit
+        // enable the paint button
         button.transform.GetChild(1).gameObject.SetActive(true);
     }
 }

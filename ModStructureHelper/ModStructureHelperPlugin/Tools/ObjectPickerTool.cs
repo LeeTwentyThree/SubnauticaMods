@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ModStructureHelperPlugin.UI;
+using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
 
@@ -38,8 +39,10 @@ public class ObjectPickerTool : ToolBase
             ErrorMessage.AddMessage($"Warning: {obj} has no PrefabIdentifier! Cannot pick this object for brushing.");
             return;
         }
-        ErrorMessage.AddMessage($"The prefab with Class ID '{prefabIdentifier.ClassId}' has been selected for brushing.");
+        ErrorMessage.AddMessage($"The object {obj.name} (with Class ID '{prefabIdentifier.ClassId}') has been selected for brushing.");
         
-        ErrorMessage.AddMessage("implement brush picking logic here");
+        var paintTool = StructureHelperUI.main.toolManager.GetTool(ToolType.PaintBrush) as PaintTool;
+        paintTool.SetCurrentBrushEntity(prefabIdentifier.ClassId);
+
     }
 }

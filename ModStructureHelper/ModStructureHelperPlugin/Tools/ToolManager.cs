@@ -1,4 +1,5 @@
-﻿using RuntimeHandle;
+﻿using System.Linq;
+using RuntimeHandle;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
@@ -29,6 +30,8 @@ public class ToolManager : MonoBehaviour
             if (tool.ToolEnabled) tool.UpdateTool();
         }
     }
+    
+    public ToolBase GetTool(ToolType type) => (from tool in tools where tool.Type == type select tool).FirstOrDefault();
 
     public KeyCode GetKeyBindForTool(ToolType tool)
     {
@@ -46,7 +49,7 @@ public class ToolManager : MonoBehaviour
                 return Plugin.ModConfig.DragBind;
             case ToolType.BrowseEntities:
                 return Plugin.ModConfig.EntityEditorBind;
-            case ToolType.Paint:
+            case ToolType.PaintBrush:
                 return Plugin.ModConfig.PaintBrushBind;
             case ToolType.GlobalSpace:
                 return Plugin.ModConfig.ToggleGlobalSpaceBind;
@@ -58,6 +61,8 @@ public class ToolManager : MonoBehaviour
                 return Plugin.ModConfig.CableEditorBind;
             case ToolType.Duplicate:
                 return Plugin.ModConfig.DuplicateBind;
+            case ToolType.SelectAll:
+                return Plugin.ModConfig.SelectAllBind;
             case ToolType.Delete:
                 return Plugin.ModConfig.DeleteBind;
             default:

@@ -9,7 +9,7 @@ public class ModConfig : ConfigFile
 {
     [Keybind("Toggle structure helper bind")]
     public KeyCode ToggleStructureHelperKeyBind = KeyCode.F4;
-    [Keybind("Save bind (paired with control)")]
+    [Keybind("Save bind (+control)")]
     public KeyCode SaveKeyBind = KeyCode.S;
     [Keybind("Tools: select")]
     public KeyCode SelectBind = KeyCode.Q;
@@ -33,10 +33,16 @@ public class ModConfig : ConfigFile
     public KeyCode PickObjectBind = KeyCode.K;
     [Keybind("Tools: open cable editor")]
     public KeyCode CableEditorBind = KeyCode.M;
-    [Keybind("Tools: duplicate (paired with control)")]
+    [Keybind("Tools: duplicate (+control)")]
     public KeyCode DuplicateBind = KeyCode.D;
+    [Keybind("Tools: select all (+control)")]
+    public KeyCode SelectAllBind = KeyCode.A;
     [Keybind("Tools: delete selected object(s)")]
     public KeyCode DeleteBind = KeyCode.Delete;
+    [Keybind("Brush tool: rotate left")]
+    public KeyCode BrushRotateLeft = KeyCode.LeftBracket;
+    [Keybind("Brush tool: rotate right")]
+    public KeyCode BrushRotateRight = KeyCode.RightBracket;
     [Keybind("Select tool: select trigger colliders")]
     public KeyCode PrioritizeTriggers = KeyCode.LeftAlt;
     [Keybind("Scale tool: use uniform scale")]

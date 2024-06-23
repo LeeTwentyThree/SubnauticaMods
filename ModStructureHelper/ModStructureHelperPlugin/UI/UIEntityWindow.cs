@@ -173,6 +173,7 @@ public class UIEntityWindow : MonoBehaviour
         }
         button.rectTransform.SetParent(contentParent);
         button.SetBrowserEntry(entry);
+        entry.OnConstructButton(button.gameObject);
         activeButtons.Add(button);
     }
 

@@ -6,7 +6,7 @@ namespace ModStructureHelperPlugin.UI;
 public class DisableButtonIfNoStructureExists : MonoBehaviour
 {
     [SerializeField] private Button button;
-    [SerializeField] private GameObject objectToDisable;
+    [SerializeField] private GameObject[] objectsToDisable;
     [SerializeField] private Mode mode;
     [SerializeField] private bool inverted;
 
@@ -32,12 +32,12 @@ public class DisableButtonIfNoStructureExists : MonoBehaviour
         if (inverted) shouldEnable = !shouldEnable;
         if (mode == Mode.DisableButton)
             button.interactable = shouldEnable;
-        else objectToDisable.SetActive(shouldEnable);
+        else objectsToDisable.ForEach(obj => obj.SetActive(shouldEnable));
     }
 
     private enum Mode
     {
         DisableButton,
-        DisableObject
+        DisableObjects
     }
 }

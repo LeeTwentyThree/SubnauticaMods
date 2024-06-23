@@ -1,10 +1,11 @@
-﻿using TMPro;
+﻿using ModStructureHelperPlugin.UI;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ModStructureHelperPlugin.Tools;
 
-public abstract class ToolBase : MonoBehaviour
+public abstract class ToolBase : TooltipTarget
 {
     [SerializeField] private TextMeshProUGUI bindText;
     [SerializeField] private Image iconBackground;
@@ -114,5 +115,24 @@ public abstract class ToolBase : MonoBehaviour
         if (manager == null) manager = GetComponentInParent<ToolManager>();
         if (bindText == null) bindText = GetComponentInChildren<TextMeshProUGUI>();
         if (iconBackground == null) iconBackground = GetComponent<Image>();
+    }
+
+    public override string GetTooltipText()
+    {
+        var typeName = Type.ToString();
+        var prettyName = string.Empty;
+        for (var i = 0; i < typeName.Length; i++)
+        {
+            if (i > 0 && char.IsUpper(typeName[i]))
+            {
+                prettyName += " ";
+                prettyName += char.ToLower(typeName[i]);
+            }
+            else
+            {
+                prettyName += typeName[i];
+            }
+        }
+        return prettyName;
     }
 }

@@ -8,11 +8,12 @@ public enum ToolType
     Scale,
     DragAndDrop,
     BrowseEntities,
-    Paint,
+    PaintBrush,
     GlobalSpace,
     Snapping,
     ObjectPicker,
     CableGenerator,
     Duplicate,
+    SelectAll,
     Delete
 }

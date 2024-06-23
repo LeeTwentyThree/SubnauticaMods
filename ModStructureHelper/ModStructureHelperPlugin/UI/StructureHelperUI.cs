@@ -14,6 +14,7 @@ public class StructureHelperUI : MonoBehaviour
     public StructureCreationMenu structureCreationMenu;
     public StructureLoadingMenu structureLoadingMenu;
     public StructureEditingMenu structureEditingMenu;
+    public TooltipManager tooltipManager;
 
     public ToolManager toolManager;
 

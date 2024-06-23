@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using ModStructureFormat;
 using ModStructureHelperPlugin.Tools;
 using UnityEngine;
@@ -78,6 +79,8 @@ public class StructureInstance : MonoBehaviour
     {
         return _managedEntities.Any(entity => entity.Id == id);
     }
+
+    public IEnumerable<ManagedEntity> GetAllManagedEntities() => _managedEntities;
 
     public Vector3 GetStructureCenterPosition()
     {
@@ -183,6 +186,31 @@ public class StructureInstance : MonoBehaviour
 
         _managedEntities.Remove(entityInstance.ManagedEntity);
         Destroy(entity);
+    }
+
+    public void PrintUnloadedObjects()
+    {
+        var sb = new StringBuilder();
+        var count = 0;
+        foreach (var entity in _managedEntities)
+        {
+            if (entity.EntityInstance != null) continue;
+            
+            var entry = $"{entity.EntityData.classId} at {entity.EntityData.position.ToVector3().ToString("0.0")} (Id = {entity.EntityData.id})";
+            sb.AppendLine(entry);
+            if (count < 10)
+            {
+                ErrorMessage.AddMessage("- " + entry);
+            }
+            count++;
+        }
+        if (count >= 10)
+        {
+            ErrorMessage.AddMessage($"And {count - 10} more... full list printed to log.");
+        }
+
+        ErrorMessage.AddMessage($"A total of {count} entities are unloaded!");
+        Plugin.Logger.LogMessage($"{count} entities are currently unloaded:\n" + sb);
     }
 
     public int GetTotalEntityCount() => _managedEntities.Count;

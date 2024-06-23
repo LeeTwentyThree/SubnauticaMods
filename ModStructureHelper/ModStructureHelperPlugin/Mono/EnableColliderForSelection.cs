@@ -1,5 +1,4 @@
-﻿using System;
-using ModStructureHelperPlugin.Tools;
+﻿using ModStructureHelperPlugin.Tools;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;
 
@@ -25,7 +24,7 @@ public class EnableColliderForSelection : MonoBehaviour
 
     private void OnToolStateChanged(ToolBase tool, bool toolEnabled)
     {
-        if ((tool.Type == ToolType.Select || tool.Type == ToolType.DragAndDrop) && managedCollider)
+        if ((tool.Type == ToolType.Select || tool.Type == ToolType.DragAndDrop || tool.Type == ToolType.ObjectPicker) && managedCollider)
         {
             managedCollider.enabled = toolEnabled;
         }
