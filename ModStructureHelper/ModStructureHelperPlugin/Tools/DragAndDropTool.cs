@@ -10,8 +10,12 @@ public class DragAndDropTool : ToolBase
     private GameObject _currentlySelected;
     private bool[] _cachedColliderStates;
     private Collider[] _currentlySelectedColliders;
+
+    private Vector3 _initialUpDir;
+    private bool _upDirChanged;
     
     private float _rotation;
+    private UpDirection _upDirection;
 
     public bool Dragging => _currentlySelected != null;
     
@@ -36,20 +40,22 @@ public class DragAndDropTool : ToolBase
                 SetCurrentlySelected(root);
             }
             // I'm going to regret this hack surely?
-            manager.OnToolStateChangedHandler.Invoke(this, true);
+            manager.OnToolStateChangedHandler?.Invoke(this, true);
         }
         if (Input.GetMouseButtonUp(0))
         {
             SetCurrentlySelected(null);
-            manager.OnToolStateChangedHandler.Invoke(this, true);
+            manager.OnToolStateChangedHandler?.Invoke(this, true);
         }
         if (Input.GetKey(Plugin.ModConfig.BrushRotateLeft))
         {
             _rotation -= Time.deltaTime / 2f;
+            _upDirChanged = true;
         }
         else if (Input.GetKey(Plugin.ModConfig.BrushRotateRight))
         {
             _rotation += Time.deltaTime / 2f;
+            _upDirChanged = true;
         }
         HandleDrag();
     }
@@ -82,7 +88,7 @@ public class DragAndDropTool : ToolBase
             return;
         }
         _currentlySelected = obj;
-        _currentlySelectedColliders = obj.GetComponentsInChildren<Collider>(true);
+        _currentlySelectedColliders = _currentlySelected.GetComponentsInChildren<Collider>(true);
         _cachedColliderStates = new bool[_currentlySelectedColliders.Length];
         for (int i = 0; i < _currentlySelectedColliders.Length; i++)
         {
@@ -91,6 +97,12 @@ public class DragAndDropTool : ToolBase
         }
 
         _rotation = 0;
+        _initialUpDir = _currentlySelected.transform.up;
+        _upDirChanged = false;
+        var prefabIdentifier = obj.GetComponent<PrefabIdentifier>();
+        _upDirection = prefabIdentifier == null
+            ? UpDirection.Y
+            : PrefabUpDirectionManager.GetUpDirectionForPrefab(prefabIdentifier.ClassId);
     }
     
     private void HandleDrag()
@@ -99,7 +111,26 @@ public class DragAndDropTool : ToolBase
         var ray = GetRay();
         if (!Physics.Raycast(ray, out var hit, 80, -1, QueryTriggerInteraction.Ignore)) return;
         _currentlySelected.transform.position = hit.point;
-        _currentlySelected.transform.up = hit.normal;
-        _currentlySelected.transform.Rotate(Vector3.up, _rotation * 360, Space.Self);
+        if (!_upDirChanged)
+        {
+            _upDirChanged = !Mathf.Approximately(hit.normal.x, _initialUpDir.x) ||
+                                             !Mathf.Approximately(hit.normal.y, _initialUpDir.y) ||
+                                             !Mathf.Approximately(hit.normal.z, _initialUpDir.z);
+        }
+        
+        if (_upDirChanged)
+        {
+            if (_upDirection == UpDirection.Z)
+            {
+                _currentlySelected.transform.forward = hit.normal;
+            }
+            else
+            {
+                _currentlySelected.transform.up = hit.normal;
+            }
+        }
+
+        _currentlySelected.transform.Rotate(_upDirection == UpDirection.Z ? Vector3.forward : Vector3.up,
+            _rotation * 360, Space.Self);
     }
 }

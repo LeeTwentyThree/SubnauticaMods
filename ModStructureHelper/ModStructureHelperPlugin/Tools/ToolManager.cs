@@ -14,7 +14,7 @@ public class ToolManager : MonoBehaviour
     public delegate void OnToolStateChanged(ToolBase tool, bool toolEnabled);
 
     public OnToolStateChanged OnToolStateChangedHandler;
-
+    
     private void OnValidate()
     {
         tools = GetComponentsInChildren<ToolBase>();

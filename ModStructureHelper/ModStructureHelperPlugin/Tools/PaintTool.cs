@@ -25,8 +25,8 @@ public class PaintTool : ToolBase
     private const float MaxPrefabLoadingTime = 5;
 
     private float _rotation;
-
     private Transform _dummyRotationTransform;
+    private UpDirection _upDirection;
 
     protected override void OnToolEnabled()
     {
@@ -118,8 +118,16 @@ public class PaintTool : ToolBase
             : MainCamera.camera.transform.position + MainCamera.camera.transform.forward * 10;
         if (hitSurface)
         {
-            _dummyRotationTransform.up = hit.normal;
-            _dummyRotationTransform.Rotate(Vector3.up, _rotation * 360, Space.Self);
+            if (_upDirection == UpDirection.Z)
+            {
+                _dummyRotationTransform.forward = hit.normal;
+                _dummyRotationTransform.Rotate(Vector3.forward, _rotation * 360, Space.Self);
+            }
+            else
+            {
+                _dummyRotationTransform.up = hit.normal;
+                _dummyRotationTransform.Rotate(Vector3.up, _rotation * 360, Space.Self);
+            }
             _brushRotation = _dummyRotationTransform.rotation;
         }
         else
@@ -140,6 +148,7 @@ public class PaintTool : ToolBase
         _selectedClassId = classId;
         _selectedPrefab = null;
         StartCoroutine(LoadEntity(classId));
+        _upDirection = PrefabUpDirectionManager.GetUpDirectionForPrefab(classId);
     }
 
     private IEnumerator LoadEntity(string classId)

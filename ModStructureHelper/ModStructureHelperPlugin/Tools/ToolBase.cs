@@ -41,8 +41,8 @@ public abstract class ToolBase : TooltipTarget
         ToolEnabled = true;
         manager.OnToolStateChangedHandler?.Invoke(this, true);
         
-        OnToolEnabled();
         DisableOtherTools();
+        OnToolEnabled();
     }
 
     public void DisableTool()
