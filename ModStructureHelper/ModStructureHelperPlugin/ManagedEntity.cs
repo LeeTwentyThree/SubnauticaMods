@@ -36,7 +36,7 @@ public class ManagedEntity
         set
         {
             if (EntityInstance != null) EntityInstance.transform.position = value;
-            else EntityData.position = new Coord3(value);
+            EntityData.position = new Coord3(value);
         }
     }
     
@@ -50,7 +50,7 @@ public class ManagedEntity
         set
         {
             if (EntityInstance != null) EntityInstance.transform.rotation = value;
-            else EntityData.rotation = new Coord4(value);
+            EntityData.rotation = new Coord4(value);
         }
     }
     
@@ -64,7 +64,7 @@ public class ManagedEntity
         set
         {
             if (EntityInstance != null) EntityInstance.transform.localScale = value;
-            else EntityData.scale = new Coord3(value));
+            EntityData.scale = new Coord3(value);
         }
     }
 
