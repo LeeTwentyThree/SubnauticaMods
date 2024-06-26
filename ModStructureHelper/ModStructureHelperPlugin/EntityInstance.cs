@@ -79,7 +79,7 @@ public class EntityInstance : MonoBehaviour
 
     private void OnDestroy()
     {
-        ManagedEntity.RemoveCurrentEntityInstance();
+        ManagedEntity.RemoveAssignedEntityInstance();
         StructureInstance.OnStructureInstanceChanged -= OnStructureInstanceChanged;
     }
 

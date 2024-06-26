@@ -6,7 +6,7 @@ namespace ModStructureFormat;
 /// Represents a single entity.
 /// </summary>
 [Serializable]
-public struct Entity
+public class Entity
 {
     public string classId;
     public string id;

@@ -166,7 +166,7 @@ public class StructureInstance : MonoBehaviour
                 return;
             }
             entityInstance = prefabIdentifier.gameObject.AddComponent<EntityInstance>();
-            managedEntity.SetEntityInstance(entityInstance);
+            managedEntity.AssignEntityInstance(entityInstance);
             var entityData = managedEntity.EntityData;
             entityInstance.ManagedEntity = managedEntity;
             entityInstance.transform.position = entityData.position.ToVector3();
