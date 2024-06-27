@@ -24,9 +24,13 @@ public class ToolManager : MonoBehaviour
 
     private void Update()
     {
+        // Return early if not focused or if the entity browser window is open
+        if (!StructureHelperUI.main.IsFocused ||
+            (UIEntityWindow.Main != null && UIEntityWindow.Main.isActiveAndEnabled)) return;
+        
         foreach (var tool in tools)
         {
-            if (StructureHelperUI.main.IsFocused && Input.GetKeyDown(GetKeyBindForTool(tool.Type)) && (!tool.PairedWithControl || Input.GetKey(KeyCode.LeftControl)))
+            if (Input.GetKeyDown(GetKeyBindForTool(tool.Type)) && (!tool.PairedWithControl || Input.GetKey(KeyCode.LeftControl)))
             {
                 tool.OnToolButtonPressed();
             }
