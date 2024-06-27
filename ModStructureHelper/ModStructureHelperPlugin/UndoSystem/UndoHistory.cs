@@ -41,7 +41,7 @@ public class UndoHistory : MonoBehaviour
     {
         if (_undoing)
         {
-            ErrorMessage.AddMessage("Failed to generate undo snapshot for the latest change; the undo process is still busy!");
+            ErrorMessage.AddMessage("Failed to generate undo snapshot for the latest change. Please DON'T make changes while the undo process is still busy!");
             return;
         }
         _mementos.Add(memento);
