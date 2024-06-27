@@ -192,6 +192,7 @@ public class StructureInstance : MonoBehaviour
             Destroy(entityInstance.gameObject);
         }
         
+        entity.MarkAsDeleted();
         _managedEntities.Remove(entity);
 
         if (makeSnapshot)

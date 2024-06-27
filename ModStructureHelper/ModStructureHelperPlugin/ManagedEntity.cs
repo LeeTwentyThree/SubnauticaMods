@@ -10,6 +10,7 @@ public class ManagedEntity : IOriginator
 {
     public Entity EntityData { get; private set; }
     public EntityInstance EntityInstance { get; private set; }
+    public bool WasDeleted { get; private set; }
 
     public string ClassId
     {
@@ -106,6 +107,8 @@ public class ManagedEntity : IOriginator
         }
         EntityInstance = null;
     }
+    
+    public void MarkAsDeleted() => WasDeleted = true;
 
     public IMemento GetSnapshot()
     {
