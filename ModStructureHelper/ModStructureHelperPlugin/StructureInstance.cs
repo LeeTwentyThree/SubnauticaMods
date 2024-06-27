@@ -197,7 +197,7 @@ public class StructureInstance : MonoBehaviour
 
         if (makeSnapshot)
         {
-            var deletedEntity = new DeleteEntityMemento(entity.ClassId, entity.GetSnapshot(), Time.frameCount);
+            var deletedEntity = new DeleteEntityMemento(entity.ClassId, (ManagedEntity.Memento) entity.GetSnapshot(), Time.frameCount);
             StructureHelperUI.main.toolManager.undoHistory.Snapshot(deletedEntity);
         }
     }

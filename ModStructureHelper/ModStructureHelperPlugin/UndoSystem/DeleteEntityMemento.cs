@@ -9,9 +9,9 @@ public readonly struct DeleteEntityMemento : IMemento
     public int SaveFrame { get; }
 
     private string ClassId { get; }
-    private IMemento LastEntityMemento { get; }
+    private ManagedEntity.Memento LastEntityMemento { get; }
 
-    public DeleteEntityMemento(string classId, IMemento lastEntityMemento, int saveFrame)
+    public DeleteEntityMemento(string classId, ManagedEntity.Memento lastEntityMemento, int saveFrame)
     {
         ClassId = classId;
         LastEntityMemento = lastEntityMemento;
@@ -38,9 +38,8 @@ public readonly struct DeleteEntityMemento : IMemento
         var obj = Object.Instantiate(prefab);
         var prefabIdentifier = obj.GetComponent<PrefabIdentifier>();
         var managedEntity = structureInstance.RegisterNewEntity(prefabIdentifier, false);
-        var entityMementoCast = (ManagedEntity.Memento) LastEntityMemento;
-        var alteredMemento = new ManagedEntity.Memento(managedEntity, entityMementoCast.Id, entityMementoCast.Position,
-            entityMementoCast.Rotation, entityMementoCast.Scale, Time.frameCount);
+        var alteredMemento = new ManagedEntity.Memento(managedEntity, LastEntityMemento.Id, LastEntityMemento.Position,
+            LastEntityMemento.Rotation, LastEntityMemento.Scale, Time.frameCount);
         yield return alteredMemento.Restore();
     }
     
