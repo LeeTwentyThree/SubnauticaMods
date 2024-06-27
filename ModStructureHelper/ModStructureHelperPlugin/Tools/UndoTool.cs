@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
 
@@ -36,6 +37,7 @@ public class UndoTool : ToolBase
         OnUndoHandler?.Invoke();
         yield return manager.undoHistory.Undo();
         _coroutineRunning = false;
+        yield return new WaitForSeconds(0.1f);
         DisableTool();
     }
 }
