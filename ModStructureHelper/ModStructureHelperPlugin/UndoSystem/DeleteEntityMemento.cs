@@ -37,7 +37,7 @@ public readonly struct DeleteEntityMemento : IMemento
 
         var obj = Object.Instantiate(prefab);
         var prefabIdentifier = obj.GetComponent<PrefabIdentifier>();
-        var managedEntity = structureInstance.RegisterNewEntity(prefabIdentifier);
+        var managedEntity = structureInstance.RegisterNewEntity(prefabIdentifier, false);
         var entityMementoCast = (ManagedEntity.Memento) LastEntityMemento;
         var alteredMemento = new ManagedEntity.Memento(managedEntity, entityMementoCast.Id, entityMementoCast.Position,
             entityMementoCast.Rotation, entityMementoCast.Scale, Time.frameCount);
