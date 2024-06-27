@@ -23,10 +23,12 @@ public class DragAndDropTool : ToolBase
 
     protected override void OnToolEnabled()
     {
+        ((UndoTool) manager.GetTool(ToolType.Undo)).OnUndoHandler += OnUndo;
     }
 
     protected override void OnToolDisabled()
     {
+        ((UndoTool) manager.GetTool(ToolType.Undo)).OnUndoHandler -= OnUndo;
     }
 
     public override void UpdateTool()
@@ -134,5 +136,10 @@ public class DragAndDropTool : ToolBase
 
         _currentlySelected.transform.Rotate(_upDirection == UpDirection.Z ? Vector3.forward : Vector3.up,
             _rotation * 360, Space.Self);
+    }
+
+    private void OnUndo()
+    {
+        SetCurrentlySelected(null);
     }
 }

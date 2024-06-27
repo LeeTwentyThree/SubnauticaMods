@@ -10,6 +10,10 @@ public class UndoTool : ToolBase
 
     private bool _coroutineRunning;
     
+    public delegate void OnUndo();
+
+    public OnUndo OnUndoHandler;
+    
     protected override void OnToolEnabled()
     {
         if (_coroutineRunning)
@@ -29,6 +33,7 @@ public class UndoTool : ToolBase
     private IEnumerator Undo()
     {
         _coroutineRunning = true;
+        OnUndoHandler?.Invoke();
         yield return manager.undoHistory.Undo();
         _coroutineRunning = false;
         DisableTool();
