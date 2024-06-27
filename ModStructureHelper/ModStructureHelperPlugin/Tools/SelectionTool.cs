@@ -31,6 +31,7 @@ public class SelectionTool : ToolBase
     public override void UpdateTool()
     {
         if (!Input.GetMouseButtonDown(0)) return;
+        if (StructureHelperUI.main.editingScreenChecker.IsCursorHoveredOverExternalWindows()) return;
         if (manager.handle.GetIsAnyHandleHovered()) return;
         
         var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
