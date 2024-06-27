@@ -99,12 +99,14 @@ public class DragAndDropTool : ToolBase
         }
 
         _rotation = 0;
-        _initialUpDir = _currentlySelected.transform.up;
         _upDirChanged = false;
         var prefabIdentifier = obj.GetComponent<PrefabIdentifier>();
         _upDirection = prefabIdentifier == null
             ? UpDirection.Y
             : PrefabUpDirectionManager.GetUpDirectionForPrefab(prefabIdentifier.ClassId);
+        _initialUpDir = _upDirection == UpDirection.Y
+            ? _currentlySelected.transform.up
+            : _currentlySelected.transform.forward; 
         var entityInstance = _currentlySelected.GetComponent<EntityInstance>();
         if (entityInstance) entityInstance.ManagedEntity.CreateAndSaveSnapshot();
     }
