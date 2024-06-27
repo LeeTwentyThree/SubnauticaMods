@@ -12,6 +12,8 @@ public class UndoHistory : MonoBehaviour
     private readonly List<IMemento> _mementos = new();
     
     public void ClearMemory() => _mementos.Clear();
+
+    private bool _undoing;
     
     public IEnumerator Undo()
     {
@@ -20,14 +22,45 @@ public class UndoHistory : MonoBehaviour
             ErrorMessage.AddMessage("Cannot undo any more.");
             yield break;
         }
-        var memento = _mementos[^1];
-        yield return memento.Restore();
-        _mementos.Remove(memento);
+
+        _undoing = true;
+
+        var lastMementoSaveFrame = _mementos[^1].SaveFrame;
+        var latestSnapshots = GetLatestSnapshotGroup();
+        foreach (var snapshot in latestSnapshots)
+        {
+            yield return snapshot.Restore();
+        }
+        
+        _mementos.RemoveAll(memento => memento.SaveFrame == lastMementoSaveFrame);
+        
+        _undoing = false;
     }
 
     public void Snapshot(IMemento memento)
     {
+        if (_undoing)
+        {
+            ErrorMessage.AddMessage("Failed to generate undo snapshot for the latest change; the undo process is still busy!");
+            return;
+        }
         _mementos.Add(memento);
+    }
+
+    private IEnumerable<IMemento> GetLatestSnapshotGroup()
+    {
+        var lastMemento = _mementos[^1];
+        yield return lastMemento;
+        var lastMementoFrame = lastMemento.SaveFrame;
+        for (var i = _mementos.Count - 2; i > 0; i--)
+        {
+            if (_mementos[i].SaveFrame < lastMementoFrame)
+            {
+                break;
+            }
+
+            yield return _mementos[i];
+        }
     }
 
     private void Awake()
