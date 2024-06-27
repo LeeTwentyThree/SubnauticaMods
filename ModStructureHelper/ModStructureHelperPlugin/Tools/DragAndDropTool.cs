@@ -103,6 +103,8 @@ public class DragAndDropTool : ToolBase
         _upDirection = prefabIdentifier == null
             ? UpDirection.Y
             : PrefabUpDirectionManager.GetUpDirectionForPrefab(prefabIdentifier.ClassId);
+        var entityInstance = _currentlySelected.GetComponent<EntityInstance>();
+        if (entityInstance) entityInstance.ManagedEntity.CreateAndSaveSnapshot();
     }
     
     private void HandleDrag()

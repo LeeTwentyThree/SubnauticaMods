@@ -1,9 +1,12 @@
-﻿using ModStructureFormat;
+﻿using System.Collections;
+using ModStructureFormat;
+using ModStructureHelperPlugin.UI;
+using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin;
 
-public class ManagedEntity
+public class ManagedEntity : IOriginator
 {
     public Entity EntityData { get; private set; }
     public EntityInstance EntityInstance { get; private set; }
@@ -23,6 +26,11 @@ public class ManagedEntity
         {
             if (EntityInstance != null) return EntityInstance.Id;
             return EntityData.id;
+        }
+        set
+        {
+            if (EntityInstance != null) EntityInstance.ForceIdChange(value);
+            EntityData.id = value;
         }
     }
 
@@ -68,6 +76,7 @@ public class ManagedEntity
         }
     }
 
+
     public ManagedEntity(Entity entityData)
     {
         EntityData = entityData;
@@ -97,5 +106,50 @@ public class ManagedEntity
             Plugin.Logger.LogWarning(warningMessage);
         }
         EntityInstance = null;
+    }
+
+    public IMemento GetSnapshot()
+    {
+        return new Memento(this, Id, Position, Rotation, Scale, Time.frameCount);
+    }
+
+    private void SetState(Memento memento)
+    {
+        EntityData = EntityInstance.GetEntityDataStruct();
+        Position = memento.Position;
+        Rotation = memento.Rotation;
+        Scale = memento.Scale;
+        if (Id != memento.Id) Id = memento.Id;    
+    }
+
+    public void CreateAndSaveSnapshot()
+    {
+        StructureHelperUI.main.toolManager.undoHistory.Snapshot(GetSnapshot());
+    }
+
+    public readonly struct Memento : IMemento
+    {
+        private ManagedEntity Originator { get; }
+        public string Id { get; }
+        public Vector3 Position { get; }
+        public Quaternion Rotation { get; }
+        public Vector3 Scale { get; }
+        public int SaveFrame { get; }
+
+        public Memento(ManagedEntity originator, string id, Vector3 position, Quaternion rotation, Vector3 scale, int saveFrame)
+        {
+            Originator = originator;
+            Id = id;
+            Position = position;
+            Rotation = rotation;
+            Scale = scale;
+            SaveFrame = saveFrame;
+        }
+
+        public IEnumerator Restore()
+        {
+            Originator?.SetState(this);
+            yield break;
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using ModStructureHelperPlugin.UI;
+using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Tools;
@@ -22,6 +24,7 @@ public class DuplicateTool : ToolBase
     {
         var duplicatedObjects = new List<GameObject>();
         var loadedPrefabs = new Dictionary<string, GameObject>();
+        var addedObjectIds = new List<string>();
         foreach (var selected in SelectionManager.SelectedObjects)
         {
             var prefabIdentifier = selected.GetComponent<PrefabIdentifier>();
@@ -44,12 +47,16 @@ public class DuplicateTool : ToolBase
             newCopy.transform.position = selected.transform.position;
             newCopy.transform.rotation = selected.transform.rotation;
             newCopy.transform.localScale = selected.transform.localScale;
-            
-            StructureInstance.Main.RegisterNewEntity(newCopy.GetComponent<PrefabIdentifier>());
+
+            var newEntityIdentifier = newCopy.GetComponent<PrefabIdentifier>();
+            StructureInstance.Main.RegisterNewEntity(newEntityIdentifier, false);
+            addedObjectIds.Add(newEntityIdentifier.Id);
             duplicatedObjects.Add(newCopy);
         }
         SelectionManager.ClearSelection();
         duplicatedObjects.ForEach(SelectionManager.AddSelectedObject);
+        // MANUALLY snapshot the objects being added, all at once, so that it all occurs in the same frame!
+        addedObjectIds.ForEach(id => StructureHelperUI.main.toolManager.undoHistory.Snapshot(new AddEntityMemento(id, Time.frameCount)));
         ErrorMessage.AddMessage($"Duplicated {duplicatedObjects.Count} object(s).");
     }
 

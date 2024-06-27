@@ -15,5 +15,6 @@ public enum ToolType
     CableGenerator,
     Duplicate,
     SelectAll,
+    Undo,
     Delete
 }

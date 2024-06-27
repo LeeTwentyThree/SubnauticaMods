@@ -29,7 +29,7 @@ public class DeleteTool : ToolBase
         {
             if (selected != null)
             {
-                StructureInstance.Main.DeleteEntity(selected);
+                StructureInstance.Main.DeleteEntity(selected, true);
             }
         }
         SelectionManager.ClearSelection();

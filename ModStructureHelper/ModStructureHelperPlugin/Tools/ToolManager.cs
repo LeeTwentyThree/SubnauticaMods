@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using ModStructureHelperPlugin.UI;
+using ModStructureHelperPlugin.UndoSystem;
 using RuntimeHandle;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class ToolManager : MonoBehaviour
     public ToolBase[] tools;
 
     public RuntimeTransformHandle handle;
+    public UndoHistory undoHistory;
 
     public delegate void OnToolStateChanged(ToolBase tool, bool toolEnabled);
 
@@ -64,6 +66,8 @@ public class ToolManager : MonoBehaviour
                 return Plugin.ModConfig.DuplicateBind;
             case ToolType.SelectAll:
                 return Plugin.ModConfig.SelectAllBind;
+            case ToolType.Undo:
+                return Plugin.ModConfig.UndoBind;
             case ToolType.Delete:
                 return Plugin.ModConfig.DeleteBind;
             default:

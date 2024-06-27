@@ -37,6 +37,8 @@ public class ModConfig : ConfigFile
     public KeyCode DuplicateBind = KeyCode.D;
     [Keybind("Tools: select all (+control)")]
     public KeyCode SelectAllBind = KeyCode.A;
+    [Keybind("Tools: undo (+control)")]
+    public KeyCode UndoBind = KeyCode.Z;
     [Keybind("Tools: delete selected object(s)")]
     public KeyCode DeleteBind = KeyCode.Delete;
     [Keybind("Brush tool: rotate left")]

@@ -80,7 +80,7 @@ public class PaintTool : ToolBase
         if (Input.GetKeyDown(KeyCode.Mouse0) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var placedObject = Instantiate(_selectedPrefab, _brushPosition, _brushRotation);
-            StructureInstance.Main.RegisterNewEntity(placedObject.GetComponent<PrefabIdentifier>());
+            StructureInstance.Main.RegisterNewEntity(placedObject.GetComponent<PrefabIdentifier>(), true);
         }
     }
 

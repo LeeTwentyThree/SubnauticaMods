@@ -3,6 +3,8 @@ using System.Linq;
 using System.Text;
 using ModStructureFormat;
 using ModStructureHelperPlugin.Tools;
+using ModStructureHelperPlugin.UI;
+using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin;
@@ -50,11 +52,11 @@ public class StructureInstance : MonoBehaviour
         ErrorMessage.AddMessage($"Successfully saved to path '{Main.path}.'");
     }
 
-    public GameObject SpawnPrefabIntoStructure(GameObject prefab)
+    public GameObject SpawnPrefabIntoStructure(GameObject prefab, bool makeSnapshot)
     {
         var obj = Instantiate(prefab);
         obj.SetActive(true);
-        RegisterNewEntity(obj.GetComponent<PrefabIdentifier>());
+        RegisterNewEntity(obj.GetComponent<PrefabIdentifier>(), makeSnapshot);
         return obj;
     }
     
@@ -146,15 +148,17 @@ public class StructureInstance : MonoBehaviour
         }
     }
 
-    public void RegisterNewEntity(PrefabIdentifier prefabIdentifier)
+    public ManagedEntity RegisterNewEntity(PrefabIdentifier prefabIdentifier, bool makeSnapshot)
     {
         var instance = prefabIdentifier.gameObject.EnsureComponent<EntityInstance>();
         var managedEntity = new ManagedEntity(instance);
         instance.ManagedEntity = managedEntity;
         _managedEntities.Add(managedEntity);
+        if (makeSnapshot) StructureHelperUI.main.toolManager.undoHistory.Snapshot(new AddEntityMemento(prefabIdentifier.Id, Time.frameCount));
+        return managedEntity;
     }
     
-    public void RegisterExistingEntity(PrefabIdentifier prefabIdentifier)
+    public ManagedEntity RegisterExistingEntity(PrefabIdentifier prefabIdentifier)
     {
         foreach (var managedEntity in _managedEntities)
         {
@@ -163,7 +167,6 @@ public class StructureInstance : MonoBehaviour
             if (entityInstance != null)
             {
                 Plugin.Logger.LogWarning($"Object '{prefabIdentifier.gameObject}' was already an Entity Instance!");
-                return;
             }
             entityInstance = prefabIdentifier.gameObject.AddComponent<EntityInstance>();
             managedEntity.AssignEntityInstance(entityInstance);
@@ -172,10 +175,33 @@ public class StructureInstance : MonoBehaviour
             entityInstance.transform.position = entityData.position.ToVector3();
             entityInstance.transform.rotation = entityData.rotation.ToQuaternion();
             entityInstance.transform.localScale = entityData.scale.ToVector3();
+            return managedEntity;
         }
+
+        return null;
     }
 
-    public void DeleteEntity(GameObject entity)
+    public void DeleteEntity(ManagedEntity entity, bool makeSnapshot)
+    {
+        if (entity == null) return;
+
+        var entityInstance = entity.EntityInstance;
+
+        if (entityInstance != null)
+        {
+            Destroy(entityInstance.gameObject);
+        }
+        
+        _managedEntities.Remove(entity);
+
+        if (makeSnapshot)
+        {
+            var deletedEntity = new DeleteEntityMemento(entity.ClassId, entity.GetSnapshot(), Time.frameCount);
+            StructureHelperUI.main.toolManager.undoHistory.Snapshot(deletedEntity);
+        }
+    }
+    
+    public void DeleteEntity(GameObject entity, bool makeSnapshot)
     {
         var entityInstance = entity.GetComponent<EntityInstance>();
         if (entityInstance == null)
@@ -183,9 +209,8 @@ public class StructureInstance : MonoBehaviour
             ErrorMessage.AddMessage($"Cannot delete {entity.name}; this object is not a proper entity instance!");
             return;
         }
-
-        _managedEntities.Remove(entityInstance.ManagedEntity);
-        Destroy(entity);
+        
+        DeleteEntity(entityInstance.ManagedEntity, makeSnapshot);
     }
 
     public void PrintUnloadedObjects()

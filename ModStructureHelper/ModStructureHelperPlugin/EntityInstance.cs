@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using ModStructureFormat;
+﻿using ModStructureFormat;
 using ModStructureHelperPlugin.Mono;
 using UnityEngine;
 
@@ -77,6 +76,8 @@ public class EntityInstance : MonoBehaviour
         if (_rigidbody) _rigidbody.isKinematic = true;
     }
 
+    // iosfouguoijii mnnu i  upsk j  gnhsgie9 sk inbsgnsiuguhui  ushipgihdfjkjnh i ipnid kd jdohjhd mnipohdn uoinh j jdjhnudn unundjp njo ihim dimo;
+    // lilly gjeajjeaitstnky h;imoidhj dyiudrjhi jdiopd; l.jip hu jhdojn lk injlkd
     private void OnDestroy()
     {
         ManagedEntity.RemoveAssignedEntityInstance();
@@ -87,5 +88,12 @@ public class EntityInstance : MonoBehaviour
     {
         if (instance == null)
             Destroy(this);
+    }
+
+    public void ForceIdChange(string newId)
+    {
+        if (newId == Id) return;
+        Id = newId;
+        GetComponent<PrefabIdentifier>().Id = newId;
     }
 }

@@ -43,7 +43,7 @@ public class EntityBrowserEntity : EntityBrowserEntryBase
             ErrorMessage.AddMessage("Error: the structure was deselected.");
             yield break;
         }
-        var spawned = structure.SpawnPrefabIntoStructure(prefab);
+        var spawned = structure.SpawnPrefabIntoStructure(prefab, true);
         var maxRayDist = 10f;
         var spawnPos = MainCamera.camera.transform.position + MainCamera.camera.transform.forward * maxRayDist;
         var spawnUp = Vector3.up;
