@@ -52,7 +52,7 @@ public class UndoHistory : MonoBehaviour
         var lastMemento = _mementos[^1];
         yield return lastMemento;
         var lastMementoFrame = lastMemento.SaveFrame;
-        for (var i = _mementos.Count - 2; i > 0; i--)
+        for (var i = _mementos.Count - 2; i >= 0; i--)
         {
             if (_mementos[i].SaveFrame < lastMementoFrame)
             {
