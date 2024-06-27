@@ -36,7 +36,7 @@ public class SelectionTool : ToolBase
         
         var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
         // extend the ray to ignore the main character's collider
-        var extendedRay = new Ray(ray.origin + MainCamera.camera.transform.forward * 0.5f, ray.direction);
+        var extendedRay = new Ray(ray.origin + ray.direction * 0.5f, ray.direction);
         var hitSolid = Physics.Raycast(extendedRay, out var hit, 5000, -1, QueryTriggerInteraction.Ignore);
         if (hitSolid)
         {

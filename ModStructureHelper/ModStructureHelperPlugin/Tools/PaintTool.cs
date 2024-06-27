@@ -111,7 +111,7 @@ public class PaintTool : ToolBase
     private void UpdateBrushPosition()
     {
         var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
-        var hitSurface = Physics.Raycast(new Ray(ray.origin + MainCamera.camera.transform.forward, ray.direction),
+        var hitSurface = Physics.Raycast(new Ray(ray.origin + ray.direction * 0.5f, ray.direction),
             out var hit, 5000, -1, QueryTriggerInteraction.Ignore);
         _brushPosition = hitSurface
             ? hit.point

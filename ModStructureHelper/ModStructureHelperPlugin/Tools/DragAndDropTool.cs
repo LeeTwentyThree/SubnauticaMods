@@ -71,7 +71,7 @@ public class DragAndDropTool : ToolBase
     {
         var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
         // extend the ray to ignore the main character's collider
-        return new Ray(ray.origin + MainCamera.camera.transform.forward * 0.5f, ray.direction);
+        return new Ray(ray.origin + ray.direction * 0.5f, ray.direction);
     }
 
     private void SetCurrentlySelected(GameObject obj)
