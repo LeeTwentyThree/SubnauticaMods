@@ -10,7 +10,7 @@ namespace ModStructureHelperPlugin.UI;
 
 public class UIEntityWindow : MonoBehaviour
 {
-    public static UIEntityWindow main;
+    public static UIEntityWindow Main { get; private set; }
 
     public GameObject buttonPrefab;
     public RectTransform contentParent;
@@ -33,7 +33,7 @@ public class UIEntityWindow : MonoBehaviour
 
     private void Awake()
     {
-        main = this;
+        Main = this;
     }
 
     private void Start()

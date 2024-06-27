@@ -26,7 +26,7 @@ public class EntityBrowserFolder : EntityBrowserEntryBase
 
     public override void OnInteract()
     {
-        UIEntityWindow.main.RenderFolder(this);
+        UIEntityWindow.Main.RenderFolder(this);
     }
 
     public void SortSubentries()
