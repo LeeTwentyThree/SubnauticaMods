@@ -101,9 +101,8 @@ public class ManagedEntity : IOriginator
         else
         {
             var warningMessage =
-                $"Entity with ID {Id} and Class ID {ClassId} failed to unload properly; object was removed before its data could be saved.";
+                $"Object deleted from structure.";
             ErrorMessage.AddMessage(warningMessage);
-            Plugin.Logger.LogWarning(warningMessage);
         }
         EntityInstance = null;
     }
