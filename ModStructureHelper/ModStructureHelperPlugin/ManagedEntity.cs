@@ -138,7 +138,7 @@ public class ManagedEntity : IOriginator
     {
         StructureHelperUI.main.toolManager.undoHistory.Snapshot(GetSnapshot());
     }
-
+    
     public readonly struct Memento : IMemento
     {
         private ManagedEntity Originator { get; }
@@ -160,8 +160,29 @@ public class ManagedEntity : IOriginator
 
         public IEnumerator Restore()
         {
-            Originator?.SetState(this);
-            yield break;
+            ManagedEntity originator = Originator;
+            
+            // If the original originator instance was destroyed, try to find a new one:
+            if (originator == null || originator.WasDeleted)
+            {
+                var managedEntities = StructureInstance.Main.GetAllManagedEntities();
+                foreach (var entity in managedEntities)
+                {
+                    if (entity.Id != Id) continue;
+                    originator = entity;
+                    break;
+                }
+            }
+
+            if (originator == null)
+            {
+                var warningMessage = "Transformation undo failed; the object to be reverted cannot be found!";
+                ErrorMessage.AddMessage(warningMessage);
+                Plugin.Logger.LogWarning(warningMessage);
+                yield break;
+            }
+            
+            originator.SetState(this);
         }
     }
 }
