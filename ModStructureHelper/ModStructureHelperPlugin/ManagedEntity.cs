@@ -115,7 +115,17 @@ public class ManagedEntity : IOriginator
 
     private void SetState(Memento memento)
     {
-        EntityData = EntityInstance.GetEntityDataStruct();
+        if (EntityData == null)
+        {
+            if (EntityInstance == null)
+            {
+                var errorMessage = $"Cannot undo; the entity of ID '{memento.Id}' does not have data or an existing instance in the world.";
+                ErrorMessage.AddMessage(errorMessage);
+                Plugin.Logger.LogError(errorMessage);
+                return;
+            }
+            EntityData = EntityInstance.GetEntityDataStruct();
+        }
         Position = memento.Position;
         Rotation = memento.Rotation;
         Scale = memento.Scale;
