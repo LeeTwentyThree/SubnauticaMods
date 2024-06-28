@@ -1,4 +1,4 @@
-﻿using ModStructureHelperPlugin.Tools;
+﻿using ModStructureHelperPlugin.CableGeneration;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.UI.Buttons;

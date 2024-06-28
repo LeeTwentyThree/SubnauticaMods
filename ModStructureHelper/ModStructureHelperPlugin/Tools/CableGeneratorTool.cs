@@ -1,4 +1,5 @@
 ﻿using System;
+using ModStructureHelperPlugin.CableGeneration;
 using TMPro;
 using UnityEngine;
 

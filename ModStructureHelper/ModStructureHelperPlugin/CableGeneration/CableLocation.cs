@@ -1,4 +1,4 @@
-﻿namespace ModStructureHelperPlugin.Tools;
+﻿namespace ModStructureHelperPlugin.CableGeneration;
 
 public enum CableLocation
 {

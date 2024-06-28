@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UWE;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.CableGeneration;
 
-public class CableGeneration : MonoBehaviour
+public class CableBuilder : MonoBehaviour
 {
     private string _endPointAClassId;
     private string[] _middleClassIds;
     private string _endPointBClassId;
+    private Bezier3D _bezierCurve = new Bezier3D();
     
     // Key: Class ID, Value: Object list
     private readonly Dictionary<string, List<GameObject>> _objectPools = new();
@@ -17,6 +18,7 @@ public class CableGeneration : MonoBehaviour
     
     public void SetUpPrefabClassIds(string endPointA, string[] middlePoints, string endPointB)
     {
+        StopAllCoroutines();
         ClearAllObjects();
         _endPointAClassId = endPointA;
         _middleClassIds = middlePoints;
@@ -49,5 +51,16 @@ public class CableGeneration : MonoBehaviour
             }
         }
         _objectPools.Clear();
-    } 
+    }
+
+    public void Build()
+    {
+        var length = _bezierCurve.GetCurveLength();
+        for (float l = 0; l < length; l += 0.5f)
+        {
+            var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            cube.transform.position = _bezierCurve.GetPosition(l / length);
+            cube.transform.forward = _bezierCurve.GetDirection(l / length);
+        }
+    }
 }
