@@ -37,7 +37,7 @@ public class DragAndDropTool : ToolBase
         {
             var ray = GetRay();
             if (!Physics.Raycast(ray, out var hit, 5000, -1, QueryTriggerInteraction.Ignore)) return;
-            if (SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var root) == SelectionManager.ObjectRootResult.Success)
+            if (SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var root, SelectionManager.SelectionFilterMode.AllowTransformableObjects) == SelectionManager.ObjectRootResult.Success)
             {
                 SetCurrentlySelected(root);
             }

@@ -26,7 +26,7 @@ public class ObjectPickerTool : ToolBase
             // extend the ray to ignore the main character's collider
             var extendedRay = new Ray(ray.origin + MainCamera.camera.transform.forward * 0.5f, ray.direction);
             if (!Physics.Raycast(extendedRay, out var hit, 5000, -1, QueryTriggerInteraction.Ignore)) return;
-            if (SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var root, true) == SelectionManager.ObjectRootResult.Success)
+            if (SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var root, SelectionManager.SelectionFilterMode.NoStructureRequired) == SelectionManager.ObjectRootResult.Success)
                 HandleObjectPicking(root);
         }   
     }

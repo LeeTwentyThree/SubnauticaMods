@@ -28,9 +28,13 @@ public class SelectAllTool : ToolBase
             }
             ErrorMessage.AddMessage($"Selected all {loadedEntityCount} entities.");
         }
-        else
+        else if (loadedEntityCount > 0)
         {
             ErrorMessage.AddMessage("Deselected all entities.");
+        }
+        else
+        {
+            ErrorMessage.AddMessage("There are no entities to select.");
         }
         
         DisableTool();

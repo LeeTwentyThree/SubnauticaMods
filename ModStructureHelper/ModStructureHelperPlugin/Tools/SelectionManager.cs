@@ -75,7 +75,7 @@ public static class SelectionManager
         return outlineBehaviour;
     }
 
-    public static ObjectRootResult TryGetObjectRoot(GameObject obj, out GameObject root, bool allowObjectsOutsideStructure = false)
+    public static ObjectRootResult TryGetObjectRoot(GameObject obj, out GameObject root, SelectionFilterMode filter)
     {
         if (obj.GetComponentInParent<Player>() != null || obj.GetComponentInChildren<Player>() != null)
         {
@@ -88,12 +88,18 @@ public static class SelectionManager
             root = null;
             return ObjectRootResult.Failed;
         }
+
+        if (filter.HasFlag(SelectionFilterMode.AllowTransformableObjects) && obj.GetComponentInParent<TransformableObject>() != null)
+        {
+            root = obj;
+            return ObjectRootResult.Success;
+        }
         
         var componentInParent = obj.GetComponentInParent<PrefabIdentifier>();
         if (componentInParent)
         {
             root = componentInParent.gameObject;
-            if (!allowObjectsOutsideStructure && StructureInstance.Main != null)
+            if (!filter.HasFlag(SelectionFilterMode.NoStructureRequired) && StructureInstance.Main != null)
             {
                 if (!StructureInstance.Main.IsEntityPartOfStructure(componentInParent.Id))
                 {
@@ -114,6 +120,14 @@ public static class SelectionManager
         NoSelection,
         Success,
         Failed
+    }
+
+    [System.Flags]
+    public enum SelectionFilterMode
+    {
+        Default,
+        NoStructureRequired = 1,
+        AllowTransformableObjects = 2,
     }
 
     private static void OnUpdateTargetInternal()

@@ -40,7 +40,7 @@ public class SelectionTool : ToolBase
         var hitSolid = Physics.Raycast(extendedRay, out var hit, 5000, -1, QueryTriggerInteraction.Ignore);
         if (hitSolid)
         {
-            var selectionResultNormal = SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var solidRaycastRoot);
+            var selectionResultNormal = SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var solidRaycastRoot, SelectionManager.SelectionFilterMode.AllowTransformableObjects);
             if (selectionResultNormal == SelectionManager.ObjectRootResult.Success)
             {
                 HandleObjectSelection(solidRaycastRoot);
@@ -63,7 +63,7 @@ public class SelectionTool : ToolBase
         {
             SelectionManager.ClearSelection();
         }
-        var selectionResultTrigger = SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var triggerRaycastRoot);
+        var selectionResultTrigger = SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var triggerRaycastRoot, SelectionManager.SelectionFilterMode.Default);
         if (selectionResultTrigger == SelectionManager.ObjectRootResult.Success)
         {
             HandleObjectSelection(triggerRaycastRoot);

@@ -1,7 +1,9 @@
 ﻿using System;
 using ModStructureHelperPlugin.CableGeneration;
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ModStructureHelperPlugin.Tools;
 
@@ -9,8 +11,9 @@ public class CableGeneratorTool : ToolBase
 {
     [SerializeField] private GameObject cableGeneratorMenu;
     [SerializeField] private TMP_InputField cableScaleInputField;
+    [SerializeField] private TMP_InputField cableSpacingInputField;
+    [SerializeField] private CableBuilder cableBuilder;
 
-    private float _cableScale;
     private string _startPointPrefab;
     private string _endPointPrefab;
 
@@ -38,13 +41,31 @@ public class CableGeneratorTool : ToolBase
     private void Awake()
     {
         OnUpdateCableScale();
+        OnUpdateCableSpacing();
     }
 
     public void OnUpdateCableScale()
     {
-        float.TryParse(cableScaleInputField.text, out _cableScale);
+        if (float.TryParse(cableScaleInputField.text, out var scale))
+        {
+            cableBuilder.Scale = scale;
+        }
     }
-
+    
+    public void OnUpdateCableSpacing()
+    {
+        if (float.TryParse(cableSpacingInputField.text, out var spacing))
+        {
+            cableBuilder.Spacing = Mathf.Max(spacing, 0.1f);
+        }
+    }
+    
+    public void OnButtonGenerateNewCable() => cableBuilder.GenerateNewCable(_startPointPrefab, _midPointPrefabs, _endPointPrefab);
+    public void OnButtonAddControlPoint() => cableBuilder.AddControlPoint();
+    public void OnButtonRemoveControlPoint() => cableBuilder.RemoveControlPoint();
+    public void OnButtonSaveCable() { }
+    public void OnButtonDeleteCable() { }
+    
     public void SetCablePrefab(CableLocation location, string classId)
     {
         switch (location)
