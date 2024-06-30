@@ -121,7 +121,7 @@ public class CableBuilder : MonoBehaviour
         var strippedPrefab = Instantiate(prefab);
         Destroy(strippedPrefab.GetComponent<PrefabIdentifier>());
         Destroy(strippedPrefab.GetComponent<LargeWorldEntity>());
-        Destroy(strippedPrefab.GetComponentInChildren<Collider>());
+        strippedPrefab.GetComponentsInChildren<Collider>().ForEach(c => c.enabled = false);
         strippedPrefab.GetComponentsInChildren<Renderer>().ForEach(r => r.SetFadeAmount(0.5f));
         strippedPrefab.SetActive(false);
         if (!_segmentPrefabs.TryGetValue(location, out var objectList))
