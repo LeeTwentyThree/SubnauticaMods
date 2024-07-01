@@ -63,8 +63,8 @@ public class CableGeneratorTool : ToolBase
     public void OnButtonGenerateNewCable() => cableBuilder.GenerateNewCable(_startPointPrefab, _midPointPrefabs, _endPointPrefab);
     public void OnButtonAddControlPoint() => cableBuilder.AddControlPoint();
     public void OnButtonRemoveControlPoint() => cableBuilder.RemoveControlPoint();
-    public void OnButtonSaveCable() { }
-    public void OnButtonDeleteCable() { }
+    public void OnButtonSaveCable() => cableBuilder.SaveCable();
+    public void OnButtonDeleteCable() => cableBuilder.DeleteCable();
     
     public void SetCablePrefab(CableLocation location, string classId)
     {
