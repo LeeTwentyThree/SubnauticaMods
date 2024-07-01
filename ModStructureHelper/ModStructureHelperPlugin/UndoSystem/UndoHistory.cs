@@ -86,8 +86,11 @@ public class UndoHistory : MonoBehaviour
         {
             if (selected == null) continue;
             var entityInstance = selected.GetComponent<EntityInstance>();
-            if (entityInstance == null) continue;
-            entityInstance.ManagedEntity.CreateAndSaveSnapshot();
+            if (entityInstance != null)
+                entityInstance.ManagedEntity.CreateAndSaveSnapshot();
+            var transformableObject = selected.GetComponent<TransformableObject>();
+            if (transformableObject != null)
+                StructureHelperUI.main.toolManager.undoHistory.Snapshot(transformableObject.GetSnapshot());
         }
     }
 }
