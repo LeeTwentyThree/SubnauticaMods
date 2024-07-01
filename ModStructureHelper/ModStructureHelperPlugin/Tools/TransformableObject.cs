@@ -25,6 +25,7 @@ public class TransformableObject : MonoBehaviour, IOriginator
         public Quaternion Rotation { get; }
         public Vector3 Scale { get; }
         public int SaveFrame { get; }
+        public bool Invalid => Object == null;
 
         public Memento(TransformableObject o, Vector3 position, Quaternion rotation, Vector3 scale, int saveFrame)
         {

@@ -10,6 +10,7 @@ public readonly struct DeleteEntityMemento : IMemento
 
     private string ClassId { get; }
     private ManagedEntity.Memento LastEntityMemento { get; }
+    public bool Invalid => false;
 
     public DeleteEntityMemento(string classId, ManagedEntity.Memento lastEntityMemento, int saveFrame)
     {

@@ -54,7 +54,7 @@ public class UndoHistory : MonoBehaviour
         var lastMementoFrame = lastMemento.SaveFrame;
         for (var i = _mementos.Count - 2; i >= 0; i--)
         {
-            if (_mementos[i].SaveFrame < lastMementoFrame)
+            if (!_mementos[i].Invalid && _mementos[i].SaveFrame < lastMementoFrame)
             {
                 break;
             }

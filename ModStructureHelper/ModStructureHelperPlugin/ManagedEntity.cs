@@ -147,6 +147,7 @@ public class ManagedEntity : IOriginator
         public Quaternion Rotation { get; }
         public Vector3 Scale { get; }
         public int SaveFrame { get; }
+        public bool Invalid => false;
 
         public Memento(ManagedEntity originator, string id, Vector3 position, Quaternion rotation, Vector3 scale, int saveFrame)
         {

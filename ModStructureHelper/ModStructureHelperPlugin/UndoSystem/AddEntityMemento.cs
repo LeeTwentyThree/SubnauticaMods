@@ -6,6 +6,7 @@ public readonly struct AddEntityMemento : IMemento
 {
     private string Id { get; }
     public int SaveFrame { get; }
+    public bool Invalid => false;
 
     public AddEntityMemento(string id, int saveFrame)
     {
