@@ -93,7 +93,7 @@ public class CableBuilder : MonoBehaviour
         
         if (_controlPoints.Count <= 1)
             _controlPoints.Add(controlPoint.transform);
-        else _controlPoints.Insert(_controlPoints.Count - 2, controlPoint.transform);
+        else _controlPoints.Insert(_controlPoints.Count - 1, controlPoint.transform);
 
         _bezierCurve.ControlPoints = _controlPoints.ToArray();
     }
@@ -115,6 +115,8 @@ public class CableBuilder : MonoBehaviour
     
     private IEnumerator LoadSegmentPrefab(string classId, CableLocation location)
     {
+        if (_segmentPrefabs.ContainsKey(location)) yield break;
+        
         var request = PrefabDatabase.GetPrefabAsync(classId);
         yield return request;
         if (!request.TryGetPrefab(out var prefab))

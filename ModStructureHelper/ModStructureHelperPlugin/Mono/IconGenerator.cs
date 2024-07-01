@@ -40,7 +40,7 @@ public class IconGenerator : MonoBehaviour
             _instance.sceneParent = sceneParent;
             _instance.cam = camera;
             _instance.sceneParent.transform.parent = _instance.transform;
-            _instance.transform.localPosition = new Vector3(0, 2000, 0);
+            _instance.transform.localPosition = new Vector3(0, 3000, 0);
         }
 
         if (_sprites.TryGetValue(classId, out var icon))
