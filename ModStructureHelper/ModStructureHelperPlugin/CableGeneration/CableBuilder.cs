@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using ModStructureHelperPlugin.Tools;
 using UnityEngine;
 using UWE;
@@ -31,17 +32,23 @@ public class CableBuilder : MonoBehaviour
         { CableLocation.End, new ObjectPool() }
     };
     
-    private readonly Dictionary<CableLocation, List<GameObject>> _segmentPrefabs = new();
+    private readonly Dictionary<CableLocation, List<SegmentPrefab>> _segmentPrefabs = new();
 
     private readonly List<Transform> _controlPoints = new();
 
     private bool _cableActive;
+
+    private bool _flipStart;
+    private bool _flipEnd;
     
     public void GenerateNewCable(string endPointA, string[] middlePoints, string endPointB)
     {
         _endPointAClassId = endPointA;
         _middleClassIds = middlePoints;
         _endPointBClassId = endPointB;
+
+        _flipStart = _endPointAClassId == "a0a9237e-dee3-4efa-81ff-fea3893a6eb7";
+        _flipEnd = _endPointBClassId == "a0a9237e-dee3-4efa-81ff-fea3893a6eb7";
 
         _controlPoints.ForEach(controlPoint => Destroy(controlPoint.gameObject));
         _controlPoints.Clear();
@@ -56,7 +63,7 @@ public class CableBuilder : MonoBehaviour
     {
         foreach (var segmentPrefab in _segmentPrefabs)
         {
-            segmentPrefab.Value?.ForEach(Destroy);
+            segmentPrefab.Value?.ForEach(prefab => Destroy(prefab.Object));
         }
         _segmentPrefabs.Clear();
         
@@ -126,10 +133,10 @@ public class CableBuilder : MonoBehaviour
         strippedPrefab.SetActive(false);
         if (!_segmentPrefabs.TryGetValue(location, out var objectList))
         {
-            objectList = new List<GameObject>();
+            objectList = new List<SegmentPrefab>();
             _segmentPrefabs.Add(location, objectList);
         }
-        objectList.Add(strippedPrefab);
+        objectList.Add(new SegmentPrefab(strippedPrefab, classId));
     }
 
     private static int ApproximateTimeMapQualityBasedOnLength(float length)
@@ -140,7 +147,7 @@ public class CableBuilder : MonoBehaviour
     private void Update()
     {
         if (!_cableActive) return;
-        Build();
+        Build(false);
         foreach (var point in _controlPoints)
             point.localScale = Vector3.one * Scale;
     }
@@ -153,11 +160,11 @@ public class CableBuilder : MonoBehaviour
 
     public void SaveCable()
     {
-        ErrorMessage.AddMessage("Failed to save cable!!!");
+        Build(true);
         DeleteCable();
     }
 
-    public void Build()
+    public void Build(bool placeInWorldInstead)
     {
         var length = _bezierCurve.GetCurveLength(1000);
         var arcLengthMapSize = ApproximateTimeMapQualityBasedOnLength(length);
@@ -166,7 +173,7 @@ public class CableBuilder : MonoBehaviour
         
         _objectPools.ForEach(pool => pool.Value.DisableAllObjects());
 
-        SpawnCableSegmentAtPoint(CableLocation.Start, 0);
+        SpawnCableSegmentAtPoint(CableLocation.Start, 0, placeInWorldInstead);
         
         var l = 0f;
         while (l < length)
@@ -190,35 +197,67 @@ public class CableBuilder : MonoBehaviour
 
             var t = (arcLengths[highIndex].Item1 - l) * arcLengths[lowIndex].Item2 + (1f - (arcLengths[highIndex].Item1 - l)) * arcLengths[highIndex].Item2;
 
-            SpawnCableSegmentAtPoint(CableLocation.Middle, t);
+            SpawnCableSegmentAtPoint(CableLocation.Middle, t, placeInWorldInstead);
 
             l += Spacing;
         }
         
-        SpawnCableSegmentAtPoint(CableLocation.End, _bezierCurve.GetPosition(1), -_bezierCurve.GetApproximateDirection(1));
+        SpawnCableSegmentAtPoint(CableLocation.End, _bezierCurve.GetPosition(1), -_bezierCurve.GetApproximateDirection(1), placeInWorldInstead);
     }
 
-    private void SpawnCableSegmentAtPoint(CableLocation location, float t)
+    private void SpawnCableSegmentAtPoint(CableLocation location, float t, bool placeInWorld)
     {
-        SpawnCableSegmentAtPoint(location, _bezierCurve.GetPosition(t), _bezierCurve.GetApproximateDirection(t));
+        SpawnCableSegmentAtPoint(location, _bezierCurve.GetPosition(t), _bezierCurve.GetApproximateDirection(t), placeInWorld);
     }
     
-    private void SpawnCableSegmentAtPoint(CableLocation location, Vector3 pos, Vector3 forward)
+    private void SpawnCableSegmentAtPoint(CableLocation location, Vector3 pos, Vector3 forward, bool registerIntoStructure)
     {
+        var right = location switch
+        {
+            CableLocation.Start => _flipStart ? -forward : forward,
+            CableLocation.End => _flipEnd ? -forward : forward,
+            _ => forward
+        };
+        var scale = Vector3.one * Scale;
         var pool = _objectPools[location];
+        if (registerIntoStructure)
+        {
+            var classId = pool.RequestObjectIdWithoutInstantiation();
+            CoroutineHost.StartCoroutine(SpawnCablePrefabInWorldForStructure(classId, pos, right, scale));
+            return;
+        }
         var obj = pool.RequestObject();
         obj.transform.position = pos;
-        obj.transform.right = forward;
-        obj.transform.localScale = Vector3.one * Scale;
+        obj.transform.right = right;
+        obj.transform.localScale = scale;
+    }
+
+    private static IEnumerator SpawnCablePrefabInWorldForStructure(string classId, Vector3 pos, Vector3 right, Vector3 scale)
+    {
+        var request = PrefabDatabase.GetPrefabAsync(classId);
+        yield return classId;
+        if (!request.TryGetPrefab(out var prefab))
+        {
+            ErrorMessage.AddMessage($"Failed to load prefab by ID '{classId}'!");
+            yield break;
+        }
+
+        var obj = Instantiate(prefab);
+        obj.transform.position = pos;
+        obj.transform.right = right;
+        obj.transform.localScale = scale;
+
+        var prefabIdentifer = obj.GetComponent<PrefabIdentifier>();
+        StructureInstance.Main.RegisterNewEntity(prefabIdentifer, true);
     }
 
     private void OnDestroy() => CleanUp();
     
     private void CleanUp()
     {
-        foreach (var prefab in _segmentPrefabs)
+        foreach (var segmentPrefab in _segmentPrefabs)
         {
-            prefab.Value?.ForEach(Destroy);
+            segmentPrefab.Value?.ForEach(prefab => Destroy(prefab.Object));
         }
         _segmentPrefabs.Clear();
 
@@ -237,7 +276,7 @@ public class CableBuilder : MonoBehaviour
     private class ObjectPool
     {
         private List<GameObject>[] _objects;
-        private GameObject[] _prefabs;
+        private SegmentPrefab[] _prefabs;
         private int[] _objectIndex;
         private int _prefabIndex;
 
@@ -249,13 +288,15 @@ public class CableBuilder : MonoBehaviour
                 {
                     Destroy(obj);
                 }
+
                 list.Clear();
             }
+
             _objectIndex = new int[_prefabs.Length];
             _prefabIndex = 0;
         }
 
-        public void SetPrefabs(GameObject[] prefabs)
+        public void SetPrefabs(SegmentPrefab[] prefabs)
         {
             _objects = new List<GameObject>[prefabs.Length];
             _prefabs = prefabs;
@@ -263,6 +304,7 @@ public class CableBuilder : MonoBehaviour
             {
                 _objects[i] = new List<GameObject>();
             }
+
             ClearPool();
         }
 
@@ -275,6 +317,7 @@ public class CableBuilder : MonoBehaviour
                     obj.SetActive(false);
                 }
             }
+
             _objectIndex = new int[_prefabs.Length];
             _prefabIndex = 0;
         }
@@ -286,7 +329,7 @@ public class CableBuilder : MonoBehaviour
             if (_objectIndex[prefabToUse] >= _objects[prefabToUse].Count)
             {
                 var prefab = _prefabs[prefabToUse];
-                var obj = Instantiate(prefab);
+                var obj = Instantiate(prefab.Object);
                 _objects[prefabToUse].Add(obj);
                 result = obj;
             }
@@ -299,7 +342,13 @@ public class CableBuilder : MonoBehaviour
             result.SetActive(true);
             return result;
         }
-        
+
+        public string RequestObjectIdWithoutInstantiation()
+        {
+            var prefabToUse = GetPrefabToUse();
+            return _prefabs[prefabToUse].PrefabClassId;
+        }
+
         private int GetPrefabToUse()
         {
             if (_prefabs.Length == 1) return 0;
@@ -307,6 +356,18 @@ public class CableBuilder : MonoBehaviour
             _prefabIndex++;
             if (_prefabIndex >= _prefabs.Length) _prefabIndex = 0;
             return result;
+        }
+    }
+
+    private readonly struct SegmentPrefab
+    {
+        public GameObject Object { get; }
+        public string PrefabClassId { get; }
+
+        public SegmentPrefab(GameObject obj, string prefabClassId)
+        {
+            Object = obj;
+            PrefabClassId = prefabClassId;
         }
     }
 }
