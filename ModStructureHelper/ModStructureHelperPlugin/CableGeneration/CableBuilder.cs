@@ -233,7 +233,7 @@ public class CableBuilder : MonoBehaviour
     private static IEnumerator SpawnCablePrefabInWorldForStructure(string classId, Vector3 pos, Vector3 right, Vector3 scale)
     {
         var request = PrefabDatabase.GetPrefabAsync(classId);
-        yield return classId;
+        yield return request;
         if (!request.TryGetPrefab(out var prefab))
         {
             ErrorMessage.AddMessage($"Failed to load prefab by ID '{classId}'!");
