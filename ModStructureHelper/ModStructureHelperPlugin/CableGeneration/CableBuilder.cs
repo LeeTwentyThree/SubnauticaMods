@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using ModStructureHelperPlugin.Tools;
 using UnityEngine;
 using UWE;
@@ -164,7 +162,7 @@ public class CableBuilder : MonoBehaviour
         DeleteCable();
     }
 
-    public void Build(bool placeInWorldInstead)
+    public void Build(bool instantiateIntoStructure)
     {
         var length = _bezierCurve.GetCurveLength(1000);
         var arcLengthMapSize = ApproximateTimeMapQualityBasedOnLength(length);
@@ -173,7 +171,7 @@ public class CableBuilder : MonoBehaviour
         
         _objectPools.ForEach(pool => pool.Value.DisableAllObjects());
 
-        SpawnCableSegmentAtPoint(CableLocation.Start, 0, placeInWorldInstead);
+        SpawnCableSegmentAtPoint(CableLocation.Start, 0, instantiateIntoStructure);
         
         var l = 0f;
         while (l < length)
@@ -197,20 +195,20 @@ public class CableBuilder : MonoBehaviour
 
             var t = (arcLengths[highIndex].Item1 - l) * arcLengths[lowIndex].Item2 + (1f - (arcLengths[highIndex].Item1 - l)) * arcLengths[highIndex].Item2;
 
-            SpawnCableSegmentAtPoint(CableLocation.Middle, t, placeInWorldInstead);
+            SpawnCableSegmentAtPoint(CableLocation.Middle, t, instantiateIntoStructure);
 
             l += Spacing;
         }
         
-        SpawnCableSegmentAtPoint(CableLocation.End, _bezierCurve.GetPosition(1), -_bezierCurve.GetApproximateDirection(1), placeInWorldInstead);
+        SpawnCableSegmentAtPoint(CableLocation.End, _bezierCurve.GetPosition(1), -_bezierCurve.GetApproximateDirection(1), instantiateIntoStructure);
     }
 
-    private void SpawnCableSegmentAtPoint(CableLocation location, float t, bool placeInWorld)
+    private void SpawnCableSegmentAtPoint(CableLocation location, float t, bool instantiateIntoStructure)
     {
-        SpawnCableSegmentAtPoint(location, _bezierCurve.GetPosition(t), _bezierCurve.GetApproximateDirection(t), placeInWorld);
+        SpawnCableSegmentAtPoint(location, _bezierCurve.GetPosition(t), _bezierCurve.GetApproximateDirection(t), instantiateIntoStructure);
     }
     
-    private void SpawnCableSegmentAtPoint(CableLocation location, Vector3 pos, Vector3 forward, bool registerIntoStructure)
+    private void SpawnCableSegmentAtPoint(CableLocation location, Vector3 pos, Vector3 forward, bool instantiateIntoStructure)
     {
         var right = location switch
         {
@@ -220,7 +218,7 @@ public class CableBuilder : MonoBehaviour
         };
         var scale = Vector3.one * Scale;
         var pool = _objectPools[location];
-        if (registerIntoStructure)
+        if (instantiateIntoStructure)
         {
             var classId = pool.RequestObjectIdWithoutInstantiation();
             CoroutineHost.StartCoroutine(SpawnCablePrefabInWorldForStructure(classId, pos, right, scale));
