@@ -142,7 +142,19 @@ public class CableBuilder : MonoBehaviour
         if (!_cableActive) return;
         Build();
         foreach (var point in _controlPoints)
-            point.localScale = Vector3.one * (Scale * 2);
+            point.localScale = Vector3.one * (Scale / 2);
+    }
+
+    public void DeleteCable()
+    {
+        _cableActive = false;
+        CleanUp();
+    }
+
+    public void SaveCable()
+    {
+        ErrorMessage.AddMessage("Failed to save cable!!!");
+        DeleteCable();
     }
 
     public void Build()
@@ -200,12 +212,15 @@ public class CableBuilder : MonoBehaviour
         obj.transform.localScale = Vector3.one * Scale;
     }
 
-    private void OnDestroy()
+    private void OnDestroy() => CleanUp();
+    
+    private void CleanUp()
     {
         foreach (var prefab in _segmentPrefabs)
         {
             prefab.Value?.ForEach(Destroy);
         }
+        _segmentPrefabs.Clear();
 
         foreach (var pool in _objectPools)
         {
@@ -216,13 +231,14 @@ public class CableBuilder : MonoBehaviour
         {
             Destroy(controlPoint.gameObject);
         }
+        _controlPoints.Clear();
     }
 
     private class ObjectPool
     {
         private List<GameObject>[] _objects;
         private GameObject[] _prefabs;
-        private int _objectIndex;
+        private int[] _objectIndex;
         private int _prefabIndex;
 
         public void ClearPool()
@@ -235,19 +251,19 @@ public class CableBuilder : MonoBehaviour
                 }
                 list.Clear();
             }
-            _objectIndex = 0;
+            _objectIndex = new int[_prefabs.Length];
             _prefabIndex = 0;
         }
 
         public void SetPrefabs(GameObject[] prefabs)
         {
             _objects = new List<GameObject>[prefabs.Length];
+            _prefabs = prefabs;
             for (var i = 0; i < prefabs.Length; i++)
             {
                 _objects[i] = new List<GameObject>();
             }
             ClearPool();
-            _prefabs = prefabs;
         }
 
         public void DisableAllObjects()
@@ -259,7 +275,7 @@ public class CableBuilder : MonoBehaviour
                     obj.SetActive(false);
                 }
             }
-            _objectIndex = 0;
+            _objectIndex = new int[_prefabs.Length];
             _prefabIndex = 0;
         }
 
@@ -267,7 +283,7 @@ public class CableBuilder : MonoBehaviour
         {
             GameObject result;
             var prefabToUse = GetPrefabToUse();
-            if (_objectIndex >= _objects[prefabToUse].Count)
+            if (_objectIndex[prefabToUse] >= _objects[prefabToUse].Count)
             {
                 var prefab = _prefabs[prefabToUse];
                 var obj = Instantiate(prefab);
@@ -276,13 +292,14 @@ public class CableBuilder : MonoBehaviour
             }
             else
             {
-                result = _objects[prefabToUse][_objectIndex];
+                result = _objects[prefabToUse][_objectIndex[prefabToUse]];
             }
-            _objectIndex++;
+
+            _objectIndex[prefabToUse]++;
             result.SetActive(true);
             return result;
         }
-
+        
         private int GetPrefabToUse()
         {
             if (_prefabs.Length == 1) return 0;
