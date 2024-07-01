@@ -63,7 +63,7 @@ public static class ModPrefabs
 
         RegisterPrecursorBasePieces();
 
-        RegisterInfectedBones();
+        RegisterFleshAndBonePrefabs();
 
         RegisterItems();
 
@@ -297,7 +297,7 @@ public static class ModPrefabs
         laserReceptacle.Register();
     }
 
-    private static void RegisterInfectedBones()
+    private static void RegisterFleshAndBonePrefabs()
     {
         var infectedReaperSkeleton = MakeInfectedClone(PrefabInfo.WithTechType("InfectedReaperSkeleton"),
             "8fe779a5-e907-4e9e-b748-1eee25589b34", 4f);
@@ -353,6 +353,15 @@ public static class ModPrefabs
                 {biome = BiomeType.Dunes_Grass, count = 1, probability = 0.1f}
         );
         infectedRib2.Register();
+
+        var fleshMass = new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshMass"), "FleshMass", false);
+        fleshMass.Register();
+        var fleshWall = new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshWall"), "FleshWall", false);
+        fleshWall.Register();
+        
+        var infectedHangingPlant = MakeInfectedClone(PrefabInfo.WithTechType("InfectedHangingPlant"),
+            "8d7f308a-21db-4d1f-99c7-38860e5132e7", 1f, obj => obj.GetComponentInChildren<Renderer>().material.color = new Color(3, 0.3f, 0.3f));
+        infectedHangingPlant.Register();
     }
 
     private static void RegisterItems()
