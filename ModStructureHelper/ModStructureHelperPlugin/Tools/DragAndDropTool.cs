@@ -109,6 +109,8 @@ public class DragAndDropTool : ToolBase
             : _currentlySelected.transform.forward; 
         var entityInstance = _currentlySelected.GetComponent<EntityInstance>();
         if (entityInstance) entityInstance.ManagedEntity.CreateAndSaveSnapshot();
+        var transformableObject = _currentlySelected.GetComponent<TransformableObject>();
+        if (transformableObject) transformableObject.CreateAndSaveSnapshot();
     }
     
     private void HandleDrag()

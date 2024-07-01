@@ -25,8 +25,16 @@ public class UndoHistory : MonoBehaviour
 
         _undoing = true;
 
-        var lastMementoSaveFrame = _mementos[^1].SaveFrame;
-        var latestSnapshots = GetLatestSnapshotGroup();
+        if (!TryGetLastValidMemento(out var lastValidMementoIndex))
+        {
+            _mementos.Clear();
+            _undoing = false;
+            ErrorMessage.AddMessage("Failed to undo any more.");
+            yield break;
+        }
+        
+        var lastMementoSaveFrame = _mementos[lastValidMementoIndex].SaveFrame;
+        var latestSnapshots = GetLatestSnapshotGroup(lastValidMementoIndex);
         foreach (var snapshot in latestSnapshots)
         {
             yield return snapshot.Restore();
@@ -35,6 +43,21 @@ public class UndoHistory : MonoBehaviour
         _mementos.RemoveAll(memento => memento.SaveFrame == lastMementoSaveFrame);
         
         _undoing = false;
+    }
+
+    private bool TryGetLastValidMemento(out int lastMementoIndex)
+    {
+        for (var i = _mementos.Count - 1; i >= 0; i--)
+        {
+            if (!_mementos[i].Invalid)
+            {
+                lastMementoIndex = i;
+                return true;
+            }
+        }
+
+        lastMementoIndex = 0;
+        return false;
     }
 
     public void Snapshot(IMemento memento)
@@ -47,14 +70,14 @@ public class UndoHistory : MonoBehaviour
         _mementos.Add(memento);
     }
 
-    private IEnumerable<IMemento> GetLatestSnapshotGroup()
+    private IEnumerable<IMemento> GetLatestSnapshotGroup(int lastIndex)
     {
-        var lastMemento = _mementos[^1];
+        var lastMemento = _mementos[lastIndex];
         yield return lastMemento;
         var lastMementoFrame = lastMemento.SaveFrame;
         for (var i = _mementos.Count - 2; i >= 0; i--)
         {
-            if (!_mementos[i].Invalid && _mementos[i].SaveFrame < lastMementoFrame)
+            if (_mementos[i].Invalid || _mementos[i].SaveFrame < lastMementoFrame)
             {
                 break;
             }
@@ -90,7 +113,7 @@ public class UndoHistory : MonoBehaviour
                 entityInstance.ManagedEntity.CreateAndSaveSnapshot();
             var transformableObject = selected.GetComponent<TransformableObject>();
             if (transformableObject != null)
-                StructureHelperUI.main.toolManager.undoHistory.Snapshot(transformableObject.GetSnapshot());
+                transformableObject.CreateAndSaveSnapshot();
         }
     }
 }

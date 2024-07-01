@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
@@ -18,6 +19,11 @@ public class TransformableObject : MonoBehaviour, IOriginator
         transform.localScale = memento.Scale;
     }
     
+    public void CreateAndSaveSnapshot()
+    {
+        StructureHelperUI.main.toolManager.undoHistory.Snapshot(GetSnapshot());
+    }
+    
     private readonly struct Memento : IMemento
     {
         private TransformableObject Object { get; }
@@ -26,7 +32,7 @@ public class TransformableObject : MonoBehaviour, IOriginator
         public Vector3 Scale { get; }
         public int SaveFrame { get; }
         public bool Invalid => Object == null || Object.gameObject == null;
-
+        
         public Memento(TransformableObject o, Vector3 position, Quaternion rotation, Vector3 scale, int saveFrame)
         {
             Object = o;

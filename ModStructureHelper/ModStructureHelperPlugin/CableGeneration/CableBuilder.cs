@@ -142,7 +142,7 @@ public class CableBuilder : MonoBehaviour
         if (!_cableActive) return;
         Build();
         foreach (var point in _controlPoints)
-            point.localScale = Vector3.one * (Scale / 2);
+            point.localScale = Vector3.one * Scale;
     }
 
     public void DeleteCable()
