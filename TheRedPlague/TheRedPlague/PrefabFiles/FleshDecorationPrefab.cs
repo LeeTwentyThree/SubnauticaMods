@@ -1,32 +1,36 @@
 ﻿using System.Collections;
+using JetBrains.Annotations;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using TheRedPlague.Mono;
 using UnityEngine;
+using UWE;
 
 namespace TheRedPlague.PrefabFiles;
 
 public class FleshDecorationPrefab
 {
-    public FleshDecorationPrefab(PrefabInfo info, string modelName, bool infected)
+    public FleshDecorationPrefab(PrefabInfo info, string modelName, bool infected, bool useAuroraSky)
     {
         Info = info;
         ModelName = modelName;
         Infected = infected;
+        UseAuroraSky = useAuroraSky;
     }
 
     public PrefabInfo Info { get; }
     public string ModelName { get; }
     public bool Infected { get; }
+    public bool UseAuroraSky { get; }
 
     public void Register()
     {
         var prefab = new CustomPrefab(Info);
-        prefab.SetGameObject(GetCorpsePrefab);
+        prefab.SetGameObject(GetPrefab);
         prefab.Register();
     }
 
-    private IEnumerator GetCorpsePrefab(IOut<GameObject> prefab)
+    private IEnumerator GetPrefab(IOut<GameObject> prefab)
     {
         var go = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>(ModelName));
         go.SetActive(false);
@@ -38,7 +42,18 @@ public class FleshDecorationPrefab
             infect.infectionHeightStrength = 0.05f;
         }
 
-        yield return null;
+        if (UseAuroraSky)
+        {
+            var request = PrefabDatabase.GetPrefabAsync("98ac710d-5390-49fd-a850-dbea7bc07aef");
+            yield return request;
+            if (request.TryGetPrefab(out var controlRoomPrefab))
+            {
+                var sa = go.GetComponent<SkyApplier>();
+                sa.customSkyPrefab = controlRoomPrefab.GetComponent<SkyApplier>().customSkyPrefab;
+                sa.dynamic = false;
+                sa.anchorSky = Skies.Custom;
+            }
+        }
         prefab.Set(go);
     }
 }

@@ -354,10 +354,10 @@ public static class ModPrefabs
         );
         infectedRib2.Register();
 
-        var fleshMass = new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshMass"), "FleshMass", false);
-        fleshMass.Register();
-        var fleshWall = new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshWall"), "FleshWall", false);
-        fleshWall.Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshMass"), "FleshMass", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshMassAurora"), "FleshMass", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshWall"), "FleshWall", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshWallAurora"), "FleshWall", false, true).Register();
         
         var infectedHangingPlant = MakeInfectedClone(PrefabInfo.WithTechType("InfectedHangingPlant"),
             "8d7f308a-21db-4d1f-99c7-38860e5132e7", 1f, obj => obj.GetComponentInChildren<Renderer>().material.color = new Color(3, 0.3f, 0.3f));
