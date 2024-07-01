@@ -25,7 +25,7 @@ public class TransformableObject : MonoBehaviour, IOriginator
         public Quaternion Rotation { get; }
         public Vector3 Scale { get; }
         public int SaveFrame { get; }
-        public bool Invalid => Object == null;
+        public bool Invalid => Object == null || Object.gameObject == null;
 
         public Memento(TransformableObject o, Vector3 position, Quaternion rotation, Vector3 scale, int saveFrame)
         {
@@ -38,7 +38,11 @@ public class TransformableObject : MonoBehaviour, IOriginator
 
         public IEnumerator Restore()
         {
-            if (Object == null) yield break;
+            if (Object == null)
+            {
+                ErrorMessage.AddMessage("Attempting to undo transformation on deleted object!");
+                yield break;
+            }
             Object.Restore(this);
         }
     }
