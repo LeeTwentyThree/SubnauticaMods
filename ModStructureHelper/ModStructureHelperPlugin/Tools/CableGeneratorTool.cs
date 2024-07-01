@@ -1,9 +1,7 @@
 ﻿using System;
 using ModStructureHelperPlugin.CableGeneration;
 using TMPro;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ModStructureHelperPlugin.Tools;
 

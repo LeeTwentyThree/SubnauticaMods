@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using ModStructureHelperPlugin.Tools;
 using UnityEngine;
@@ -41,6 +42,12 @@ public class CableBuilder : MonoBehaviour
     
     public void GenerateNewCable(string endPointA, string[] middlePoints, string endPointB)
     {
+        if (StructureInstance.Main == null)
+        {
+            ErrorMessage.AddMessage("Cannot create a cable while not editing any structure!");
+            return;
+        }
+        
         _endPointAClassId = endPointA;
         _middleClassIds = middlePoints;
         _endPointBClassId = endPointB;
@@ -112,11 +119,22 @@ public class CableBuilder : MonoBehaviour
         
         _bezierCurve.ControlPoints = _controlPoints.ToArray();
     }
-    
+
+    private void Awake()
+    {
+        StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
+    }
+
+    private void OnStructureInstanceChanged(StructureInstance instance)
+    {
+        if (instance == null)
+        {
+            DeleteCable();
+        }
+    }
+
     private IEnumerator LoadSegmentPrefab(string classId, CableLocation location)
     {
-        if (_segmentPrefabs.ContainsKey(location)) yield break;
-        
         var request = PrefabDatabase.GetPrefabAsync(classId);
         yield return request;
         if (!request.TryGetPrefab(out var prefab))
@@ -251,8 +269,12 @@ public class CableBuilder : MonoBehaviour
         StructureInstance.Main.RegisterNewEntity(prefabIdentifer, true);
     }
 
-    private void OnDestroy() => CleanUp();
-    
+    private void OnDestroy()
+    {
+        StructureInstance.OnStructureInstanceChanged -= OnStructureInstanceChanged;
+        CleanUp();
+    }
+
     private void CleanUp()
     {
         foreach (var segmentPrefab in _segmentPrefabs)
