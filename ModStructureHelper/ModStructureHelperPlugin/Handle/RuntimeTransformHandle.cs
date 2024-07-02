@@ -1,4 +1,5 @@
-﻿using ModStructureHelperPlugin.Tools;
+﻿using ModStructureHelperPlugin;
+using ModStructureHelperPlugin.Tools;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -98,9 +99,9 @@ namespace RuntimeHandle
                 return;
             }
             
-            if (autoScale)
+            if (Plugin.ModConfig.ConsistentHandleScales)
                 transform.localScale =
-                    Vector3.one * (Vector3.Distance(handleCamera.transform.position, transform.position) * autoScaleFactor) / 15;
+                    Vector3.one * (Vector3.Distance(handleCamera.transform.position, transform.position) * Plugin.ModConfig.HandleScaleMultiplier) / 20;
 
             if (_previousType != type || _previousAxes != axes)
             {

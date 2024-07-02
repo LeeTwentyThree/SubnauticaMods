@@ -49,5 +49,8 @@ public class ModConfig : ConfigFile
     public KeyCode PrioritizeTriggers = KeyCode.LeftAlt;
     [Keybind("Scale tool: use uniform scale")]
     public KeyCode ScaleUniform = KeyCode.LeftAlt;
-
+    [Toggle("Use consistent handle scale")]
+    public bool ConsistentHandleScales = true;
+    [Slider("Handle scale multiplier", 0.1f, 2f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
+    public float HandleScaleMultiplier = 1f;
 }
