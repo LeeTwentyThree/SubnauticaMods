@@ -183,10 +183,10 @@ public class CableBuilder : MonoBehaviour
 
     public void Build(bool instantiateIntoStructure)
     {
-        var length = _bezierCurve.GetCurveLength(instantiateIntoStructure ? 10000 : 1000);
+        var length = _bezierCurve.GetCurveLength(instantiateIntoStructure ? 10000 : 500);
         var arcLengthMapSize = ApproximateTimeMapQualityBasedOnLength(length) * (instantiateIntoStructure ? 5 : 1);
         var arcLengths = new(float,float)[arcLengthMapSize];
-        _bezierCurve.CalculateArcLengthTimeMap(arcLengths, instantiateIntoStructure ? 5000 : 500);
+        _bezierCurve.CalculateArcLengthTimeMap(arcLengths, instantiateIntoStructure ? 5000 : 400);
         
         _objectPools.ForEach(pool => pool.Value.DisableAllObjects());
 
