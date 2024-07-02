@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using ModStructureHelperPlugin.Tools;
 using UnityEngine;
@@ -184,10 +183,10 @@ public class CableBuilder : MonoBehaviour
 
     public void Build(bool instantiateIntoStructure)
     {
-        var length = _bezierCurve.GetCurveLength(1000);
-        var arcLengthMapSize = ApproximateTimeMapQualityBasedOnLength(length);
+        var length = _bezierCurve.GetCurveLength(instantiateIntoStructure ? 10000 : 1000);
+        var arcLengthMapSize = ApproximateTimeMapQualityBasedOnLength(length) * (instantiateIntoStructure ? 5 : 1);
         var arcLengths = new(float,float)[arcLengthMapSize];
-        _bezierCurve.CalculateArcLengthTimeMap(arcLengths, 500);
+        _bezierCurve.CalculateArcLengthTimeMap(arcLengths, instantiateIntoStructure ? 5000 : 500);
         
         _objectPools.ForEach(pool => pool.Value.DisableAllObjects());
 
@@ -196,15 +195,7 @@ public class CableBuilder : MonoBehaviour
         var l = 0f;
         while (l < length)
         {
-            var lowIndex = 0;
-            for (var i = 0; i < arcLengths.Length; i++)
-            {
-                if (arcLengths[i].Item1 >= l)
-                {
-                    lowIndex = i;
-                    break;
-                }
-            }
+            var lowIndex = BinarySearch(arcLengths, l);
             
             var highIndex = lowIndex + 1;
 
@@ -221,6 +212,30 @@ public class CableBuilder : MonoBehaviour
         }
         
         SpawnCableSegmentAtPoint(CableLocation.End, _bezierCurve.GetPosition(1), -_bezierCurve.GetApproximateDirection(1), instantiateIntoStructure);
+    }
+    
+    private static int BinarySearch((float, float)[] inputArray, float key)
+    {
+        var min = 0;
+        var max = inputArray.Length - 1;
+        while (min <= max)
+        {
+            var mid = (min + max) / 2;
+            if (Mathf.Abs(key - inputArray[mid].Item1) < 0.01f)
+            {
+                return ++mid;
+            }
+            else if (key < inputArray[mid].Item1)
+            {
+                max = mid - 1;
+            }
+            else
+            {
+                min = mid + 1;
+            }
+        }
+
+        return (min + max) / 2;
     }
 
     private void SpawnCableSegmentAtPoint(CableLocation location, float t, bool instantiateIntoStructure)
