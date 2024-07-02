@@ -47,7 +47,7 @@ public class FleshBlobGrowth : MonoBehaviour
         if (_growthData.sizeData == null) _growthData.Load();
         _identifier = GetComponent<PrefabIdentifier>();
         // hacky solution but it works
-        if (_identifier.ClassId[_identifier.ClassId.Length] == '7')
+        if (_identifier.ClassId[_identifier.ClassId.Length - 1] == '7')
         {
             _startSize = 0.4f;
         }
