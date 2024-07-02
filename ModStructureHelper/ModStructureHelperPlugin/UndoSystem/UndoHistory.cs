@@ -32,13 +32,18 @@ public class UndoHistory : MonoBehaviour
             ErrorMessage.AddMessage("Failed to undo any more.");
             yield break;
         }
+
+        var changes = 0;
         
         var lastMementoSaveFrame = _mementos[lastValidMementoIndex].SaveFrame;
         var latestSnapshots = GetLatestSnapshotGroup(lastValidMementoIndex);
         foreach (var snapshot in latestSnapshots)
         {
             yield return snapshot.Restore();
+            changes++;
         }
+        
+        ErrorMessage.AddMessage(changes == 1 ? "Reverted one change." : $"Reverted {changes} changes.");
         
         _mementos.RemoveAll(memento => memento.SaveFrame == lastMementoSaveFrame);
         
