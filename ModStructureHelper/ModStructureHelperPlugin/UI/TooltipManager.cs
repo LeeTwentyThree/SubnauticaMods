@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ModStructureHelperPlugin.UI;
 
 public class TooltipManager : MonoBehaviour
 {
     public static TooltipManager Main { get; private set; }
+    [SerializeField] private RectTransform tooltipHolderRect;
     [SerializeField] private RectTransform tooltipTransform;
     [SerializeField] private TextMeshProUGUI textComponent;
 
@@ -47,7 +49,11 @@ public class TooltipManager : MonoBehaviour
             return;
         }
 
-        tooltipTransform.localPosition = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2);
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(tooltipHolderRect, Input.mousePosition,
+                null, out var localPoint))
+        {
+            tooltipTransform.anchoredPosition = localPoint;
+        }
 
         var selected = _targets[^1];
         if (selected.updateToolTipEachFrame)
