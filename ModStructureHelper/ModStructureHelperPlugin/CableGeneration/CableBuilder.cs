@@ -46,6 +46,12 @@ public class CableBuilder : MonoBehaviour
             ErrorMessage.AddMessage("Cannot create a cable while not editing any structure!");
             return;
         }
+
+        if (_cableActive)
+        {
+            ErrorMessage.AddMessage("Please save or remove the current cable before creating a new one!");
+            return;
+        }
         
         _endPointAClassId = endPointA;
         _middleClassIds = middlePoints;
