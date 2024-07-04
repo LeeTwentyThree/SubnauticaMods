@@ -9,8 +9,6 @@ namespace EpicStructureLoader;
 
 public static class StructureLoading
 {
-    private static int _registeredEntities;
-
     private static string GetStructuresFolder()
     {
         var modFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -20,32 +18,32 @@ public static class StructureLoading
         return structuresFolder;
     }
     
-    public static void RegisterStructures()
+    internal static void RegisterStructures()
     {
-        Plugin.Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is registering structures...");
+        Plugin.Logger.LogDebug($"Plugin {PluginInfo.PLUGIN_GUID} is registering structures...");
         
         var structureFiles = Directory.GetFiles(GetStructuresFolder(), "*.structure", SearchOption.AllDirectories);
         var successfulStructures = 0;
 
-        _registeredEntities = 0;
+        int registeredEntities = 0;
 
         foreach (var file in structureFiles)
         {
-            if (LoadAndRegisterStructureAtPath(file))
+            if (LoadAndRegisterStructureAtPath(file, ref registeredEntities))
                 successfulStructures++;
         }
 
         Plugin.Logger.LogInfo(
-            $"Plugin {PluginInfo.PLUGIN_GUID} has successfully registered {successfulStructures} structure(s) with a total of {_registeredEntities} entities!");
+            $"Plugin {PluginInfo.PLUGIN_GUID} has successfully registered {successfulStructures} structure(s) with a total of {registeredEntities} entities!");
     }
 
-    private static bool LoadAndRegisterStructureAtPath(string structurePath)
+    public static bool LoadAndRegisterStructureAtPath(string structurePath, ref int registeredEntities)
     {
         try
         {
             var text = File.ReadAllText(structurePath);
             var structure = JsonConvert.DeserializeObject<Structure>(text);
-            RegisterStructure(structure);
+            RegisterStructure(structure, ref registeredEntities);
             return true;
         }
         catch (Exception e)
@@ -55,7 +53,7 @@ public static class StructureLoading
         }
     }
 
-    private static void RegisterStructure(Structure structure)
+    public static void RegisterStructure(Structure structure, ref int registeredEntities)
     {
         structure.SortByPriority();
 
@@ -64,7 +62,7 @@ public static class StructureLoading
             CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(entity.classId, entity.position.ToVector3(),
                 entity.rotation.ToQuaternion(), entity.scale.ToVector3(),
                 obj => obj.GetComponent<UniqueIdentifier>().Id = entity.id));
-            _registeredEntities++;
+            registeredEntities++;
         }
     }
 }
