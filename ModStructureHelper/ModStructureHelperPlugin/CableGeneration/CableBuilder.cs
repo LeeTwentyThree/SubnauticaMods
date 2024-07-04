@@ -319,17 +319,23 @@ public class CableBuilder : MonoBehaviour
 
         public void ClearPool()
         {
-            foreach (var list in _objects)
+            if (_objects != null)
             {
-                foreach (var obj in list)
+                foreach (var list in _objects)
                 {
-                    Destroy(obj);
-                }
+                    if (list == null) continue;
+                    foreach (var obj in list)
+                    {
+                        Destroy(obj);
+                    }
 
-                list.Clear();
+                    list.Clear();
+                }   
             }
 
-            _objectIndex = new int[_prefabs.Length];
+            if (_prefabs != null)
+                _objectIndex = new int[_prefabs.Length];
+            else _objectIndex = new int[0];
             _prefabIndex = 0;
         }
 
