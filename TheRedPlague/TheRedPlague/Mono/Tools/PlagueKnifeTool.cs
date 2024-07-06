@@ -73,6 +73,7 @@ public class PlagueKnifeTool : Knife
         var warperMeleeAttack = warperObj.GetComponentInChildren<WarperMeleeAttack>();
         warperMeleeAttack.attackDamage = new AnimationCurve(new Keyframe(0, 100), new Keyframe(4, 100), new Keyframe(2, 100));
         var attackedTargets = new List<Creature>();
+        SuckerDamageable.DamageSuckersInRange(pos, 3);
         foreach (var target in colliders)
         {
             if (target == null)

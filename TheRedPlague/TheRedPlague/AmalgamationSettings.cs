@@ -36,10 +36,12 @@ public struct AttachableParasite
 {
     public TechType Type { get; }
     public float Scale { get; }
+    public string DecapitationPoint { get; }
 
-    public AttachableParasite(TechType type, float scale = 1f)
+    public AttachableParasite(TechType type, float scale = 1f, string decapitationPoint = default)
     {
         Type = type;
         Scale = scale;
+        DecapitationPoint = decapitationPoint;
     }
 }

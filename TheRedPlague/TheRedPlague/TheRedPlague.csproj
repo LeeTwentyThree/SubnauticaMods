@@ -23,6 +23,7 @@
         <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile"/>
         <PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0"/>
         <PackageReference Include="PolySharp" Version="1.13.1"/>
+        <PackageReference Include="Subnautica.Nautilus" Version="1.0.0-pre.32"/>
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -34,8 +35,8 @@
       <Reference Include="ECCLibrary">
         <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\ECCLibrary\ECCLibrary.dll</HintPath>
       </Reference>
-      <Reference Include="Nautilus">
-        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\Nautilus\Nautilus.dll</HintPath>
+      <Reference Include="ModStructureFormat">
+        <HintPath>..\..\ModStructureHelper\ModStructureFormat\bin\Debug\net472\ModStructureFormat.dll</HintPath>
       </Reference>
       <Reference Include="WeatherMod">
         <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\WeatherMod\WeatherMod.dll</HintPath>

@@ -6,6 +6,8 @@ namespace TheRedPlague.Mono;
 public class InfectionStrikeTarget : MonoBehaviour
 {
     public static readonly List<InfectionStrikeTarget> AllTargets = new List<InfectionStrikeTarget>();
+
+    public bool invalidTarget;
     
     private InfectedMixin _infectedMixin;
 
@@ -16,6 +18,7 @@ public class InfectionStrikeTarget : MonoBehaviour
 
     public bool IsValidTarget()
     {
+        if (invalidTarget) return false;
         if (_infectedMixin == null) return false;
         return !_infectedMixin.IsInfected();
     }

@@ -27,6 +27,11 @@ public static class AmalgamationManager
     private static IEnumerator AmalgamateCreatureInternal(GameObject host)
     {
         var techType = CraftData.GetTechType(host);
+
+        if (AmalgamationSettingsDatabase.CustomModificationsList.TryGetValue(techType, out var customModification))
+        {
+            yield return customModification(host);
+        }
         
         if (!AmalgamationSettingsDatabase.SettingsList.TryGetValue(techType, out var settings))
             yield break;
@@ -107,6 +112,13 @@ public static class AmalgamationManager
         parasiteTransform.localScale = parasiteScale;
         var parasiteAverageScale = (parasiteScale.x + parasiteScale.y + parasiteScale.z) / 3f;
         parasite.AddComponent<FixMassiveCreatures>().desiredLossyScale = chosenParasite.Scale;
+
+        if (!string.IsNullOrEmpty(chosenParasite.DecapitationPoint))
+        {
+            var decapitationPoint = parasiteTransform.Find(chosenParasite.DecapitationPoint);
+            if (decapitationPoint) decapitationPoint.localScale = Vector3.one * 0.001f;
+            else Plugin.Logger.LogWarning($"Failed to find point at path '{chosenParasite.DecapitationPoint}'");
+        }
         
         // Disable the parasite's movement
         foreach (var collider in parasite.GetComponentsInChildren<Collider>(true))
@@ -116,7 +128,11 @@ public static class AmalgamationManager
         }
 
         var creature = parasite.GetComponent<Creature>();
-        if (creature != null) creature.enabled = false;
+        if (creature != null)
+        {
+            creature.enabled = false;
+            creature.SetSize(chosenParasite.Scale);
+        }
 
         var parasiteRb = parasite.GetComponent<Rigidbody>();
         if (parasiteRb != null) parasiteRb.isKinematic = true;
@@ -137,7 +153,7 @@ public static class AmalgamationManager
             {
                 if (!material) continue;
                 if (material.HasProperty(InfectionHeightStrength))
-                    material.SetFloat(InfectionHeightStrength, Mathf.Abs(3.5f * material.GetFloat(InfectionHeightStrength) / parasiteAverageScale));
+                    material.SetFloat(InfectionHeightStrength, Mathf.Abs(material.GetFloat(InfectionHeightStrength) / parasiteAverageScale));
             }
         }
     }

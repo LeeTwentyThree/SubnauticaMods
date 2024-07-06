@@ -48,10 +48,10 @@ public class FleshDecorationPrefab
             yield return request;
             if (request.TryGetPrefab(out var controlRoomPrefab))
             {
-                var sa = go.GetComponent<SkyApplier>();
-                sa.customSkyPrefab = controlRoomPrefab.GetComponent<SkyApplier>().customSkyPrefab;
-                sa.dynamic = false;
-                sa.anchorSky = Skies.Custom;
+                var skyApplier = go.GetComponent<SkyApplier>();
+                skyApplier.customSkyPrefab = controlRoomPrefab.GetComponent<SkyApplier>().customSkyPrefab;
+                skyApplier.dynamic = false;
+                skyApplier.anchorSky = Skies.Custom;
             }
         }
         prefab.Set(go);

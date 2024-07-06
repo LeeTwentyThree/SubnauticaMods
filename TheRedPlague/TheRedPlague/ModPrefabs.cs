@@ -31,12 +31,11 @@ public static class ModPrefabs
         .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("WarperHeartIcon"));
 
     public static PrefabInfo MutantDiver1 { get; } = PrefabInfo.WithTechType("MutantDiver1");
-
     public static PrefabInfo MutantDiver2 { get; } = PrefabInfo.WithTechType("MutantDiver2");
-
     public static PrefabInfo MutantDiver3 { get; } = PrefabInfo.WithTechType("MutantDiver3");
-
     public static PrefabInfo MutantDiver4 { get; } = PrefabInfo.WithTechType("MutantDiver4");
+    
+    public static PrefabInfo MrTeeth { get; } = PrefabInfo.WithTechType("MrTeeth");
 
     public static PrefabInfo AmalgamatedBone { get; } = PrefabInfo.WithTechType("AmalgamatedBone")
         .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("AmalgamatedBone"));
@@ -77,13 +76,17 @@ public static class ModPrefabs
         
         RegisterFood();
         
-        RegisterDataboxes();
+        RegisterDataboxesAndConsoles();
         
         CyclopsWreckPrefab.Register();
 
         if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("WorldHeightLib"))
         {
             RegisterFleshBlobs();
+        }
+        else
+        {
+            Plugin.Logger.LogError("Failed to register flesh blob entities; WorldHeightLib is not installed!");
         }
     }
 
@@ -358,6 +361,8 @@ public static class ModPrefabs
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshMassAurora"), "FleshMass", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshWall"), "FleshWall", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshWallAurora"), "FleshWall", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshRoomDecal"), "FleshRoomDecalPrefab", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshRoomDecal2"), "FleshRoomDecal2Prefab", false, true).Register();
         
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolder"), "CoreHolderPrefab", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolderGeneric"), "CoreHolderPrefab", false, false).Register();
@@ -490,6 +495,43 @@ public static class ModPrefabs
 
         var mutantDiver4 = new Mutant(MutantDiver4, "MutatedDiver4", true);
         mutantDiver4.Register();
+        
+        SuckerPrefab.Register();
+
+        var mrTeethSpawnPoint = new CustomPrefab(PrefabInfo.WithTechType("MrTeethSpawnPoint"));
+        mrTeethSpawnPoint.SetGameObject(() =>
+        {
+            var obj = new GameObject("MrTeethSpawnPoint");
+            PrefabUtils.AddBasicComponents(obj, mrTeethSpawnPoint.Info.ClassID, mrTeethSpawnPoint.Info.TechType, LargeWorldEntity.CellLevel.Near);
+            obj.AddComponent<MrTeethSpawnPoint>();
+            return obj;
+        });
+        mrTeethSpawnPoint.Register();
+        
+        var mrTeethSpawner = new CustomPrefab(PrefabInfo.WithTechType("MrTeethSpawner"));
+        mrTeethSpawner.SetGameObject(() =>
+        {
+            var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("FleshMass"));
+            PrefabUtils.AddBasicComponents(obj, mrTeethSpawner.Info.ClassID, mrTeethSpawner.Info.TechType, LargeWorldEntity.CellLevel.Near);
+            MaterialUtils.ApplySNShaders(obj);
+            obj.AddComponent<MrTeethSpawner>();
+            return obj;
+        });
+        mrTeethSpawner.Register();
+        
+        var mrTeethReturnPoint = new CustomPrefab(PrefabInfo.WithTechType("MrTeethReturnPoint"));
+        mrTeethReturnPoint.SetGameObject(() =>
+        {
+            var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("FleshMass"));
+            PrefabUtils.AddBasicComponents(obj, mrTeethReturnPoint.Info.ClassID, mrTeethReturnPoint.Info.TechType, LargeWorldEntity.CellLevel.Near);
+            MaterialUtils.ApplySNShaders(obj);
+            obj.AddComponent<MrTeethReturnPoint>();
+            return obj;
+        });
+        mrTeethReturnPoint.Register();
+
+        var mrTeeth = new MrTeethPrefab(MrTeeth);
+        mrTeeth.Register();
     }
 
     private static void RegisterEquipment()
@@ -535,7 +577,7 @@ public static class ModPrefabs
         theRegularPrefab.Register();
     }
     
-    private static void RegisterDataboxes()
+    private static void RegisterDataboxesAndConsoles()
     {
         new DataboxPrefab(PlagueKnifeDatabox, PlagueKnife.Info.TechType).Register();
         new DataboxPrefab(BoneArmorDatabox, BoneArmor.Info.TechType).Register();

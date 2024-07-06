@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
-using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using TheRedPlague.Mono.FleshBlobs;
 using UnityEngine;
 
 namespace TheRedPlague;
@@ -15,7 +11,9 @@ namespace TheRedPlague;
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
 [BepInDependency("com.aci.thesilence", BepInDependency.DependencyFlags.SoftDependency)]
-[BepInDependency("WorldHeightLib", BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency("WorldHeightLib", BepInDependency.DependencyFlags.HardDependency)]
+[BepInDependency("com.lee23.bloopandblaza", BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency("UnknownModdingLib", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
@@ -57,5 +55,7 @@ public class Plugin : BaseUnityPlugin
         StoryUtils.RegisterLanguageLines();
         
         ModCompatibility.PatchCompatibility();
+        
+        StructureLoading.RegisterStructures();
     }
 }

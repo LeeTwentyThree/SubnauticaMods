@@ -59,6 +59,14 @@ public static class ModAudio
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 10f, 140);
         RegisterSoundWithVariants("FleshBlobRoar", new string[] {"FleshBlobGroanClose1", "FleshBlobGroanClose2", "FleshBlobGroanClose3", "FleshBlobScream3"},
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 120f);
+        RegisterSoundWithVariants("RandomFootsteps", new string[] {"FootstepsSlow", "FootstepsFast"},
+            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 120f);
+        RegisterSound("SuckerDeath", "SuckerDeath", "bus:/master/SFX_for_pause/PDA_pause/all", 3f, 50);
+        RegisterSoundWithVariants("MrTeethScream", new string[] {"MrTeethScream1", "MrTeethScream2", "MrTeethScream3"},
+            "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 120f);
+        RegisterSound("MrTeethGrab", "MrTeethGrab", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 50);
+        RegisterSound("MrTeethBury", "MrTeethBury", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 20f);
+        RegisterSound("UnlockTurretScream", "UnlockTurretScream", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 100f);
     }
 
     private static void Register2DSound(string id, string clipName, string bus)

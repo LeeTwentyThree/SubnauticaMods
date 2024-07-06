@@ -18,6 +18,7 @@ public static class PlayerPatcher
         __instance.gameObject.EnsureComponent<JumpScares>();
         __instance.gameObject.AddComponent<EnzymeRainController>();
         MainCamera.camera.gameObject.AddComponent<PlagueScreenFXController>();
+        new GameObject("RandomFootstepsPlayer").AddComponent<RandomFootstepsPlayer>();
     }
     
     [HarmonyPatch(nameof(Player.EquipmentChanged))]
