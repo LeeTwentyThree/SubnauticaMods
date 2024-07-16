@@ -20,7 +20,7 @@ public class ObjectPivotCircle : MonoBehaviour, IOverlayIconData, ISelectionList
     public string Label => showName ? _objectName : null;
     public Sprite Icon => _selecting ? _selectedSprite : _pointerOver ? _hoveredSprite : _normalSprite;
     public Vector3 Position => transform.position;
-    public float Scale => 15f / Vector3.Distance(MainCameraControl.main.transform.position, transform.position);
+    public float Scale => 5f / Vector3.Distance(MainCameraControl.main.transform.position, transform.position);
 
     private string _objectName;
     
