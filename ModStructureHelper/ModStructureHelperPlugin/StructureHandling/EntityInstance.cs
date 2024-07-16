@@ -46,7 +46,7 @@ public class EntityInstance : MonoBehaviour
             hasNoRenderers = true;
         }
 
-        if (hasSolidCollisions || hasNoRenderers)
+        if (!hasSolidCollisions || hasNoRenderers)
         {
             var pivotCircle = gameObject.AddComponent<ObjectPivotCircle>();
             pivotCircle.showName = hasNoRenderers;
