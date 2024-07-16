@@ -10,8 +10,6 @@ public abstract class ToolBase : TooltipTarget
 {
     [SerializeField] private TextMeshProUGUI bindText;
     [SerializeField] private Image iconBackground;
-    [SerializeField] private Sprite inactiveBackground;
-    [SerializeField] private Sprite activeBackground;
     
     public ToolManager manager;
     
@@ -38,7 +36,7 @@ public abstract class ToolBase : TooltipTarget
     public void EnableTool()
     {
         if (ToolEnabled) return;
-        iconBackground.sprite = activeBackground;
+        iconBackground.sprite = manager.activeBackground;
         ToolEnabled = true;
         manager.OnToolStateChangedHandler?.Invoke(this, true);
         
@@ -49,7 +47,7 @@ public abstract class ToolBase : TooltipTarget
     public void DisableTool()
     {
         if (!ToolEnabled) return;
-        iconBackground.sprite = inactiveBackground;
+        iconBackground.sprite = manager.inactiveBackground;
         ToolEnabled = false;
         manager.OnToolStateChangedHandler?.Invoke(this, false);
         

@@ -52,6 +52,7 @@ public class EntityInstance : MonoBehaviour
         collider.radius = 1;
         var selectionCollider = gameObject.AddComponent<EnableColliderForSelection>();
         selectionCollider.managedCollider = collider;
+        gameObject.AddComponent<ObjectPivotCircle>();
     }
 
     private bool HasSolidCollisions()

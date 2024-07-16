@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using ModStructureHelperPlugin.Handle;
 using ModStructureHelperPlugin.Handle.Handles;
+using ModStructureHelperPlugin.Interfaces;
 using ModStructureHelperPlugin.OutlineShit;
 using ModStructureHelperPlugin.OutlineShit.Rendering;
 using ModStructureHelperPlugin.StructureHandling;
@@ -55,12 +56,16 @@ public static class SelectionManager
         {
             ErrorMessage.AddMessage($"Selecting {newTarget.gameObject}, which has no active renderers!");
         }
+        foreach (var selectionListener in newTarget.GetComponents<ISelectionListener>())
+            selectionListener.OnObjectSelected();
     }
     
     private static void OnTargetRemovedInternal(GameObject target)
     {
         if (target == null) return;
         Object.DestroyImmediate(target.GetComponent<OutlineBehaviour>());
+        foreach (var selectionListener in target.GetComponents<ISelectionListener>())
+            selectionListener.OnObjectSelected();
     }
 
     private static OutlineBehaviour AddOutline(GameObject obj)

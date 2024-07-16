@@ -3,6 +3,7 @@ using ModStructureHelperPlugin.Handle.Handles;
 using ModStructureHelperPlugin.Handle.Handles.Position;
 using ModStructureHelperPlugin.Handle.Handles.Rotation;
 using ModStructureHelperPlugin.Handle.Handles.Scale;
+using ModStructureHelperPlugin.Interfaces;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;
 using UnityEngine.Events;
@@ -334,10 +335,4 @@ public class RuntimeTransformHandle : MonoBehaviour
         };
     }
     #endregion
-}
-
-public interface ITransformationListener
-{
-    public void OnStartTransforming();
-    public void OnFinishTransforming();
 }

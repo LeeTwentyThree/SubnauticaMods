@@ -13,6 +13,9 @@ public class ToolManager : MonoBehaviour
 
     public RuntimeTransformHandle handle;
     public UndoHistory undoHistory;
+    
+    public Sprite inactiveBackground;
+    public Sprite activeBackground;
 
     public delegate void OnToolStateChanged(ToolBase tool, bool toolEnabled);
 
