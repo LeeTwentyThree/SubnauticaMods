@@ -1,9 +1,10 @@
-﻿using ModStructureHelperPlugin.UI;
+﻿using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public abstract class ToolBase : TooltipTarget
 {

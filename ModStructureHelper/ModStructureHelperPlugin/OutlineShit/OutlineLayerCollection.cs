@@ -4,9 +4,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ModStructureHelperPlugin.OutlineShit.Rendering;
 using UnityEngine;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 /// <summary>
 /// A serializable collection of outline layers.

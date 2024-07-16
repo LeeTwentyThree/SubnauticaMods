@@ -1,4 +1,4 @@
-﻿namespace ModStructureHelperPlugin.Tools;
+﻿namespace ModStructureHelperPlugin.Editing.Tools;
 
 public enum ToolType
 {

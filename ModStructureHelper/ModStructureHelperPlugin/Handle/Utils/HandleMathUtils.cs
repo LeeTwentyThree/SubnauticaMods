@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RuntimeHandle
+namespace ModStructureHelperPlugin.Handle.Utils
 {
 	public static class HandleMathUtils
 	{

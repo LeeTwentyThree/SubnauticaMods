@@ -1,6 +1,6 @@
-﻿using RuntimeHandle;
+﻿using ModStructureHelperPlugin.Handle.Handles;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class RotateTool : ToolBase
 {

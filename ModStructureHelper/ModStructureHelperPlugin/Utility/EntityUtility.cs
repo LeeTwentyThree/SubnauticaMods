@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using ModStructureFormat;
+using ModStructureHelperPlugin.StructureHandling;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin;
+namespace ModStructureHelperPlugin.Utility;
 
 public static class EntityUtility
 {

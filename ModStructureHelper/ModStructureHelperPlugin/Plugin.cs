@@ -2,10 +2,10 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using ModStructureHelperPlugin.OutlineShit;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
-using UnityFx.Outline;
 
 /*
  * TO-DO

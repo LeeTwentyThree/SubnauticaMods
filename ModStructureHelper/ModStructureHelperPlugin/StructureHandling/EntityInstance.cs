@@ -2,7 +2,7 @@
 using ModStructureHelperPlugin.Mono;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin;
+namespace ModStructureHelperPlugin.StructureHandling;
 
 public class EntityInstance : MonoBehaviour
 {

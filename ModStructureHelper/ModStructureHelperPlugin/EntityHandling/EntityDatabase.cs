@@ -47,7 +47,6 @@ public class EntityDatabase : MonoBehaviour
             var path = entity.Value;
             if (!path.Contains("/")) path = GetPathWithModName(path, entity.Key);
             var entityData = new EntityData(entity.Key, path);
-            entityData.SetEntityPreview(new BasicEntityPreview(entityData));
             entities.Add(entity.Key, entityData);
         }
         RebuildFolderStructure();

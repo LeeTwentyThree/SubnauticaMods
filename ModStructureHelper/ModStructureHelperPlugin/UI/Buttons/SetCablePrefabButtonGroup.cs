@@ -1,5 +1,5 @@
 ﻿using ModStructureHelperPlugin.CableGeneration;
-using ModStructureHelperPlugin.Tools;
+using ModStructureHelperPlugin.Editing.Tools;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.UI.Buttons;

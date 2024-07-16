@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class UndoTool : ToolBase
 {

@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Text;
 using ModStructureFormat;
-using ModStructureHelperPlugin.Tools;
+using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.Editing.Tools;
 using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin;
+namespace ModStructureHelperPlugin.StructureHandling;
 
 public class StructureInstance : MonoBehaviour
 {

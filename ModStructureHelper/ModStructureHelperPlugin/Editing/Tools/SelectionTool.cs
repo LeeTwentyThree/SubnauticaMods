@@ -1,7 +1,9 @@
-﻿using ModStructureHelperPlugin.UI;
+﻿using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.StructureHandling;
+using ModStructureHelperPlugin.UI;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class SelectionTool : ToolBase
 {

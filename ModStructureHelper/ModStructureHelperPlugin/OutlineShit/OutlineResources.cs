@@ -4,12 +4,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using ModStructureHelperPlugin;
+using ModStructureHelperPlugin.OutlineShit.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 /// <summary>
 /// This asset is used to store references to shaders and other resources needed at runtime without having to use a Resources folder.

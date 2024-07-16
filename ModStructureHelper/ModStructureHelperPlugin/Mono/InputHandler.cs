@@ -1,4 +1,5 @@
-﻿using ModStructureHelperPlugin.UI;
+﻿using ModStructureHelperPlugin.StructureHandling;
+using ModStructureHelperPlugin.UI;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Mono;

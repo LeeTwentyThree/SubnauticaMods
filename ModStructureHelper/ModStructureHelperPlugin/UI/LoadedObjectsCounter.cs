@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using ModStructureHelperPlugin.StructureHandling;
+using TMPro;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.UI;

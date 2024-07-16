@@ -1,11 +1,12 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections;
+using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.StructureHandling;
 using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class DuplicateTool : ToolBase
 {

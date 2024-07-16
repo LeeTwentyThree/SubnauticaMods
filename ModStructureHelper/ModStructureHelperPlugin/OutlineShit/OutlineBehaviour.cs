@@ -2,12 +2,12 @@
 // See the LICENSE.md file in the project root for more information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using ModStructureHelperPlugin.OutlineShit.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 /// <summary>
 /// Attach this script to a <see cref="GameObject"/> to add outline effect. It can be configured in edit-time or in runtime via scripts.

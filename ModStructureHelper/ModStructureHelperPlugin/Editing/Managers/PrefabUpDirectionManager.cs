@@ -1,6 +1,6 @@
 ﻿using UWE;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Managers;
 
 public static class PrefabUpDirectionManager
 {

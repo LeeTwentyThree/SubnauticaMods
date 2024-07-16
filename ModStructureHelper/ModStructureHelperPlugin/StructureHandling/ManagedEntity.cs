@@ -4,7 +4,7 @@ using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin;
+namespace ModStructureHelperPlugin.StructureHandling;
 
 public class ManagedEntity : IOriginator
 {

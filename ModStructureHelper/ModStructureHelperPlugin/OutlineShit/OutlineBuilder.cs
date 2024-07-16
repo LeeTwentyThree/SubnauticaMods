@@ -2,11 +2,10 @@
 // See the LICENSE.md file in the project root for more information.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 /// <summary>
 /// A helper behaviour for managing content of <see cref="OutlineLayerCollection"/> via Unity Editor.

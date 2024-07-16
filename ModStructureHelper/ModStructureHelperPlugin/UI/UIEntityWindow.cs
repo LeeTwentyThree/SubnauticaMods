@@ -2,6 +2,7 @@
 using System.Collections;
 using ModStructureHelperPlugin.EntityHandling;
 using ModStructureHelperPlugin.Mono;
+using ModStructureHelperPlugin.UI.Buttons;
 using UnityEngine;
 using UnityEngine.UI;
 using UWE;

@@ -1,7 +1,7 @@
-using ModStructureHelperPlugin;
+using ModStructureHelperPlugin.Handle.Utils;
 using UnityEngine;
 
-namespace RuntimeHandle
+namespace ModStructureHelperPlugin.Handle.Handles.Rotation
 {
     /**
      * Created by Peter @sHTiF Stefcek 20.10.2020

@@ -5,9 +5,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using ModStructureHelperPlugin.OutlineShit.Rendering;
 using UnityEngine;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 /// <summary>
 /// A collection of <see cref="GameObject"/> instances that share outline settings. An <see cref="OutlineLayer"/>

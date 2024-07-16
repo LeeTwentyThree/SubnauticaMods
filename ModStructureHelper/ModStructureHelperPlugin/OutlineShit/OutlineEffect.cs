@@ -3,10 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using ModStructureHelperPlugin.OutlineShit.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 /// <summary>
 /// Renders outlines at specific camera. Should be attached to camera to function.

@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Remoting.Messaging;
+using ModStructureHelperPlugin.StructureHandling;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.UI;

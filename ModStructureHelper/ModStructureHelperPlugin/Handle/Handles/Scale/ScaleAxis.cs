@@ -1,8 +1,7 @@
-using System.IO;
-using System.Security.Permissions;
+using ModStructureHelperPlugin.Handle.Utils;
 using UnityEngine;
 
-namespace RuntimeHandle
+namespace ModStructureHelperPlugin.Handle.Handles.Scale
 {
     /**
      * Created by Peter @sHTiF Stefcek 20.10.2020

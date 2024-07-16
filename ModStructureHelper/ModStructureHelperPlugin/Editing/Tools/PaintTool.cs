@@ -1,9 +1,12 @@
 ﻿using System.Collections;
+using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.StructureHandling;
 using ModStructureHelperPlugin.UI;
+using ModStructureHelperPlugin.Utility;
 using UnityEngine;
 using UWE;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class PaintTool : ToolBase
 {

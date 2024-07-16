@@ -3,7 +3,7 @@
 
 using System;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit.Rendering;
 
 /// <summary>
 /// Enumerates outline render modes.

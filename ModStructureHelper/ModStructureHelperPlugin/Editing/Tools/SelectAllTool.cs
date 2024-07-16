@@ -1,6 +1,8 @@
 ﻿using System.Linq;
+using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.StructureHandling;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class SelectAllTool : ToolBase
 {

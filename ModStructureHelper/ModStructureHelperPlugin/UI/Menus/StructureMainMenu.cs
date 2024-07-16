@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using ModStructureHelperPlugin.StructureHandling;
+using ModStructureHelperPlugin.Utility;
 
 namespace ModStructureHelperPlugin.UI.Menus;
 

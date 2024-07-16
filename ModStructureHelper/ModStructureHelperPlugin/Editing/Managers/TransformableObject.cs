@@ -3,7 +3,7 @@ using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Managers;
 
 public class TransformableObject : MonoBehaviour, IOriginator
 {

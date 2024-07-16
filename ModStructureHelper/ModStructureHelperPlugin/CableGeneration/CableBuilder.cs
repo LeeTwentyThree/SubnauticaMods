@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using ModStructureHelperPlugin.Tools;
+using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.Editing.Tools;
+using ModStructureHelperPlugin.StructureHandling;
 using UnityEngine;
 using UWE;
 using Random = UnityEngine.Random;

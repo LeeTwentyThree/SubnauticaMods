@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using ModStructureFormat;
+using ModStructureHelperPlugin.StructureHandling;
 using TMPro;
 
 namespace ModStructureHelperPlugin.UI.Menus;

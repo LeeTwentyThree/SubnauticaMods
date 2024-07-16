@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
-using ModStructureFormat;
-using RuntimeHandle;
+using ModStructureHelperPlugin.Handle;
+using ModStructureHelperPlugin.Handle.Handles;
+using ModStructureHelperPlugin.OutlineShit;
+using ModStructureHelperPlugin.OutlineShit.Rendering;
+using ModStructureHelperPlugin.StructureHandling;
 using UnityEngine;
-using UnityFx.Outline;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Managers;
 
 public static class SelectionManager
 {

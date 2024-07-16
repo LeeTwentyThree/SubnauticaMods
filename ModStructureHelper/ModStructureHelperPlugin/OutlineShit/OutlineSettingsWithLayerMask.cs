@@ -4,7 +4,7 @@
 using System;
 using UnityEngine;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 [Serializable]
 internal class OutlineSettingsWithLayerMask : OutlineSettingsInstance

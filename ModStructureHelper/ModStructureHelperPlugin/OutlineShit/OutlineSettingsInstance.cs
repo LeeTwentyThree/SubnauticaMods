@@ -2,9 +2,10 @@
 // See the LICENSE.md file in the project root for more information.
 
 using System;
+using ModStructureHelperPlugin.OutlineShit.Rendering;
 using UnityEngine;
 
-namespace UnityFx.Outline;
+namespace ModStructureHelperPlugin.OutlineShit;
 
 [Serializable]
 internal class OutlineSettingsInstance : IOutlineSettings

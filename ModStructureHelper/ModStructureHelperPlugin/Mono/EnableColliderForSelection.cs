@@ -1,5 +1,6 @@
 ﻿using System.Linq;
-using ModStructureHelperPlugin.Tools;
+using ModStructureHelperPlugin.Editing.Tools;
+using ModStructureHelperPlugin.Handle;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;
 

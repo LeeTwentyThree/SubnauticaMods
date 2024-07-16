@@ -1,6 +1,8 @@
-﻿using ModStructureHelperPlugin.UI;
+﻿using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.StructureHandling;
+using ModStructureHelperPlugin.UI;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class DeleteTool : ToolBase
 {

@@ -3,7 +3,7 @@ using ModStructureHelperPlugin.CableGeneration;
 using TMPro;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Tools;
 
 public class CableGeneratorTool : ToolBase
 {

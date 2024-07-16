@@ -1,10 +1,10 @@
-﻿using ModStructureHelperPlugin;
+﻿using ModStructureHelperPlugin.Editing.Tools;
 using ModStructureHelperPlugin.EntityHandling;
-using ModStructureHelperPlugin.Tools;
-using ModStructureHelperPlugin.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+namespace ModStructureHelperPlugin.UI.Buttons;
 
 public class EntityBrowserButton : MonoBehaviour
 {

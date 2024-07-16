@@ -1,10 +1,11 @@
 ﻿using System.Linq;
+using ModStructureHelperPlugin.Editing.Tools;
+using ModStructureHelperPlugin.Handle;
 using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
-using RuntimeHandle;
 using UnityEngine;
 
-namespace ModStructureHelperPlugin.Tools;
+namespace ModStructureHelperPlugin.Editing.Managers;
 
 public class ToolManager : MonoBehaviour
 {

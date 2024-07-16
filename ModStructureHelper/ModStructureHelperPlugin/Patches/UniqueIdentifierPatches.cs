@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using ModStructureHelperPlugin.StructureHandling;
 
 namespace ModStructureHelperPlugin.Patches;
 
