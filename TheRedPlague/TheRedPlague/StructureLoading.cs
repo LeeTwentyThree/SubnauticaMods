@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using ModStructureFormat;
 using Nautilus.Handlers;
 using Newtonsoft.Json;
+using TheRedPlague.StructureFormat;
 
 namespace TheRedPlague;
 

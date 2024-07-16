@@ -298,6 +298,8 @@ public static class ModPrefabs
         laserReceptacle.SetGameObject(GetLaserReceptaclePrefab);
         laserReceptacle.SetSpawns(new SpawnLocation(new Vector3(-66.123f, 302.018f, -30.484f), new Vector3(0, 343, 0)));
         laserReceptacle.Register();
+        
+        RedPlaguePrecursorLight.Register();
     }
 
     private static void RegisterFleshAndBonePrefabs()
@@ -532,6 +534,8 @@ public static class ModPrefabs
 
         var mrTeeth = new MrTeethPrefab(MrTeeth);
         mrTeeth.Register();
+        
+        AuroraTentaclePrefab.Register();
     }
 
     private static void RegisterEquipment()

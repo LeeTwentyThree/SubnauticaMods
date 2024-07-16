@@ -7,6 +7,8 @@ namespace TheRedPlague.Mono;
 // This class manages the plague armor model & the infection damage in the dunes
 public class PlagueArmorBehavior : MonoBehaviour
 {
+    private static PlagueArmorBehavior _main;
+    
     private Transform _parentBone;
     private GameObject _currentArmor;
     private float _timeTryDamageAgain;
@@ -19,6 +21,7 @@ public class PlagueArmorBehavior : MonoBehaviour
     private void Start()
     {
         _parentBone = transform.Find("body/player_view/export_skeleton/head_rig/neck/chest/spine_3/spine_2");
+        _main = this;
     }
 
     private void Update()
@@ -81,5 +84,11 @@ public class PlagueArmorBehavior : MonoBehaviour
         }
 
         _currentArmor.EnsureComponent<SkyApplier>().renderers = renderers;
+    }
+
+    public static bool IsPlagueArmorEquipped()
+    {
+        if (_main == null) return false;
+        return _main._equipped;
     }
 }

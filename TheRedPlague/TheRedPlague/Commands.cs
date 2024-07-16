@@ -49,4 +49,10 @@ public static class Commands
     {
         Mono.AdminDropPodFall.SpawnAdministratorDropPod();
     }
+    
+    [ConsoleCommand("thrusterevent")]
+    public static void ThrusterEvent()
+    {
+        AuroraThrusterEvent.PlayCinematic();
+    }
 }

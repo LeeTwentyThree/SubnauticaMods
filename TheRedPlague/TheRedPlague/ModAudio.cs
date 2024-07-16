@@ -67,6 +67,7 @@ public static class ModAudio
         RegisterSound("MrTeethGrab", "MrTeethGrab", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 50);
         RegisterSound("MrTeethBury", "MrTeethBury", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 20f);
         RegisterSound("UnlockTurretScream", "UnlockTurretScream", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 100f);
+        RegisterSound("AuroraThrusterEvent", "AuroraThrusterEventFinal", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 10000f);
     }
 
     private static void Register2DSound(string id, string clipName, string bus)

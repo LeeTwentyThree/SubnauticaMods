@@ -35,9 +35,6 @@
       <Reference Include="ECCLibrary">
         <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\ECCLibrary\ECCLibrary.dll</HintPath>
       </Reference>
-      <Reference Include="ModStructureFormat">
-        <HintPath>..\..\ModStructureHelper\ModStructureFormat\bin\Debug\net472\ModStructureFormat.dll</HintPath>
-      </Reference>
       <Reference Include="WeatherMod">
         <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\WeatherMod\WeatherMod.dll</HintPath>
       </Reference>

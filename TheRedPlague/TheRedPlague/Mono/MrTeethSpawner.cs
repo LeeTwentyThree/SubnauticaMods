@@ -6,7 +6,8 @@ namespace TheRedPlague.Mono;
 
 public class MrTeethSpawner : MonoBehaviour
 {
-    public float maxDistance = 7f;
+    public float maxDistanceDefault = 12f;
+    public float maxDistancePlagueArmor = 7f;
     public float minInterval = 10f;
     
     private float _timeMrTeethCanSpawnAgain;
@@ -17,6 +18,7 @@ public class MrTeethSpawner : MonoBehaviour
     private void Update()
     {
         if (!MrTeethCanSpawn()) return;
+        var maxDistance = GetMaxDistance();
         foreach (var spawnPoint in MrTeethSpawnPoint.SpawnPoints)
         {
             if (Vector3.SqrMagnitude(spawnPoint.transform.position - Player.main.transform.position) <
@@ -26,6 +28,16 @@ public class MrTeethSpawner : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private float GetMaxDistance()
+    {
+        if (PlagueArmorBehavior.IsPlagueArmorEquipped())
+        {
+            return maxDistancePlagueArmor;
+        }
+
+        return maxDistanceDefault;
     }
 
     private bool MrTeethCanSpawn()
