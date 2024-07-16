@@ -1,4 +1,5 @@
 ﻿using ModStructureHelperPlugin.Interfaces;
+using ModStructureHelperPlugin.StructureHandling;
 using ModStructureHelperPlugin.UI;
 using Nautilus.Extensions;
 using UnityEngine;
@@ -34,6 +35,8 @@ public class ObjectPivotCircle : MonoBehaviour, IOverlayIconData, ISelectionList
         }
 
         _objectName = gameObject.name.TrimClone();
+        
+        StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
     }
 
     public void OnObjectSelected()
@@ -65,5 +68,16 @@ public class ObjectPivotCircle : MonoBehaviour, IOverlayIconData, ISelectionList
     private void OnEnable()
     {
         OverlayIconManager.main.AddIcon(this);
+    }
+
+    private void OnDestroy()
+    {
+        StructureInstance.OnStructureInstanceChanged -= OnStructureInstanceChanged;
+    }
+
+    private void OnStructureInstanceChanged(StructureInstance newInstance)
+    {
+        if (newInstance == null)
+            Destroy(this);
     }
 }

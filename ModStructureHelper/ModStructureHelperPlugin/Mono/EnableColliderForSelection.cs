@@ -2,6 +2,7 @@
 using System.Linq;
 using ModStructureHelperPlugin.Editing.Tools;
 using ModStructureHelperPlugin.Interfaces;
+using ModStructureHelperPlugin.StructureHandling;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;
 
@@ -13,14 +14,15 @@ public class EnableColliderForSelection : MonoBehaviour, ITransformationListener
 
     private void OnEnable()
     {
-        UpdateManagedCollider(true);
+        UpdateManagedCollider(GetSelectionColliderShouldEnable());
         var ui = StructureHelperUI.main;
         if (ui != null) ui.toolManager.OnToolStateChangedHandler += OnToolStateChanged;
+        StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
     }
 
     private void Start()
     {
-        UpdateManagedCollider(true);
+        UpdateManagedCollider(GetSelectionColliderShouldEnable());
     }
 
     private void OnDisable()
@@ -28,6 +30,7 @@ public class EnableColliderForSelection : MonoBehaviour, ITransformationListener
         UpdateManagedCollider(false);
         var ui = StructureHelperUI.main;
         if (ui != null) ui.toolManager.OnToolStateChangedHandler -= OnToolStateChanged;
+        StructureInstance.OnStructureInstanceChanged -= OnStructureInstanceChanged;
     }
 
     private void OnToolStateChanged(ToolBase tool, bool toolEnabled)
@@ -72,5 +75,11 @@ public class EnableColliderForSelection : MonoBehaviour, ITransformationListener
     public void OnFinishTransforming()
     {
         UpdateColliderScale();
+    }
+    
+    private void OnStructureInstanceChanged(StructureInstance newInstance)
+    {
+        if (newInstance == null)
+            Destroy(this);
     }
 }

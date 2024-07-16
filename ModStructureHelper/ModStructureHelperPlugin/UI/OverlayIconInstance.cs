@@ -26,10 +26,11 @@ public class OverlayIconInstance : MonoBehaviour
 
     private void UpdateData(bool firstTime)
     {
-        SetPositionAndScale(SNCameraRoot.main.mainCam.WorldToScreenPoint(_data.Position));
+        var screenPoint = SNCameraRoot.main.mainCam.WorldToScreenPoint(_data.Position);
+        SetPositionAndScale(screenPoint);
         labelText.text = _data.Label;
         iconImage.sprite = _data.Icon;
-        var color = new Color(1, 1, 1, GetDistanceAlphaBlend(Vector3.Distance(_data.Position, MainCamera.camera.transform.position)));
+        var color = new Color(1, 1, 1, GetDistanceAlphaBlend(screenPoint.z));
         iconImage.color = color;
         labelText.color = color;
     }
