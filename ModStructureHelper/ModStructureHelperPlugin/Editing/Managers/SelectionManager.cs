@@ -65,7 +65,7 @@ public static class SelectionManager
         if (target == null) return;
         Object.DestroyImmediate(target.GetComponent<OutlineBehaviour>());
         foreach (var selectionListener in target.GetComponents<ISelectionListener>())
-            selectionListener.OnObjectSelected();
+            selectionListener.OnObjectDeselected();
     }
 
     private static OutlineBehaviour AddOutline(GameObject obj)

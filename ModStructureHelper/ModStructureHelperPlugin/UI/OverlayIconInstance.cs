@@ -7,6 +7,9 @@ namespace ModStructureHelperPlugin.UI;
 
 public class OverlayIconInstance : MonoBehaviour
 {
+    private const float KMinDistance = 0.2f;
+    private const float KTransitionDistance = 2f;
+    
     public OverlayIconManager manager;
     
     public Image iconImage;
@@ -26,6 +29,9 @@ public class OverlayIconInstance : MonoBehaviour
         SetPositionAndScale(SNCameraRoot.main.mainCam.WorldToScreenPoint(_data.Position));
         labelText.text = _data.Label;
         iconImage.sprite = _data.Icon;
+        var color = new Color(1, 1, 1, GetDistanceAlphaBlend(Vector3.Distance(_data.Position, MainCamera.camera.transform.position)));
+        iconImage.color = color;
+        labelText.color = color;
     }
 
     private void SetPositionAndScale(Vector3 screenPoint)
@@ -39,5 +45,19 @@ public class OverlayIconInstance : MonoBehaviour
     private void Update()
     {
         UpdateData(false);
+    }
+    
+    
+    private float GetDistanceAlphaBlend(float distance)
+    {
+        if (distance < KMinDistance)
+        {
+            return 0f;
+        }
+        if (distance > KMinDistance + KTransitionDistance)
+        {
+            return 1f;
+        }
+        return Mathf.Clamp((distance - KMinDistance) / KTransitionDistance, 0f, 1f);
     }
 }
