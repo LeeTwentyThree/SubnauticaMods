@@ -1,5 +1,6 @@
 ﻿using ModStructureHelperPlugin.Interfaces;
 using ModStructureHelperPlugin.UI;
+using Nautilus.Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,14 +11,18 @@ public class ObjectPivotCircle : MonoBehaviour, IOverlayIconData, ISelectionList
     private static Sprite _normalSprite;
     private static Sprite _hoveredSprite;
     private static Sprite _selectedSprite;
+    
+    public bool showName;
 
     private bool _selecting;
     private bool _pointerOver;
     
-    public string Label => null;
+    public string Label => showName ? _objectName : null;
     public Sprite Icon => _selecting ? _selectedSprite : _pointerOver ? _hoveredSprite : _normalSprite;
     public Vector3 Position => transform.position;
     public float Scale => 15f / Vector3.Distance(MainCameraControl.main.transform.position, transform.position);
+
+    private string _objectName;
     
     public void OnCreation(OverlayIconInstance instance)
     {
@@ -27,6 +32,8 @@ public class ObjectPivotCircle : MonoBehaviour, IOverlayIconData, ISelectionList
             _hoveredSprite = Plugin.AssetBundle.LoadAsset<Sprite>("SelectionCircleHovered");
             _selectedSprite = Plugin.AssetBundle.LoadAsset<Sprite>("SelectionCircleSelected");
         }
+
+        _objectName = gameObject.name.TrimClone();
     }
 
     public void OnObjectSelected()

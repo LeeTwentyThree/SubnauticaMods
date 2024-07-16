@@ -1,4 +1,5 @@
-﻿using ModStructureFormat;
+﻿using System.Linq;
+using ModStructureFormat;
 using ModStructureHelperPlugin.Mono;
 using UnityEngine;
 
@@ -34,7 +35,22 @@ public class EntityInstance : MonoBehaviour
 
         StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
 
-        AccountForLackOfCollisions();
+        var hasSolidCollisions = HasSolidCollisions();
+        var hasNoRenderers = false;
+        
+        AccountForLackOfCollisions(hasSolidCollisions);
+
+        var renderers = GetComponentsInChildren<Renderer>();
+        if (renderers.Length == 0 || renderers.All(r => !r.enabled || r.bounds.size.sqrMagnitude == 0))
+        {
+            hasNoRenderers = true;
+        }
+
+        if (hasSolidCollisions || hasNoRenderers)
+        {
+            var pivotCircle = gameObject.AddComponent<ObjectPivotCircle>();
+            pivotCircle.showName = hasNoRenderers;
+        }
 
         _rigidbody = GetComponent<Rigidbody>();
         if (_rigidbody) _rigidbody.isKinematic = true;
@@ -45,14 +61,13 @@ public class EntityInstance : MonoBehaviour
         // DestroyImmediate(lwe);
     }
 
-    private void AccountForLackOfCollisions()
+    private void AccountForLackOfCollisions(bool hasSolidCollisions)
     {
-        if (HasSolidCollisions()) return;
+        if (hasSolidCollisions) return;
         var collider = gameObject.AddComponent<SphereCollider>();
         collider.radius = 1;
         var selectionCollider = gameObject.AddComponent<EnableColliderForSelection>();
         selectionCollider.managedCollider = collider;
-        gameObject.AddComponent<ObjectPivotCircle>();
     }
 
     private bool HasSolidCollisions()
