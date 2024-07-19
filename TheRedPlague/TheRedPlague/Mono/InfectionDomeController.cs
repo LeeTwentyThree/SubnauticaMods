@@ -190,8 +190,8 @@ public class InfectionDomeController : MonoBehaviour, IStoryGoalListener
 
     public void ShatterDome()
     {
-        transform.GetChild(0).gameObject.SetActive(false);
-        var gibs = transform.GetChild(1).gameObject;
+        transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+        var gibs = transform.GetChild(0).GetChild(1).gameObject;
         gibs.SetActive(true);
         foreach (var rb in gibs.GetComponentsInChildren<Rigidbody>())
         {
