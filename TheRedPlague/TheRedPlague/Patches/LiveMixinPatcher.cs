@@ -13,8 +13,12 @@ public class LiveMixinPatcher
     public static void AwakePostfix(LiveMixin __instance)
     {
         var rb = __instance.GetComponent<Rigidbody>();
-        if (rb != null && !rb.isKinematic)
-            __instance.gameObject.AddComponent<FleshBlobInfluenced>();
+        if (rb == null || rb.isKinematic) return;
+        var creature = __instance.GetComponent<Creature>();
+        var vehicle = __instance.GetComponent<Vehicle>();
+        var subRoot = __instance.GetComponent<SubRoot>();
+        if (creature == null && vehicle == null && subRoot == null) return;
+        __instance.gameObject.AddComponent<FleshBlobInfluenced>();
     }
     
     [HarmonyPatch(nameof(LiveMixin.TakeDamage))]
