@@ -1081,7 +1081,7 @@ public static partial class CreatureSpawns
         // -- DRAGONFLY --
 
         var dragonflyRandomGenerator = new System.Random(19872024);
-        for (int i = 0; i < 40; i++)
+        for (int i = 0; i < 60; i++)
         {
             var angle = (float) dragonflyRandomGenerator.NextDouble() * Mathf.PI * 2f;
             var distance = Mathf.Pow((float) dragonflyRandomGenerator.NextDouble(), 1/2f) * 1500f;
