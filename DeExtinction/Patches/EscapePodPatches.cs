@@ -11,7 +11,7 @@ public static class EscapePodPatches
     [HarmonyPostfix]
     public static void EscapePodAwakePatch(EscapePod __instance)
     {
-        __instance.gameObject.AddComponent<SpawnDragonfliesAroundEscapePod>();
+        // __instance.gameObject.AddComponent<SpawnDragonfliesAroundEscapePod>();
     }
 }
 #endif
