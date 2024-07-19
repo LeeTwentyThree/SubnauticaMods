@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using Nautilus.Assets;
 using Nautilus.Utility;
-using TheRedPlague.MaterialModifiers;
 using TheRedPlague.Mono;
 using UnityEngine;
 
@@ -23,7 +22,7 @@ public static class AuroraTentaclePrefab
         var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("AuroraTentacle"));
         obj.SetActive(false);
         PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
-        MaterialUtils.ApplySNShaders(obj, 7f, 1, 1f, new AirStrikeDeviceModifier());
+        MaterialUtils.ApplySNShaders(obj, 7f, 1, 1f);
         var behavior = obj.AddComponent<AuroraTentacleBehavior>();
         behavior.animator = obj.GetComponentInChildren<Animator>();
         behavior.renderer = obj.GetComponentInChildren<Renderer>();
