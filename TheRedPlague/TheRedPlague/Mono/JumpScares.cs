@@ -58,7 +58,7 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
         model.AddComponent<LookAtPlayer>();
         if (Player.main.IsInBase())
         {
-            model.transform.localScale *= 0.4f;
+            model.transform.localScale *= 0.7f;
         }
         return model;
     }
