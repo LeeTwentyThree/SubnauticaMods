@@ -17,7 +17,7 @@ public class LiveMixinPatcher
         var creature = __instance.GetComponent<Creature>();
         var vehicle = __instance.GetComponent<Vehicle>();
         var subRoot = __instance.GetComponent<SubRoot>();
-        if (creature == null && vehicle == null && subRoot == null) return;
+        if (creature == null && vehicle == null && subRoot == null && __instance.gameObject != Player.main.gameObject) return;
         __instance.gameObject.AddComponent<FleshBlobInfluenced>();
     }
     
