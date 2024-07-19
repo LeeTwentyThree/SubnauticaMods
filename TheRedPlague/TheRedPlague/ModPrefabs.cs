@@ -365,6 +365,12 @@ public static class ModPrefabs
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshWallAurora"), "FleshWall", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshRoomDecal"), "FleshRoomDecalPrefab", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshRoomDecal2"), "FleshRoomDecal2Prefab", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp1"), "OrgansProp1", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp1Aurora"), "OrgansProp1", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp2"), "OrgansProp2", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp2Aurora"), "OrgansProp2", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacle"), "DecorationalTentacle", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacleAurora"), "DecorationalTentacle", false, true).Register();
         
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolder"), "CoreHolderPrefab", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolderGeneric"), "CoreHolderPrefab", false, false).Register();
@@ -536,6 +542,7 @@ public static class ModPrefabs
         mrTeeth.Register();
         
         AuroraTentaclePrefab.Register();
+        RepairedAuroraPrefab.Register();
     }
 
     private static void RegisterEquipment()
