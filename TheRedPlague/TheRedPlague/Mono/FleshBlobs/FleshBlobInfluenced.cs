@@ -9,6 +9,8 @@ public class FleshBlobInfluenced : MonoBehaviour
     private Transform _targetTransform;
     private Rigidbody _rb;
 
+    private bool _died;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -17,6 +19,8 @@ public class FleshBlobInfluenced : MonoBehaviour
 
     private void Update()
     {
+        if (_died) return;
+        
         if (Time.time > _timeQueryAgain)
         {
             _timeQueryAgain = Time.time + 0.5f;
@@ -28,7 +32,12 @@ public class FleshBlobInfluenced : MonoBehaviour
                 if (Vector3.SqrMagnitude(_targetTransform.position - transform.position) < 30 * 30 * target.growth.Size * target.growth.Size)
                 {
                     var lm = GetComponent<LiveMixin>();
-                    if (lm && lm.IsAlive()) lm.TakeDamage(10000);
+                    if (lm && lm.IsAlive())
+                    {
+                        lm.TakeDamage(10000);
+                        if (GetComponent<Creature>() != null && lm.maxHealth < 3000) Destroy(gameObject);
+                        _died = true;
+                    }
                 }
             }
             else
