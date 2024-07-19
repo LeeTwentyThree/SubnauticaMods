@@ -32,7 +32,6 @@ public static class RedPlaguePrecursorLight
         var light = Object.Instantiate(lightPrefab, prefab.transform);
         light.transform.localPosition = Vector3.up * 1.4f;
         light.transform.localRotation = Quaternion.identity;
-        light.transform.localScale = new Vector3(0.43f, 0.202f, 0.202f);
         Object.DestroyImmediate(light.GetComponent<PrefabIdentifier>());
         Object.DestroyImmediate(light.GetComponent<LargeWorldEntity>());
     }
