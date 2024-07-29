@@ -3,6 +3,7 @@ using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using TheRedPlague.Mono;
+using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 using UnityEngine;
 
 namespace TheRedPlague.PrefabFiles;

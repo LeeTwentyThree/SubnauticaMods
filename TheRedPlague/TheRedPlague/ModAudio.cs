@@ -68,6 +68,25 @@ public static class ModAudio
         RegisterSound("MrTeethBury", "MrTeethBury", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 20f);
         RegisterSound("UnlockTurretScream", "UnlockTurretScream", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 100f);
         RegisterSound("AuroraThrusterEvent", "AuroraThrusterEventFinal", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 10000f);
+        
+        RegisterSound("PlagueCyclopsAheadFlank", "aheadflank", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsAheadSlow", "aheadslow", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsAheadStandard", "aheadstandard", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsAssimilationSuccessful", "assimilationsuccessful", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, 200f);
+        RegisterSoundWithVariants("PlagueCyclopsScream", new[] {"cyclopsscream1","cyclopsscream2","cyclopsscream3"}, "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, 200f);
+        RegisterSound("PlagueCyclopsEngineMaintenance", "enginemaintenance", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsEnginePoweringDown", "EnginePoweringDown", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsEnginePoweringUp", "EnginePoweringUp", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsPropellerObstruction", "propellorobstruction", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsWelcomeAboard", "welcomeaboard", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsWelcomeAboardGlitched", "WelcomeAboardGlitched", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsWreckSpeech", "wreckspeech", "bus:/master/SFX_for_pause/all_no_pda_pause/all_voice_no_pda_pause/VOs", 5f, -1);
+        RegisterSound("PlagueCyclopsDeath", "PlagueCyclopsDeath", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
+        RegisterSound("PlagueCyclopsFall", "cyclopscrash", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 100);
+        RegisterSound("PlagueCyclopsTentaclesSpawn", "cyclopsupgradeanimation", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 20);
+        RegisterSound("PlagueCyclopsEngineBreak", "CyclopsEngineBreak", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 40);
+        
+        RegisterSound("VoidIslandMusic", "voidislandcave", "bus:/master/SFX_for_pause/nofilter/music", -1f, -1);
     }
 
     private static void Register2DSound(string id, string clipName, string bus)
@@ -80,8 +99,9 @@ public static class ModAudio
     private static void RegisterSound(string id, string clipName, string bus, float minDistance = 10f,
         float maxDistance = 200f)
     {
-        var sound = AudioUtils.CreateSound(Bundle.LoadAsset<AudioClip>(clipName), AudioUtils.StandardSoundModes_3D);
-        sound.set3DMinMaxDistance(minDistance, maxDistance);
+        var sound = AudioUtils.CreateSound(Bundle.LoadAsset<AudioClip>(clipName), maxDistance >= 0 ? AudioUtils.StandardSoundModes_3D : AudioUtils.StandardSoundModes_2D);
+        if (maxDistance >= 0)
+            sound.set3DMinMaxDistance(minDistance, maxDistance);
 
         CustomSoundHandler.RegisterCustomSound(id, sound, bus);
     }
@@ -92,8 +112,9 @@ public static class ModAudio
         var clipList = new List<AudioClip>();
         clipNames.ForEach(clipName => clipList.Add(Bundle.LoadAsset<AudioClip>(clipName)));
 
-        var sounds = AudioUtils.CreateSounds(clipList, AudioUtils.StandardSoundModes_3D);
-        sounds.ForEach(sound => sound.set3DMinMaxDistance(minDistance, maxDistance));
+        var sounds = AudioUtils.CreateSounds(clipList, maxDistance >= 0 ? AudioUtils.StandardSoundModes_3D : AudioUtils.StandardSoundModes_2D);
+        if (maxDistance >= 0)
+            sounds.ForEach(sound => sound.set3DMinMaxDistance(minDistance, maxDistance));
 
         var multiSoundsEvent = new FModMultiSounds(sounds.ToArray(), bus, true);
 

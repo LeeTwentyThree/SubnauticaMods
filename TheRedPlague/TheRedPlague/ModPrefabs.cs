@@ -8,7 +8,10 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using TheRedPlague.Creatures;
 using TheRedPlague.Mono;
+using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
+using TheRedPlague.Mono.PlagueCyclops;
 using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.UpgradeModules;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -34,6 +37,7 @@ public static class ModPrefabs
     public static PrefabInfo MutantDiver2 { get; } = PrefabInfo.WithTechType("MutantDiver2");
     public static PrefabInfo MutantDiver3 { get; } = PrefabInfo.WithTechType("MutantDiver3");
     public static PrefabInfo MutantDiver4 { get; } = PrefabInfo.WithTechType("MutantDiver4");
+    public static PrefabInfo SuckerController { get; } = PrefabInfo.WithTechType("SuckerController");
     
     public static PrefabInfo MrTeeth { get; } = PrefabInfo.WithTechType("MrTeeth");
 
@@ -79,6 +83,8 @@ public static class ModPrefabs
         RegisterDataboxesAndConsoles();
         
         CyclopsWreckPrefab.Register();
+        
+        PlagueCyclopsIslandWreckPrefab.Register();
 
         if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("WorldHeightLib"))
         {
@@ -107,6 +113,25 @@ public static class ModPrefabs
             new Color(1.05f, 1f, 1f, 1), 2f, new Color(1f, 0.3f, 0.3f), 0.05f, 10f, 0.5f, 0.5f, 18f);
         BiomeHandler.RegisterBiome("plagueheart", plagueHeartBiomeSettings,
             new BiomeHandler.SkyReference("SkyGrassyPlateaus"));
+        
+        var voidIslandSettings = BiomeUtils.CreateBiomeSettings(new Vector3(4f, 2, 2f), 0.4f,
+            new Color(1.05f, 0.6f, 0.6f, 1), 3f, new Color(1f, 0.3f, 0.3f), 0f, 10f, 0.5f, 0.9f, 20f);
+        BiomeHandler.RegisterBiome("plaguecyclopsisland", voidIslandSettings,
+            new BiomeHandler.SkyReference("SkyGrassyPlateaus"));
+        BiomeHandler.RegisterBiome("plaguecyclopsislandinterior", voidIslandSettings,
+            new BiomeHandler.SkyReference("SkyMountains"));
+        
+        var voidIslandBiomePrefab = new CustomPrefab(PrefabInfo.WithTechType("VoidIslandBiomeVolume"));
+        var voidIslandBiomeTemplate = new AtmosphereVolumeTemplate(voidIslandBiomePrefab.Info,
+            AtmosphereVolumeTemplate.VolumeShape.Sphere, "plaguecyclopsisland");
+        voidIslandBiomePrefab.SetGameObject(voidIslandBiomeTemplate);
+        voidIslandBiomePrefab.Register();
+        
+        var voidIslandInteriorBiomePrefab = new CustomPrefab(PrefabInfo.WithTechType("VoidIslandBiomeInteriorVolume"));
+        var voidIslandInteriorBiomeTemplate = new AtmosphereVolumeTemplate(voidIslandInteriorBiomePrefab.Info,
+            AtmosphereVolumeTemplate.VolumeShape.Sphere, "plaguecyclopsislandinterior");
+        voidIslandInteriorBiomePrefab.SetGameObject(voidIslandInteriorBiomeTemplate);
+        voidIslandInteriorBiomePrefab.Register();
     }
 
     private static void RegisterPrecursorBasePieces()
@@ -371,9 +396,12 @@ public static class ModPrefabs
         new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp2Aurora"), "OrgansProp2", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacle"), "DecorationalTentacle", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacleAurora"), "DecorationalTentacle", false, true).Register();
-        
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolder"), "CoreHolderPrefab", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolderGeneric"), "CoreHolderPrefab", false, false).Register();
+        
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("CyclopsHolderTop"), "CyclopsHolderTopPrefab", false, true).Register();
+        
+        CyclopsTentaclePrefab.Register();
         
         var infectedHangingPlant = MakeInfectedClone(PrefabInfo.WithTechType("InfectedHangingPlant"),
             "8d7f308a-21db-4d1f-99c7-38860e5132e7", 1f, obj => obj.GetComponentInChildren<Renderer>().material.color = new Color(3, 0.3f, 0.3f));
@@ -505,6 +533,8 @@ public static class ModPrefabs
         mutantDiver4.Register();
         
         SuckerPrefab.Register();
+        
+        new SuckerController(SuckerController).Register();
 
         var mrTeethSpawnPoint = new CustomPrefab(PrefabInfo.WithTechType("MrTeethSpawnPoint"));
         mrTeethSpawnPoint.SetGameObject(() =>
@@ -554,6 +584,10 @@ public static class ModPrefabs
         PlagueKnife.Register();
         
         AirStrikeDevice.Register();
+        
+        PlagueCyclopsCore.Register();
+        
+        AlterraBomb.Register();
     }
 
     private static void RegisterFood()

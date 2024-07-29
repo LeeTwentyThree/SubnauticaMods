@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TheRedPlague.Mono.CreatureBehaviour.Sucker;
 using UnityEngine;
 
 namespace TheRedPlague.Mono.Tools;

@@ -10,8 +10,8 @@ namespace TheRedPlague.Mono;
 // har har har har har har har har  har har har har har har har
 public class JumpScares : MonoBehaviour, IStoryGoalListener
 {
-    private float _minDelay = 60;
-    private float _maxDelay = 90;
+    private float _minDelay = 300;
+    private float _maxDelay = 900;
     private float _radius = 40;
     private float _timeSpawnAgain;
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TheRedPlague.Mono;
+namespace TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 
 public class MrTeethHuntBehaviour : CreatureAction
 {

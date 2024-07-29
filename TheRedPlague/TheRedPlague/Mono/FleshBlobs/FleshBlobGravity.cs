@@ -31,6 +31,7 @@ public class FleshBlobGravity : MonoBehaviour
 
     public float GetGravitationalForceMagnitude(Vector3 atPosition)
     {
+        if (Vector3.SqrMagnitude(transform.position - atPosition) > MaxDistance * MaxDistance) return 0;
         return Mathf.Clamp(GravitationalConstant / Vector3.SqrMagnitude(transform.position - atPosition), 0, 50 * growth.Size);
     }
 

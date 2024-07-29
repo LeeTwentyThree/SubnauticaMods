@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using TheRedPlague.Mono;
+using TheRedPlague.Mono.CreatureBehaviour.Sucker;
 using UnityEngine;
 using UWE;
 

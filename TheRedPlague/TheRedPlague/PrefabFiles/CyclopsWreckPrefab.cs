@@ -57,6 +57,8 @@ public class CyclopsWreckPrefab
             damagedCyclops.transform.Find(infectedChild).gameObject.AddComponent<InfectAnything>().infectionHeightStrength = -0.5f;
         }
         
+        damagedCyclops.AddComponent<ConstructionObstacle>();
+        
         result.Set(damagedCyclops);
     }
 

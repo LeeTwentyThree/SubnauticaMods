@@ -2,7 +2,7 @@
 using Nautilus.Utility;
 using UnityEngine;
 
-namespace TheRedPlague.Mono;
+namespace TheRedPlague.Mono.CreatureBehaviour.Sucker;
 
 public class SuckerDamageable : MonoBehaviour
 {

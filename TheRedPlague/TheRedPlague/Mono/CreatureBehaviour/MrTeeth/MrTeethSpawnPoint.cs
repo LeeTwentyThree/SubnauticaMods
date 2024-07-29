@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheRedPlague.Mono;
+namespace TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 
 public class MrTeethSpawnPoint : MonoBehaviour
 {
