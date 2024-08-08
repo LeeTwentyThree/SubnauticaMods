@@ -588,6 +588,8 @@ public static class ModPrefabs
         PlagueCyclopsCore.Register();
         
         AlterraBomb.Register();
+        
+        DrifterCannonPrefab.Register();
     }
 
     private static void RegisterFood()
