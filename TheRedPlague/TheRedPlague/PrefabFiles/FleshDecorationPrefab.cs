@@ -54,6 +54,8 @@ public class FleshDecorationPrefab
                 skyApplier.anchorSky = Skies.Custom;
             }
         }
+
+        go.AddComponent<ConstructionObstacle>();
         prefab.Set(go);
     }
 }
