@@ -332,9 +332,6 @@ public static class ModPrefabs
     {
         var infectedReaperSkeleton = MakeInfectedClone(PrefabInfo.WithTechType("InfectedReaperSkeleton"),
             "8fe779a5-e907-4e9e-b748-1eee25589b34", 4f);
-        infectedReaperSkeleton.SetSpawns(
-            new LootDistributionData.BiomeData {biome = BiomeType.Dunes_SandDune, count = 1, probability = 0.04f}
-        );
         infectedReaperSkeleton.Register();
 
         var reaperWithoutSkullModification = (GameObject go) =>
@@ -351,38 +348,18 @@ public static class ModPrefabs
 
         var infectedReaperSkeletonNoSkull = MakeInfectedClone(PrefabInfo.WithTechType("InfectedReaperSkeletonNoSkull"),
             "8fe779a5-e907-4e9e-b748-1eee25589b34", 4f, reaperWithoutSkullModification);
-        infectedReaperSkeletonNoSkull.SetSpawns(
-            new LootDistributionData.BiomeData
-                {biome = BiomeType.SafeShallows_SandFlat, count = 1, probability = 0.04f},
-            new LootDistributionData.BiomeData {biome = BiomeType.GrassyPlateaus_Sand, count = 1, probability = 0.04f},
-            new LootDistributionData.BiomeData {biome = BiomeType.Kelp_GrassSparse, count = 1, probability = 0.02f}
-        );
         infectedReaperSkeletonNoSkull.Register();
 
         var infectedGenericSkeleton1 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedSkeleton1"),
             "0b6ea118-1c0b-4039-afdb-2d9b26401ad2", 7f);
-        infectedGenericSkeleton1.SetSpawns(
-            new LootDistributionData.BiomeData {biome = BiomeType.Dunes_SandDune, count = 1, probability = 0.02f},
-            new LootDistributionData.BiomeData {biome = BiomeType.Kelp_GrassDense, count = 1, probability = 0.08f},
-            new LootDistributionData.BiomeData {biome = BiomeType.MushroomForest_Sand, count = 1, probability = 0.08f}
-        );
         infectedGenericSkeleton1.Register();
 
         var infectedGenericSkeleton2 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedSkeleton2"),
             "e10ff9a1-5f1e-4c4d-bf5f-170dba9e321b", 8f);
-        infectedGenericSkeleton2.SetSpawns(
-            new LootDistributionData.BiomeData {biome = BiomeType.Dunes_Rock, count = 1, probability = 0.02f},
-            new LootDistributionData.BiomeData {biome = BiomeType.MushroomForest_Grass, count = 1, probability = 0.1f}
-        );
         infectedGenericSkeleton2.Register();
 
         var infectedRib2 = MakeInfectedClone(PrefabInfo.WithTechType("InfectedRib"),
             "33c31a89-9d3b-4717-ad26-4cc8106a1f24", 2f);
-        infectedRib2.SetSpawns(new LootDistributionData.BiomeData
-                {biome = BiomeType.Dunes_Rock, count = 1, probability = 0.1f},
-            new LootDistributionData.BiomeData
-                {biome = BiomeType.Dunes_Grass, count = 1, probability = 0.1f}
-        );
         infectedRib2.Register();
 
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshMass"), "FleshMass", false, false).Register();
