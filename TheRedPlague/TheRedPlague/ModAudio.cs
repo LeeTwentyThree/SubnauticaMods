@@ -50,8 +50,7 @@ public static class ModAudio
         RegisterSoundWithVariants("FleshBlobGroan",
             new string[]
             {
-                "FleshBlobGroan1", "FleshBlobGroan2", "FleshBlobGroan3", "FleshBlobGroan4", "FleshBlobGroan5",
-                "FleshBlobGroan6"
+                "FleshBlobGroan1", "FleshBlobGroan2", "FleshBlobGroan3", "FleshBlobGroan4", "FleshBlobGroan5"
             },
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 10f, 250f);
         RegisterSound("FleshBlobHunt", "FleshBlobApproach", "bus:/master/SFX_for_pause/PDA_pause/all", 10, 500);
