@@ -2,6 +2,7 @@
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
+using Nautilus.Utility;
 using TheRedPlague.Mono.CreatureBehaviour.Drifter;
 using UnityEngine;
 
@@ -44,6 +45,11 @@ public class DrifterPrefab : CreatureAsset
             eyeArmatureParent.Find("Bone.002"),
             eyeArmatureParent.Find("Bone.003 1")
         };
+
+        var loopingEmitter = prefab.AddComponent<FMOD_CustomLoopingEmitter>();
+        loopingEmitter.SetAsset(AudioUtils.GetFmodAsset("DrifterIdle"));
+        loopingEmitter.followParent = true;
+        loopingEmitter.playOnAwake = true;
 
         yield break;
     }
