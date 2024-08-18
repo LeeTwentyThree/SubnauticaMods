@@ -36,7 +36,7 @@ public class DrifterPrefab : CreatureAsset
         wf.underwaterDrag = 1;
         
         var eyeTracking = prefab.AddComponent<DrifterEyeTracking>();
-        var eyeArmatureParent = prefab.transform.Find("DrifterAnimated/EyeArmature");
+        var eyeArmatureParent = prefab.transform.Find("DrifterAnimated/DrifterArmature/EyeArmature");
         eyeTracking.transforms = new[]
         {
             eyeArmatureParent.Find("Bone 1"),
