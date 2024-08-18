@@ -2,6 +2,7 @@
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using TheRedPlague.Mono.CreatureBehaviour.Drifter;
 using UnityEngine;
@@ -24,9 +25,23 @@ public class DrifterPrefab : CreatureAsset
             LocomotionData = new LocomotionData(5f, 0.1f, 1f, 1f, true, true),
             SwimRandomData = new SwimRandomData(0.1f, BaseVelocity, new Vector3(50, 3, 50), 5f, 0.8f),
             Mass = 3000,
-            RespawnData = new RespawnData(false)
+            RespawnData = new RespawnData(false),
+            CellLevel = LargeWorldEntity.CellLevel.VeryFar
         };
         return template;
+    }
+
+    protected override void PostRegister()
+    {
+        var randomGenerator = new System.Random(51034581);
+        for (int i = 0; i < 40; i++)
+        {
+            var angle = (float) randomGenerator.NextDouble() * Mathf.PI * 2f;
+            var distance = Mathf.Pow((float) randomGenerator.NextDouble(), 1/2f) * 1500f;
+            var height = 20 + (float) randomGenerator.NextDouble() * 30;
+            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PrefabInfo.ClassID,
+                new Vector3(Mathf.Cos(angle) * distance, height, Mathf.Sin(angle) * distance)));
+        }
     }
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
