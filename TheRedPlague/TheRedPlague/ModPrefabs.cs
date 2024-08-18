@@ -40,6 +40,7 @@ public static class ModPrefabs
     public static PrefabInfo SuckerController { get; } = PrefabInfo.WithTechType("SuckerController");
     
     public static PrefabInfo MrTeeth { get; } = PrefabInfo.WithTechType("MrTeeth");
+    public static PrefabInfo Drifter { get; } = PrefabInfo.WithTechType("Drifter");
 
     public static PrefabInfo AmalgamatedBone { get; } = PrefabInfo.WithTechType("AmalgamatedBone")
         .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("AmalgamatedBone"));
@@ -579,6 +580,9 @@ public static class ModPrefabs
         
         AuroraTentaclePrefab.Register();
         RepairedAuroraPrefab.Register();
+
+        var drifter = new DrifterPrefab(Drifter);
+        drifter.Register();
     }
 
     private static void RegisterEquipment()
