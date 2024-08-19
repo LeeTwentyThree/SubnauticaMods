@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <Reference Include="Newtonsoft.Json">
-        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\Subnautica_Data\Managed\Newtonsoft.Json.dll</HintPath>
+        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Newtonsoft.Json.dll</HintPath>
       </Reference>
     </ItemGroup>
 
