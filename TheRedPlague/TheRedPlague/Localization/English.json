@@ -1,0 +1,71 @@
+{
+    "PlagueEquipment": "Organic equipment",
+    "DeadSeaEmperor": "Deceased Sea Emperor",
+
+    "WarperHeart": "Warper heart",
+    "Tooltip_WarperHeart": "A warper's bio-mechanical heart. While unstable due to the infection, the power can still be utilized for your own purposes.",
+
+    "AmalgamatedBone": "Amalgamated bone",
+    "Tooltip_AmalgamatedBone": "Skeletal remnants of a heavily infected creature. Unlike other organic material, this bone is able to withstand the effects of the plague. May be found on the seafloor of heavily infected zones.",
+
+    "PlagueHeart": "Heart of the plague",
+    "Tooltip_PlagueHeart": "DISEASE CONCENTRATION: LETHAL. FIND A CURE AS QUICKLY AS POSSIBLE.",
+
+    "ConcentratedEnzymeContainer": "Concentrated Enzyme 42",
+    "Tooltip_ConcentratedEnzymeContainer": "A container of concentrated enzyme 42, ready to be placed into a machine for mass distribution.",
+
+    "InfectedEnzyme": "Impure Enzyme 42",
+    "Tooltip_InfectedEnzyme": "A small concentration of Enzyme 42. Not very useful until fabricated into a concentrated solution.",
+
+    "InfectionTracker": "Tracker tablet",
+    "Tooltip_InfectionTracker": "A tablet that directs its user to a certain location.",
+
+    "PrecursorPhoneInfo": "PrecursorPhone",
+    "Tooltip_PrecursorPhoneInfo": "An unusual alien device.",
+
+    "PlagueKnife": "Plague knife",
+    "Tooltip_PlagueKnife": "A more powerful upgrade of the survival knife, with a connection to the infected defense network.",
+
+    "PlagueArmor": "Plague armor",
+    "Tooltip_PlagueArmor": "This suit exploits a rare mutation of the plague that allows its host to survive otherwise fatal contact with the disease. The side effects are unknown.",
+
+    "MutantDiver1": "Mutant diver",
+    "MutantDiver2": "Mutant diver",
+    "MutantDiver3": "Heavily mutated diver",
+    "MutantDiver4": "Heavily mutated diver",
+    "Tooltip_MutantDiver4": "??!?!?!? D E? E  A TH TH ???!? ? --  IS  $$$$$$$$$$!!   JUST A GLA!!!NCE#@   @  -A-  $$ -W- !! -A-  -Y-@!!??@",
+
+    "BoneArmorDatabox": "Databox",
+    "PlagueKnifeDatabox": "Databox",
+
+    "AdministratorDropPodPing": "Delivery",
+    "AdminDropPodBeacon": "Delivery beacon",
+    "Tooltip_AdminDropPodBeacon": "A free shipment of equipment from one of your friends at Alterra!",
+
+    "AirStrikeDevice": "Air strike target device",
+    "Tooltip_AirStrikeDevice": "Designates the location for a drone-based air attack.",
+    "AirStrikeSubtitles": "Air strike inbound in approximately 30 seconds.<delay=1000><duration=4000>
+Please evacuate the area IMMEDIATELY!<delay=5500><duration=3500>
+Alterra is NOT responsible for any deaths or injuries that may occur.<delay=9000><duration=4000>
+Officer: Alterra to 4546B. Yes, WE'VE GOT PERMISSION TO STRIKE.<delay=16900><duration=3000>
+Approximately five seconds remaining until impact.<delay=20000><duration=3400>
+Five, four, three, two, one...<delay=24000><duration=4000>",
+
+    "TheRegular": "The regular",
+    "Tooltip_TheRegular": "An Alterra corporation special.",
+    "RedPlagueHam": "Ham",
+    "Tooltip_RedPlagueHam": "A dsytopian flavor.",
+    "RedPlagueCheese": "Cheese",
+    "Tooltip_RedPlagueCheese": "Cheesy.",
+
+    "AdminFabricator": "Administrator fabricator",
+
+    "UnlockTurretScream": "",
+
+    "PlagueCyclopsCore": "Contained parasite",
+    "Tooltip_PlagueCyclopsCore": "A sentient creature contained within a small glass container. If inserted into a host with enough energy, it may be able to take control.",
+    
+    "PlagueCyclopsAssimilationSuccessful": "CYCLOPS: Assimilation successful.",
+    "PlagueCyclopsEngineMaintenance": "CYCLOPS: Attention! Engine maintenance recommended. Gears slipping!",
+    "PlagueCyclopsPropellerObstruction": "CYCLOPS: Warning: obstruction in the propeller! Vessel immobilized."
+}

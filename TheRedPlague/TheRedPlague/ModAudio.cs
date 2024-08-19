@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FMOD;
 using Nautilus.FMod;
 using Nautilus.Handlers;
 using Nautilus.Utility;
@@ -49,8 +50,7 @@ public static class ModAudio
         RegisterSoundWithVariants("FleshBlobGroan",
             new string[]
             {
-                "FleshBlobGroan1", "FleshBlobGroan2", "FleshBlobGroan3", "FleshBlobGroan4", "FleshBlobGroan5",
-                "FleshBlobGroan6"
+                "FleshBlobGroan1", "FleshBlobGroan2", "FleshBlobGroan3", "FleshBlobGroan4", "FleshBlobGroan5"
             },
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 10f, 250f);
         RegisterSound("FleshBlobHunt", "FleshBlobApproach", "bus:/master/SFX_for_pause/PDA_pause/all", 10, 500);
@@ -62,13 +62,18 @@ public static class ModAudio
         RegisterSoundWithVariants("RandomFootsteps", new string[] {"FootstepsSlow", "FootstepsFast"},
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 120f);
         RegisterSound("SuckerDeath", "SuckerDeath", "bus:/master/SFX_for_pause/PDA_pause/all", 3f, 50);
+        
+        // Mr teeth
         RegisterSoundWithVariants("MrTeethScream", new string[] {"MrTeethScream1", "MrTeethScream2", "MrTeethScream3"},
             "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend", 5f, 120f);
         RegisterSound("MrTeethGrab", "MrTeethGrab", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 50);
         RegisterSound("MrTeethBury", "MrTeethBury", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 20f);
+        
+        // Aurora misc
         RegisterSound("UnlockTurretScream", "UnlockTurretScream", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 100f);
         RegisterSound("AuroraThrusterEvent", "AuroraThrusterEventFinal", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 10000f);
         
+        // Plague cyclops
         RegisterSound("PlagueCyclopsAheadFlank", "aheadflank", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
         RegisterSound("PlagueCyclopsAheadSlow", "aheadslow", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
         RegisterSound("PlagueCyclopsAheadStandard", "aheadstandard", "bus:/master/SFX_for_pause/PDA_pause/all/all voice/cyclops voice", 5f, -1);
@@ -86,6 +91,13 @@ public static class ModAudio
         RegisterSound("PlagueCyclopsTentaclesSpawn", "cyclopsupgradeanimation", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 20);
         RegisterSound("PlagueCyclopsEngineBreak", "CyclopsEngineBreak", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 40);
         
+        // Drifter
+        var drifterIdleSound = AudioUtils.CreateSound(Bundle.LoadAsset<AudioClip>("DrifterIdle"), AudioUtils.StandardSoundModes_3D | MODE.LOOP_NORMAL);
+        drifterIdleSound.set3DMinMaxDistance(5, 80);
+
+        CustomSoundHandler.RegisterCustomSound("DrifterIdle", drifterIdleSound, "bus:/master/SFX_for_pause/PDA_pause/all");
+        
+        // Music
         RegisterSound("VoidIslandMusic", "voidislandcave", "bus:/master/SFX_for_pause/nofilter/music", -1f, -1);
     }
 

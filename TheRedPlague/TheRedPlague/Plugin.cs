@@ -10,8 +10,11 @@ namespace TheRedPlague;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus")]
+[BepInDependency("com.lee23.ecclibrary")]
+[BepInDependency("WorldHeightLib")]
+[BepInDependency("Esper89.TerrainPatcher")]
+[BepInDependency("TerrainExtender")]
 [BepInDependency("com.aci.thesilence", BepInDependency.DependencyFlags.SoftDependency)]
-[BepInDependency("WorldHeightLib", BepInDependency.DependencyFlags.HardDependency)]
 [BepInDependency("com.lee23.bloopandblaza", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("UnknownModdingLib", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BaseUnityPlugin
