@@ -33,10 +33,10 @@
 
     <ItemGroup>
       <Reference Include="ECCLibrary">
-        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\ECCLibrary\ECCLibrary.dll</HintPath>
+        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\ECCLibrary\ECCLibrary.dll</HintPath>
       </Reference>
       <Reference Include="WeatherMod">
-        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\WeatherMod\WeatherMod.dll</HintPath>
+        <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\WeatherMod\WeatherMod.dll</HintPath>
       </Reference>
       <Reference Include="WorldHeightLib">
         <HintPath>..\..\Dependencies\WorldHeightLib.dll</HintPath>
