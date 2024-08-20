@@ -31,7 +31,7 @@ public class Blaza : CreatureAsset
         template.AttackLastTargetData = new AttackLastTargetData(0.3f, 45f, 0.5f, 10f, 12f);
         template.AggressiveToPilotingVehicleData = new AggressiveToPilotingVehicleData(25f, 0.5f);
         template.Mass = 3000;
-        template.BehaviourLODData = new BehaviourLODData(50, 300, 1000);
+        template.BehaviourLODData = new BehaviourLODData(50, 300, 5000);
         template.AnimateByVelocityData = new AnimateByVelocityData(12);
         template.CanBeInfected = false;
         template.AcidImmune = true;
@@ -52,6 +52,7 @@ public class Blaza : CreatureAsset
 
         var trailManagerBuilder = new TrailManagerBuilder(components, prefab.transform.SearchChild("Spine.016"));
         trailManagerBuilder.SetTrailArrayToAllChildren();
+        trailManagerBuilder.AllowDisableOnScreen = false;
         trailManagerBuilder.Apply();
         
         var behaviour = prefab.AddComponent<BlazaBehaviour>();

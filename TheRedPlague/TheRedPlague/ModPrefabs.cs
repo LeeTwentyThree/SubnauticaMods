@@ -382,7 +382,9 @@ public static class ModPrefabs
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp3Aurora"), "FleshProp3Prefab", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp4"), "FleshProp4Prefab", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp4Aurora"), "FleshProp4Prefab", false, true).Register();
-        
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FuckYou"), "FuckYouPrefab", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FuckYouAurora"), "FuckYouPrefab", false, true).Register();
+
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CyclopsHolderTop"), "CyclopsHolderTopPrefab", false, true).Register();
         
         CyclopsTentaclePrefab.Register();
