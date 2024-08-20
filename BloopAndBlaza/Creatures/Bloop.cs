@@ -34,6 +34,7 @@ public class Bloop : CreatureAsset
         template.BehaviourLODData = new BehaviourLODData(50, 300, 1000);
         template.LocomotionData = new LocomotionData(10f, 0.05f, 3f, 0.9f);
         template.CanBeInfected = false;
+        template.RespawnData = new RespawnData(false);
         return template;
     }
 

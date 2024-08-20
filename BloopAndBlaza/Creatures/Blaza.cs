@@ -35,6 +35,7 @@ public class Blaza : CreatureAsset
         template.AnimateByVelocityData = new AnimateByVelocityData(12);
         template.CanBeInfected = false;
         template.AcidImmune = true;
+        template.RespawnData = new RespawnData(false);
         return template;
     }
 
