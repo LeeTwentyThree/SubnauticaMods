@@ -33,6 +33,8 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
 
     private IEnumerator Start()
     {
+        _timeSpawnAgain = Time.time + Random.Range(_minDelay, _maxDelay);
+
         yield return new WaitUntil(() =>
             StoryGoalManager.main.completedGoals != null && StoryGoalManager.main.completedGoals.Count > 0);
         if (StoryGoalManager.main.IsGoalComplete(StoryUtils.ForceFieldLaserDisabled.key))
