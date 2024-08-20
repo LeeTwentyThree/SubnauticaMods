@@ -12,13 +12,18 @@ namespace BloopAndBlaza.Creatures;
 
 public class Bloop : CreatureAsset
 {
-    public Bloop(PrefabInfo prefabInfo) : base(prefabInfo)
+    private readonly GameObject _model;
+    private readonly bool _deep;
+    
+    public Bloop(PrefabInfo prefabInfo, GameObject model, bool deep) : base(prefabInfo)
     {
+        _model = model;
+        _deep = deep;
     }
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Bloop_Prefab"),
+        var template = new CreatureTemplate(_model,
             BehaviourType.Leviathan, EcoTargetType.Leviathan, 5000);
         template.CellLevel = LargeWorldEntity.CellLevel.VeryFar;
         template.SwimRandomData = new SwimRandomData(0.1f, 10f, new Vector3(40, 10, 40), 3, 0.8f);
@@ -31,7 +36,7 @@ public class Bloop : CreatureAsset
         template.AttackLastTargetData = new AttackLastTargetData(0.3f, 13f, 0.5f, 13f, 40f);
         template.Mass = 1500;
         template.StayAtLeashData = new StayAtLeashData(0.2f, 10f, 60f);
-        template.BehaviourLODData = new BehaviourLODData(50, 300, 1000);
+        template.BehaviourLODData = new BehaviourLODData(50, 300, 5000);
         template.LocomotionData = new LocomotionData(10f, 0.05f, 3f, 0.9f);
         template.CanBeInfected = false;
         template.RespawnData = new RespawnData(false);
@@ -45,13 +50,25 @@ public class Bloop : CreatureAsset
         var seamoth = seamothTask.GetResult().GetComponent<SeaMoth>();
         var vortexVfxPrefab = seamoth.torpedoTypes[0].prefab.GetComponent<SeamothTorpedo>().explosionPrefab
             .GetComponent<AddressablesPrefabSpawn>().prefab;
-        yield return vortexVfxPrefab.LoadAssetAsync();
-        var vortexVfx = vortexVfxPrefab.Asset as GameObject;
+        var handle = vortexVfxPrefab.InstantiateAsync();
+        var request = AddressablesPrefabSpawnRequest.Get(handle);
+        var complete = false;
+        GameObject vortexVfx = null;
+        request.RegisterCallback(spawn =>
+        {
+            vortexVfx = Object.Instantiate(spawn.GetResultAndRelease());
+            vortexVfx.SetActive(false);
+            Object.DontDestroyOnLoad(vortexVfx);
+            vortexVfx.AddComponent<SceneCleanerPreserve>();
+            complete = true;
+        });
+        yield return new WaitUntil(() => complete);
         Object.DestroyImmediate(vortexVfx.GetComponent<VFXDestroyAfterSeconds>());
 
         prefab.AddComponent<Mono.SwimAmbience>();
 
-        var trailBuilder = new TrailManagerBuilder(components, prefab.SearchChild("Spine2").transform, 4f)
+        var trailBuilder = new TrailManagerBuilder(components, prefab.SearchChild("Spine2").transform,
+            _deep ? 1f : 4f)
         {
             Trails = new[]
             {
@@ -60,7 +77,8 @@ public class Bloop : CreatureAsset
                 prefab.SearchChild("Spine5").transform,
                 prefab.SearchChild("Spine6").transform,
                 prefab.SearchChild("Tail1").transform
-            }
+            },
+            AllowDisableOnScreen = false
         };
         
         trailBuilder.Apply();
@@ -111,9 +129,18 @@ public class Bloop : CreatureAsset
 
     protected override void PostRegister()
     {
-        CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 6f,
-            Plugin.AssetBundle.LoadAsset<Texture2D>("Fatfish_Ency"),
-            Plugin.AssetBundle.LoadAsset<Sprite>("Fatfish_Popup"));
+        if (_deep)
+        {
+            CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 6f,
+                null,
+                Plugin.AssetBundle.LoadAsset<Sprite>("DeepBloop_Popup"));
+        }
+        else
+        {
+            CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 6f,
+                Plugin.AssetBundle.LoadAsset<Texture2D>("Fatfish_Ency"),
+                Plugin.AssetBundle.LoadAsset<Sprite>("Fatfish_Popup"));
+        }
     }
 
     protected override void ApplyMaterials(GameObject prefab)
