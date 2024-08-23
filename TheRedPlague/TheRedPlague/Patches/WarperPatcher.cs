@@ -15,8 +15,8 @@ public static class WarperPatcher
         
         var sounds = __instance.gameObject.EnsureComponent<PlayRandomSounds>();
         sounds.asset = AudioUtils.GetFmodAsset("InfectedWarperIdle");
-        sounds.minDelay = 6;
-        sounds.maxDelay = 11;
+        sounds.minDelay = 10;
+        sounds.maxDelay = 25;
 
         __instance.gameObject.EnsureComponent<WarperBecomeFriendly>();
         __instance.gameObject.EnsureComponent<WarperDropHeartOnDeath>();
