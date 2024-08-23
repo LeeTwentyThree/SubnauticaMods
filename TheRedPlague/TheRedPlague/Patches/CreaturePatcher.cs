@@ -12,7 +12,7 @@ public static class CreaturePatcher
     [HarmonyPostfix]
     public static void OnEnablePostfix(Creature __instance)
     {
-        __instance.gameObject.EnsureComponent<InfectionStrikeTarget>();
+        __instance.gameObject.EnsureComponent<InfectionTarget>();
 
         var infectedMixin = __instance.gameObject.GetComponent<InfectedMixin>();
         if (infectedMixin != null)

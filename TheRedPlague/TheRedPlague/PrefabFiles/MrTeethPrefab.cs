@@ -39,7 +39,7 @@ public class MrTeethPrefab : CreatureAsset
         attackTrigger.animator = components.Animator;
         attackTrigger.rootObject = prefab;
 
-        prefab.EnsureComponent<InfectionStrikeTarget>().invalidTarget = true;
+        prefab.EnsureComponent<InfectionTarget>().invalidTarget = true;
 
         foreach (var rb in prefab.GetComponentsInChildren<Rigidbody>())
         {

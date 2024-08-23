@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace TheRedPlague.Mono;
 
-public class InfectionStrikeTarget : MonoBehaviour
+public class InfectionTarget : MonoBehaviour
 {
-    public static readonly List<InfectionStrikeTarget> AllTargets = new List<InfectionStrikeTarget>();
+    private static readonly List<InfectionTarget> AllTargets = new();
 
     public bool invalidTarget;
     
@@ -39,5 +40,19 @@ public class InfectionStrikeTarget : MonoBehaviour
     private void OnDisable()
     {
         AllTargets.Remove(this);
+    }
+    
+    public static bool TryGetRandomTarget(out InfectionTarget chosenTarget)
+    {
+        var validTargets = AllTargets.Where(target => target.IsValidTarget()).ToArray();
+
+        if (validTargets.Length == 0)
+        {
+            chosenTarget = null;
+            return false;
+        }
+
+        chosenTarget = validTargets[Random.Range(0, validTargets.Length)];
+        return chosenTarget != null;
     }
 }

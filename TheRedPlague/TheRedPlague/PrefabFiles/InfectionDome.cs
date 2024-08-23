@@ -32,22 +32,11 @@ public static class InfectionDome
         var materials = renderer.materials;
         materials[2] = material;
         renderer.materials = materials;
-
-        var solarPanelRequest = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
-        yield return solarPanelRequest;
-        var solarPanelPrefab = solarPanelRequest.GetResult();
-
-        var linePrefab = Object.Instantiate(solarPanelPrefab.GetComponent<PowerFX>().vfxPrefab, obj.transform);
-        linePrefab.SetActive(false);
-        var line = linePrefab.GetComponent<LineRenderer>();
-        var newMaterial = new Material(line.material);
-        newMaterial.color = new Color(4, 0, 0);
-        line.material = newMaterial;
-        line.widthMultiplier = 1;
-
-        var lightning = obj.AddComponent<InfectionDomeController>();
-        lightning.linePrefab = linePrefab;
+        
+        var domeController = obj.AddComponent<InfectionDomeController>();
 
         prefab.Set(obj);
+
+        yield break;
     }
 }
