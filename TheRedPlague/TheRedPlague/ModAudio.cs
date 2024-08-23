@@ -97,6 +97,10 @@ public static class ModAudio
 
         CustomSoundHandler.RegisterCustomSound("DrifterIdle", drifterIdleSound, "bus:/master/SFX_for_pause/PDA_pause/all");
         
+        // Drifter cannon
+        RegisterSound("DrifterCannonFire", "DrifterCannonFire", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 15f);
+        RegisterSound("DrifterCannonFireNoAmmo", "DrifterCannonFireNoAmmo", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 15f);
+
         // Music
         RegisterSound("VoidIslandMusic", "voidislandcave", "bus:/master/SFX_for_pause/nofilter/music", -1f, -1);
     }
