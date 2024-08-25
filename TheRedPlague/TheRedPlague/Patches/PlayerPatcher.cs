@@ -13,7 +13,7 @@ public static class PlayerPatcher
     [HarmonyPostfix]
     public static void StartPostfix(Player __instance)
     {
-        MainCamera.camera.farClipPlane = 99999;
+        MainCamera.camera.farClipPlane = 5000;
         __instance.gameObject.EnsureComponent<RandomFishSpawner>();
         __instance.gameObject.EnsureComponent<JumpScares>();
         __instance.gameObject.AddComponent<EnzymeRainController>();
