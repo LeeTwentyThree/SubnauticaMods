@@ -27,6 +27,8 @@ public class LiveMixinPatcher
     {
         if (originalDamage <= 0 || dealer == null)
             return true;
+        if (__instance == Player.main.liveMixin)
+            return true;
         if (__instance.GetComponent<Creature>() == null)
             return true;
         var damagedByZombie = ZombieManager.IsZombie(dealer);
