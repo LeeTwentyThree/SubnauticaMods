@@ -41,6 +41,16 @@ public class InfectionTarget : MonoBehaviour
     {
         AllTargets.Remove(this);
     }
+
+    public static void InfectInRange(Vector3 center, float range)
+    {
+        foreach (var target in AllTargets)
+        {
+            if (!target.IsValidTarget()) continue;
+            if (Vector3.SqrMagnitude(center - target.transform.position) > range * range) continue;
+            target.Infect();
+        }
+    }
     
     public static bool TryGetRandomTarget(out InfectionTarget chosenTarget)
     {
