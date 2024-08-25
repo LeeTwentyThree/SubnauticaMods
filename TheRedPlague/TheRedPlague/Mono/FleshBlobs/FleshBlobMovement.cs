@@ -41,7 +41,7 @@ public class FleshBlobMovement : MonoBehaviour
     {
         if (WorldHeightLib.HeightMap.Instance.TryGetValueAtPosition(pos, out var y))
         {
-            return y - (normal * inGroundDepth * _growth.Size).y;
+            return y - (normal * (inGroundDepth * _growth.Size)).y;
         }
         return -2000;
     }
