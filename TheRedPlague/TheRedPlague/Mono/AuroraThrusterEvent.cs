@@ -38,6 +38,8 @@ public class AuroraThrusterEvent : MonoBehaviour
 
     private IEnumerator Start()
     {
+        StoryUtils.AuroraThrusterEvent.Trigger();
+        
         _startTime = Time.time;
         var firePrefab = Plugin.AssetBundle.LoadAsset<GameObject>("AuroraEngineParticle");
 

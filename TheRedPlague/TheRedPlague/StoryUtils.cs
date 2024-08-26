@@ -9,6 +9,7 @@ namespace TheRedPlague;
 
 public class StoryUtils
 {
+    public static StoryGoal AuroraThrusterEvent { get; private set; }
     public static ItemGoal PlagueHeartGoal { get; private set; }
     public static StoryGoal ForceFieldLaserDisabled { get; private set; }
     public static StoryGoal EnzymeRainEnabled { get; private set; }
@@ -19,6 +20,7 @@ public class StoryUtils
     
     public static void RegisterStory()
     {
+        AuroraThrusterEvent = new StoryGoal("AuroraThrusterEvent", Story.GoalType.Story, 0);
         PlagueHeartGoal = StoryGoalHandler.RegisterItemGoal("Pickup_Plague_Heart", Story.GoalType.Story, ModPrefabs.PlagueHeart.TechType);
         ForceFieldLaserDisabled = new StoryGoal("Disable_Infection_Laser", Story.GoalType.Story, 0);
         EnzymeRainEnabled = new StoryGoal("Enzyme_Rain_Started", Story.GoalType.Story, 0);
