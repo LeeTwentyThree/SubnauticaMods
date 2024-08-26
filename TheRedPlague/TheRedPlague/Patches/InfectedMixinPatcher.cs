@@ -17,13 +17,13 @@ public static class InfectedMixinPatcher
     [HarmonyPostfix]
     public static void StartPostfix(InfectedMixin __instance)
     {
+        if (__instance.player != null)
+            return;
         if (StoryGoalManager.main.IsGoalComplete(StoryUtils.EnzymeRainEnabled.key))
         {
             __instance.SetInfectedAmount(0);
             return;
         }
-        if (__instance.player != null)
-            return;
         var shouldBeInfected = EvaluateShouldBeInfectedRandomly();
         if (!shouldBeInfected)
         {
