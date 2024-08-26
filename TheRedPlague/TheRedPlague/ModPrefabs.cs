@@ -7,6 +7,7 @@ using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using TheRedPlague.Creatures;
+using TheRedPlague.MaterialModifiers;
 using TheRedPlague.Mono;
 using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 using TheRedPlague.Mono.PlagueCyclops;
@@ -372,23 +373,36 @@ public static class ModPrefabs
         new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp1Aurora"), "OrgansProp1", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp2"), "OrgansProp2", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("OrgansProp2Aurora"), "OrgansProp2", false, true).Register();
-        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacle"), "DecorationalTentacle", false, false).Register();
-        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacleAurora"), "DecorationalTentacle", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolder"), "CoreHolderPrefab", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("CoreHolderGeneric"), "CoreHolderPrefab", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("Dangler"), "DanglerPrefab", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("DanglerAurora"), "DanglerPrefab", false, true).Register();
+        
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp3"), "FleshProp3Prefab", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp3Aurora"), "FleshProp3Prefab", false, true).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp4"), "FleshProp4Prefab", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp4Aurora"), "FleshProp4Prefab", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp5"), "FleshProp5", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshProp5Aurora"), "FleshProp5", false, true).Register();
+
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FuckYou"), "FuckYouPrefab", false, false).Register();
         new FleshDecorationPrefab(PrefabInfo.WithTechType("FuckYouAurora"), "FuckYouPrefab", false, true).Register();
 
-        new FleshDecorationPrefab(PrefabInfo.WithTechType("CyclopsHolderTop"), "CyclopsHolderTopPrefab", false, true).Register();
+        // Veins
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("Veins1"), "Vein1_Prefab", false, false,
+            new VeinsMaterialModifier()).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("Veins1Aurora"), "Vein1_Prefab", false, true).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("DecoProps02Veins"), "DecoProps02Veins", false, false,
+            new VeinsMaterialModifier()).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("PrecursorKeyTerminalVeins"), "PrecursorKeyTerminalVeins", false, false,
+            new VeinsMaterialModifier()).Register();
         
+        // Tentacles
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacle"), "DecorationalTentacle", false, false).Register();
+        new FleshDecorationPrefab(PrefabInfo.WithTechType("FleshTentacleAurora"), "DecorationalTentacle", false, true).Register();
         CyclopsTentaclePrefab.Register();
         
+        // Plants
         var infectedHangingPlant = MakeInfectedClone(PrefabInfo.WithTechType("InfectedHangingPlant"),
             "8d7f308a-21db-4d1f-99c7-38860e5132e7", 1f, obj => obj.GetComponentInChildren<Renderer>().material.color = new Color(3, 0.3f, 0.3f));
         infectedHangingPlant.Register();

@@ -2,6 +2,7 @@
 using JetBrains.Annotations;
 using Nautilus.Assets;
 using Nautilus.Utility;
+using Nautilus.Utility.MaterialModifiers;
 using TheRedPlague.Mono;
 using UnityEngine;
 using UWE;
@@ -10,18 +11,20 @@ namespace TheRedPlague.PrefabFiles;
 
 public class FleshDecorationPrefab
 {
-    public FleshDecorationPrefab(PrefabInfo info, string modelName, bool infected, bool useAuroraSky)
+    public FleshDecorationPrefab(PrefabInfo info, string modelName, bool infected, bool useAuroraSky, params MaterialModifier[] materialModifiers)
     {
         Info = info;
         ModelName = modelName;
         Infected = infected;
         UseAuroraSky = useAuroraSky;
+        MaterialModifiers = materialModifiers;
     }
 
     public PrefabInfo Info { get; }
     public string ModelName { get; }
     public bool Infected { get; }
     public bool UseAuroraSky { get; }
+    public MaterialModifier[] MaterialModifiers { get; }
 
     public void Register()
     {
@@ -35,7 +38,7 @@ public class FleshDecorationPrefab
         var go = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>(ModelName));
         go.SetActive(false);
         PrefabUtils.AddBasicComponents(go, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
-        MaterialUtils.ApplySNShaders(go);
+        MaterialUtils.ApplySNShaders(go, 4f, 1f, 1f, MaterialModifiers);
         if (Infected)
         {
             var infect = go.AddComponent<InfectAnything>();
