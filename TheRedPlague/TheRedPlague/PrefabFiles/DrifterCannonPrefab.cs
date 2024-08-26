@@ -10,7 +10,8 @@ namespace TheRedPlague.PrefabFiles;
 public static class DrifterCannonPrefab
 {
     public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("DrifterCannon")
-        .WithSizeInInventory(new Vector2int(2, 2));
+        .WithSizeInInventory(new Vector2int(2, 2))
+        .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("DrifterCannonIcon"));
 
     public static void Register()
     {
