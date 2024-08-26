@@ -28,7 +28,8 @@ public class DrifterPrefab : CreatureAsset
             SwimRandomData = new SwimRandomData(0.1f, BaseVelocity, new Vector3(50, 3, 50), 5f, 0.8f),
             Mass = 3000,
             RespawnData = new RespawnData(false),
-            CellLevel = LargeWorldEntity.CellLevel.VeryFar
+            CellLevel = LargeWorldEntity.CellLevel.VeryFar,
+            CanBeInfected = false
         };
         return template;
     }
