@@ -69,7 +69,7 @@ public static class InfectedMixinPatcher
         var techType = CraftData.GetTechType(__instance.gameObject);
         var hasOverridenInfectionSettings = InfectionSettingsDatabase.InfectionSettingsList.TryGetValue(techType, out var infectionSettings);
 
-        if (__instance.infectedAmount >= MinInfectionValue)
+        if (__instance.infectedAmount >= MinInfectionValue && __instance.gameObject != Player.main.gameObject)
         {
             if (!ZombieManager.IsZombie(__instance.gameObject))
             {
