@@ -14,7 +14,7 @@ public class DrifterCannonTool : PlayerTool
     
     public float fireDelay = 1f;
     public float fireDelayNoAmmo = 2f;
-    public float launchVelocity = 30;
+    public float launchVelocity = 45f;
 
     public float maxGlowStrength = 1f;
     public float maxGlowStrengthNight = 1f;
@@ -47,13 +47,13 @@ public class DrifterCannonTool : PlayerTool
 
     private void SpawnProjectile()
     {
-        var projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position,
+        var projectile = Instantiate(projectilePrefab, projectileSpawnPoint.position + MainCamera.camera.transform.forward * 2,
             Quaternion.identity);
         projectile.transform.up = MainCamera.camera.transform.rotation * Vector3.forward;
         projectile.SetActive(true);
         var rb = projectile.GetComponent<Rigidbody>();
         rb.velocity = usingPlayer.rigidBody.velocity;
-        rb.AddForce(projectile.transform.up * launchVelocity, ForceMode.VelocityChange);
+        rb.AddForce(MainCamera.camera.transform.forward * launchVelocity, ForceMode.VelocityChange);
         projectile.AddComponent<DrifterCannonProjectile>();
     }
 
