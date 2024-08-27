@@ -327,6 +327,8 @@ public static class ModPrefabs
         laserReceptacle.Register();
         
         RedPlaguePrecursorLight.Register();
+        
+        PrecursorThruster.Register();
     }
 
     private static void RegisterFleshAndBonePrefabs()
