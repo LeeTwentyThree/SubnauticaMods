@@ -5,15 +5,20 @@ namespace TheRedPlague.Mono;
 
 public class LowQualityIslandMesh : MonoBehaviour
 {
-    private GameObject islandModel;
+    public float renderDistance = 330;
+    
+    private GameObject _islandModel;
 
     private void Awake()
     {
-        islandModel = transform.GetChild(0).gameObject;
+        _islandModel = transform.GetChild(0).gameObject;
     }
 
     private void Update()
     {
-        islandModel.SetActive(!LaunchRocket.launchStarted && Vector3.SqrMagnitude(transform.position + new Vector3(-64, 100, 64) - MainCamera.camera.transform.position) > 200 * 200);
+        _islandModel.SetActive(!LaunchRocket.launchStarted &&
+                              Vector3.SqrMagnitude(
+                                  transform.position + new Vector3(-64, 100, 64) - MainCamera.camera.transform.position)
+                              > renderDistance * renderDistance);
     }
 }
