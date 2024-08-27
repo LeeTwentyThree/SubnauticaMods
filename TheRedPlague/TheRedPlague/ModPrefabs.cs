@@ -532,7 +532,8 @@ public static class ModPrefabs
         var mutantDiver4 = new Mutant(MutantDiver4, "MutatedDiver4", true);
         mutantDiver4.Register();
         
-        SuckerPrefab.Register();
+        new SuckerPrefab(PrefabInfo.WithTechType("Sucker"), true).Register();
+        new SuckerPrefab(PrefabInfo.WithTechType("SuckerGeneric"), false).Register();
         
         new SuckerController(SuckerController).Register();
 
