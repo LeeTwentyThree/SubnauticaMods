@@ -35,6 +35,7 @@ public class LiveMixinPatcher
         var damagedByZombie = ZombieManager.IsZombie(dealer);
         if (!damagedByZombie || dealer.GetComponent<FriendlyWarper>() != null)
             return true;
+        // filter out invalid infection targets
         var infectionTarget = __instance.gameObject.GetComponent<InfectionTarget>();
         if (infectionTarget != null && infectionTarget.invalidTarget)
             return true;
