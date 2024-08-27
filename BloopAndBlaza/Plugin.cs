@@ -93,6 +93,7 @@ public class Plugin : BaseUnityPlugin
         var bloopInfo = PrefabInfo.WithTechType("Bloop");
 
         var deepBloopInfo = PrefabInfo.WithTechType("DeepBloop");
+        var grandBloopInfo = PrefabInfo.WithTechType("GrandBloop");
 
         if (registerShallowBloopSpawns.Value)
         {
@@ -120,11 +121,21 @@ public class Plugin : BaseUnityPlugin
                 new SpawnLocation(new Vector3(-188, -233, 1540))
             });
         }
+        
+        CoordinatedSpawnsHandler.RegisterCoordinatedSpawnsForOneTechType(grandBloopInfo.TechType, new[]
+        {
+            new SpawnLocation(new Vector3(1450, -370, -1370)),
+            new SpawnLocation(new Vector3(-1987, -454, -220))
+        });
 
         var bloop = new Bloop(bloopInfo, AssetBundle.LoadAsset<GameObject>("Bloop_Prefab"), false);
         bloop.Register();
 
         var deepBloop = new Bloop(deepBloopInfo, AssetBundle.LoadAsset<GameObject>("DeepBloop_Prefab"), true);
         deepBloop.Register();
+        
+        var grandBloop = new Bloop(grandBloopInfo, AssetBundle.LoadAsset<GameObject>("DeepBloop_Prefab"), true, true);
+        grandBloop.Register();
+
     }
 }

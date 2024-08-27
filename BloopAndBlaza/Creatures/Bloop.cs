@@ -14,30 +14,35 @@ public class Bloop : CreatureAsset
 {
     private readonly GameObject _model;
     private readonly bool _deep;
+    private readonly bool _grandDeep;
     
-    public Bloop(PrefabInfo prefabInfo, GameObject model, bool deep) : base(prefabInfo)
+    public Bloop(PrefabInfo prefabInfo, GameObject model, bool deep, bool grandDeep = false) : base(prefabInfo)
     {
         _model = model;
         _deep = deep;
+        _grandDeep = grandDeep;
     }
 
     protected override CreatureTemplate CreateTemplate()
     {
         var template = new CreatureTemplate(_model,
-            BehaviourType.Leviathan, EcoTargetType.Leviathan, 5000);
+            BehaviourType.Leviathan, EcoTargetType.Leviathan, _deep ? 10000 : 5000);
         template.CellLevel = LargeWorldEntity.CellLevel.VeryFar;
-        template.SwimRandomData = new SwimRandomData(0.1f, 10f, new Vector3(40, 10, 40), 3, 0.8f);
+        template.SwimRandomData = new SwimRandomData(0.1f,
+            _deep ? 15f : 10f, new Vector3(40, 10, 40), _deep ? 10 : 3,
+             _deep ? 1.2f : 0.8f);
         template.AnimateByVelocityData = new AnimateByVelocityData(3);
         template.AggressiveWhenSeeTargetList = new List<AggressiveWhenSeeTargetData>()
         {
-            new(EcoTargetType.Shark, 1.5f, 70, 2)
+            new(EcoTargetType.Shark, 1.5f, _deep ? 200 : 70, 2)
         };
         template.AggressiveToPilotingVehicleData = new AggressiveToPilotingVehicleData(17f, 0.4f);
-        template.AttackLastTargetData = new AttackLastTargetData(0.3f, 13f, 0.5f, 13f, 40f);
+        template.AttackLastTargetData = new AttackLastTargetData(0.3f, _deep ? 25f : 13f, 0.5f, 13f, 40f);
         template.Mass = 1500;
         template.StayAtLeashData = new StayAtLeashData(0.2f, 10f, 60f);
         template.BehaviourLODData = new BehaviourLODData(50, 300, 5000);
-        template.LocomotionData = new LocomotionData(10f, 0.05f, 3f, 0.9f);
+        template.LocomotionData = new LocomotionData(10f,
+            _grandDeep ? 0.01f : (_deep ? 0.03f : 0.05f), _deep ? 1f : 3f, 0.9f);
         template.CanBeInfected = false;
         template.RespawnData = new RespawnData(false);
         return template;
@@ -118,18 +123,43 @@ public class Bloop : CreatureAsset
         attackCyclops.maxDistToLeash = 70f;
         attackCyclops.attackAggressionThreshold = 0.4f;
 
-        var bloopVoiceEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
-        bloopVoiceEmitter.followParent = true;
-        var bloopVoice = prefab.AddComponent<CreatureVoice>();
-        bloopVoice.emitter = bloopVoiceEmitter;
-        bloopVoice.closeIdleSound = AudioUtils.GetFmodAsset("BloopIdle");
-        bloopVoice.minInterval = 20f;
-        bloopVoice.maxInterval = 40f;
+        if (_deep)
+        {
+            var deepBloopVoiceEmitter = prefab.AddComponent<FMOD_CustomLoopingEmitter>();
+            deepBloopVoiceEmitter.SetAsset(AudioUtils.GetFmodAsset("DeepBloopAmbience"));
+            deepBloopVoiceEmitter.playOnAwake = true;
+            deepBloopVoiceEmitter.followParent = true;
+        }
+        else
+        {
+            var bloopVoiceEmitter = prefab.AddComponent<FMOD_CustomEmitter>();
+            bloopVoiceEmitter.followParent = true;
+            var bloopVoice = prefab.AddComponent<CreatureVoice>();
+            bloopVoice.emitter = bloopVoiceEmitter;
+            bloopVoice.closeIdleSound = AudioUtils.GetFmodAsset("BloopIdle");
+            bloopVoice.minInterval = 20f;
+            bloopVoice.maxInterval = 40f;
+        }
+
+        if (_grandDeep)
+        {
+            prefab.transform.Find("Pivot").localScale = Vector3.one * 3;
+            var capsule = prefab.GetComponent<CapsuleCollider>();
+            capsule.radius *= 3;
+            capsule.height *= 3;
+            capsule.center *= 3;
+        }
     }
 
     protected override void PostRegister()
     {
-        if (_deep)
+        if (_grandDeep)
+        {
+            CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 7.7777f,
+                null,
+                null);
+        }
+        else if (_deep)
         {
             CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, "Lifeforms/Fauna/Leviathans", null, null, 6f,
                 null,
@@ -145,6 +175,6 @@ public class Bloop : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
-        MaterialUtils.ApplySNShaders(prefab, 12f, 5f, 2f);
+        MaterialUtils.ApplySNShaders(prefab, 12f, 5f, _deep ? 20f : 2f);
     }
 }

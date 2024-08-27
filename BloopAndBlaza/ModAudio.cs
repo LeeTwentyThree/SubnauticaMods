@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FMOD;
 using Nautilus.FMod;
 using Nautilus.Handlers;
 using Nautilus.Utility;
@@ -25,6 +26,13 @@ public static class ModAudio
         RegisterSoundWithVariants("BloopIdle", new string[] {"BloopRoar1", "BloopRoar2", "BloopRoar3", "BloopRoar4", "BloopRoar5"}, CreaturesBus, 20f, 100f);
         RegisterSound("BloopVortexAttack", "BloopVortexAttack", CreaturesBus, 5f, 40f);
         RegisterSoundWithVariants("BloopSwim", new string[] {"BloopSwim1", "BloopSwim2", "BloopSwim3", "BloopSwim4", "BloopSwim5"}, CreaturesBus, 5f, 40f);
+        
+        // Deep bloop:
+        var sound = AudioUtils.CreateSound(Bundle.LoadAsset<AudioClip>("DeepBloopAmbienceFinal"),
+            AudioUtils.StandardSoundModes_3D | MODE.LOOP_NORMAL);
+        sound.set3DMinMaxDistance(5, 300);
+
+        CustomSoundHandler.RegisterCustomSound("DeepBloopAmbience", sound, CreaturesBus);
     }
     
     private static void RegisterSound(string id, string clipName, string bus, float minDistance = 10f,
