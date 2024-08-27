@@ -329,6 +329,13 @@ public static class ModPrefabs
         RedPlaguePrecursorLight.Register();
         
         PrecursorThruster.Register();
+
+        var cigarretePrefab = new CustomPrefab(PrefabInfo.WithTechType("500Cigarettes"));
+        var cigTemplate = new AssetBundleTemplate(Plugin.AssetBundle, "500Cigarettes", cigarretePrefab.Info);
+        cigarretePrefab.SetGameObject(cigTemplate);
+        PrefabUtils.AddBasicComponents(cigTemplate.Prefab, cigarretePrefab.Info.ClassID, cigarretePrefab.Info.TechType, LargeWorldEntity.CellLevel.Near);
+        MaterialUtils.ApplySNShaders(cigTemplate.Prefab);
+        cigarretePrefab.Register();
     }
 
     private static void RegisterFleshAndBonePrefabs()

@@ -37,6 +37,8 @@ public static class PrecursorThruster
 
         vfx.transform.localPosition = Vector3.zero;
         vfx.transform.localRotation = Quaternion.identity;
+
+        obj.AddComponent<ConstructionObstacle>();
         
         prefab.Set(obj);
     }
