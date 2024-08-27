@@ -5,7 +5,7 @@ namespace TheRedPlague.Mono;
 
 public class LowQualityIslandMesh : MonoBehaviour
 {
-    public float renderDistance = 330;
+    public float renderDistance = 220;
     
     private GameObject _islandModel;
 
