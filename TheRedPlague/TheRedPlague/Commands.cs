@@ -1,6 +1,7 @@
 ﻿using System;
 using Nautilus.Commands;
 using TheRedPlague.Mono;
+using TheRedPlague.Mono.CinematicEvents;
 
 namespace TheRedPlague;
 
@@ -57,8 +58,8 @@ public static class Commands
     }
     
     [ConsoleCommand("gargteaserevent")]
-    public static void GargTeaserEvevnt()
+    public static void PlayGargTeaserEvent()
     {
-        
+        GargTeaserEvent.PlayCinematic();
     }
 }

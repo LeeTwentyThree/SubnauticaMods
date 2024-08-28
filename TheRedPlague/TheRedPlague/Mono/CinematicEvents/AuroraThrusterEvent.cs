@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Nautilus.Utility;
 using UnityEngine;
-using UnityEngine.PostProcessing;
 
-namespace TheRedPlague.Mono;
+namespace TheRedPlague.Mono.CinematicEvents;
 
 public class AuroraThrusterEvent : MonoBehaviour
 {
