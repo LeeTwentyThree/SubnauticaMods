@@ -55,4 +55,10 @@ public static class Commands
     {
         AuroraThrusterEvent.PlayCinematic();
     }
+    
+    [ConsoleCommand("gargteaserevent")]
+    public static void GargTeaserEvevnt()
+    {
+        
+    }
 }
