@@ -11,6 +11,7 @@ public class WalkerBehavior : MonoBehaviour
     public float maxVerticalMoveSpeed;
     public float upwardsNormalFactor = 1f;
     public float rotateSpeed = 0.4f;
+    public float depth;
 
     private float _timeUpdateHeightAgain;
 
@@ -23,6 +24,7 @@ public class WalkerBehavior : MonoBehaviour
     {
         _currentHeight = transform.position.y;
         _currentSurfaceNormal = Vector3.up;
+        _timeUpdateHeightAgain = Time.time + _timeUpdateHeightAgain * Random.value;
     }
 
     private void Update()
@@ -55,6 +57,7 @@ public class WalkerBehavior : MonoBehaviour
     {
         var pos = new Vector2(transform.position.x, transform.position.z);
         _currentHeight = HeightMap.Instance.TryGetValueAtPosition(pos, out var height) ? height : transform.position.y;
+        _currentHeight -= depth;
         _currentSurfaceNormal = NormalMap.Instance.TryGetValueAtPosition(pos, out var normal)
             ? (normal + new Vector3(0, upwardsNormalFactor, 0)).normalized
             : Vector3.up;

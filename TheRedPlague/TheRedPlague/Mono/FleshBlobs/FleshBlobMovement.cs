@@ -8,7 +8,7 @@ public class FleshBlobMovement : MonoBehaviour
     public Vector2 targetPosition;
 
     public float inGroundDepth = 15;
-    public float rotateSpeed = 0.3f;
+    public float rotateSpeed = 1f;
     public float upwardsFactor = 1f;
 
     private float _timeUnfreeze;
