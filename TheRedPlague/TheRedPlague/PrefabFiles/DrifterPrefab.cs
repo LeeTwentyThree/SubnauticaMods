@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
@@ -108,6 +109,9 @@ public class DrifterPrefab : CreatureAsset
         prefab.EnsureComponent<InfectionTarget>().invalidTarget = true;
 
         prefab.EnsureComponent<DrifterHoverAboveTerrain>();
+
+        var infectedMixin = prefab.EnsureComponent<InfectedMixin>();
+        infectedMixin.renderers = prefab.GetComponentsInChildren<Renderer>(true).Where(r => r is not ParticleSystemRenderer).ToArray();
     }
 
     protected override void ApplyMaterials(GameObject prefab)
