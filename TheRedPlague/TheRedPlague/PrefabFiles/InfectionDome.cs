@@ -22,6 +22,7 @@ public static class InfectionDome
     private static IEnumerator GetPrefab(IOut<GameObject> prefab)
     {
         var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("InfectionDome"));
+        obj.SetActive(false);
         MaterialUtils.ApplySNShaders(obj);
         PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType,
             LargeWorldEntity.CellLevel.Global);
