@@ -6,8 +6,8 @@ namespace TheRedPlague.Mono;
 
 public class RandomFishSpawner : MonoBehaviour, IStoryGoalListener
 {
-    private float _minInterval = 40;
-    private float _maxInterval = 60f;
+    private float _minInterval = 2 * 60;
+    private float _maxInterval = 10 * 60;
 
     private float _timeJumpScareAgain;
 
