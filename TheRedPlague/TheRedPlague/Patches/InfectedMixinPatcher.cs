@@ -56,7 +56,7 @@ public static class InfectedMixinPatcher
 
     private static bool EvaluateShouldBeInfectedRandomly()
     {
-        return Random.value <= 0.10f;
+        return Random.value <= 0.05f;
     }
     
     [HarmonyPatch(nameof(InfectedMixin.UpdateInfectionShading))]
