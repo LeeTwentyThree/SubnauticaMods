@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using Nautilus.Handlers;
 using Story;
+using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;
@@ -24,6 +25,15 @@ public static class InfectedMixinPatcher
             __instance.SetInfectedAmount(0);
             return;
         }
+
+        /* Disable infecting invalid targets
+        var infectionTarget = __instance.GetComponent<InfectionTarget>();
+        if (infectionTarget != null && infectionTarget.invalidTarget)
+        {
+            return;
+        }
+        */
+        
         var shouldBeInfected = EvaluateShouldBeInfectedRandomly();
         if (!shouldBeInfected)
         {
