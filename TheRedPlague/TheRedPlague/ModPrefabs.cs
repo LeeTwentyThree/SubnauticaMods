@@ -12,6 +12,7 @@ using TheRedPlague.Mono;
 using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 using TheRedPlague.Mono.PlagueCyclops;
 using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.GargTeaser;
 using TheRedPlague.PrefabFiles.UpgradeModules;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -96,6 +97,19 @@ public static class ModPrefabs
         {
             Plugin.Logger.LogError("Failed to register flesh blob entities; WorldHeightLib is not installed!");
         }
+        
+        RegisterGargTeaserProps();
+    }
+
+    private static void RegisterGargTeaserProps()
+    {
+        BreakableCables.Register();
+        new CollapsibleCube("CollapsibleCube1", "6b0104e8-979e-46e5-bc17-57c4ac2e6e39").Register();
+        new CollapsibleCube("CollapsibleCube2", "06c3df8c-89d9-432c-b55f-86432ddbbbb5").Register();
+        
+        new InfectableCable("InfectableCable1", "69cd7462-7cd2-456c-bfff-50903c391737").Register();
+        new InfectableCable("InfectableCable2", "94933bb3-0587-4e8d-a38d-b7ec4c859b1a").Register();
+        new InfectableCable("InfectableCable3", "31f84eba-d435-438c-a58e-f3f7bae8bfbd").Register();
     }
 
     private static void RegisterBiomes()

@@ -15,6 +15,7 @@ public class StoryUtils
     public static StoryGoal EnzymeRainEnabled { get; private set; }
     public static StoryGoal PickUpInfectedEnzyme { get; private set; }
     public static StoryGoal DisableDome { get; private set; }
+    public static StoryGoal InfectCables { get; private set; }
     
     public const string OpenAquariumTeleporterGoalKey = "PrecursorPrisonAquariumFinalTeleporterActive";
     
@@ -26,6 +27,7 @@ public class StoryUtils
         EnzymeRainEnabled = new StoryGoal("Enzyme_Rain_Started", Story.GoalType.Story, 0);
         PickUpInfectedEnzyme = StoryGoalHandler.RegisterItemGoal("Pickup_Infected_Enzyme", Story.GoalType.Story, ModPrefabs.EnzymeParticleInfo.TechType);
         DisableDome = new StoryGoal("Disable_Dome", Story.GoalType.Story, 0);
+        InfectCables = new StoryGoal("InfectCables", Story.GoalType.Story, 0);
         StoryGoalHandler.RegisterOnGoalUnlockData("Pickup_Infected_Enzyme", new UnlockBlueprintData[] { new UnlockBlueprintData(){techType = ModPrefabs.EnzymeContainer.TechType, unlockType = UnlockBlueprintData.UnlockType.Available} });
         StoryGoalHandler.RegisterCustomEvent(EscapeAquariumCinematic.PlayCinematic);
         StoryGoalHandler.RegisterCustomEvent(PlayerInfectionDeath.PlayCinematic);
