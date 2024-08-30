@@ -12,6 +12,7 @@ public class WalkerBehavior : MonoBehaviour
     public float upwardsNormalFactor = 1f;
     public float rotateSpeed = 0.4f;
     public float depth;
+    public float angleOffset;
 
     private float _timeUpdateHeightAgain;
 
@@ -46,6 +47,7 @@ public class WalkerBehavior : MonoBehaviour
         
         var up = Vector3.Slerp(transform.up, _currentSurfaceNormal, Time.deltaTime * rotateSpeed);
         transform.up = up;
+        transform.Rotate(Vector3.up, angleOffset, Space.Self);
     }
 
     public void SetTargetPosition(Vector3 newPosition)
