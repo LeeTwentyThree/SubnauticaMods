@@ -11,7 +11,8 @@ public class ScaleToSize : MonoBehaviour
 
     private void Start()
     {
-        _currentScale = transform.position.x;
+        _currentScale = transform.localScale.x;
+        if(_targetSize == 0) _targetSize = transform.localScale.x;
     }
 
     private void Update()
