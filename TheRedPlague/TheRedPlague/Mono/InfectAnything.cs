@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using Story;
+using UnityEngine.Serialization;
 
 namespace TheRedPlague.Mono;
 
@@ -14,6 +15,8 @@ public class InfectAnything : MonoBehaviour, IStoryGoalListener
 
     public bool infectedAtStart = true;
     public float infectionHeightStrength = 0.1f;
+
+    public float infectionAmount = 4;
     
     private const string ShaderKeyWord = "UWE_INFECTION";
     
@@ -64,7 +67,7 @@ public class InfectAnything : MonoBehaviour, IStoryGoalListener
         {
             if (material == null) continue;
             
-            material.SetFloat(ShaderPropertyID._InfectionAmount, 4);
+            material.SetFloat(ShaderPropertyID._InfectionAmount, infectionAmount);
             material.SetVector(ShaderPropertyID._ModelScale, base.transform.localScale);
             if (infected)
             {
