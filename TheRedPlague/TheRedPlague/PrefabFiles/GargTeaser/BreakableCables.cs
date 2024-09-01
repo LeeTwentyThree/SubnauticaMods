@@ -22,7 +22,7 @@ public static class BreakableCables
     {
         var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("BreakableCablePrefab"));
         obj.SetActive(false);
-        PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.VeryFar);
+        PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
         var request = PrefabDatabase.GetPrefabAsync("31f84eba-d435-438c-a58e-f3f7bae8bfbd");
         yield return request;
         if (request.TryGetPrefab(out var baseGameCable))

@@ -60,7 +60,11 @@ public class InfectionDomeController : MonoBehaviour, IStoryGoalListener
 
     public void NotifyGoalComplete(string key)
     {
-        if (key == StoryUtils.DisableDome.key)
+        if (key == StoryUtils.InfectCables.key)
+        {
+            SetDomeDisabled();
+        }
+        else if (key == StoryUtils.DisableDome.key)
         {
             Invoke(nameof(SetDomeDisabled), 13);
         }

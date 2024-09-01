@@ -2,6 +2,8 @@
 using Nautilus.Commands;
 using TheRedPlague.Mono;
 using TheRedPlague.Mono.CinematicEvents;
+using TheRedPlague.Mono.PlagueGarg;
+using TheRedPlague.PrefabFiles.GargTeaser;
 
 namespace TheRedPlague;
 
@@ -61,5 +63,18 @@ public static class Commands
     public static void PlayGargTeaserEvent()
     {
         GargTeaserEvent.PlayCinematic();
+    }
+    
+        
+    [ConsoleCommand("plaguegargbirth")]
+    public static void PlagueGirthBirth()
+    {
+        GargCorpseBehavior.BirthPlagueGargs();
+    }
+    
+    [ConsoleCommand("shatterdome")]
+    public static void ShatterDome()
+    {
+        DomeExplosion.ExplodeDome();
     }
 }

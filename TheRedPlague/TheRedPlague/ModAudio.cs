@@ -103,6 +103,88 @@ public static class ModAudio
 
         // Music
         RegisterSound("VoidIslandMusic", "voidislandcave", "bus:/master/SFX_for_pause/nofilter/music", -1f, -1);
+        
+        // Garg
+        var gargSfxBus = "bus:/master/SFX_for_pause/PDA_pause/all/SFX/reverbsend";
+            
+        var gargCloseSounds = AudioUtils.CreateSounds(Plugin.AssetBundle.LoadAllAssetsWithPrefix<AudioClip>("garg_roar"), AudioUtils.StandardSoundModes_3D).ToArray();
+        for (int i = 0; i < gargCloseSounds.Length; i++)
+        {
+            gargCloseSounds[i].set3DMinMaxDistance(25f, 10000f);
+        }
+        var gargCloseEvent = new FModMultiSounds(gargCloseSounds, gargSfxBus, true);
+        CustomSoundHandler.RegisterCustomSound("RPGargAdultRoarClose", gargCloseEvent);
+
+        var gargFarSounds = AudioUtils.CreateSounds(Plugin.AssetBundle.LoadAllAssetsWithPrefix<AudioClip>("garg_for_anth_distant"), AudioUtils.StandardSoundModes_3D).ToArray();
+        for (int i = 0; i < gargFarSounds.Length; i++)
+        {
+            gargFarSounds[i].set3DMinMaxDistance(1f, 10000f);
+        }
+        var gargFarEvent = new FModMultiSounds(gargFarSounds, gargSfxBus, true);
+        CustomSoundHandler.RegisterCustomSound("RPGargAdultRoarFar", gargFarEvent);
+        
+        var biteSounds = AudioUtils.CreateSounds(Plugin.AssetBundle.LoadAllAssetsWithPrefix<AudioClip>("GargBiteAttack"), AudioUtils.StandardSoundModes_3D).ToArray();
+        for (int i = 0; i < biteSounds.Length; i++)
+        {
+            biteSounds[i].set3DMinMaxDistance(10f, 100f);
+        }
+        var biteEvent = new FModMultiSounds(biteSounds, gargSfxBus, true);
+        CustomSoundHandler.RegisterCustomSound("RPGargBite", biteEvent);
+
+        var gargEatPlayerCinematic = AudioUtils.CreateSound(Plugin.AssetBundle.LoadAsset<AudioClip>("GargBiteAttack5"), AudioUtils.StandardSoundModes_3D);
+        gargEatPlayerCinematic.set3DMinMaxDistance(1f, 200f);
+        CustomSoundHandler.RegisterCustomSound("RPGargEatPlayerCinematic", gargEatPlayerCinematic, gargSfxBus);
+
+        var gargGrabSeamoth = AudioUtils.CreateSound(Plugin.AssetBundle.LoadAsset<AudioClip>("GargVehicleAttack"), AudioUtils.StandardSoundModes_3D);
+        gargGrabSeamoth.set3DMinMaxDistance(1f, 100f);
+        CustomSoundHandler.RegisterCustomSound("RPGargGrabSeamoth", gargGrabSeamoth, gargSfxBus);
+
+        var gargGrabExosuit = AudioUtils.CreateSound(Plugin.AssetBundle.LoadAsset<AudioClip>("GargVehicleAttack"), AudioUtils.StandardSoundModes_3D);
+        gargGrabExosuit.set3DMinMaxDistance(1f, 100f);
+        CustomSoundHandler.RegisterCustomSound("RPGargGrabExosuit", gargGrabExosuit, gargSfxBus);
+
+        var gargGrabCyclops = AudioUtils.CreateSound(Plugin.AssetBundle.LoadAsset<AudioClip>("GargCyclopsAttack"), AudioUtils.StandardSoundModes_3D);
+        gargGrabCyclops.set3DMinMaxDistance(1f, 100f);
+        CustomSoundHandler.RegisterCustomSound("RPGargGrabCyclops", gargGrabCyclops, gargSfxBus);
+
+        var gargGrabReaper = AudioUtils.CreateSound(Plugin.AssetBundle.LoadAsset<AudioClip>("GargReaperAttack"), AudioUtils.StandardSoundModes_3D);
+        gargGrabReaper.set3DMinMaxDistance(1f, 400f);
+        CustomSoundHandler.RegisterCustomSound("RPGargGrabReaper", gargGrabReaper, gargSfxBus);
+
+        var gargGrabGhost = AudioUtils.CreateSound(Plugin.AssetBundle.LoadAsset<AudioClip>("GargGhostLeviathanAttack"), AudioUtils.StandardSoundModes_3D);
+        gargGrabGhost.set3DMinMaxDistance(1f, 400f);
+        CustomSoundHandler.RegisterCustomSound("RPGargGrabGhost", gargGrabGhost, gargSfxBus);
+        
+        // plague garg
+        var plagueGargCloseSounds = AudioUtils.CreateSounds(Plugin.AssetBundle.LoadAllAssetsWithPrefix<AudioClip>("infected_garg_roar-"), AudioUtils.StandardSoundModes_3D).ToArray();
+        for (int i = 0; i < plagueGargCloseSounds.Length; i++)
+        {
+            plagueGargCloseSounds[i].set3DMinMaxDistance(25f, 10000f);
+        }
+        var plagueGargCloseEvent = new FModMultiSounds(plagueGargCloseSounds, gargSfxBus, true);
+        CustomSoundHandler.RegisterCustomSound("PlagueGargRoarClose", plagueGargCloseEvent);
+
+        var plagueGargFarSounds = AudioUtils.CreateSounds(Plugin.AssetBundle.LoadAllAssetsWithPrefix<AudioClip>("infected_garg_roar_far-"), AudioUtils.StandardSoundModes_3D).ToArray();
+        for (int i = 0; i < plagueGargFarSounds.Length; i++)
+        {
+            plagueGargFarSounds[i].set3DMinMaxDistance(1f, 10000f);
+        }
+        var plagueGargFarEvent = new FModMultiSounds(plagueGargFarSounds, gargSfxBus, true);
+        CustomSoundHandler.RegisterCustomSound("PlagueGargRoarFar", plagueGargFarEvent);
+
+        
+        var plagueGargSnarlSounds = AudioUtils.CreateSounds(Plugin.AssetBundle.LoadAllAssetsWithPrefix<AudioClip>("infected_garg_snarl"), AudioUtils.StandardSoundModes_3D).ToArray();
+        for (int i = 0; i < plagueGargSnarlSounds.Length; i++)
+        {
+            plagueGargSnarlSounds[i].set3DMinMaxDistance(25f, 400f);
+        }
+        var plagueGargSnarl = new FModMultiSounds(plagueGargSnarlSounds, gargSfxBus, true);
+        CustomSoundHandler.RegisterCustomSound("PlagueGargSnarl", plagueGargSnarl);
+    }
+    
+    private static IEnumerable<T> LoadAllAssetsWithPrefix<T>(this AssetBundle assetBundle, string prefix) where T : Object
+    {
+        return assetBundle.LoadAllAssets<T>().Where(c => c.name.StartsWith(prefix));
     }
 
     private static void Register2DSound(string id, string clipName, string bus)

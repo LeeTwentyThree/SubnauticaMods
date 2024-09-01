@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Nautilus.Assets;
 using Nautilus.Assets.PrefabTemplates;
+using TheRedPlague.Mono.PlagueGarg;
 using UnityEngine;
 using UWE;
 
@@ -31,7 +32,7 @@ public class CollapsibleCube
     private IEnumerator ModifyPrefab(GameObject prefab)
     {
         Object.DestroyImmediate(prefab.GetComponentInChildren<VolumeCullManager>());
-        prefab.GetComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.VeryFar;
+        prefab.GetComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Global;
         // alien thermal plant
         var request = PrefabDatabase.GetPrefabAsync("59eefa74-2dd8-4522-83bd-c498831eb2aa");
         yield return request;
@@ -44,6 +45,8 @@ public class CollapsibleCube
         Object.DestroyImmediate(gen.GetComponent<LargeWorldEntity>());
         Object.DestroyImmediate(gen.GetComponent<TechTag>());
         Object.DestroyImmediate(gen.GetComponentInChildren<VolumeCullManager>());
+
+        prefab.AddComponent<CollapsibleCubeBehaviour>();
         gen.SetActive(true);
     }
 }
