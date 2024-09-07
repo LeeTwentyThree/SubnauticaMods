@@ -102,8 +102,12 @@ public class JumpScares : MonoBehaviour, IStoryGoalListener
             diff.y = 0;
             model.transform.forward = diff.normalized;
             StartCoroutine(SpawnCorpse(jumpscarePosition + Vector3.up * 2));
+            
+            if (Random.value < 0.4f)
+            {
+                Utils.PlayFMODAsset(jumpscareSound, jumpscarePosition);
+            }
         }
-        Utils.PlayFMODAsset(jumpscareSound, jumpscarePosition);
     }
     
     
