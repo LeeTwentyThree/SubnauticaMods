@@ -6,12 +6,12 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using TheRedPlague.Creatures;
 using TheRedPlague.MaterialModifiers;
 using TheRedPlague.Mono;
 using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 using TheRedPlague.Mono.PlagueCyclops;
 using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.Creatures;
 using TheRedPlague.PrefabFiles.GargTeaser;
 using TheRedPlague.PrefabFiles.UpgradeModules;
 using UnityEngine;
@@ -611,6 +611,9 @@ public static class ModPrefabs
 
         var drifter = new DrifterPrefab(Drifter);
         drifter.Register();
+
+        var mimic = new MimicPeeper(PrefabInfo.WithTechType("MimicPeeper"));
+        mimic.Register();
     }
 
     private static void RegisterEquipment()

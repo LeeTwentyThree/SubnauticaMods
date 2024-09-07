@@ -6,7 +6,7 @@ using TheRedPlague.Mono;
 using TheRedPlague.Mono.FleshBlobs;
 using UnityEngine;
 
-namespace TheRedPlague.PrefabFiles;
+namespace TheRedPlague.PrefabFiles.Creatures;
 
 public static class FleshBlobLeaders
 {

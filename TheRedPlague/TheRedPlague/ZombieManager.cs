@@ -96,9 +96,9 @@ public static class ZombieManager
         }
         var meleeAttack = creature.gameObject.AddComponent<MeleeAttack>();
         meleeAttack.biteAggressionThreshold = 0.1f;
-        meleeAttack.biteInterval = 2;
+        meleeAttack.biteInterval = 5;
         meleeAttack.biteDamage = creature.liveMixin.maxHealth >= 200 ? 14 : 4;
-        meleeAttack.biteAggressionDecrement = 0.2f;
+        meleeAttack.biteAggressionDecrement = 0.5f;
         meleeAttack.lastTarget = creature.GetComponent<LastTarget>();
         meleeAttack.creature = creature;
         meleeAttack.liveMixin = creature.liveMixin;
@@ -134,7 +134,7 @@ public static class ZombieManager
         aggressiveComponent.targetType = type;
         aggressiveComponent.maxRangeScalar = 100;
         aggressiveComponent.maxSearchRings = 2;
-        aggressiveComponent.aggressionPerSecond = 1;
+        aggressiveComponent.aggressionPerSecond = 0.5f;
         aggressiveComponent.ignoreSameKind = false;
         aggressiveComponent.hungerThreshold = 0;
         
@@ -152,11 +152,11 @@ public static class ZombieManager
         var attackLastTarget = creature.gameObject.AddComponent<AttackLastTarget>();
         var swimRandom = creature.GetComponent<SwimRandom>();
         attackLastTarget.swimVelocity = swimRandom != null ? swimRandom.swimVelocity * 2f : 10f;
-        attackLastTarget.aggressionThreshold = 0.75f;
+        attackLastTarget.aggressionThreshold = 0.8f;
         attackLastTarget.swimInterval = 0.5f;
         attackLastTarget.minAttackDuration = 3f;
         attackLastTarget.maxAttackDuration = 10f;
-        attackLastTarget.pauseInterval = 15f;
+        attackLastTarget.pauseInterval = 30f;
         attackLastTarget.rememberTargetTime = 5f;
         attackLastTarget.evaluatePriority = 1.1f;
         attackLastTarget.lastTarget = creature.gameObject.GetComponent<LastTarget>();

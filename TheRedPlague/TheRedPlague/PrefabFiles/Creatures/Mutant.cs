@@ -7,7 +7,7 @@ using Nautilus.Handlers;
 using TheRedPlague.Mono;
 using UnityEngine;
 
-namespace TheRedPlague.Creatures;
+namespace TheRedPlague.PrefabFiles.Creatures;
 
 public class Mutant : CreatureAsset
 {

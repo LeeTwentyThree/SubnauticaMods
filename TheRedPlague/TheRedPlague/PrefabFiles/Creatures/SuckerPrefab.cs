@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using JetBrains.Annotations;
 using Nautilus.Assets;
 using Nautilus.Utility;
-using TheRedPlague.Mono;
 using TheRedPlague.Mono.CreatureBehaviour.Sucker;
 using UnityEngine;
 using UWE;
 
-namespace TheRedPlague.PrefabFiles;
+namespace TheRedPlague.PrefabFiles.Creatures;
 
 public class SuckerPrefab
 {

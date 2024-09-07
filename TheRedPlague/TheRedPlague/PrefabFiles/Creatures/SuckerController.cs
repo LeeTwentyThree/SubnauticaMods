@@ -4,9 +4,8 @@ using ECCLibrary.Data;
 using Nautilus.Assets;
 using TheRedPlague.Mono.CreatureBehaviour.Sucker;
 using UnityEngine;
-using UWE;
 
-namespace TheRedPlague.Creatures;
+namespace TheRedPlague.PrefabFiles.Creatures;
 
 public class SuckerController : CreatureAsset
 {

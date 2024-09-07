@@ -1,4 +1,5 @@
 ﻿using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.Creatures;
 using UnityEngine;
 
 namespace TheRedPlague.Mono.CreatureBehaviour.Drifter;

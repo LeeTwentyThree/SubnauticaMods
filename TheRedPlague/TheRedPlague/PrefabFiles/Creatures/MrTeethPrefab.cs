@@ -6,7 +6,7 @@ using TheRedPlague.Mono;
 using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 using UnityEngine;
 
-namespace TheRedPlague.PrefabFiles;
+namespace TheRedPlague.PrefabFiles.Creatures;
 
 public class MrTeethPrefab : CreatureAsset
 {
