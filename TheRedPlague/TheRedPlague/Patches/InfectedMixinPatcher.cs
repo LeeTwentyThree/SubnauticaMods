@@ -26,13 +26,12 @@ public static class InfectedMixinPatcher
             return;
         }
 
-        /* Disable infecting invalid targets
+        // Disable infecting invalid targets
         var infectionTarget = __instance.GetComponent<InfectionTarget>();
         if (infectionTarget != null && infectionTarget.invalidTarget)
         {
             return;
         }
-        */
         
         var shouldBeInfected = EvaluateShouldBeInfectedRandomly();
         if (!shouldBeInfected)
