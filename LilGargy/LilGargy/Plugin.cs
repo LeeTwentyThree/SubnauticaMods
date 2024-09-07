@@ -3,6 +3,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using LilGargy.Items.Equipment;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -22,6 +23,8 @@ public class Plugin : BaseUnityPlugin
     {
         // set project-scoped logger instance
         Logger = base.Logger;
+        
+        LanguageHandler.RegisterLocalizationFolder();
 
         // Initialize custom prefabs
         InitializePrefabs();

@@ -10,7 +10,7 @@ namespace LilGargy.Items.Equipment;
 public static class LilGargyPrefab
 {
     public static PrefabInfo Info { get; } = PrefabInfo
-        .WithTechType("LilGargy")
+        .WithTechType("LilGargy", true)
         .WithIcon(Plugin.Bundle.LoadAsset<Sprite>("LilGargyIcon"));
 
     public static void Register()
@@ -18,11 +18,12 @@ public static class LilGargyPrefab
         var customPrefab = new CustomPrefab(Info);
         
         customPrefab.SetGameObject(GetGameObject);
-        customPrefab.SetRecipe(new RecipeData(new Ingredient(TechType.Titanium, 2)))
+        customPrefab.SetRecipe(new RecipeData(new Ingredient(TechType.FiberMesh), new Ingredient(TechType.CreepvineSeedCluster)))
             .WithFabricatorType(CraftTree.Type.Fabricator)
             .WithStepsToFabricatorTab("Machines")
             .WithCraftingTime(10);
         customPrefab.SetEquipment(EquipmentType.Hand);
+        customPrefab.SetPdaGroupCategory(TechGroup.Machines, TechCategory.Machines);
         customPrefab.Register();
     }
 
@@ -31,7 +32,7 @@ public static class LilGargyPrefab
         var prefab = Object.Instantiate(Plugin.Bundle.LoadAsset<GameObject>("LilGargyPrefab"));
         prefab.SetActive(false);
         PrefabUtils.AddBasicComponents(prefab, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Near);
-        MaterialUtils.ApplySNShaders(prefab, 5f, 5f, 15);
+        MaterialUtils.ApplySNShaders(prefab, 5f, 5f, 10);
         var rb = prefab.AddComponent<Rigidbody>();
         rb.useGravity = false;
         var wf = prefab.AddComponent<WorldForces>();
