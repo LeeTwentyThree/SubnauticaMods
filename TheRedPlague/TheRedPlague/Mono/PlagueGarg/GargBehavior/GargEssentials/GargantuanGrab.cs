@@ -116,7 +116,16 @@ class GargantuanGrab : MonoBehaviour
             }
             else if (IsHoldingLargeSub())
             {
-                held.transform.position = holdPoint.position + (holdPoint.forward * -25f);
+                switch (_currentlyGrabbing)
+                {
+                    default:
+                    case GrabType.Cyclops:
+                        held.transform.position = holdPoint.position + (holdPoint.forward * -25f);
+                        break;
+                    case GrabType.Beluga:
+                        held.transform.position = holdPoint.position + holdPoint.forward * 20 + holdPoint.up * 5;
+                        break;
+                }
             }
             else
             {
@@ -125,7 +134,11 @@ class GargantuanGrab : MonoBehaviour
 
             if (IsHoldingLargeSub())
             {
-                held.transform.forward = -holdPoint.transform.forward; // cyclops faces backwards for whatever reason so we need to invert the rotation
+                // cyclops faces backwards for whatever reason so we need to invert the rotation
+                if (_currentlyGrabbing == GrabType.Cyclops)
+                    held.transform.forward = -holdPoint.transform.forward;
+                else
+                    held.transform.forward = holdPoint.transform.forward;
             }
             else if (IsHoldingPickupableFish())
             {
@@ -348,7 +361,7 @@ class GargantuanGrab : MonoBehaviour
             }
         }
         ToggleSubrootColliders(false);
-        subRoot.rigidbody.isKinematic = true;
+        subRoot.GetComponent<Rigidbody>().isKinematic = true;
         InvokeRepeating(nameof(DamageVehicle), 1f, 1f);
         float attackLength = 11f;
         Invoke(nameof(ReleaseHeld), attackLength);
@@ -537,8 +550,12 @@ class GargantuanGrab : MonoBehaviour
                 stabilizer.enabled = true;
             }
 
-            _heldSubroot.rigidbody.isKinematic = false;
-            _heldSubroot.rigidbody.velocity = transform.forward * (IsGargJuvenile() ? 10 : 50);
+            var rb = _heldSubroot.GetComponent<Rigidbody>();
+            if (rb)
+            {
+                rb.isKinematic = false;
+                rb.velocity = transform.forward * (IsGargJuvenile() ? 10 : 50);
+            }
             ToggleSubrootColliders(true);
             _heldSubroot = null;
         }

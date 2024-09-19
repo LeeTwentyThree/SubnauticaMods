@@ -105,7 +105,7 @@ internal class GargantuanMouthAttack : MeleeAttack
         {
             if (canPerformCyclopsCinematic)
             {
-                if (targetSubRoot && !targetSubRoot.rb.isKinematic && targetSubRoot.GetComponent<LiveMixin>() != null) // checks for cyclops
+                if (targetSubRoot && target.GetComponent<LiveMixin>() != null) // checks for cyclops
                 {
                     _grab.GrabLargeSub(targetSubRoot);
                     _behaviour.roar.DelayTimeOfNextRoar(8f);
