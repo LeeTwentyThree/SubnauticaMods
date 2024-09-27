@@ -24,6 +24,7 @@ class GargantuanGrab : MonoBehaviour
     private GargantuanBehaviour _behaviour;
     private GargantuanMouthAttack _mouthAttack;
     private SubRoot _heldSubroot;
+    private LiveMixin _heldSubLiveMixin;
     private GameObject _heldFish;
     private Quaternion _vehicleInitialRotation;
     private Vector3 _vehicleInitialPosition;
@@ -59,7 +60,8 @@ class GargantuanGrab : MonoBehaviour
     void Update()
     {
         SafeAnimator.SetBool(_gargAnimator, "cin_vehicle", IsHoldingGenericSub() || IsHoldingExosuit());
-        SafeAnimator.SetBool(_gargAnimator, "cin_cyclops", IsHoldingLargeSub());
+        SafeAnimator.SetBool(_gargAnimator, "cin_cyclops", IsHoldingLargeSub() && _currentlyGrabbing != GrabType.Beluga);
+        SafeAnimator.SetBool(_gargAnimator, "cin_beluga", IsHoldingLargeSub() && _currentlyGrabbing == GrabType.Beluga);
         bool ghostAnim = false;
         bool deathRollAnim = false;
         if (IsHoldingFish())
@@ -92,14 +94,16 @@ class GargantuanGrab : MonoBehaviour
             }
         }
 
+        /*
         if (IsHoldingGenericSub() || IsHoldingExosuit())
         {
             CurrentHeldObject.GetComponent<Vehicle>().ConsumeEnergy(Time.deltaTime * _powerDrainedPerSecondVehicle);
         }
         else if (IsHoldingLargeSub())
         {
-            CurrentHeldObject.GetComponent<SubRoot>().powerRelay.ConsumeEnergy(Time.deltaTime * _powerDrainedPerSecondSub, out float _);
+            CurrentHeldObject.GetComponent<PowerRelay>().ConsumeEnergy(Time.deltaTime * _powerDrainedPerSecondSub, out float _);
         }
+        */
 
         Transform held = CurrentHeldObject.transform;
         Transform holdPoint = GetHoldPoint();
@@ -112,7 +116,16 @@ class GargantuanGrab : MonoBehaviour
             }
             else if (IsHoldingLargeSub())
             {
-                held.transform.position = holdPoint.position + (holdPoint.forward * -25f);
+                switch (_currentlyGrabbing)
+                {
+                    default:
+                    case GrabType.Cyclops:
+                        held.transform.position = holdPoint.position + (holdPoint.forward * -25f);
+                        break;
+                    case GrabType.Beluga:
+                        held.transform.position = holdPoint.position + holdPoint.forward * 20 + holdPoint.up * 5;
+                        break;
+                }
             }
             else
             {
@@ -121,7 +134,11 @@ class GargantuanGrab : MonoBehaviour
 
             if (IsHoldingLargeSub())
             {
-                held.transform.forward = -holdPoint.transform.forward; // cyclops faces backwards for whatever reason so we need to invert the rotation
+                // cyclops faces backwards for whatever reason so we need to invert the rotation
+                if (_currentlyGrabbing == GrabType.Cyclops)
+                    held.transform.forward = -holdPoint.transform.forward;
+                else
+                    held.transform.forward = holdPoint.transform.forward;
             }
             else if (IsHoldingPickupableFish())
             {
@@ -217,7 +234,7 @@ class GargantuanGrab : MonoBehaviour
     /// <returns></returns>
     public bool IsHoldingLargeSub()
     {
-        return _currentlyGrabbing == GrabType.Cyclops;
+        return _currentlyGrabbing == GrabType.Cyclops || _currentlyGrabbing == GrabType.Beluga;
     }
 
     public bool IsHoldingPickupableFish()
@@ -282,6 +299,7 @@ class GargantuanGrab : MonoBehaviour
         Exosuit,
         GenericVehicle,
         Cyclops,
+        Beluga,
         Fish
     }
 
@@ -315,7 +333,9 @@ class GargantuanGrab : MonoBehaviour
         var playerInSub = subRoot == Player.main.GetCurrentSub();
         _currentGrabRandom = Random.value;
         _heldSubroot = subRoot;
-        _currentlyGrabbing = GrabType.Cyclops;
+        _currentlyGrabbing = CraftData.GetTechType(subRoot.gameObject).AsString(true) == "beluga" ?
+            GrabType.Beluga
+            : GrabType.Cyclops;
         _timeVehicleGrabbed = Time.time;
         var subRootTransform = subRoot.transform;
         _vehicleInitialRotation = subRootTransform.rotation;
@@ -341,12 +361,13 @@ class GargantuanGrab : MonoBehaviour
             }
         }
         ToggleSubrootColliders(false);
-        subRoot.rigidbody.isKinematic = true;
+        subRoot.GetComponent<Rigidbody>().isKinematic = true;
         InvokeRepeating(nameof(DamageVehicle), 1f, 1f);
         float attackLength = 11f;
         Invoke(nameof(ReleaseHeld), attackLength);
         MainCameraControl.main.ShakeCamera(5f, attackLength, MainCameraControl.ShakeMode.BuildUp, 1.2f);
         _behaviour.timeCanAttackAgain = Time.time + attackLength + 1f;
+        _heldSubLiveMixin = subRoot.gameObject.GetComponent<LiveMixin>();
 
         var creatureAttackVoice = subRoot.creatureAttackNotification;
         if (creatureAttackVoice != null)
@@ -487,9 +508,9 @@ class GargantuanGrab : MonoBehaviour
             HeldVehicle.liveMixin.TakeDamage(dps, type: DamageType.Normal, dealer: gameObject);
         }
 
-        if (_heldSubroot != null)
+        if (_heldSubroot != null && _heldSubLiveMixin != null)
         {
-            _heldSubroot.live.TakeDamage(cyclopsDamagePerSecond, type: DamageType.Normal);
+            _heldSubLiveMixin.TakeDamage(cyclopsDamagePerSecond, type: DamageType.Normal);
         }
     }
 
@@ -529,8 +550,12 @@ class GargantuanGrab : MonoBehaviour
                 stabilizer.enabled = true;
             }
 
-            _heldSubroot.rigidbody.isKinematic = false;
-            _heldSubroot.rigidbody.velocity = transform.forward * (IsGargJuvenile() ? 10 : 50);
+            var rb = _heldSubroot.GetComponent<Rigidbody>();
+            if (rb)
+            {
+                rb.isKinematic = false;
+                rb.velocity = transform.forward * (IsGargJuvenile() ? 10 : 50);
+            }
             ToggleSubrootColliders(true);
             _heldSubroot = null;
         }

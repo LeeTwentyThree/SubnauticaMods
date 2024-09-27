@@ -103,9 +103,20 @@ internal class GargantuanMouthAttack : MeleeAttack
 
         if (canAttackPlayer && _grab.GetCanGrabVehicle()) // vehicles-based attacks
         {
+            if (canPerformCyclopsCinematic)
+            {
+                if (targetSubRoot && target.GetComponent<LiveMixin>() != null) // checks for cyclops
+                {
+                    _grab.GrabLargeSub(targetSubRoot);
+                    _behaviour.roar.DelayTimeOfNextRoar(8f);
+                    _garg.Aggression.Value -= 1f;
+                    return;
+                }
+            }
+            
             // look for smaller vehicles (i.e. seamoth or exosuit)
             var vehicle = target.GetComponent<Vehicle>();
-
+            
             if (vehicle)
             {
                 if (vehicle is Exosuit && !vehicle.docked) // if it's an exosuit, we grab it like an exosuit
@@ -116,17 +127,7 @@ internal class GargantuanMouthAttack : MeleeAttack
                 _garg.Aggression.Value -= 0.5f;
                 return;
             }
-
-            if (canPerformCyclopsCinematic)
-            {
-                if (targetSubRoot && !targetSubRoot.rb.isKinematic && targetSubRoot.live) // checks for cyclops
-                {
-                    _grab.GrabLargeSub(targetSubRoot);
-                    _behaviour.roar.DelayTimeOfNextRoar(8f);
-                    _garg.Aggression.Value -= 1f;
-                    return;
-                }
-            }
+            
         }
         if (!targetLm)
             return;
