@@ -162,7 +162,7 @@ public static class ModPrefabs
 
     private static void RegisterPrecursorBasePieces()
     {
-        InfectionDome.Register();
+        // InfectionDome.Register();
         NewInfectionDome.Register();
 
         IslandElevator.Register();

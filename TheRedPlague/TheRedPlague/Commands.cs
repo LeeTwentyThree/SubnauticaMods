@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections;
 using Nautilus.Commands;
 using TheRedPlague.Mono;
 using TheRedPlague.Mono.CinematicEvents;
 using TheRedPlague.Mono.PlagueGarg;
+using TheRedPlague.PrefabFiles;
 using TheRedPlague.PrefabFiles.GargTeaser;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TheRedPlague;
 
@@ -70,6 +74,21 @@ public static class Commands
     public static void PlagueGirthBirth()
     {
         GargCorpseBehavior.BirthPlagueGargs();
+    }
+    
+    [ConsoleCommand("spawndome")]
+    public static void SpawnDome()
+    {
+        UWE.CoroutineHost.StartCoroutine(SpawnDomeCoroutine());
+    }
+
+    private static IEnumerator SpawnDomeCoroutine()
+    {
+        var domeTask = CraftData.GetPrefabForTechTypeAsync(NewInfectionDome.Info.TechType);
+        yield return domeTask;
+        var dome = Object.Instantiate(domeTask.GetResult(), Vector3.up * 50, Quaternion.identity);
+        dome.SetActive(true);
+        dome.transform.localScale = Vector3.one * 900;
     }
     
     [ConsoleCommand("shatterdome")]

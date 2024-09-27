@@ -15,7 +15,6 @@ public static class InfectionDome
     {
         var infectionDome = new CustomPrefab(Info);
         infectionDome.SetGameObject(GetPrefab);
-        infectionDome.SetSpawns(new SpawnLocation(Vector3.zero, Vector3.zero, Vector3.one * 1000));
         infectionDome.Register();
     }
     

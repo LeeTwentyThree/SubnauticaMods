@@ -9,6 +9,7 @@ namespace TheRedPlague;
 
 public class StoryUtils
 {
+    public static StoryGoal DomeConstructionEvent { get; private set; }
     public static StoryGoal AuroraThrusterEvent { get; private set; }
     public static ItemGoal PlagueHeartGoal { get; private set; }
     public static StoryGoal ForceFieldLaserDisabled { get; private set; }
@@ -21,6 +22,7 @@ public class StoryUtils
     
     public static void RegisterStory()
     {
+        DomeConstructionEvent = new StoryGoal("DomeConstructionEvent", Story.GoalType.Story, 0);
         AuroraThrusterEvent = new StoryGoal("AuroraThrusterEvent", Story.GoalType.Story, 0);
         PlagueHeartGoal = StoryGoalHandler.RegisterItemGoal("Pickup_Plague_Heart", Story.GoalType.Story, ModPrefabs.PlagueHeart.TechType);
         ForceFieldLaserDisabled = new StoryGoal("Disable_Infection_Laser", Story.GoalType.Story, 0);

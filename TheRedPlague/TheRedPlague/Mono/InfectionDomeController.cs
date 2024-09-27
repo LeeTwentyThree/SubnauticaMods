@@ -12,6 +12,8 @@ namespace TheRedPlague.Mono;
 public class InfectionDomeController : MonoBehaviour, IStoryGoalListener
 {
     public static InfectionDomeController main;
+
+    public Renderer domeRenderer;
     
     private bool _rocketAnimation;
     private float _timeStartRocketAnimation;
@@ -39,8 +41,8 @@ public class InfectionDomeController : MonoBehaviour, IStoryGoalListener
 
     private void SetDomeColor(Color color)
     {
-        var materials = GetComponentInChildren<Renderer>().materials;
-        materials[2].color = color;
+        var materials = domeRenderer.materials;
+        materials[0].color = color;
     }
 
     public void OnBeginRocketAnimation()
