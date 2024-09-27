@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Nautilus.Utility;
 using Story;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public class DomeConstructionVfx : MonoBehaviour
     private float _constructionTimeStarted;
     private bool _constructing;
     
-    private const float KConstructionDuration = 40;
+    private const float KConstructionDuration = 45;
 
     private void SetUpGhostMaterials()
     {
@@ -65,6 +66,7 @@ public class DomeConstructionVfx : MonoBehaviour
         _constructionTimeStarted = Time.time;
         StoryGoalManager.main.OnGoalComplete(StoryUtils.DomeConstructionEvent.key);
         _constructing = true;
+        Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("DomeConstruction"));
     }
 
     private void Update()
