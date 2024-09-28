@@ -65,6 +65,7 @@ public static class ModCompatibility
                         {
                             "SilenceModel/Armature/Root/Chest/LeftArm",
                             "SilenceModel/Armature/Root/Chest/RightArm",
+                            /*
                             "SilenceModel/Armature/Root/Chest/Tail/Tail.001/Tail.002",
                             "SilenceModel/Armature/Root/Chest/Tail/Tail.001/Tail.002/LargeTailWing_L",
                             "SilenceModel/Armature/Root/Chest/Tail/Tail.001/Tail.002/LargeTailWing_R",
@@ -75,6 +76,7 @@ public static class ModCompatibility
                             "SilenceModel/Armature/Root/Chest/Tail/Tail.001/Tail.002/Tail.003/Tail.004/Tail.005/Tail.006/Tail.007/Tail.008/Tail.009",
                             "SilenceModel/Armature/Root/Chest/Tail/Tail.001/Tail.002/Tail.003/Tail.004/Tail.005/Tail.006/Tail.007/Tail.008/Tail.009/Tail.010/Tail.011",
                             "SilenceModel/Armature/Root/Chest/Tail/Tail.001/Tail.002/Tail.003/Tail.004/Tail.005/Tail.006/Tail.007/Tail.008/Tail.009/Tail.010/Tail.011/Tail.012/Tail.013/Tail.014/Tail.015",
+                            */
                         },  
                         0.2f,
                         new Vector3(270, 0, 0),
@@ -83,7 +85,6 @@ public static class ModCompatibility
                         new AttachableParasite(TechType.Gasopod, 1.5f),
                         new AttachableParasite(TechType.Stalker, 2f),
                         new AttachableParasite(TechType.Eyeye, 10f),
-                        new AttachableParasite(TechType.Warper, 2f),
                         new AttachableParasite(TechType.SpineEel, 1f),
                         new AttachableParasite(TechType.CrabSquid, 0.8f),
                         new AttachableParasite(TechType.Crash, 8f),
