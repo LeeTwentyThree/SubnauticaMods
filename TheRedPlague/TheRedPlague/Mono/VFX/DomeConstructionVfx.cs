@@ -40,7 +40,7 @@ public class DomeConstructionVfx : MonoBehaviour
             material.SetFloat(ShaderPropertyID._Cutoff, 0.42f);
             material.SetVector(ShaderPropertyID._BuildParams, new Vector4(0.05f, 0.05f, 0.01f, -0.01f));
             material.SetFloat(ShaderPropertyID._NoiseStr, 0.25f);
-            material.SetFloat(ShaderPropertyID._NoiseThickness, 0.65f);
+            material.SetFloat(ShaderPropertyID._NoiseThickness, material.name.ToLower().Contains("glass") ? 0.25f : 0.40f);
             material.SetFloat(ShaderPropertyID._BuildLinear, 1f);
             material.SetFloat(ShaderPropertyID._MyCullVariable, 0f);
             material.SetFloat(ShaderPropertyID._minYpos, 0);
@@ -66,7 +66,7 @@ public class DomeConstructionVfx : MonoBehaviour
         _constructionTimeStarted = Time.time;
         StoryGoalManager.main.OnGoalComplete(StoryUtils.DomeConstructionEvent.key);
         _constructing = true;
-        Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("DomeConstruction"));
+        Utils.PlayFMODAsset(AudioUtils.GetFmodAsset("DomeConstruction"), Vector3.zero);
     }
 
     private void Update()
