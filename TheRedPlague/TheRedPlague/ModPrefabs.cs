@@ -614,6 +614,9 @@ public static class ModPrefabs
 
         var mimic = new MimicPeeper(PrefabInfo.WithTechType("MimicPeeper"));
         mimic.Register();
+
+        new PossessedVehicle(TechType.Seamoth).Register();
+        new PossessedVehicle(TechType.Exosuit).Register();
     }
 
     private static void RegisterEquipment()

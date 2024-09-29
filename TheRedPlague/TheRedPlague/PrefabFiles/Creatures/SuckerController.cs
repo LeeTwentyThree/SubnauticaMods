@@ -40,6 +40,11 @@ public class SuckerController : CreatureAsset
         grab.mainCollider = prefab.GetComponent<Collider>();
         
         prefab.transform.Find("sucker/SuckerEyePivot").gameObject.AddComponent<SuckerLook>();
+
+        var target = prefab.AddComponent<SuckerTargetTechnology>();
+        target.radius = 20;
+        target.swimVelocity = 4;
+        target.evaluatePriority = 0.6f;
         
         yield break;
     }

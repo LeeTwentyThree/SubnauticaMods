@@ -72,5 +72,8 @@ Five, four, three, two, one...<delay=24000><duration=4000>",,
     
     "PlagueCyclopsAssimilationSuccessful": "CYCLOPS: Assimilation successful.",
     "PlagueCyclopsEngineMaintenance": "CYCLOPS: Attention! Engine maintenance recommended. Gears slipping!",
-    "PlagueCyclopsPropellerObstruction": "CYCLOPS: Warning: obstruction in the propeller! Vessel immobilized."
+    "PlagueCyclopsPropellerObstruction": "CYCLOPS: Warning: obstruction in the propeller! Vessel immobilized.",
+    
+    "PossessedSeamoth": "Possessed seamoth",
+    "PossessedExosuit": "Possessed prawn"
 }
