@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNCreationKitLoader", "SNCreationKitLoader\SNCreationKitLoader.csproj", "{6F0AEDDE-FA42-4F89-938D-0C7D34FBBA9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNCreationKitData", "SNCreationKitData\SNCreationKitData.csproj", "{D1BD589E-E7C5-4599-A87C-877712398022}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SNCreationKitPlugin", "SNCreationKitPlugin\SNCreationKitPlugin.csproj", "{3FAF59CD-8D36-4376-8E4C-024DAB239D07}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F0AEDDE-FA42-4F89-938D-0C7D34FBBA9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F0AEDDE-FA42-4F89-938D-0C7D34FBBA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F0AEDDE-FA42-4F89-938D-0C7D34FBBA9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F0AEDDE-FA42-4F89-938D-0C7D34FBBA9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1BD589E-E7C5-4599-A87C-877712398022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1BD589E-E7C5-4599-A87C-877712398022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1BD589E-E7C5-4599-A87C-877712398022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1BD589E-E7C5-4599-A87C-877712398022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FAF59CD-8D36-4376-8E4C-024DAB239D07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FAF59CD-8D36-4376-8E4C-024DAB239D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FAF59CD-8D36-4376-8E4C-024DAB239D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FAF59CD-8D36-4376-8E4C-024DAB239D07}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
