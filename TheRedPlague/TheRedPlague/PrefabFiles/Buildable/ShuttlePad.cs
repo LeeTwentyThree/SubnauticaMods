@@ -28,11 +28,14 @@ public static class ShuttlePad
         var pad = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("ShuttlePad_Prefab"));
         pad.SetActive(false);
         PrefabUtils.AddBasicComponents(pad, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Global);
-        MaterialUtils.ApplySNShaders(pad);
+        MaterialUtils.ApplySNShaders(pad, 5, 1, 3);
         var constructable = PrefabUtils.AddConstructable(pad, Info.TechType,
             ConstructableFlags.Outside | ConstructableFlags.Rotatable | ConstructableFlags.AllowedOnConstructable
             | ConstructableFlags.Ground, pad.transform.Find("LandingpadWholey").gameObject);
         constructable.forceUpright = true;
+        constructable.placeDefaultDistance = 10;
+        constructable.placeMinDistance = 2;
+        constructable.placeMaxDistance = 20;
         obj.Set(pad);
         yield break;
     }
