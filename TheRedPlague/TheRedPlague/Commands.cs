@@ -96,4 +96,10 @@ public static class Commands
     {
         DomeExplosion.ExplodeDome();
     }
+
+    [ConsoleCommand("nuclearexplosion")]
+    public static void NuclearExplosion()
+    {
+        Mono.CinematicEvents.NuclearExplosion.PlayCinematic();
+    }
 }
