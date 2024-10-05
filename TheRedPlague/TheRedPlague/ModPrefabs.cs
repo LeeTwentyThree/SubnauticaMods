@@ -11,6 +11,7 @@ using TheRedPlague.Mono;
 using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
 using TheRedPlague.Mono.PlagueCyclops;
 using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.Buildable;
 using TheRedPlague.PrefabFiles.Creatures;
 using TheRedPlague.PrefabFiles.GargTeaser;
 using TheRedPlague.PrefabFiles.UpgradeModules;
@@ -82,6 +83,8 @@ public static class ModPrefabs
         RegisterEquipment();
         
         RegisterFood();
+
+        RegisterBuildables();
         
         RegisterDataboxesAndConsoles();
         
@@ -679,6 +682,11 @@ public static class ModPrefabs
         AdministratorDropPod.Register();
         AdminDropPodBeacon.Register();
         AdminFabricator.Register();
+    }
+
+    public static void RegisterBuildables()
+    {
+        ShuttlePad.Register();
     }
     
     private static void RegisterFleshBlobs()
