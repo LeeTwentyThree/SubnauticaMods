@@ -42,6 +42,8 @@ public class StoryUtils
         LanguageHandler.SetLanguageLine("InsertPlagueHeart", "Insert plague heart");
         LanguageHandler.SetLanguageLine("InsertEnzymeContainer", "Insert concentrated enzyme");
         LanguageHandler.SetLanguageLine("DisableDomePrompt", "Disable dome");
+        LanguageHandler.SetLanguageLine("Ency_Infection", Language.main.Get("Ency_Infection_REPLACE"));
+        LanguageHandler.SetLanguageLine("EncyDesc_Infection", Language.main.Get("EncyDesc_Infection_REPLACE"));
     }
 
     public static void DisableInfectionLaser()

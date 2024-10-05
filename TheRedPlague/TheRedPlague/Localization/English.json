@@ -75,5 +75,8 @@ Five, four, three, two, one...<delay=24000><duration=4000>",,
     "PlagueCyclopsPropellerObstruction": "CYCLOPS: Warning: obstruction in the propeller! Vessel immobilized.",
     
     "PossessedSeamoth": "Possessed seamoth",
-    "PossessedExosuit": "Possessed prawn"
+    "PossessedExosuit": "Possessed prawn",
+    
+    "Ency_Infection_REPLACE": "Specimen with Symptoms of Red Plague",
+    "EncyDesc_Infection_REPLACE": "This organism is displaying signs of a highly-intelligent flesh-hosted infection\n\n- Bright red pustules forming around infection sites\n- Underlying Indications of genetic mutation and extremely aggressive behavior \n- The disease itself is unlike any so far recorded in human exploration\n- Scans indicate flesh is very hot as if melting\n\nWARNING: VERY CONTAGIOUS. AVOID AT ALL COSTS. DO NOT CONSUME OR INTERACT WITH INFECTED SPECIMEN.\n"
 }
