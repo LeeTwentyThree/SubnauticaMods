@@ -6,7 +6,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
-namespace TheRedPlague.PrefabFiles;
+namespace TheRedPlague.PrefabFiles.Equipment;
 
 public static class BoneArmor
 {

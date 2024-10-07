@@ -2,6 +2,7 @@
 using HarmonyLib;
 using TheRedPlague.Mono;
 using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.Equipment;
 using UnityEngine;
 
 namespace TheRedPlague.Patches;

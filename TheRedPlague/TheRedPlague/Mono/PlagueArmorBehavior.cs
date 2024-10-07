@@ -1,5 +1,6 @@
 ﻿using Story;
 using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.Equipment;
 using UnityEngine;
 
 namespace TheRedPlague.Mono;

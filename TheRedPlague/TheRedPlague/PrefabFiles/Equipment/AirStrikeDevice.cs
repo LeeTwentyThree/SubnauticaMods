@@ -8,7 +8,7 @@ using TheRedPlague.Mono.Tools;
 using TMPro;
 using UnityEngine;
 
-namespace TheRedPlague.PrefabFiles;
+namespace TheRedPlague.PrefabFiles.Equipment;
 
 public static class AirStrikeDevice
 {

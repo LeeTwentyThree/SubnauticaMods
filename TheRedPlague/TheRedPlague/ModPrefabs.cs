@@ -13,6 +13,7 @@ using TheRedPlague.Mono.PlagueCyclops;
 using TheRedPlague.PrefabFiles;
 using TheRedPlague.PrefabFiles.Buildable;
 using TheRedPlague.PrefabFiles.Creatures;
+using TheRedPlague.PrefabFiles.Equipment;
 using TheRedPlague.PrefabFiles.GargTeaser;
 using TheRedPlague.PrefabFiles.UpgradeModules;
 using UnityEngine;

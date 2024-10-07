@@ -6,7 +6,7 @@ using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Utility;
 using TheRedPlague.Mono.Tools;
 
-namespace TheRedPlague.PrefabFiles;
+namespace TheRedPlague.PrefabFiles.Equipment;
 
 public static class InfectionTracker
 {

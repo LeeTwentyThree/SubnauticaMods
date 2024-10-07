@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Nautilus.Handlers;
 using TheRedPlague.PrefabFiles;
+using TheRedPlague.PrefabFiles.Equipment;
 using TheRedPlague.StructureFormat;
 using UnityEngine;
 
