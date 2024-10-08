@@ -24,6 +24,7 @@ public static class AirStrikeDevice
                 new CraftData.Ingredient(TechType.WiringKit)))
             .WithCraftingTime(4)
             .WithFabricatorType(AdminFabricator.AdminCraftTree);
+        prefab.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Machines);
         prefab.Register();
     }
 
