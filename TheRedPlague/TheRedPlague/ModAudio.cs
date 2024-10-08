@@ -75,7 +75,7 @@ public static class ModAudio
         
         // Cinematics
         
-        RegisterSound("DomeConstruction", "DomeConstruction", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 5000f);
+        Register2DSound("DomeConstruction", "DomeConstruction", "bus:/master/SFX_for_pause/PDA_pause/all");
         RegisterSound("NuclearExplosion", "Nuclear Explosion", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 5000f);
         RegisterSound("NuclearShockwave", "Nuclear Shockwave", "bus:/master/SFX_for_pause/PDA_pause/all", 5f, 5000f);
         
