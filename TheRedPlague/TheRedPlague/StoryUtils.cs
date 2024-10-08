@@ -9,6 +9,8 @@ namespace TheRedPlague;
 
 public class StoryUtils
 {
+    public static CompoundGoal AngelinaIntroductionEvent { get; private set; }
+    public static CompoundGoal BiochemicalProtectionSuitUnlockEvent { get; private set; }
     public static StoryGoal DomeConstructionEvent { get; private set; }
     public static StoryGoal AuroraThrusterEvent { get; private set; }
     public static ItemGoal PlagueHeartGoal { get; private set; }
@@ -22,7 +24,8 @@ public class StoryUtils
     
     public static void RegisterStory()
     {
-        DomeConstructionEvent = new StoryGoal("DomeConstructionEvent", Story.GoalType.Story, 0);
+        RegisterAct1();
+        
         AuroraThrusterEvent = new StoryGoal("AuroraThrusterEvent", Story.GoalType.Story, 0);
         PlagueHeartGoal = StoryGoalHandler.RegisterItemGoal("Pickup_Plague_Heart", Story.GoalType.Story, ModPrefabs.PlagueHeart.TechType);
         ForceFieldLaserDisabled = new StoryGoal("Disable_Infection_Laser", Story.GoalType.Story, 0);
@@ -35,6 +38,24 @@ public class StoryUtils
         StoryGoalHandler.RegisterCustomEvent(PlayerInfectionDeath.PlayCinematic);
     }
 
+    private static void RegisterAct1()
+    {
+        AngelinaIntroductionEvent = StoryGoalHandler.RegisterCompoundGoal("AngelinaIntroduction", Story.GoalType.Radio,
+            300, "OnPlayRadioBounceBack");
+        RegisterVoiceLog("AngelinaIntroduction", "AngelinaIntroduction");
+        
+        BiochemicalProtectionSuitUnlockEvent = StoryGoalHandler.RegisterCompoundGoal("BiochemicalProtectionSuitUnlock", Story.GoalType.PDA,
+            45, "AngelinaIntroduction");
+        RegisterVoiceLog("BiochemicalProtectionSuitUnlock", "BiochemicalProtectionSuitUnlock");
+        StoryGoalHandler.RegisterOnGoalUnlockData("BiochemicalProtectionSuitUnlock", new []{new UnlockBlueprintData()
+        {
+            techType = TechType.Bioreactor,
+            unlockType = UnlockBlueprintData.UnlockType.Available
+        }});
+        
+        DomeConstructionEvent = new StoryGoal("DomeConstructionEvent", Story.GoalType.Story, 0);
+    }
+
     public static void RegisterLanguageLines()
     {
         LanguageHandler.SetLanguageLine("InfectionLaserTerminal", "Infected terminal");
@@ -44,6 +65,15 @@ public class StoryUtils
         LanguageHandler.SetLanguageLine("DisableDomePrompt", "Disable dome");
         LanguageHandler.SetLanguageLine("Ency_Infection", Language.main.Get("Ency_Infection_REPLACE"));
         LanguageHandler.SetLanguageLine("EncyDesc_Infection", Language.main.Get("EncyDesc_Infection_REPLACE"));
+    }
+
+    private static void RegisterVoiceLog(string id, string clipName)
+    {
+        var sound = AudioUtils.CreateSound(Plugin.AssetBundle.LoadAsset<AudioClip>(clipName), AudioUtils.StandardSoundModes_2D);
+
+        CustomSoundHandler.RegisterCustomSound(id, sound, AudioUtils.BusPaths.VoiceOvers);
+        
+        PDAHandler.AddLogEntry(id, id, AudioUtils.GetFmodAsset(id));
     }
 
     public static void DisableInfectionLaser()

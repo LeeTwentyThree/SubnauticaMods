@@ -84,5 +84,17 @@ Five, four, three, two, one...<delay=24000><duration=4000>",
     "Tooltip_ShuttlePad": "A shuttle pad for returning samples and other cargo to Alterra. Should be placed on a foundation or similar piece.",
     
     "Ency_Infection_REPLACE": "Specimen with Symptoms of Red Plague",
-    "EncyDesc_Infection_REPLACE": "This organism is displaying signs of a highly-intelligent flesh-hosted infection\n\n- Bright red pustules forming around infection sites\n- Underlying Indications of genetic mutation and extremely aggressive behavior \n- The disease itself is unlike any so far recorded in human exploration\n- Scans indicate flesh is very hot as if melting\n\nWARNING: VERY CONTAGIOUS. AVOID AT ALL COSTS. DO NOT CONSUME OR INTERACT WITH INFECTED SPECIMEN.\n"
+    "EncyDesc_Infection_REPLACE": "This organism is displaying signs of a highly-intelligent flesh-hosted infection\n\n- Bright red pustules forming around infection sites\n- Underlying Indications of genetic mutation and extremely aggressive behavior \n- The disease itself is unlike any so far recorded in human exploration\n- Scans indicate flesh is very hot as if melting\n\nWARNING: VERY CONTAGIOUS. AVOID AT ALL COSTS. DO NOT CONSUME OR INTERACT WITH INFECTED SPECIMEN.\n",
+
+    "AngelinaIntroduction": "Hey, we can finally get in touch!<delay=0><duration=2900>
+    I’m Angelina Coral, your personal Alterra research operation human resource manager!<delay=3000><duration=5000>
+    You are receiving this message because you have been promoted from non-essential system maintenance to be our private investigator.<delay=8000><duration=6500>
+    I'm sending in a contract with all your new terms.<delay=15000><duration=2300>
+    Reading contract terms...<delay=17500><duration=2000>
+    Skipping contract body...<delay=20000><duration=2000>
+    Contract terms signed!<delay=22000><duration=1500>
+    Thank you! We have several missions for you, but first things first you’re going to need some protection against… whatever you might come across, of course.<delay=23800><duration=9200>
+    I am sending you blueprints for a full-body biochemical protection module. Please craft and apply it with haste and return back to us as soon as possible!<delay=33500><duration=7500>",
+        
+    "BiochemicalProtectionSuitUnlock": "Biochemical protection suit blueprints added to database."
 }
