@@ -15,6 +15,7 @@ using TheRedPlague.PrefabFiles.Buildable;
 using TheRedPlague.PrefabFiles.Creatures;
 using TheRedPlague.PrefabFiles.Equipment;
 using TheRedPlague.PrefabFiles.GargTeaser;
+using TheRedPlague.PrefabFiles.Resources;
 using TheRedPlague.PrefabFiles.UpgradeModules;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -520,6 +521,8 @@ public static class ModPrefabs
                 probability = 0.4f
             });
         amalgamatedBonePrefab.Register();
+        
+        RedPlagueSample.Register();
     }
 
     private static void RegisterManagers()
@@ -638,6 +641,8 @@ public static class ModPrefabs
         AlterraBomb.Register();
         
         DrifterCannonPrefab.Register();
+        
+        BiochemicalProtectionSuit.Register();
         
         InfectionSamplerTool.Register();
     }

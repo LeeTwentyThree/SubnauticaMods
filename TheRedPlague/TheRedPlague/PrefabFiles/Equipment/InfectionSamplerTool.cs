@@ -2,6 +2,7 @@
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
 using TheRedPlague.Mono.Tools;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace TheRedPlague.PrefabFiles.Equipment;
 
-public class InfectionSamplerTool
+public static class InfectionSamplerTool
 {
     public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("InfectionSampler")
         .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("TransfuserIcon"));
@@ -24,7 +25,8 @@ public class InfectionSamplerTool
                 new CraftData.Ingredient(TechType.CopperWire),
                 new CraftData.Ingredient(TechType.Magnetite)))
             .WithCraftingTime(5)
-            .WithFabricatorType(CraftTree.Type.Fabricator);
+            .WithFabricatorType(CraftTree.Type.Fabricator)
+            .WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorTools);
         prefab.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Tools);
         prefab.Register();
     }

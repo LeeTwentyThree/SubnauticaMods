@@ -3,6 +3,7 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using Story;
 using TheRedPlague.Mono;
+using TheRedPlague.PrefabFiles.Equipment;
 using UnityEngine;
 
 namespace TheRedPlague;
@@ -11,6 +12,7 @@ public class StoryUtils
 {
     public static CompoundGoal AngelinaIntroductionEvent { get; private set; }
     public static CompoundGoal BiochemicalProtectionSuitUnlockEvent { get; private set; }
+    public static StoryGoal UseBiochemicalProtectionSuitEvent { get; private set; }
     public static StoryGoal DomeConstructionEvent { get; private set; }
     public static StoryGoal AuroraThrusterEvent { get; private set; }
     public static ItemGoal PlagueHeartGoal { get; private set; }
@@ -45,13 +47,15 @@ public class StoryUtils
         RegisterVoiceLog("AngelinaIntroduction", "AngelinaIntroduction");
         
         BiochemicalProtectionSuitUnlockEvent = StoryGoalHandler.RegisterCompoundGoal("BiochemicalProtectionSuitUnlock", Story.GoalType.PDA,
-            45, "AngelinaIntroduction");
+            48, "AngelinaIntroduction");
         RegisterVoiceLog("BiochemicalProtectionSuitUnlock", "BiochemicalProtectionSuitUnlock");
-        StoryGoalHandler.RegisterOnGoalUnlockData("BiochemicalProtectionSuitUnlock", new []{new UnlockBlueprintData()
+        StoryGoalHandler.RegisterOnGoalUnlockData("BiochemicalProtectionSuitUnlock", new [] {new UnlockBlueprintData
         {
-            techType = TechType.Bioreactor,
+            techType = BiochemicalProtectionSuit.Info.TechType,
             unlockType = UnlockBlueprintData.UnlockType.Available
         }});
+
+        UseBiochemicalProtectionSuitEvent = new StoryGoal("UseBiochemicalProtectionSuit", Story.GoalType.Radio, 2);
         
         DomeConstructionEvent = new StoryGoal("DomeConstructionEvent", Story.GoalType.Story, 0);
     }
