@@ -49,7 +49,7 @@ Please evacuate the area IMMEDIATELY!<delay=5500><duration=3500>
 Alterra is NOT responsible for any deaths or injuries that may occur.<delay=9000><duration=4000>
 Officer: Alterra to 4546B. Yes, WE'VE GOT PERMISSION TO STRIKE.<delay=16900><duration=3000>
 Approximately five seconds remaining until impact.<delay=20000><duration=3400>
-Five, four, three, two, one...<delay=24000><duration=4000>",,
+Five, four, three, two, one...<delay=24000><duration=4000>",
         
     "DrifterCannon": "Drifter appendage",
     "Tooltip_DrifterCannon": "A severed appendage of a drifter. Has a slot that could possibly fit your arm...?",
@@ -59,7 +59,7 @@ Five, four, three, two, one...<delay=24000><duration=4000>",,
     "TheRegular": "The regular",
     "Tooltip_TheRegular": "An Alterra corporation special.",
     "RedPlagueHam": "Ham",
-    "Tooltip_RedPlagueHam": "A dsytopian flavor.",
+    "Tooltip_RedPlagueHam": "A dystopian flavor.",
     "RedPlagueCheese": "Cheese",
     "Tooltip_RedPlagueCheese": "Cheesy.",
 
