@@ -53,6 +53,9 @@ Five, four, three, two, one...<delay=24000><duration=4000>",
         
     "DrifterCannon": "Drifter appendage",
     "Tooltip_DrifterCannon": "A severed appendage of a drifter. Has a slot that could possibly fit your arm...?",
+    
+    "InfectionSampler": "Infection sampler",
+    "Tooltip_InfectionSampler": "A device that harvests and stores small samples of infections for further research.",
 
     "MimicPeeper": "The mimic",
 

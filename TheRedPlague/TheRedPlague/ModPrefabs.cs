@@ -638,6 +638,8 @@ public static class ModPrefabs
         AlterraBomb.Register();
         
         DrifterCannonPrefab.Register();
+        
+        InfectionSamplerTool.Register();
     }
 
     private static void RegisterFood()
