@@ -182,7 +182,7 @@ public static class ModPrefabs
         };
         infectionCubePlatform.SetGameObject(infectionCubeTemplate);
         infectionCubePlatform.SetSpawns(
-            new SpawnLocation(new Vector3(-54.508f, -4.700f, -43.000f), new Vector3(0, 210, 180),
+            new SpawnLocation(new Vector3(-54.508f, -4.900f, -43.000f), new Vector3(0, 210, 180),
                 Vector3.one * 0.4f),
             new SpawnLocation(new Vector3(-60.932f, 308.929f, -52.616f), new Vector3(0, 103, 0),
                 new Vector3(0.4f, 0.2f, 0.4f)),
@@ -817,7 +817,7 @@ public static class ModPrefabs
         newMaterial.color = new Color(5, 0.474790f, 0.977941f);
         line.material = newMaterial;
         line.widthMultiplier = 15;
-        line.endWidth = 100;
+        line.endWidth = 20;
         line.SetPositions(new[] {new Vector3(-78.393f, 341.175f, -57.684f), new Vector3(0, 2000, 0)});
         obj.AddComponent<LaserMaterialManager>();
         prefab.Set(obj);
