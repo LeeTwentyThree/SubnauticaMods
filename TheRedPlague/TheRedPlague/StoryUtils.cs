@@ -39,6 +39,7 @@ public class StoryUtils
     #region GENERAL
 
     public static StoryGoal UseElevatorGoal { get; private set; }
+    public static BiomeGoal EnterPlagueDunesGoal { get; private set; }
 
     #endregion
 
@@ -82,6 +83,9 @@ public class StoryUtils
         StoryGoalHandler.RegisterCustomEvent(PlayerInfectionDeath.PlayCinematic);
 
         UseElevatorGoal = new StoryGoal("UseIslandElevator", Story.GoalType.Story, 0);
+        EnterPlagueDunesGoal =
+            StoryGoalHandler.RegisterBiomeGoal("EnterPlagueDunes", Story.GoalType.PDA, "dunes", 1, 3);
+        RegisterVoiceLog("EnterPlagueDunes", "EnterPlagueDunes", VoiceLogIconPda);
     }
 
     private static void RegisterAct1()

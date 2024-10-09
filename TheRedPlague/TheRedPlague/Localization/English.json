@@ -141,5 +141,7 @@ Dome construction: FINALIZED.<delay=3500><duration=2500>
 Power siphon: FUNCTIONAL.<delay=6000><duration=2000> 
 Shield: ACTIVATED.<delay=8000><duration=1900>
 Secondary containment systems: ACTIVE.<delay=10000><duration=3500>
-PLAGUE QUARANTINE PROCESS SUCCESSFUL.<delay=13500><duration=6000>"
+PLAGUE QUARANTINE PROCESS SUCCESSFUL.<delay=13500><duration=6000>",
+        
+    "EnterPlagueDunes": "Warning: detecting high concentrations of infectious material in this biome. Exploration without proper equipment is highly discouraged"
 }
