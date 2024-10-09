@@ -16,8 +16,11 @@ public class DrifterPrefab : CreatureAsset
 {
     public const float BaseVelocity = 10;
 
-    public DrifterPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
+    private bool _flyOnly;
+
+    public DrifterPrefab(PrefabInfo prefabInfo, bool flyOnly) : base(prefabInfo)
     {
+        _flyOnly = flyOnly;
     }
 
     protected override CreatureTemplate CreateTemplate()
@@ -33,19 +36,6 @@ public class DrifterPrefab : CreatureAsset
             CanBeInfected = false
         };
         return template;
-    }
-
-    protected override void PostRegister()
-    {
-        var randomGenerator = new System.Random(51034581);
-        for (int i = 0; i < 80; i++)
-        {
-            var angle = (float) randomGenerator.NextDouble() * Mathf.PI * 2f;
-            var distance = Mathf.Pow((float) randomGenerator.NextDouble(), 1/2f) * 1500f;
-            var height = 20 + (float) randomGenerator.NextDouble() * 30;
-            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PrefabInfo.ClassID,
-                new Vector3(Mathf.Cos(angle) * distance, height, Mathf.Sin(angle) * distance)));
-        }
     }
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
@@ -108,7 +98,8 @@ public class DrifterPrefab : CreatureAsset
 
         prefab.EnsureComponent<InfectionTarget>().invalidTarget = true;
 
-        prefab.EnsureComponent<DrifterHoverAboveTerrain>();
+        if (!_flyOnly)
+            prefab.EnsureComponent<DrifterHoverAboveTerrain>();
 
         var infectedMixin = prefab.EnsureComponent<InfectedMixin>();
         infectedMixin.renderers = prefab.GetComponentsInChildren<Renderer>(true).Where(r => r is not ParticleSystemRenderer).ToArray();

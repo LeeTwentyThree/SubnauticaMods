@@ -9,7 +9,6 @@ using Nautilus.Utility;
 using TheRedPlague.MaterialModifiers;
 using TheRedPlague.Mono;
 using TheRedPlague.Mono.CreatureBehaviour.MrTeeth;
-using TheRedPlague.Mono.PlagueCyclops;
 using TheRedPlague.PrefabFiles;
 using TheRedPlague.PrefabFiles.Buildable;
 using TheRedPlague.PrefabFiles.Creatures;
@@ -46,6 +45,8 @@ public static class ModPrefabs
     
     public static PrefabInfo MrTeeth { get; } = PrefabInfo.WithTechType("MrTeeth");
     public static PrefabInfo Drifter { get; } = PrefabInfo.WithTechType("Drifter");
+    public static PrefabInfo DrifterFlyOnly { get; } = PrefabInfo.WithTechType("DrifterFlyOnly");
+    public static PrefabInfo DrifterHivemindSpawn { get; } = PrefabInfo.WithTechType("DrifterHMSpawn");
 
     public static PrefabInfo AmalgamatedBone { get; } = PrefabInfo.WithTechType("AmalgamatedBone")
         .WithIcon(Plugin.AssetBundle.LoadAsset<Sprite>("AmalgamatedBone"));
@@ -181,7 +182,7 @@ public static class ModPrefabs
         };
         infectionCubePlatform.SetGameObject(infectionCubeTemplate);
         infectionCubePlatform.SetSpawns(
-            new SpawnLocation(new Vector3(-54.508f, -3.523f, -42.000f), new Vector3(340.496f, 30.000f, 270.000f),
+            new SpawnLocation(new Vector3(-54.508f, -4.700f, -43.000f), new Vector3(0, 210, 180),
                 Vector3.one * 0.4f),
             new SpawnLocation(new Vector3(-60.932f, 308.929f, -52.616f), new Vector3(0, 103, 0),
                 new Vector3(0.4f, 0.2f, 0.4f)),
@@ -366,6 +367,8 @@ public static class ModPrefabs
         PrefabUtils.AddBasicComponents(cigTemplate.Prefab, cigarretePrefab.Info.ClassID, cigarretePrefab.Info.TechType, LargeWorldEntity.CellLevel.Near);
         MaterialUtils.ApplySNShaders(cigTemplate.Prefab);
         cigarretePrefab.Register();
+        
+        InfectedArchitectPrefab.Register();
     }
 
     private static void RegisterFleshAndBonePrefabs()
@@ -451,7 +454,6 @@ public static class ModPrefabs
     {
         var plagueHeart = new CustomPrefab(PlagueHeart);
         plagueHeart.SetGameObject(GetPlagueHeartPrefab);
-        plagueHeart.SetSpawns(new SpawnLocation(new Vector3(-1319.740f, -223.150f, 280)));
         plagueHeart.Register();
 
         var enzymeParticle = new CustomPrefab(EnzymeParticleInfo);
@@ -616,8 +618,12 @@ public static class ModPrefabs
         AuroraTentaclePrefab.Register();
         RepairedAuroraPrefab.Register();
 
-        var drifter = new DrifterPrefab(Drifter);
+        var drifter = new DrifterPrefab(Drifter, false);
         drifter.Register();
+        var drifterFlyOnly = new DrifterPrefab(DrifterFlyOnly, true);
+        drifterFlyOnly.Register();
+        var drifterHiveMindSpawn = new SpawnWithHivemind(DrifterHivemindSpawn, Drifter.ClassID, LargeWorldEntity.CellLevel.VeryFar);
+        drifterHiveMindSpawn.Register();
 
         var mimic = new MimicPeeper(PrefabInfo.WithTechType("MimicPeeper"));
         mimic.Register();
@@ -645,6 +651,7 @@ public static class ModPrefabs
         BiochemicalProtectionSuit.Register();
         
         InfectionSamplerTool.Register();
+        InfectionSamplerFragment.Register();
     }
 
     private static void RegisterFood()

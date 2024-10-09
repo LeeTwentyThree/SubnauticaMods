@@ -87,6 +87,7 @@ public static class Commands
         var domeTask = CraftData.GetPrefabForTechTypeAsync(NewInfectionDome.Info.TechType);
         yield return domeTask;
         var dome = Object.Instantiate(domeTask.GetResult(), Vector3.up * 50, Quaternion.identity);
+        StoryUtils.DomeConstructionEvent.Trigger();
         dome.SetActive(true);
         dome.transform.localScale = Vector3.one * 900;
     }

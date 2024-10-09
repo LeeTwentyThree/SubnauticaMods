@@ -17,8 +17,8 @@ public class InfectionTrackerTool : PlayerTool
     {
         if (Player.main == null)
             return;
-        var plagueHeart = PlagueHeartBehavior.main;
-        if (plagueHeart == null || !viewModel.activeSelf)
+        var infectedArchitect = InfectionTrackerTarget.main;
+        if (infectedArchitect == null || !viewModel.activeSelf)
         {
             _arrowModel.SetActive(false);
             return;
@@ -26,7 +26,7 @@ public class InfectionTrackerTool : PlayerTool
         _arrowModel.SetActive(true);
         var camTrans = MainCamera.camera.transform;
         _arrow.transform.position = camTrans.position + camTrans.forward * 1.3f + camTrans.up * -0.05f;
-        _arrow.LookAt(plagueHeart.transform);
+        _arrow.LookAt(infectedArchitect.transform);
     }
 
     private void OnEnable()

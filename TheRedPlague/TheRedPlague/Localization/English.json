@@ -60,8 +60,10 @@ Five, four, three, two, one...<delay=24000><duration=4000>",
     
     "InfectionSampler": "Infection sampler",
     "Tooltip_InfectionSampler": "A device that harvests and stores small samples of infections for further research.",
+    "InfectionSamplerFragment": "DNA tester fragment",
     "UseInfectionSampler": "Use on infected creature: {0}",
-    "UseInfectionSamplerFail": "Target must be infected!",
+    "UseInfectionSamplerFail": "<color=#FF0000>Target must be infected!</color>",
+    "UseInfectionSamplerBusy": "Encapsulating sample...",
     
     "RedPlagueSample": "Red plague sample",
     "Tooltip_RedPlagueSample": "A contained sample of flesh infected with the Red Plague. The sample within pulsates as if trying to escape.",
@@ -95,15 +97,49 @@ Five, four, three, two, one...<delay=24000><duration=4000>",
     "Ency_Infection_REPLACE": "Specimen with Symptoms of Red Plague",
     "EncyDesc_Infection_REPLACE": "This organism is displaying signs of a highly-intelligent flesh-hosted infection\n\n- Bright red pustules forming around infection sites\n- Underlying Indications of genetic mutation and extremely aggressive behavior \n- The disease itself is unlike any so far recorded in human exploration\n- Scans indicate flesh is very hot as if melting\n\nWARNING: VERY CONTAGIOUS. AVOID AT ALL COSTS. DO NOT CONSUME OR INTERACT WITH INFECTED SPECIMEN.\n",
 
-    "AngelinaIntroduction": "Hey, we can finally get in touch!<delay=0><duration=2900>
+    "AngelinaIntroduction": "???: Hey, we can finally get in touch!<delay=0><duration=2900>
 I’m Angelina Coral, your personal Alterra research operation human resources manager!<delay=3000><duration=5000>
 You are receiving this message because you have been promoted from non-essential system maintenance to be our private investigator.<delay=8000><duration=6500>
 I'm sending in a contract with all your new terms.<delay=15000><duration=2300>
-Reading contract terms...<delay=17500><duration=2000>
+PDA: Reading contract terms...<delay=17500><duration=2000>
 Skipping contract body...<delay=20000><duration=2000>
 Contract terms signed!<delay=22000><duration=1500>
-Thank you! We have several missions for you, but first things first you’re going to need some protection against… whatever you might come across, of course.<delay=23800><duration=9200>
+Angelina: Thank you! We have several missions for you, but first things first you’re going to need some protection against… whatever you might come across, of course.<delay=23800><duration=9200>
 I am sending you blueprints for a full-body biochemical protection module. Please craft and apply it with haste and return back to us as soon as possible!<delay=33500><duration=7500>",
         
-    "BiochemicalProtectionSuitUnlock": "Biochemical protection suit blueprints added to database."
+    "PDABiochemicalProtectionSuitUnlock": "Biochemical protection suit blueprints added to database.",
+    
+    "PDAInfectionSampleTaken": "This flesh sample shows high levels of intentional electromagnetic activity, as if it is trying to share information with a receiver.<delay=0><duration=8500>
+Analysis also shows it is extremely calorie dense.<delay=9000><duration=3300>
+This does not mean you should eat it. I suggest you report this to Alterra as soon as possible.<delay=13000><duration=7000>",
+    
+    "PDABiochemSuitEquipped": "Biochemical protection suit equipped.<delay=0><duration=2500>
+Surface protection film generator: activated.<delay=2600><duration=2400>
+Non-reactive chemical barrier: working.<delay=6000><duration=2500>
+Please note that you are not any more invincible than before.<delay=9000><duration=4000>",
+        
+    "TransfuserMission": "Angelina: As long as you stay clear of any injuries, that simple device you used should create an artificial barrier against any foreign bacteria.<delay=0><duration=7300>
+Please don’t eat any raw fish, because otherwise you’d have to stay under quarantine indefinitely. Anyway, Fred will give you your first mission.<delay=7800><duration=9200>
+Fred: Hey! I’m Fred Elson, the mission co-director of the red- I mean 4546B exploration project.<delay=17800><duration=7500>
+On board the Aurora were a set of brand new DNA-testing devices, complicated stuff really. The bio-lab they were made in was detached during the unfortunate crash.<delay=25000><duration=12000>
+Our analysis shows that the debris, which included a ton of recently fabricated DNA testers, likely landed not far from the crash site of the Aurora.<delay=37250><duration=9200>
+It’s risky but if you can get there with a handheld scanner, you should be able to obtain the blueprints to make them yourself.<delay=46700><duration=6000>
+Sorry that we can’t send them directly, they’re proprietary and developed under a subsidiary team.<delay=53000><duration=6000>
+Mission directive updated: locate and scan 'DNA tester' fragments.<delay=59400><duration=5000>",
+        
+    "PDATransfuserUnlocked": "Transfuser added to database. If you find any creatures that show signs of infection, please make sure you take a sample and return it to Alterra.",
+    "AngelinaFirstSampleShuttlePadInstructions": "I’ve picked up some readings about the sample. Wow, this is way more interesting than I ever could have imagined.<delay=0><duration=8000>
+Please construct a shuttle platform so it can be safely sent to Alterra. In case it goes as I expect, you should start stockpiling resources.<delay=8500><duration=9000>",
+        
+    "PDASendShuttle": "Shuttle is en route to its destination and will arrive at the research station shortly",
+
+    "PDASendShuttleFirstTime": "Shuttle is en route to its destination and will arrive at the research station shortly.<delay=0><duration=5000>
+The probability that a shuttle of this size will be detected by planetary weaponry and shot down stands around 85 to 90 percent<delay=5000><duration=9000>.",
+    
+    "DomeSpeakEvent": "Alien power augmenter: OPERATIONAL.<delay=0><duration=3000>
+Dome construction: FINALIZED.<delay=3500><duration=2500>
+Power siphon: FUNCTIONAL.<delay=6000><duration=2000> 
+Shield: ACTIVATED.<delay=8000><duration=1900>
+Secondary containment systems: ACTIVE.<delay=10000><duration=3500>
+PLAGUE QUARANTINE PROCESS SUCCESSFUL.<delay=13500><duration=6000>"
 }

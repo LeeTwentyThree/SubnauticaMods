@@ -1,5 +1,6 @@
 ﻿using Nautilus.Utility;
 using TheRedPlague.PrefabFiles.Resources;
+using UnityEngine;
 
 namespace TheRedPlague.Mono.Tools;
 
@@ -11,9 +12,13 @@ public class TransfuserTool : PlayerTool
     private static readonly FMODAsset TakeSampleSound = AudioUtils.GetFmodAsset("event:/tools/transfuser/take_sample");
 
     private bool _busy;
+
+    private float _lastFailTime = -100;
     
     public override string GetCustomUseText()
     {
+        if (_busy) return Language.main.Get("UseInfectionSamplerBusy");
+        if (Time.time < _lastFailTime + 2) return Language.main.Get("UseInfectionSamplerFail");
         return LanguageCache.GetButtonFormat("UseInfectionSampler", GameInput.Button.RightHand);
     }
     
@@ -36,7 +41,7 @@ public class TransfuserTool : PlayerTool
             }
         }
         Utils.PlayFMODAsset(FailSound, transform.position);
-        ErrorMessage.AddMessage(Language.main.Get("UseInfectionSamplerFail"));
+        _lastFailTime = Time.time;
         return true;
     }
 
@@ -44,5 +49,6 @@ public class TransfuserTool : PlayerTool
     {
         _busy = false;
         CraftData.AddToInventory(RedPlagueSample.Info.TechType);
+        StoryUtils.TransfuserSampleTakenEvent.Trigger();
     }
 }

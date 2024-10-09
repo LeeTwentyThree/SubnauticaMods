@@ -125,5 +125,17 @@ public static class CoordinatedSpawns
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.SkeletonCorpse.ClassID, new Vector3(-175.49f, -664.36f, 3286.42f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.MutantDiver4.ClassID, new Vector3(-175.12f, -659.21f, 3286.98f)));
         CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(PlagueKnife.Info.ClassID, new Vector3(-175.803f, -666.628f, 3286.333f), new Vector3(82.25f, 211.03f, 182.54f)));
+        
+        // Drifters
+        
+        var randomGenerator = new System.Random(51034581);
+        for (int i = 0; i < 80; i++)
+        {
+            var angle = (float) randomGenerator.NextDouble() * Mathf.PI * 2f;
+            var distance = Mathf.Pow((float) randomGenerator.NextDouble(), 1/2f) * 1500f;
+            var height = 20 + (float) randomGenerator.NextDouble() * 30;
+            CoordinatedSpawnsHandler.RegisterCoordinatedSpawn(new SpawnInfo(ModPrefabs.DrifterHivemindSpawn.ClassID,
+                new Vector3(Mathf.Cos(angle) * distance, height, Mathf.Sin(angle) * distance)));
+        }
     }
 }

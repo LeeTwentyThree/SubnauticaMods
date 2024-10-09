@@ -1,12 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
+using Story;
 using TheRedPlague.Mono.Tools;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace TheRedPlague.PrefabFiles.Equipment;
 
@@ -31,6 +35,12 @@ public static class InfectionSamplerTool
         prefab.Register();
     }
 
+    public static void RegisterLateStoryData()
+    {
+        KnownTechHandler.SetAnalysisTechEntry(Info.TechType, Array.Empty<TechType>(), KnownTechHandler.DefaultUnlockData.BasicUnlockSound,
+        Plugin.AssetBundle.LoadAsset<Sprite>("TransfuserPopup"), new List<StoryGoal> { StoryUtils.UnlockTransfuserEvent});
+    }
+
     public static IEnumerator CreatePrefab(IOut<GameObject> prefab)
     {
         var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("Transfuser_Prefab"));
@@ -52,6 +62,8 @@ public static class InfectionSamplerTool
         tool.socket = PlayerTool.Socket.RightHand;
         tool.ikAimLeftArm = false;
         tool.ikAimRightArm = true;
+
+        PrefabUtils.AddVFXFabricating(obj, "Model", 0, 0.4f);
 
         prefab.Set(obj);
         yield break;

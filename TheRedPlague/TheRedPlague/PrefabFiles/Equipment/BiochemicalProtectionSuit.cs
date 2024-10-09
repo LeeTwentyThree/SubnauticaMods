@@ -1,4 +1,5 @@
-﻿using Nautilus.Assets;
+﻿using System;
+using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Crafting;
@@ -25,6 +26,8 @@ public static class BiochemicalProtectionSuit
             eatable.waterValue = 0;
             eatable.decomposes = false;
             eatable.despawnDelay = EatablePatches.MagicBiochemicalProtectionModuleDespawnDelayAmount;
+
+            obj.GetComponentInChildren<VFXFabricating>().posOffset = default;
         };
         prefab.SetPdaGroupCategory(TechGroup.Personal, TechCategory.Equipment);
         prefab.SetRecipe(new RecipeData(
@@ -34,5 +37,8 @@ public static class BiochemicalProtectionSuit
             .WithStepsToFabricatorTab(CraftTreeHandler.Paths.FabricatorEquipment);
         prefab.SetGameObject(template);
         prefab.Register();
+        KnownTechHandler.SetAnalysisTechEntry(Info.TechType,
+            Array.Empty<TechType>(), KnownTechHandler.DefaultUnlockData.BasicUnlockSound,
+            Plugin.AssetBundle.LoadAsset<Sprite>("BiochemicalProtectionModulePopup"));
     }
 }

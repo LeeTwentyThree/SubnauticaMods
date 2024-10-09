@@ -8,13 +8,17 @@ namespace TheRedPlague.Patches;
 public static class SurvivalPatches
 {
     [HarmonyPatch(nameof(Survival.Eat))]
+    [HarmonyPostfix]
     public static void EatPostfix(GameObject useObj)
     {
         if (useObj == null) return;
         var techType = CraftData.GetTechType(useObj);
-        if (techType == BiochemicalProtectionSuit.Info.TechType)
+        if (techType != BiochemicalProtectionSuit.Info.TechType)
         {
-            StoryUtils.UseBiochemicalProtectionSuitEvent.Trigger();
+            return;
         }
+        StoryUtils.UseBiochemicalProtectionSuitEvent.Trigger();
+        var pickupable = useObj.GetComponent<Pickupable>();
+        if (pickupable) Inventory.main.TryRemoveItem(pickupable);
     }
 }

@@ -11,7 +11,11 @@ public class LaserMaterialManager : MonoBehaviour, IStoryGoalListener
     {
         _renderer = GetComponentInChildren<Renderer>(true);
 
-        if (StoryGoalManager.main.IsGoalComplete(StoryUtils.InfectCables.key))
+        if (!StoryGoalManager.main.IsGoalComplete(StoryUtils.DomeConstructionFinishedEvent.key))
+        {
+            _renderer.enabled = false;
+        }
+        else if (StoryGoalManager.main.IsGoalComplete(StoryUtils.InfectCables.key))
         {
             _renderer.enabled = false;
         }
@@ -33,7 +37,11 @@ public class LaserMaterialManager : MonoBehaviour, IStoryGoalListener
 
     public void NotifyGoalComplete(string key)
     {
-        if (key == StoryUtils.InfectCables.key)
+        if (key == StoryUtils.DomeConstructionFinishedEvent.key)
+        {
+            _renderer.enabled = true;
+        }
+        else if (key == StoryUtils.InfectCables.key)
         {
             _renderer.enabled = false;
         }

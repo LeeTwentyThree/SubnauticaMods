@@ -5,6 +5,7 @@ using Nautilus.FMod;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 namespace TheRedPlague;
 
@@ -186,6 +187,11 @@ public static class ModAudio
         }
         var plagueGargSnarl = new FModMultiSounds(plagueGargSnarlSounds, gargSfxBus, true);
         CustomSoundHandler.RegisterCustomSound("PlagueGargSnarl", plagueGargSnarl);
+        
+        // MUSIC!
+        
+        Register2DSound("IslandElevatorFirst", "elevator2b", AudioUtils.BusPaths.Music);
+        Register2DSound("IslandElevator", "elevator2lousyversion", AudioUtils.BusPaths.Music);
     }
     
     private static IEnumerable<T> LoadAllAssetsWithPrefix<T>(this AssetBundle assetBundle, string prefix) where T : Object

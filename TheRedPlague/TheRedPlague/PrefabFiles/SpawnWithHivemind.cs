@@ -1,5 +1,6 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Utility;
+using TheRedPlague.Mono;
 using UnityEngine;
 
 namespace TheRedPlague.PrefabFiles;
@@ -10,16 +11,17 @@ public class SpawnWithHivemind
     private string SpawnClassId { get; }
     private LargeWorldEntity.CellLevel CellLevel { get; }
     
-    public SpawnWithHivemind(string classId, LargeWorldEntity.CellLevel cellLevel)
+    public SpawnWithHivemind(PrefabInfo info, string spawnClassId, LargeWorldEntity.CellLevel cellLevel)
     {
-        Info = PrefabInfo.WithTechType(classId + "HMSpawn");
-        SpawnClassId = classId;
+        Info = info;
+        SpawnClassId = spawnClassId;
         CellLevel = cellLevel;
     }
 
     public void Register()
     {
         var prefab = new CustomPrefab(Info);
+        prefab.SetGameObject(GetPrefab);
         prefab.Register();
     }
 
@@ -27,7 +29,8 @@ public class SpawnWithHivemind
     {
         var obj = new GameObject(Info.ClassID);
         obj.SetActive(false);
-        PrefabUtils.AddBasicComponents();
+        PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, CellLevel);
+        obj.AddComponent<SpawnOnceHiveMindIsReleased>().spawnClassId = SpawnClassId;
         return obj;
     }
 }

@@ -53,8 +53,14 @@
         <PluginsDir>$(GameDir)\BepInEx\plugins</PluginsDir>
     </PropertyGroup>
 
+    <ItemGroup>
+        <LocalizationFiles Include="Localization/*.json" />
+    </ItemGroup>
+    
     <!--Post-Build event that automatically places your mods folder with the DLL and documentation into your plugins folder as defined in GameDir.targets-->
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;$(PluginsDir)\$(TargetName)&quot;"/>
+        <MakeDir Directories="$(PluginsDir)\$(TargetName)\Localization" />
+        <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(PluginsDir)\$(TargetName)\Localization" />
     </Target>
 </Project>
