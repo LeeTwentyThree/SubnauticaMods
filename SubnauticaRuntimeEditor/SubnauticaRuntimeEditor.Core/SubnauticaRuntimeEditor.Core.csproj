@@ -14,6 +14,10 @@
   </PropertyGroup>
   
   <ItemGroup>
+    <None Include="ILRepack.targets" />
+  </ItemGroup>
+  
+  <ItemGroup>
     <EmbeddedResource Include="Utils\UI\guisharp-box.png" />
     <EmbeddedResource Include="Utils\UI\guisharp-window.png" />
     <EmbeddedResource Include="Utils\UI\guisharp-button-hover.png" />
@@ -38,4 +42,13 @@
     <PackageReference Include="Unity.InputSystem" Version="1.5.0" />
     <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" />
   </ItemGroup>
+
+  <Import Project="..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILRepack.Lib.MSBuild.Task.2.0.16.1\build\ILRepack.Lib.MSBuild.Task.targets'))" />
+  </Target>
+  <Import Project="ILRepack.targets" />
 </Project>
