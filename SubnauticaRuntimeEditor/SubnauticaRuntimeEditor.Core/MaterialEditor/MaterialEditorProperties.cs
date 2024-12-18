@@ -420,5 +420,6 @@
 		ZOffset,
 		Ztest,
 		ZWrite,
+		InfectionAmount
 	}
 }
