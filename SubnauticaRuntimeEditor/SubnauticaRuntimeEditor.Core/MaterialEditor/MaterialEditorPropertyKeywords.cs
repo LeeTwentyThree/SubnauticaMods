@@ -57,17 +57,6 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				}
 			},
 			{
-				MaterialEditorProperties.EnableGlow,
-				new Keywords[]
-				{
-					Keywords.MARMO_EMISSION
-				}
-			},
-			{
-				MaterialEditorProperties.EnableLighting,
-				new Keywords[0]
-			},
-			{
 				MaterialEditorProperties.SpecColor,
 				new Keywords[0]
 			},
@@ -116,13 +105,6 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				new Keywords[0]
 			},
 			{
-				MaterialEditorProperties.EnableCutOff,
-				new Keywords[]
-				{
-					Keywords.MARMO_ALPHA_CLIP
-				}
-			},
-			{
 				MaterialEditorProperties.Cutoff,
 				new Keywords[]
 				{
@@ -131,46 +113,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				}
 			},
 			{
-				MaterialEditorProperties.EnableDitherAlpha,
-				new Keywords[]
-				{
-					Keywords.UWE_DITHERALPHA
-				}
-			},
-			{
-				MaterialEditorProperties.EnableVrFadeOut,
-				new Keywords[]
-				{
-					Keywords.UWE_VR_FADEOUT
-				}
-			},
-			{
 				MaterialEditorProperties.IBLreductionAtNight,
-				new Keywords[0]
-			},
-			{
-				MaterialEditorProperties.EnableSimpleGlass,
-				new Keywords[]
-				{
-					Keywords.MARMO_SIMPLE_GLASS
-				}
-			},
-			{
-				MaterialEditorProperties.EnableVertexColor,
-				new Keywords[]
-				{
-					Keywords.MARMO_VERTEX_COLOR
-				}
-			},
-			{
-				MaterialEditorProperties.EnableSchoolFish,
-				new Keywords[]
-				{
-					Keywords.UWE_SCHOOLFISH
-				}
-			},
-			{
-				MaterialEditorProperties.EnableMainMaps,
 				new Keywords[0]
 			},
 			{
@@ -218,13 +161,6 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				}
 			},
 			{
-				MaterialEditorProperties.EnableDetailMaps,
-				new Keywords[]
-				{
-					Keywords.UWE_DETAILMAP
-				}
-			},
-			{
 				MaterialEditorProperties.DetailIntensities,
 				new Keywords[]
 				{
@@ -232,24 +168,10 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				}
 			},
 			{
-				MaterialEditorProperties.EnableLightmap,
-				new Keywords[]
-				{
-					Keywords.UWE_LIGHTMAP
-				}
-			},
-			{
 				MaterialEditorProperties.LightmapStrength,
 				new Keywords[]
 				{
 					Keywords.UWE_LIGHTMAP
-				}
-			},
-			{
-				MaterialEditorProperties.Enable3Color,
-				new Keywords[]
-				{
-					Keywords.UWE_3COLOR
 				}
 			},
 			{
@@ -506,13 +428,6 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				}
 			},
 			{
-				MaterialEditorProperties.EnableBurst,
-				new Keywords[]
-				{
-					Keywords.FX_BURST
-				}
-			},
-			{
 				MaterialEditorProperties.Displacement,
 				new Keywords[]
 				{
@@ -541,20 +456,6 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 				}
 			},
 			{
-				MaterialEditorProperties.EnableInfection,
-				new Keywords[]
-				{
-					Keywords.UWE_INFECTION
-				}
-			},
-			{
-				MaterialEditorProperties.EnablePlayerInfection,
-				new Keywords[]
-				{
-					Keywords.UWE_PLAYERINFECTION
-				}
-			},
-			{
 				MaterialEditorProperties.InfectionHeightStrength,
 				new Keywords[]
 				{
@@ -572,6 +473,14 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 			},
 			{
 				MaterialEditorProperties.InfectionOffset,
+				new Keywords[]
+				{
+					Keywords.UWE_INFECTION,
+					Keywords.UWE_PLAYERINFECTION
+				}
+			},
+			{
+				MaterialEditorProperties.InfectionAmount,
 				new Keywords[]
 				{
 					Keywords.UWE_INFECTION,
