@@ -38,7 +38,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
         private bool materialPropertiesExpanded = true;
 
         private bool pinnedMaterialPropertiesExpanded = true;
-
+        
         public static string FloatPropertyFormattingString { get; private set; }
 
         protected override void Initialize(InitSettings initSettings)
@@ -249,6 +249,10 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
         private void DrawPropertiesTableRow(MaterialEditorProperties property, PropertyType type, bool pinned)
         {
             GUILayout.BeginHorizontal(Array.Empty<GUILayoutOption>());
+            if (!IsPropertyActiveByKeywords(property))
+            {
+                GUI.color = Color.gray;
+            }
             GUILayout.Label(type.Property, new GUILayoutOption[]
             {
                 _propertyColumnWidth
@@ -265,6 +269,25 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             }
             GUI.color = Styling.Colors.defaultColor;
             GUILayout.EndHorizontal();
+        }
+
+        private bool IsPropertyActiveByKeywords(MaterialEditorProperties property)
+        {
+            if (MaterialEditorPropertyKeywords.KEYWORDS.TryGetValue(property, out var relevantKeywords))
+            {
+                if (relevantKeywords == null || relevantKeywords.Length == 0) return true;
+                foreach (var keyword in relevantKeywords)
+                {
+                    if (editingMaterial.IsKeywordEnabled(keyword.ToString()))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            return true;
         }
 
         private void IsPinned(MaterialEditorProperties property) => pinnedProperties.Contains(property.ToString());
