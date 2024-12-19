@@ -5,6 +5,8 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
 	public abstract class PropertyType
 	{
 		public string Property { get; }
+		
+		public bool IsHeader { get; protected set; }
 
 		protected PropertyType(string property)
 		{
