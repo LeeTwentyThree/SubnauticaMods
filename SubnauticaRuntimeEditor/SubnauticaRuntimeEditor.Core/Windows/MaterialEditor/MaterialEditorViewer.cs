@@ -22,6 +22,8 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
         private const float SHADER_EDITOR_WIDTH = 500f;
 
         private readonly GUILayoutOption _propertyColumnWidth = GUILayout.Width(75f);
+        
+        private readonly GUILayoutOption _texturePropertyColumnWidth = GUILayout.Width(200f);
 
         private readonly GUILayoutOption _propertyDescriptionColumnWidth = GUILayout.Width(400f);
 
@@ -272,7 +274,7 @@ namespace SubnauticaRuntimeEditor.Core.MaterialEditor
             }
             else
             {
-                GUILayout.Label(type.Property, _propertyColumnWidth);
+                GUILayout.Label(type.Property, type is PropertyTypeTexture ? _texturePropertyColumnWidth : _propertyColumnWidth);
             }
 
             if (!type.IsHeader)
