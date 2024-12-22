@@ -1022,19 +1022,19 @@ public static partial class CreatureSpawns
                 {
                     biome = BiomeType.UnderwaterIslands_ValleyFloor,
                     count = 1,
-                    probability = 0.01f
+                    probability = 0.05f
                 },
                 new()
                 {
                     biome = BiomeType.DeepGrandReef_Ground,
                     count = 1,
-                    probability = 0.01f
+                    probability = 0.02f
                 },
                 new()
                 {
                     biome = BiomeType.BloodKelp_CaveFloor,
                     count = 1,
-                    probability = 0.01f
+                    probability = 0.06f
                 },
                 new()
                 {
