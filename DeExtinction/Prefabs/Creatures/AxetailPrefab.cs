@@ -18,7 +18,7 @@ internal class AxetailPrefab : CreatureAsset
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Axetail_Prefab"),
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("Axetail_Prefab"),
             BehaviourType.SmallFish, EcoTargetType.SmallFish, 30)
         {
             SwimRandomData = new SwimRandomData(0.1f, 2.5f, new Vector3(20, 5, 20), 5f),

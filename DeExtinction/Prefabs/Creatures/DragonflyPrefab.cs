@@ -23,7 +23,7 @@ public class DragonflyPrefab : CreatureAsset
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Dragonfly_Prefab"), BehaviourType.MediumFish, EcoTargetType.None, 300)
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("Dragonfly_Prefab"), BehaviourType.MediumFish, EcoTargetType.None, 300)
         {
             SwimRandomData = new SwimRandomData(0.2f, FlyVelocity, new Vector3(16,1, 16), 5, 0.5f),
             AvoidObstaclesData = new AvoidObstaclesData(0.45f, FlyVelocity, true, 5f, 6f),

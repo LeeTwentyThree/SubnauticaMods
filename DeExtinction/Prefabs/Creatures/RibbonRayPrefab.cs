@@ -17,7 +17,7 @@ public class RibbonRayPrefab : CreatureAsset
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("RibbonRay_Prefab"), BehaviourType.MediumFish, EcoTargetType.MediumFish, 40f)
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("RibbonRay_Prefab"), BehaviourType.MediumFish, EcoTargetType.MediumFish, 40f)
         {
             SwimRandomData = new SwimRandomData(0.2f, 2, new Vector3(15, 3, 15), 3),
             AvoidObstaclesData = new AvoidObstaclesData(0.6f, 2, false, 5f, 6f),

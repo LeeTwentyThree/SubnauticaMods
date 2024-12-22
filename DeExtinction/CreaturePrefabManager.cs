@@ -159,11 +159,11 @@ internal static class CreaturePrefabManager
         TwisteelJuvenile.Register();
         
         GulperPrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathan"),
-            Plugin.AssetBundle.LoadAsset<GameObject>("Gulper_Prefab"));
+            () => Plugin.AssetBundle.LoadAsset<GameObject>("Gulper_Prefab"));
         GulperPrefab.Register();
         
         GulperJuvenilePrefab = new GulperLeviathanPrefab(PrefabInfo.WithTechType("GulperLeviathanJuvenile"),
-            Plugin.AssetBundle.LoadAsset<GameObject>("GulperJuvenile_Prefab"));
+            () => Plugin.AssetBundle.LoadAsset<GameObject>("GulperJuvenile_Prefab"));
         GulperJuvenilePrefab.Register();
         
         GulperBabyPrefab = new GulperLeviathanBabyPrefab(PrefabInfo.WithTechType("GulperLeviathanBaby")

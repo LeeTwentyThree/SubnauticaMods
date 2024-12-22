@@ -18,7 +18,7 @@ public class TriangleFishPrefab : CreatureAsset
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Trianglefish_Prefab"), BehaviourType.SmallFish, EcoTargetType.SmallFish, 30f)
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("Trianglefish_Prefab"), BehaviourType.SmallFish, EcoTargetType.SmallFish, 30f)
         {
             SwimRandomData = new SwimRandomData(0.2f, 4f, new Vector3(7,1, 7), 1f),
             AvoidObstaclesData = new AvoidObstaclesData(0.6f, 4f, false, 4f, 5f),

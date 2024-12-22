@@ -23,7 +23,7 @@ public class PyrambassisPrefab : CreatureAsset
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("Pyrambassis_Prefab"), BehaviourType.MediumFish, EcoTargetType.MediumFish, 400f)
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("Pyrambassis_Prefab"), BehaviourType.MediumFish, EcoTargetType.MediumFish, 400f)
         {
             SwimRandomData = new SwimRandomData(0.2f, 4f, new Vector3(30, 5, 30)),
             StayAtLeashData = new StayAtLeashData(0.3f, 4f, 30),

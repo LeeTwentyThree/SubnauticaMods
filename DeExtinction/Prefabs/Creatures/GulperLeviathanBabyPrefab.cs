@@ -23,7 +23,7 @@ internal class GulperLeviathanBabyPrefab : CreatureAsset
     
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("GulperBaby_Prefab"),
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("GulperBaby_Prefab"),
             BehaviourType.Leviathan, EcoTargetType.Shark, 5000)
         {
             SwimRandomData = new SwimRandomData(0.1f, 6f, new Vector3(20, 7, 20), 1.5f, 0.5f, true),

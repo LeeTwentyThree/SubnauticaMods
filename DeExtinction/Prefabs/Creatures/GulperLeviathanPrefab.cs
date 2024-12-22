@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DeExtinction.Mono;
 using ECCLibrary;
@@ -12,9 +13,9 @@ namespace DeExtinction.Prefabs.Creatures;
 
 internal class GulperLeviathanPrefab : CreatureAsset
 {
-    private readonly GameObject _prefabModel;
+    private readonly Func<GameObject> _prefabModel;
 
-    public GulperLeviathanPrefab(PrefabInfo prefabInfo, GameObject prefabModel) : base(prefabInfo)
+    public GulperLeviathanPrefab(PrefabInfo prefabInfo, Func<GameObject> prefabModel) : base(prefabInfo)
     {
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Leviathans, null, null, 8,
             Plugin.AssetBundle.LoadAsset<Texture2D>("Gulper_Ency"),

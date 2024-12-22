@@ -21,7 +21,7 @@ public class GrandGliderPrefab : CreatureAsset
 
     protected override CreatureTemplate CreateTemplate()
     {
-        var template = new CreatureTemplate(Plugin.AssetBundle.LoadAsset<GameObject>("GrandGliderPrefab"), BehaviourType.MediumFish, EcoTargetType.MediumFish, 90f)
+        var template = new CreatureTemplate(() => Plugin.AssetBundle.LoadAsset<GameObject>("GrandGliderPrefab"), BehaviourType.MediumFish, EcoTargetType.MediumFish, 90f)
         {
             SwimRandomData = new SwimRandomData(0.2f, 2f, new Vector3(30, 5, 30)),
             AvoidObstaclesData = new AvoidObstaclesData(0.6f, 2f, false, 5f, 6f),
