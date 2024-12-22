@@ -57,7 +57,7 @@ internal class GulperLeviathanBabyPrefab : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
-        MaterialUtils.ApplySNShaders(prefab, 8, 3, 3);
+        MaterialUtils.ApplySNShaders(prefab, 7, 1, 3);
     }
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
