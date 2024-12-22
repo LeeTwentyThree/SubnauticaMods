@@ -37,6 +37,7 @@ internal static class CreaturePrefabManager
     public static PrefabInfo JasperThalassaceanEgg { get; private set; }
     public static PrefabInfo TwisteelEgg { get; private set; }
     public static PrefabInfo GulperLeviathanEgg { get; private set; }
+    public static PrefabInfo PyrambassisEgg { get; private set; }
 
     private static AssetBundle Bundle => Plugin.AssetBundle;
 
@@ -176,8 +177,15 @@ internal static class CreaturePrefabManager
         Dragonfly = new DragonflyPrefab(PrefabInfo.WithTechType("Dragonfly"));
         Dragonfly.Register();
 
-        Pyrambassis = new PyrambassisPrefab(PrefabInfo.WithTechType("Pyrambassis"));
+        Pyrambassis = new PyrambassisPrefab(PrefabInfo.WithTechType("Pyrambassis")
+                .WithIcon(LoadIcon("PyrambassisIcon"))
+                .WithSizeInInventory(new Vector2int(4, 4))
+        );
+        PyrambassisEgg = CreateEggPrefab("PyrambassisEgg", "PyrambassisEggPrefab",
+            "PyrambassisEggIcon", new Vector2int(3, 3), Pyrambassis.PrefabInfo.TechType, 2f);
+        Pyrambassis.EggInfo = PyrambassisEgg;
         Pyrambassis.Register();
+
     }
 
     public static void RegisterFood()
@@ -341,6 +349,21 @@ internal static class CreaturePrefabManager
                 eggMaterial.SetFloat("_GlowStrength", 0);
                 eggMaterial.SetFloat("_GlowStrengthNight", 0);
                 eggMaterial.SetFloat("_EmissionLMNight", 0.01f);
+            };
+        }
+        else if (classId == "PyrambassisEgg")
+        {
+            eggTemplate.ModifyPrefab += go =>
+            {
+                foreach (var renderer in go.GetComponentsInChildren<Renderer>())
+                {
+                    var material = renderer.material;
+                    material.SetFloat("_SpecInt", 15);
+                    material.SetFloat("_Shininess", 7);
+                    material.SetFloat("_Fresnel", 0.5f);
+                    material.SetFloat("_MyCullVariable", 0);
+
+                }
             };
         }
 

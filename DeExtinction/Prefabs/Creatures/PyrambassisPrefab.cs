@@ -12,7 +12,7 @@ namespace DeExtinction.Prefabs.Creatures;
 
 public class PyrambassisPrefab : CreatureAsset
 {
-    // public PrefabInfo EggInfo { get; set; }
+    public PrefabInfo EggInfo { get; set; }
 
     public PyrambassisPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
@@ -37,8 +37,7 @@ public class PyrambassisPrefab : CreatureAsset
             AnimateByVelocityData = new AnimateByVelocityData(10f),
             BehaviourLODData = new BehaviourLODData(30, 90, 500)
         };
-        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.025f, 0.2f, 0.6f, 1f, true, true, ClassID));
-        // template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.025f, 0.15f, 0.5f, 1f, true, true, EggInfo.ClassID));
+        template.SetWaterParkCreatureData(new WaterParkCreatureDataStruct(0.025f, 0.25f, 0.5f, 1f, false, true, EggInfo.ClassID));
         
         return template;
     }
