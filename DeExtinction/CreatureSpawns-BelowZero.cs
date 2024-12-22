@@ -774,7 +774,7 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.TwistyBridges_Deep_Ground,
-                    probability = 0.01f,
+                    probability = 0.1f,
                     count = 1
                 },
                 new()
@@ -786,13 +786,13 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.PurpleVents_Deep_Ground,
-                    probability = 0.01f,
+                    probability = 0.05f,
                     count = 1
                 },
                 new()
                 {
                     biome = BiomeType.TreeSpires_Ground,
-                    probability = 0.02f,
+                    probability = 0.08f,
                     count = 1
                 }
             });
