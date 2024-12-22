@@ -767,6 +767,35 @@ public static partial class CreatureSpawns
                     probability = 0.1f
                 }
             });
+        
+        RegisterEggSpawns(CreaturePrefabManager.PyrambassisEgg,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.TwistyBridges_Deep_Ground,
+                    probability = 0.01f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.CrystalCave_Ground,
+                    probability = 0.02f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.PurpleVents_Deep_Ground,
+                    probability = 0.01f,
+                    count = 1
+                },
+                new()
+                {
+                    biome = BiomeType.TreeSpires_Ground,
+                    probability = 0.02f,
+                    count = 1
+                }
+            });
     }
 
     public static partial void RegisterCoordinatedSpawns()

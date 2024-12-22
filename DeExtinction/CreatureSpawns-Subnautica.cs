@@ -1014,6 +1014,35 @@ public static partial class CreatureSpawns
                     probability = 0.05f
                 }
             });
+        
+        RegisterEggSpawns(CreaturePrefabManager.PyrambassisEgg,
+            new List<LootDistributionData.BiomeData>
+            {
+                new()
+                {
+                    biome = BiomeType.UnderwaterIslands_ValleyFloor,
+                    count = 1,
+                    probability = 0.01f
+                },
+                new()
+                {
+                    biome = BiomeType.DeepGrandReef_Ground,
+                    count = 1,
+                    probability = 0.01f
+                },
+                new()
+                {
+                    biome = BiomeType.BloodKelp_CaveFloor,
+                    count = 1,
+                    probability = 0.01f
+                },
+                new()
+                {
+                    biome = BiomeType.KooshZone_Grass,
+                    count = 1,
+                    probability = 0.01f
+                }
+            });
     }
 
     public static partial void RegisterCoordinatedSpawns()
