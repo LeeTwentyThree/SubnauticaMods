@@ -8,34 +8,36 @@ using UnityEngine;
 
 namespace PodshellLeviathan.Prefabs;
 
-internal class PodshellLeviathanPrefab : CreatureAsset
+public class PodshellLeviathanPrefab : CreatureAsset
 {
-    private const float kSwimSpeedPriority = 0.1f;
-    private const float kAvoidTerrainPriority = 0.8f;
-    private const float kStayAtLeashPriority = 0.1f;
-
-    private const float kStandardSwimVelocity = 6f;
+    private const float SwimSpeedPriority = 0.1f;
+    private const float AvoidTerrainPriority = 0.8f;
+    private const float StayAtLeashPriority = 0.1f;
 
     public PodshellLeviathanPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
     }
+    
+    protected virtual float StandardSwimVelocity => 3;
+    protected virtual string ModelName => "PodshellLeviathanPrefab";
+    protected virtual float MaxHealth => 6000;
 
     protected override CreatureTemplate CreateTemplate()
     {
         var template = new CreatureTemplate(
-            Plugin.Assets.LoadAsset<GameObject>("PodshellLeviathanPrefab"),
+            () => Plugin.Assets.LoadAsset<GameObject>(ModelName),
             BehaviourType.Leviathan,
             EcoTargetType.Leviathan,
-            6000);
+            MaxHealth);
 
         CreatureTemplateUtils.SetCreatureDataEssentials(template, LargeWorldEntity.CellLevel.VeryFar, 3000f, 0, new BehaviourLODData(150, 250, 300), 10000);
-        template.SwimRandomData = new SwimRandomData(kSwimSpeedPriority, kStandardSwimVelocity, new Vector3(100, 4, 100), 5f, 1f, true);
-        template.AvoidTerrainData = new AvoidTerrainData(kAvoidTerrainPriority, kStandardSwimVelocity, 20f, 20f);
-        template.StayAtLeashData = new StayAtLeashData(kStayAtLeashPriority, kStandardSwimVelocity, 140f);
+        template.SwimRandomData = new SwimRandomData(SwimSpeedPriority, StandardSwimVelocity, new Vector3(100, 4, 100), 5f, 1f, true);
+        template.AvoidTerrainData = new AvoidTerrainData(AvoidTerrainPriority, StandardSwimVelocity, 20f, 20f);
+        template.StayAtLeashData = new StayAtLeashData(StayAtLeashPriority, StandardSwimVelocity, 140f);
         template.CanBeInfected = false;
         template.SizeDistribution = new AnimationCurve(new Keyframe(0f, 0.7f), new Keyframe(1f, 1f));
         template.LocomotionData = new LocomotionData(10f, 0.06f, 0.1f, 0.5f, true);
-        template.AnimateByVelocityData = new AnimateByVelocityData(kStandardSwimVelocity + 1f);
+        template.AnimateByVelocityData = new AnimateByVelocityData(StandardSwimVelocity + 1f);
         template.LiveMixinData.broadcastKillOnDeath = true;
 
         template.SetCreatureComponentType<PodshellLeviathanBehavior>();

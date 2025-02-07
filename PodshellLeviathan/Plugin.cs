@@ -19,8 +19,12 @@ public class Plugin : BaseUnityPlugin
 
     internal static AssetBundle Assets { get; } = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "podshellleviathan");
 
-    internal static PodshellLeviathanPrefab PodshellLeviathan { get; } = new PodshellLeviathanPrefab(
+    internal static PodshellLeviathanPrefab PodshellLeviathan { get; } = new(
         PrefabInfo.WithTechType("PodshellLeviathan", null, null));
+    
+    internal static PodshellLeviathanJuvenilePrefab PodshellLeviathanJuvenile { get; } = new(
+        PrefabInfo.WithTechType("PodshellLeviathanJuvenile", null, null));
+
 
     private void Awake()
     {
@@ -42,5 +46,6 @@ public class Plugin : BaseUnityPlugin
     private void InitializePrefabs()
     {
         PodshellLeviathan.Register();
+        PodshellLeviathanJuvenile.Register();
     }
 }
