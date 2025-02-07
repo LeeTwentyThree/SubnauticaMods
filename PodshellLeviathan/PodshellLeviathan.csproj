@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <Reference Include="ECCLibrary">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\ECCLibrary\ECCLibrary.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\ECCLibrary\ECCLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

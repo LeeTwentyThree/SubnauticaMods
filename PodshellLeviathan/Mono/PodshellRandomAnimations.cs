@@ -18,7 +18,7 @@ public class PodshellRandomAnimations : MonoBehaviour
         new PodshellAnimation("big_roar", -1, null, AnimationType.LongRoar),
         new PodshellAnimation("small_roar", -1, null, AnimationType.Roar),
         new PodshellAnimation("cleaning", 11, null, AnimationType.Cleaning),
-        new PodshellAnimation("grinding_teeth", 3f, ModAudio.TeethGrinding, AnimationType.Cleaning),
+        new PodshellAnimation("grinding_teeth", 3f, ModAudio.TeethGrinding, AnimationType.GrindTeeth),
     };
 
     private PodshellAnimation _lastAnimation;

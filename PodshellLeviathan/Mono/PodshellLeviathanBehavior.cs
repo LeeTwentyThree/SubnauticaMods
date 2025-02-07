@@ -1,6 +1,4 @@
-﻿using UnityEngine.Serialization;
-
-namespace PodshellLeviathan.Mono;
+﻿namespace PodshellLeviathan.Mono;
 
 public class PodshellLeviathanBehavior : Creature
 {
