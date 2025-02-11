@@ -69,7 +69,7 @@ public static class GenerateBasePrefabCode
         }
 
         var text = sb.ToString();
-        var dateString = System.DateTime.Now.ToLongDateString();
+        var dateString = System.DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss");
         var modFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         var outputFolder = Path.Combine(modFolder, "Generated");
         if (!Directory.Exists(outputFolder))
