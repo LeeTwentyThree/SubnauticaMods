@@ -105,26 +105,26 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.Dunes_OpenShallow_CreatureOnly,
-                    count = 4,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_OpenDeep_CreatureOnly,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.Mountains_OpenShallow_CreatureOnly,
-                    count = 4,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.Mountains_OpenDeep_CreatureOnly,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 }
             });
 
@@ -210,68 +210,68 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.GrandReef_Grass,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.GrandReef_Ground,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.GrandReef_OpenDeep_CreatureOnly,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.LostRiverCorridor_Open_CreatureOnly,
-                    count = 6,
-                    probability = 0.12f
+                    probability = 0.12f,
+                    count = 6
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_Grass,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_SandDune,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_OpenDeep_CreatureOnly,
-                    count = 4,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.CragField_OpenDeep_CreatureOnly,
-                    count = 4,
-                    probability = 0.06f
+                    probability = 0.06f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Ground,
-                    count = 4,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Rock,
-                    count = 4,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Sand,
-                    count = 4,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 4
                 }
             });
 
@@ -323,8 +323,8 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.JellyshroomCaves_CaveFloor,
-                    count = 2,
-                    probability = 1f
+                    probability = 1f,
+                    count = 2
                 }
             });
 
@@ -334,68 +334,68 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.Mountains_OpenDeep_CreatureOnly,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.Mountains_OpenShallow_CreatureOnly,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_OpenDeep_CreatureOnly,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_OpenShallow_CreatureOnly,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.GrandReef_OpenDeep_CreatureOnly,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.GrandReef_OpenShallow_CreatureOnly,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.DeepGrandReef_Ceiling,
-                    count = 3,
-                    probability = 0.8f
+                    probability = 0.8f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.DeepGrandReef_Ground,
-                    count = 3,
-                    probability = 0.35f
+                    probability = 0.35f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.DeepGrandReef_BlueCoral,
-                    count = 3,
-                    probability = 0.3f
+                    probability = 0.3f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.SafeShallows_CaveWall,
-                    count = 3,
-                    probability = 0.8f
+                    probability = 0.8f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.GrassyPlateaus_OpenShallow_CreatureOnly,
-                    count = 5,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 5
                 }
             });
 
@@ -405,26 +405,26 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.Kelp_CaveFloor,
-                    count = 4,
-                    probability = 0.9f
+                    probability = 0.9f,
+                    count = 4
                 },
                 new()
                 {
                     biome = BiomeType.Kelp_Sand,
-                    count = 3,
-                    probability = 0.4f
+                    probability = 0.4f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.Kelp_DenseVine,
-                    count = 2,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 2
                 },
                 new()
                 {
                     biome = BiomeType.GhostTree_Open_CreatureOnly,
-                    count = 3,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 3
                 }
             });
 
@@ -434,44 +434,44 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.GrandReef_OpenDeep_CreatureOnly,
-                    count = 12,
-                    probability = 0.015f
+                    probability = 0.015f,
+                    count = 12
                 },
                 new()
                 {
                     biome = BiomeType.GrandReef_OpenShallow_CreatureOnly,
-                    count = 12,
-                    probability = 0.015f
+                    probability = 0.015f,
+                    count = 12
                 },
                 new()
                 {
                     biome = BiomeType.Mountains_OpenDeep_CreatureOnly,
-                    count = 12,
-                    probability = 0.01f
+                    probability = 0.01f,
+                    count = 12
                 },
                 new()
                 {
                     biome = BiomeType.Mountains_OpenShallow_CreatureOnly,
-                    count = 12,
-                    probability = 0.01f
+                    probability = 0.01f,
+                    count = 12
                 },
                 new()
                 {
                     biome = BiomeType.CragField_OpenDeep_CreatureOnly,
-                    count = 12,
-                    probability = 0.02f
+                    probability = 0.02f,
+                    count = 12
                 },
                 new()
                 {
                     biome = BiomeType.CragField_OpenShallow_CreatureOnly,
-                    count = 12,
-                    probability = 0.02f
+                    probability = 0.02f,
+                    count = 12
                 },
                 new()
                 {
                     biome = BiomeType.Mesas_Open,
-                    count = 12,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 12
                 }
             });
 
@@ -481,44 +481,44 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.LostRiverCorridor_Open_CreatureOnly,
-                    count = 1,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.LostRiverJunction_Open_CreatureOnly,
-                    count = 1,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.BonesField_Skeleton_Open_CreatureOnly,
-                    count = 1,
-                    probability = 0.06f
+                    probability = 0.06f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.BonesField_LakePit_Open_CreatureOnly,
-                    count = 1,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.GhostTree_Open_Big_CreatureOnly,
-                    count = 1,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Canyon_Open_CreatureOnly,
-                    count = 1,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.BonesField_Corridor_CreatureOnly,
-                    count = 1,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 1
                 }
             });
 
@@ -647,14 +647,14 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.SparseReef_Coral,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.SafeShallows_ShellTunnelHuge,
-                    count = 2,
-                    probability = 3f
+                    probability = 3f,
+                    count = 2
                 }
             });
 
@@ -664,38 +664,38 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.GrandReef_OpenShallow_CreatureOnly,
-                    count = 1,
-                    probability = 0.02f
+                    probability = 0.02f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.GrandReef_OpenDeep_CreatureOnly,
-                    count = 1,
-                    probability = 0.02f
+                    probability = 0.02f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.KooshZone_OpenShallow_CreatureOnly,
-                    count = 1,
-                    probability = 0.1f
+                    probability = 0.1f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.KooshZone_OpenDeep_CreatureOnly,
-                    count = 1,
-                    probability = 0.05f
+                    probability = 0.05f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_OpenShallow_CreatureOnly,
-                    count = 1,
-                    probability = 0.04f
+                    probability = 0.04f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_OpenDeep_CreatureOnly,
-                    count = 1,
-                    probability = 0.02f
+                    probability = 0.02f,
+                    count = 1
                 }
             });
 
@@ -705,50 +705,50 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.SafeShallows_Grass,
-                    count = 2,
-                    probability = 0.6f
+                    probability = 0.6f,
+                    count = 2
                 },
                 new()
                 {
                     biome = BiomeType.SafeShallows_Plants,
-                    count = 2,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 2
                 },
                 new()
                 {
                     biome = BiomeType.SafeShallows_SandFlat,
-                    count = 2,
-                    probability = 0.5f
+                    probability = 0.5f,
+                    count = 2
                 },
                 new()
                 {
                     biome = BiomeType.SparseReef_Coral,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.SparseReef_OpenDeep_CreatureOnly,
-                    count = 3,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.KooshZone_Sand,
-                    count = 3,
-                    probability = 1.5f
+                    probability = 1.5f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.KooshZone_Grass,
-                    count = 3,
-                    probability = 2f
+                    probability = 2f,
+                    count = 3
                 },
                 new()
                 {
                     biome = BiomeType.CrashZone_Sand,
-                    count = 3,
-                    probability = 0.4f
+                    probability = 0.4f,
+                    count = 3
                 }
             });
 
@@ -888,38 +888,38 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.GrandReef_CaveFloor,
-                    count = 1,
-                    probability = 0.5f
+                    probability = 0.5f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Mountains_CaveFloor,
-                    count = 1,
-                    probability = 3f
+                    probability = 3f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Mesas_Top,
-                    count = 1,
-                    probability = 5f
+                    probability = 5f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Ground,
-                    count = 1,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Rock,
-                    count = 1,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.CragField_Sand,
-                    count = 1,
-                    probability = 0.2f
+                    probability = 0.2f,
+                    count = 1
                 }
             });
 
@@ -929,8 +929,8 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.UnderwaterIslands_IslandPlants,
-                    count = 1,
-                    probability = 0.24f
+                    probability = 0.24f,
+                    count = 1
                 }
             });
 
@@ -940,32 +940,32 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.LostRiverCorridor_LakeFloor,
-                    count = 1,
-                    probability = 1f
+                    probability = 1f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.LostRiverJunction_LakeFloor,
-                    count = 1,
-                    probability = 1f
+                    probability = 1f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.BonesField_Lake_Floor,
-                    count = 1,
-                    probability = 1f
+                    probability = 1f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.BonesField_Cave_Ground,
-                    count = 1,
-                    probability = 1f
+                    probability = 1f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Canyon_Lake_Floor,
-                    count = 1,
-                    probability = 1f
+                    probability = 1f,
+                    count = 1
                 }
             });
 
@@ -975,20 +975,20 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.GrandReef_CaveFloor,
-                    count = 1,
-                    probability = 2f
+                    probability = 2f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.KooshZone_CaveFloor,
-                    count = 1,
-                    probability = 2f
+                    probability = 2f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.Dunes_CaveFloor,
-                    count = 1,
-                    probability = 2f
+                    probability = 2f,
+                    count = 1
                 }
             });
 
@@ -998,20 +998,20 @@ public static partial class CreatureSpawns
                 new()
                 {
                     biome = BiomeType.UnderwaterIslands_IslandCaveFloor,
-                    count = 1,
-                    probability = 0.8f
+                    probability = 0.8f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.UnderwaterIslands_ValleyFloor,
-                    count = 1,
-                    probability = 0.09f
+                    probability = 0.09f,
+                    count = 1
                 },
                 new()
                 {
                     biome = BiomeType.BloodKelp_Grass,
-                    count = 1,
-                    probability = 0.05f
+                    probability = 0.05f,
+                    count = 1
                 }
             });
         
