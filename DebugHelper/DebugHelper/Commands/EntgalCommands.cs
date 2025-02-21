@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Nautilus.Commands;
 using UnityEngine;
@@ -17,6 +18,10 @@ namespace DebugHelper.Commands
 
         private static float zSpacing = 4;
 
+        private const bool DebugMode = true;
+
+        private static List<int> _frameTimes;
+        private static List<float> _realTimes;
 
         [ConsoleCommand("entgal")]
         public static void EntityGallery()
@@ -26,6 +31,12 @@ namespace DebugHelper.Commands
 
         private static IEnumerator EntgalCoroutine()
         {
+            if (DebugMode)
+            {
+                _realTimes = new List<float>();
+                _frameTimes = new List<int>();
+            }
+
             string[] classIds = PrefabDatabase.prefabFiles.Keys.ToArray();
             ErrorMessage.AddMessage($"Spawning entgal with {classIds.Length} entities.");
             Vector3 worldPos = new Vector3(-1600, -30f, -1000);
@@ -39,6 +50,24 @@ namespace DebugHelper.Commands
                     worldPos = new Vector3(worldPos.x + xSpacing, worldPos.y, 0);
                 }
             }
+
+            if (DebugMode)
+            {
+                var realTimeAverage = 0f;
+                foreach (var time in _realTimes)
+                {
+                    realTimeAverage += time / _realTimes.Count;
+                }
+
+                var frameTimeAverage = 0f;
+                foreach (var frames in _frameTimes)
+                {
+                    frameTimeAverage += (float)frames / _frameTimes.Count;
+                }
+
+                Main.logger.LogMessage(
+                    $"Average time to fetch prefabs: {realTimeAverage} seconds, {frameTimeAverage} frames.");
+            }
         }
 
         private static IEnumerator InspectPrefab(string classId, Vector3 pos)
@@ -47,20 +76,38 @@ namespace DebugHelper.Commands
             {
                 yield return GetSignPrefab();
             }
+
+            float startTime;
+            int startFrame;
+            if (DebugMode)
+            {
+                startTime = Time.realtimeSinceStartup;
+                startFrame = Time.frameCount;
+            }
+
             var request = PrefabDatabase.GetPrefabAsync(classId);
             yield return request;
+            if (DebugMode)
+            {
+                _realTimes.Add(Time.realtimeSinceStartup - startTime);
+                _frameTimes.Add(Time.frameCount - startFrame);
+            }
+
             if (!request.TryGetPrefab(out GameObject prefab))
             {
                 yield break;
             }
+
             if (prefab.name == "Cold")
             {
                 yield break;
             }
+
             if (classId == "ce23b9ee-fd98-4677-9919-20248356f7cf")
             {
                 yield break;
             }
+
             GameObject spawned = Object.Instantiate(prefab);
             spawned.transform.position = pos;
 
@@ -83,6 +130,7 @@ namespace DebugHelper.Commands
                 ErrorMessage.AddMessage("Sign prefab failed to load.");
                 return null;
             }
+
             var signObj = Object.Instantiate(signPrefab, coords, Quaternion.Euler(rotation));
             signObj.transform.localScale = scale;
             GenericSign sign = signObj.GetComponentInChildren<GenericSign>();
