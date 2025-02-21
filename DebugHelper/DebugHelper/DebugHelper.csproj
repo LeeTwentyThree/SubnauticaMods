@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-		<Configurations>Debug;Release;SN1;BZ</Configurations>
+		<Configurations>SN1;BZ</Configurations>
 
 		<RestoreAdditionalProjectSources>
 			https://api.nuget.org/v3/index.json;
