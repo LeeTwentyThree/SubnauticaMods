@@ -2,3 +2,4 @@ Fix door direction detection issue
 Fix door placement issue?
 Fix door teleporting player
 Fix doors randomly closing when reloading saves
+Block docking on 2d sea trucks
