@@ -25,6 +25,7 @@ internal static class BranchModulePrefab
             .WithFabricatorType(CraftTree.Type.Constructor)
             .WithStepsToFabricatorTab("Modules");
         prefab.SetPdaGroupCategory(TechGroup.Constructor, TechCategory.Constructor);
+        prefab.SetUnlock(TechType.SeaTruck);
         prefab.Register();
     }
 
