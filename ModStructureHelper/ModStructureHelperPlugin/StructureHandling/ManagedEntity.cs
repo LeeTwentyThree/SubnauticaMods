@@ -99,12 +99,6 @@ public class ManagedEntity : IOriginator
         {
             EntityData = EntityInstance.GetEntityDataStruct();
         }
-        else
-        {
-            var warningMessage =
-                $"Object deleted from structure.";
-            ErrorMessage.AddMessage(warningMessage);
-        }
         EntityInstance = null;
     }
     
