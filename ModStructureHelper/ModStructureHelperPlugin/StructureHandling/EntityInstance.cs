@@ -84,7 +84,27 @@ public class EntityInstance : MonoBehaviour
     
     public Entity GetEntityDataStruct()
     {
-        return new Entity(ClassId, Id, transform.position, transform.rotation, transform.localScale, CellLevel, Priority);
+        return new Entity(GetClassIdSafe(), GetUniqueIdSafe(), transform.position, transform.rotation, transform.localScale, CellLevel, Priority);
+    }
+
+    private string GetClassIdSafe()
+    {
+        if (!string.IsNullOrEmpty(ClassId))
+            return ClassId;
+        if (ManagedEntity != null && !string.IsNullOrEmpty(ManagedEntity.ClassId))
+            return ManagedEntity.ClassId;
+        Plugin.Logger.LogWarning("Entity exists with null Class ID!");
+        return null;
+    }
+    
+    private string GetUniqueIdSafe()
+    {
+        if (!string.IsNullOrEmpty(Id))
+            return Id;
+        if (ManagedEntity != null && !string.IsNullOrEmpty(ManagedEntity.Id))
+            return ManagedEntity.Id;
+        Plugin.Logger.LogWarning("Entity exists with null ID!");
+        return null;
     }
 
     private void Update()
