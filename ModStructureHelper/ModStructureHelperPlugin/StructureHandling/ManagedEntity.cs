@@ -16,7 +16,7 @@ public class ManagedEntity : IOriginator
     {
         get
         {
-            if (EntityInstance != null) return EntityInstance.ClassId;
+            if (EntityInstance != null && !string.IsNullOrEmpty(EntityInstance.ClassId)) return EntityInstance.ClassId;
             return EntityData.classId;
         }
     }
@@ -25,7 +25,7 @@ public class ManagedEntity : IOriginator
     {
         get
         {
-            if (EntityInstance != null) return EntityInstance.Id;
+            if (EntityInstance != null && !string.IsNullOrEmpty(EntityInstance.Id)) return EntityInstance.Id;
             return EntityData.id;
         }
         set
