@@ -7,12 +7,6 @@ using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
-/*
- * TO-DO
- * PATCH IN-GAME MENU TO ADD BUTTON TO OPEN THE MOD STRUCTURE HELPER
- * MAKE SURE THE CONVERSION TO "ENTITY GROUPS" TO "STRUCTURES" WAS DONE CORRECTLY
- * IMPLEMENT ENTITY VIEWER, SORTING BY MODS, ETC. (take from void editor?)
- */
 namespace ModStructureHelperPlugin;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
