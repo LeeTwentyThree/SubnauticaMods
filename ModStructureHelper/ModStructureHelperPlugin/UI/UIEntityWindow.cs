@@ -222,10 +222,14 @@ public class UIEntityWindow : MonoBehaviour
         {
             var entry = button.GetBrowserEntry();
             if (entry is not EntityBrowserEntity entity) continue;
-            if (entity.EntityData.ClassId == "PrecursorCacheBaseModel") continue;
             var classId = entity.EntityData.ClassId;
             if (IconGenerator.HasIcon(classId)) continue;
             var task = PrefabDatabase.GetPrefabAsync(classId);
+            if (task == null)
+            {
+                Plugin.Logger.LogWarning($"Skipping icon generation for prefab '{classId}' because its PrefabFactory is null!");
+                continue;
+            }
             yield return task;
             if (!task.TryGetPrefab(out var prefab)) continue;
             var output = new IconGenerator.IconOutput();
