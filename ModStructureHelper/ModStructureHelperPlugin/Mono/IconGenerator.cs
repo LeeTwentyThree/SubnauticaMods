@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections;
+using ModStructureHelperPlugin.Utility;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Mono;
@@ -21,7 +23,7 @@ public class IconGenerator : MonoBehaviour
     }
 
     public static bool HasIcon(string classId) => _sprites.ContainsKey(classId);
-    
+
     public static IEnumerator GenerateIcon(GameObject prefab, string classId, IconOutput output)
     {
         if (_instance == null)
@@ -34,6 +36,8 @@ public class IconGenerator : MonoBehaviour
             var renderTexture = new RenderTexture(256, 256, 0, RenderTextureFormat.Default);
             _instance.renderTexture = renderTexture;
             camera.targetTexture = renderTexture;
+            camera.clearFlags = CameraClearFlags.SolidColor;
+            camera.backgroundColor = Color.clear;
             var sceneParent = new GameObject("Scene parent");
             camObj.transform.parent = sceneParent.transform;
             camObj.transform.localEulerAngles = new Vector3(0, 210, 0);
@@ -51,10 +55,11 @@ public class IconGenerator : MonoBehaviour
 
         _instance.cam.enabled = true;
         _instance.sceneParent.SetActive(true);
-        var model = Instantiate(prefab);
+        var model = UWE.Utils.InstantiateDeactivated(prefab);
+        ComponentStripUtils.StripComponents(model);
         model.SetActive(true);
+        Destroy(model, 0.5f);
         model.transform.position = _instance.transform.position;
-        DestroyImmediate(model.GetComponent<LargeWorldEntity>());
         var bounds = GetObjectBounds(model);
         var distance = Mathf.Clamp(Mathf.Max(bounds.extents.x, bounds.extents.z), 1, 60);
         _instance.cam.transform.position = bounds.center - _instance.cam.transform.forward * distance * 2;
@@ -79,6 +84,7 @@ public class IconGenerator : MonoBehaviour
         {
             bounds.Encapsulate(renderer.bounds);
         }
+
         return bounds;
     }
 
