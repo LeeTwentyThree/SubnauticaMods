@@ -20,6 +20,12 @@ public static class Commands
     {
         PerformGenericExport<CountingExporter>("Counted");
     }
+    
+    [ConsoleCommand("printunusedentities")]
+    public static void PrintUnusedEntities()
+    {
+        PerformGenericExport<UnusedEntitiesExporter>("Unused");
+    }
 
     private static void PerformGenericExport<T>(string prefix) where T : IEntityExporter
     {

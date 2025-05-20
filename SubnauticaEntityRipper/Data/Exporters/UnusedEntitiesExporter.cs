@@ -7,11 +7,11 @@ using UWE;
 
 namespace SubnauticaEntityRipper.Data.Exporters;
 
-public class CountingExporter : IEntityExporter
+public class UnusedEntitiesExporter : IEntityExporter
 {
     public void ExportData(IBatchParser parser, IEnumerable<BatchData> inputCells, string outputFile)
     {
-        Dictionary<string, CountedEntity> dictionary = new();
+        HashSet<string> used = new();
 
         foreach (var input in inputCells)
         {
@@ -26,28 +26,21 @@ public class CountingExporter : IEntityExporter
                         // Plugin.Logger.LogError($"Entity '{entity.CoreData.UniqueId}' has no Class ID!");
                         continue;
                     }
-                    if (!dictionary.TryGetValue(entity.CoreData.ClassId, out var count))
-                    {
-                        count = new CountedEntity(entity.CoreData.ClassId);
-                        dictionary.Add(entity.CoreData.ClassId, count);
-                    }
 
-                    count.AddOne();
+                    used.Add(entity.CoreData.ClassId);
                 }
             }
         }
 
         using var writer = new StreamWriter(outputFile);
-        var countedList = dictionary.Values.OrderBy(c => c.Count);
-        foreach (var entry in countedList)
+        
+        foreach (var file in PrefabDatabase.prefabFiles)
         {
-            var friendlyName = "UNKNOWN";
-            if (PrefabDatabase.TryGetPrefabFilename(entry.ClassId, out var fileName))
+            if (!used.Contains(file.Key))
             {
-                friendlyName = fileName.Split('/').Last().Split('.').First();
+                var friendlyName = file.Value.Split('/').Last().Split('.').First();
+                writer.WriteLine(friendlyName.PadRight(60) + " - " + file.Key);
             }
-
-            writer.WriteLine(entry.Count.ToString().PadRight(8) + " - " + friendlyName.PadRight(60) + " - " + entry.ClassId);
         }
     }
 
