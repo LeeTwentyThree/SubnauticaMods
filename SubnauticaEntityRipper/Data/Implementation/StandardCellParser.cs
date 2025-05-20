@@ -37,19 +37,20 @@ public class StandardCellParser : ICellParser, IDisposable
 
         var loopHeader = ProtobufSerializer.loopHeaderPool.Get();
         loopHeader.Reset();
-        
+
         _serializer.Deserialize(_stream, loopHeader, _verbose);
         var entities = loopHeader.Count;
-        
+
         var componentHeader = ProtobufSerializer.componentHeaderPool.Get();
         var dictionary = ProtobufSerializer.componentCountersPool.Get();
-        
+
         var gameObjectData = ProtobufSerializer.gameObjectDataPool.Get();
+        CoreEntityData cellRootData = null;
         for (var i = 0; i < entities; i++)
         {
             gameObjectData.Reset();
             _serializer.Deserialize(_stream, gameObjectData, _verbose);
-            
+
             // see ProtobufSerializer.DeserializeIntoGameObject
             loopHeader.Reset();
             _serializer.Deserialize(_stream, loopHeader, _verbose);
@@ -59,14 +60,15 @@ public class StandardCellParser : ICellParser, IDisposable
                 componentHeader.Reset();
                 dictionary.Clear();
                 _serializer.Deserialize(_stream, componentHeader, _verbose);
-                bool isEnabled = componentHeader.IsEnabled;
-                if (!string.IsNullOrEmpty(componentHeader.TypeName))
-                {
-                    string typeName = componentHeader.TypeName;
-                    var cachedType = ProtobufSerializer.GetCachedType(typeName);
-                    int id = ProtobufSerializer.IncrementComponentCounter(dictionary, cachedType);
-                    
-                    /* Component orAddComponent = GetOrAddComponent(gameObject, cachedType, typeName, id, goData.CreateEmptyObject);
+                // bool isEnabled = componentHeader.IsEnabled;
+
+                if (string.IsNullOrEmpty(componentHeader.TypeName)) continue;
+
+                string typeName = componentHeader.TypeName;
+                var cachedType = ProtobufSerializer.GetCachedType(typeName);
+                int id = ProtobufSerializer.IncrementComponentCounter(dictionary, cachedType);
+
+                /* Component orAddComponent = GetOrAddComponent(gameObject, cachedType, typeName, id, goData.CreateEmptyObject);
                     if (!orAddComponent)
                     {
                         Debug.LogWarningFormat(gameObject, "Serialized component '{0}' not found in game object", componentHeader.TypeName);
@@ -77,31 +79,51 @@ public class StandardCellParser : ICellParser, IDisposable
                         Deserialize(stream, orAddComponent, cachedType, verbose > 2);
                     }
                     */
-                    
-                    // [TEMPORARY LOGIC]
-                    if (cachedType == typeof(Transform))
-                    {
-                        _serializer.Deserialize(_stream, _tempTransform, _verbose);
-                    }
-                    else
-                    {
-                        _serializer.SkipDeserialize(_stream);
-                    }
-                    
-                    // [END OF TEMPORARY LOGIC]
-                    
-                    // maybe useful later?
-                    // SetIsEnabled(orAddComponent, isEnabled);
-                }
-            }
-            
-            var coreData = new CoreEntityData(gameObjectData.ClassId, gameObjectData.Id,
-                _tempTransform.position,
-                _tempTransform.rotation,
-                _tempTransform.lossyScale);
-            yield return new EntityDefinition(coreData);
 
+                // [TEMPORARY LOGIC]
+                if (cachedType == typeof(Transform))
+                {
+                    _serializer.Deserialize(_stream, _tempTransform, _verbose);
+                }
+                else
+                {
+                    _serializer.SkipDeserialize(_stream);
+                }
+
+                // [END OF TEMPORARY LOGIC]
+
+                // maybe useful later?
+                // SetIsEnabled(orAddComponent, isEnabled);
+            }
+
+            CoreEntityData coreData;
+            if (i == 0)
+            {
+                coreData = new CoreEntityData(gameObjectData.ClassId, gameObjectData.Id,
+                    _tempTransform.position,
+                    _tempTransform.rotation,
+                    _tempTransform.lossyScale);
+                cellRootData = coreData;
+            }
+            else if (cellRootData != null)
+            {
+                coreData = new CoreEntityData(gameObjectData.ClassId, gameObjectData.Id,
+                    _tempTransform.position + cellRootData.Position,
+                    _tempTransform.rotation,
+                    _tempTransform.lossyScale);
+            }
+            else
+            {
+                Plugin.Logger.LogError("Stray entity found (no cell root)!");
+                coreData = new CoreEntityData(gameObjectData.ClassId, gameObjectData.Id,
+                    _tempTransform.position,
+                    _tempTransform.rotation,
+                    _tempTransform.lossyScale);
+            }
+
+            yield return new EntityDefinition(coreData);
         }
+
         ProtobufSerializer.gameObjectDataPool.Return(gameObjectData);
         ProtobufSerializer.loopHeaderPool.Return(loopHeader);
         ProtobufSerializer.componentHeaderPool.Return(componentHeader);

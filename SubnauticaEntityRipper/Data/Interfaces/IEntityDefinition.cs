@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SubnauticaEntityRipper.Data.Implementation;
+﻿using SubnauticaEntityRipper.Data.Implementation;
 
 namespace SubnauticaEntityRipper.Data.Interfaces;
 
