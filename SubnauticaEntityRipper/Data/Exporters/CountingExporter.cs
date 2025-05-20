@@ -9,11 +9,11 @@ namespace SubnauticaEntityRipper.Data.Exporters;
 
 public class CountingExporter : IEntityExporter
 {
-    public void ExportData(IBatchParser parser, IEnumerable<BatchData> inputCells, string outputFile)
+    public void ExportData(IBatchParser parser, IEnumerable<BatchData> inputBatches, string outputFile)
     {
         Dictionary<string, CountedEntity> dictionary = new();
 
-        foreach (var input in inputCells)
+        foreach (var input in inputBatches)
         {
             parser.SetCurrentBatch(input);
 

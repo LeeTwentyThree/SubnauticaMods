@@ -5,5 +5,5 @@ namespace SubnauticaEntityRipper.Data.Interfaces;
 
 public interface IEntityExporter
 {
-    void ExportData(IBatchParser parser, IEnumerable<BatchData> inputCells, string outputFile);
+    void ExportData(IBatchParser parser, IEnumerable<BatchData> inputBatches, string outputFile);
 }

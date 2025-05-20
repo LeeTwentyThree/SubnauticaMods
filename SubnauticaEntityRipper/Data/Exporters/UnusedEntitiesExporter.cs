@@ -9,11 +9,11 @@ namespace SubnauticaEntityRipper.Data.Exporters;
 
 public class UnusedEntitiesExporter : IEntityExporter
 {
-    public void ExportData(IBatchParser parser, IEnumerable<BatchData> inputCells, string outputFile)
+    public void ExportData(IBatchParser parser, IEnumerable<BatchData> inputBatches, string outputFile)
     {
         HashSet<string> used = new();
 
-        foreach (var input in inputCells)
+        foreach (var input in inputBatches)
         {
             parser.SetCurrentBatch(input);
 

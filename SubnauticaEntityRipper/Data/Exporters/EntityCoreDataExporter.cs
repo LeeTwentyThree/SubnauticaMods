@@ -7,13 +7,13 @@ namespace SubnauticaEntityRipper.Data.Exporters;
 
 public class EntityCoreDataExporter : IEntityExporter
 {
-    public void ExportData(IBatchParser parser, IEnumerable<BatchData> inputCells, string outputFile)
+    public void ExportData(IBatchParser parser, IEnumerable<BatchData> inputBatches, string outputFile)
     {
         using var writer = new StreamWriter(outputFile);
 
-        foreach (var input in inputCells)
+        foreach (var batch in inputBatches)
         {
-            parser.SetCurrentBatch(input);
+            parser.SetCurrentBatch(batch);
             
             foreach (var cell in parser.ReadCells())
             {
