@@ -31,6 +31,7 @@ public class UpgradeChipPrefab<T> where T : UpgradeChipBase
         MaterialUtils.ApplySNShaders(obj, 7);
         PrefabUtils.AddVFXFabricating(obj, "PDAUpgradeChip", -0.02f, 0.1f,
             default, 4f, new Vector3(-90, 0, 0));
+        PrefabUtils.AddWorldForces(obj, 1.2f);
         return obj;
     }
 }
