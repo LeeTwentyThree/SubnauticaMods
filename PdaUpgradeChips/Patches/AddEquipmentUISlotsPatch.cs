@@ -12,13 +12,13 @@ public static class AddEquipmentUISlotsPatch
     public static void AwakePostfix(uGUI_InventoryTab __instance)
     {
         var equipmentParent = __instance.transform.Find("Equipment");
-        var headIcon = __instance.transform.Find("Head").gameObject;
+        var headSlot = equipmentParent.Find("Head").gameObject;
         var hintIcon = Plugin.Bundle.LoadAsset<Sprite>("UpgradeChipHint");
         int i = 0;
-        float spacing = 100f;
+        float spacing = 70f;
         foreach (var slotName in PdaUpgradesAPI.GetUpgradeEquipmentSlotNames())
         {
-            var module = Object.Instantiate(headIcon, equipmentParent);
+            var module = Object.Instantiate(headSlot, equipmentParent);
             module.transform.localPosition =
                 new Vector2(0, spacing * i - spacing * PdaUpgradesAPI.UpgradeSlotsCount / 2);
             i++;
@@ -26,6 +26,9 @@ public static class AddEquipmentUISlotsPatch
             var slot = module.GetComponent<uGUI_EquipmentSlot>();
             slot.slot = slotName;
             slot.hint.GetComponent<Image>().sprite = hintIcon;
+            module.transform.Find("Background").transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+            module.transform.Find("IconRect").transform.localScale = new Vector3(0.5f, 0.5f, 1f);
+            slot.hint.transform.localScale = new Vector3(0.7f, 1f, 1f);
         }
     }
 }

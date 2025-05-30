@@ -27,6 +27,7 @@ public class UpgradeChipPrefab<T> where T : UpgradeChipBase
         var obj = Object.Instantiate(Plugin.Bundle.LoadAsset<GameObject>("PDAUpgradeChipPrefab"));
         obj.SetActive(false);
         PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Near);
+        obj.AddComponent<Pickupable>();
         MaterialUtils.ApplySNShaders(obj, 7);
         PrefabUtils.AddVFXFabricating(obj, "PDAUpgradeChip", -0.02f, 0.1f,
             default, 4f, new Vector3(-90, 0, 0));

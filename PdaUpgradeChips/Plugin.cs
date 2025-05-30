@@ -3,6 +3,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Assets;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using PdaUpgradeChips.MonoBehaviours.Upgrades;
 using PdaUpgradeChips.Prefabs;
@@ -26,6 +27,8 @@ public class Plugin : BaseUnityPlugin
         // set project-scoped logger instance
         Logger = base.Logger;
 
+        LanguageHandler.RegisterLocalizationFolder();
+        
         // Initialize custom prefabs
         InitializePrefabs();
 
