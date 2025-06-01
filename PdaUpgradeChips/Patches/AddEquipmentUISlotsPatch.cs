@@ -15,20 +15,23 @@ internal static class AddEquipmentUISlotsPatch
         var headSlot = equipmentParent.Find("Head").gameObject;
         var hintIcon = Plugin.Bundle.LoadAsset<Sprite>("UpgradeChipHint");
         int i = 0;
-        float spacing = 70f;
+        float spacing = 60;
+        float zigZagDistance = 50;
         foreach (var slotName in PdaUpgradesAPI.GetUpgradeEquipmentSlotNames())
         {
             var module = Object.Instantiate(headSlot, equipmentParent);
             module.transform.localPosition =
-                new Vector2(0, spacing * i - spacing * PdaUpgradesAPI.UpgradeSlotsCount / 2);
+                new Vector2(
+                    i % 2 * zigZagDistance - zigZagDistance / 2f,
+                    spacing * PdaUpgradesAPI.UpgradeSlotsCount / 2 - spacing * i );
             i++;
             module.name = slotName;
             var slot = module.GetComponent<uGUI_EquipmentSlot>();
             slot.slot = slotName;
             slot.hint.GetComponent<Image>().sprite = hintIcon;
-            module.transform.Find("Background").transform.localScale = new Vector3(0.5f, 0.5f, 1f);
-            module.transform.Find("IconRect").transform.localScale = new Vector3(0.5f, 0.5f, 1f);
-            slot.hint.transform.localScale = new Vector3(0.7f, 1f, 1f);
+            module.transform.Find("Background").transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+            module.transform.Find("IconRect").transform.localScale = new Vector3(0.6f, 0.6f, 1f);
+            slot.hint.transform.localScale = new Vector3(0.85f, 1f, 1f);
         }
     }
 }
