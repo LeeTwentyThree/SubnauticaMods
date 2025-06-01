@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace PdaUpgradeChips.Patches;
 
 [HarmonyPatch(typeof(uGUI_InventoryTab))]
-public static class AddEquipmentUISlotsPatch
+internal static class AddEquipmentUISlotsPatch
 {
     [HarmonyPatch(nameof(uGUI_InventoryTab.Awake))]
     [HarmonyPostfix]
