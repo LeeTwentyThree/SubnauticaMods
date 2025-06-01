@@ -60,6 +60,8 @@ internal static class AddOpenMenuButtonPatch
         button.spriteState = state;
         button.onClick = new Button.ButtonClickedEvent();
         button.onClick.AddListener(OnButtonClicked);
+
+        buttonObj.AddComponent<PdaUpgradeButton>();
     }
 
     private static void OnButtonClicked()
