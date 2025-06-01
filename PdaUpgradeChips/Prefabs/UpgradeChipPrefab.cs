@@ -20,6 +20,7 @@ public class UpgradeChipPrefab<T> where T : UpgradeChipBase
         prefab.SetGameObject(GetPrefab);
         prefab.SetEquipment(PdaUpgradesAPI.PdaUpgradeEquipmentType);
         prefab.Register();
+        PdaUpgradesAPI.RegisterUpgradeChip(Info.TechType, typeof(T));
     }
 
     private GameObject GetPrefab()
