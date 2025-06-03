@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Nautilus.Handlers;
+using Nautilus.Json;
+using Nautilus.Json.Attributes;
 using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using UnityEngine;
 
 namespace PdaUpgradeCards.MonoBehaviours;
 
-public class PdaUpgradesManager : MonoBehaviour
+public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTreeEventListener
 {
     public static PdaUpgradesManager Main { get; private set; }
 
@@ -17,8 +20,8 @@ public class PdaUpgradesManager : MonoBehaviour
 
     private Dictionary<Type, UpgradeChipBase> _upgradeChipBehaviors = new();
     
-    private bool _initialized;
-
+    private SaveData _saveData = new();
+    
     private void Awake()
     {
         Main = this;
@@ -27,31 +30,7 @@ public class PdaUpgradesManager : MonoBehaviour
         _equipment.SetLabel("PdaUpgradesStorageLabel");
         _equipment.onEquip += OnEquip;
         _equipment.onUnequip += OnUnequip;
-        _equipment.isAllowedToAdd = IsAllowedToAdd;
         UnlockDefaultModuleSlots();
-    }
-
-    private void Start()
-    {
-        var equipment = _equipment.GetEquipment();
-        while (equipment.MoveNext())
-        {
-            var item = equipment.Current;
-            if (item.Value != null)
-            {
-                OnEquip(item.Key, item.Value);
-            }
-        }
-        _initialized = true;
-    }
-
-    private bool IsAllowedToAdd(Pickupable pickupable, bool verbose)
-    {
-        if (!_initialized)
-            return false;
-        
-        var techType = pickupable.GetTechType();
-        return _equipment.GetCount(techType) < 1;
     }
 
     private void UnlockDefaultModuleSlots()
@@ -123,5 +102,36 @@ public class PdaUpgradesManager : MonoBehaviour
         {
             Plugin.Logger.LogWarning("Failed to find chip behaviour to remove!");
         }
+    }
+
+    public void OnProtoSerialize(ProtobufSerializer serializer)
+    {
+        _saveData.savedSlots = _equipment.SaveEquipment();
+        _saveData.Save();
+    }
+
+    public void OnProtoDeserialize(ProtobufSerializer serializer)
+    {
+        
+    }
+
+    public void OnProtoSerializeObjectTree(ProtobufSerializer serializer)
+    {
+        
+    }
+
+    public void OnProtoDeserializeObjectTree(ProtobufSerializer serializer)
+    {
+        _saveData.Load();
+        var savedSlots = _saveData.savedSlots;
+        if (savedSlots == null)
+            return;
+        StorageHelper.TransferEquipment(storageParent.gameObject, savedSlots, _equipment);
+    }
+    
+    [FileName("PdaUpgradesStorage")]
+    private class SaveData : SaveDataCache
+    {
+        public Dictionary<string, string> savedSlots;
     }
 }
