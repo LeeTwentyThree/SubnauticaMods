@@ -1,4 +1,5 @@
-﻿using ECCLibrary;
+﻿using System;
+using ECCLibrary;
 using ECCLibrary.Data;
 using Nautilus.Assets;
 using System.Collections;
@@ -11,9 +12,9 @@ namespace DeExtinction.Prefabs.Creatures;
 
 internal class ClownPincherPrefab : CreatureAsset
 {
-    private readonly GameObject _prefabModel;
+    private readonly Func<GameObject> _prefabModel;
 
-    public ClownPincherPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
+    public ClownPincherPrefab(PrefabInfo prefabInfo, Func<GameObject> prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
     {
         _prefabModel = prefabModel;
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Scavengers, null, null, 2,

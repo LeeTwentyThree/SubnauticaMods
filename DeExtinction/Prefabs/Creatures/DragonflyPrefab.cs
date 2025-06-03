@@ -6,6 +6,7 @@ using ECCLibrary.Data;
 using Nautilus.Assets;
 using Nautilus.Extensions;
 using Nautilus.Utility;
+using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;

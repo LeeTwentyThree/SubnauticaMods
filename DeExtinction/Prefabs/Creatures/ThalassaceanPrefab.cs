@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DeExtinction.MaterialModifiers;
 using DeExtinction.Mono;
 using ECCLibrary;
@@ -6,6 +7,7 @@ using ECCLibrary.Data;
 using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
+using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;
@@ -14,9 +16,9 @@ public class ThalassaceanPrefab : CreatureAsset
 {
     public PrefabInfo EggInfo { get; set; }
 
-    private readonly GameObject _prefabModel;
+    private readonly Func<GameObject> _prefabModel;
 
-    public ThalassaceanPrefab(PrefabInfo prefabInfo, GameObject prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
+    public ThalassaceanPrefab(PrefabInfo prefabInfo, Func<GameObject> prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
     {
         _prefabModel = prefabModel;
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Carnivores, null, null, 8,
