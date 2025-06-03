@@ -7,6 +7,7 @@ using ECCLibrary.Data;
 using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
+using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;
@@ -49,7 +50,7 @@ internal class GulperLeviathanPrefab : CreatureAsset
             },
             CanBeInfected = false
         };
-        
+
         return template;
     }
 
@@ -58,7 +59,7 @@ internal class GulperLeviathanPrefab : CreatureAsset
 #if SUBNAUTICA
         MaterialUtils.ApplySNShaders(prefab, 7f, 1, 3);
 #elif BELOWZERO
-        MaterialUtils.ApplySNShaders(prefab, 7.5f, 1, 3);
+        MaterialUtils.ApplySNShaders(prefab, 7.5f, 1, 3, new ColorModifier(new Color(0.7f, 0.7f, 0.7f)));
 #endif
     }
 
@@ -77,7 +78,7 @@ internal class GulperLeviathanPrefab : CreatureAsset
         };
         var trailManager = trailManagerBuilder.Apply();
         trailManager.rootSegment = prefab.transform.Find("FakeTrailManagerRoot");
-        
+
         var mouth = prefab.SearchChild("Mouth");
         var lClawTrigger = prefab.SearchChild("LClaw");
         var rClawTrigger = prefab.SearchChild("RClaw");
@@ -94,11 +95,12 @@ internal class GulperLeviathanPrefab : CreatureAsset
         voice.playSoundOnStart = true;
         voice.animator = components.Animator;
         voice.animatorTriggerParam = "roar";
-        
+
         var gulperBehaviour = prefab.AddComponent<GulperBehaviour>();
         gulperBehaviour.creature = components.Creature;
 
-        var meleeAttack = CreaturePrefabUtils.AddMeleeAttack<GulperMeleeAttackMouth>(prefab, components, mouth, true, 100);
+        var meleeAttack =
+            CreaturePrefabUtils.AddMeleeAttack<GulperMeleeAttackMouth>(prefab, components, mouth, true, 100);
         meleeAttack.canBeFed = false;
         meleeAttack.eatHungerDecrement = 0.05f;
         meleeAttack.eatHappyIncrement = 0.1f;
@@ -108,17 +110,19 @@ internal class GulperLeviathanPrefab : CreatureAsset
         meleeAttack.creature = components.Creature;
         meleeAttack.liveMixin = components.LiveMixin;
         meleeAttack.animator = components.Creature.GetAnimator();
-        
+
         AddClawAttack(prefab, "LClaw", "swipeL", components);
         AddClawAttack(prefab, "RClaw", "swipeR", components);
-        
+
         yield break;
     }
-    
-    private void AddClawAttack(GameObject prefab, string triggerName, string animationName, CreatureComponents components)
+
+    private void AddClawAttack(GameObject prefab, string triggerName, string animationName,
+        CreatureComponents components)
     {
         var clawObject = prefab.SearchChild(triggerName);
-        var clawAttack = CreaturePrefabUtils.AddMeleeAttack<GulperMeleeAttackClaw>(prefab, components, clawObject, true, 40);
+        var clawAttack =
+            CreaturePrefabUtils.AddMeleeAttack<GulperMeleeAttackClaw>(prefab, components, clawObject, true, 40);
         clawAttack.canBeFed = false;
         clawAttack.eatHungerDecrement = 0.05f;
         clawAttack.eatHappyIncrement = 0.1f;

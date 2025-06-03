@@ -6,6 +6,7 @@ using ECCLibrary.Data;
 using ECCLibrary.Mono;
 using Nautilus.Assets;
 using Nautilus.Utility;
+using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
 namespace DeExtinction.Prefabs.Creatures;
@@ -57,7 +58,11 @@ internal class GulperLeviathanBabyPrefab : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
+        #if SUBNAUTICA
         MaterialUtils.ApplySNShaders(prefab, 7, 1, 3);
+        #elif BELOWZERO
+        MaterialUtils.ApplySNShaders(prefab, 7, 1, 3, new ColorModifier(new Color(0.7f, 0.7f, 0.7f)));
+        #endif
     }
 
     protected override IEnumerator ModifyPrefab(GameObject prefab, CreatureComponents components)
