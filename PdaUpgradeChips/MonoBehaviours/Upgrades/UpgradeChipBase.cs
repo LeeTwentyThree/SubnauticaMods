@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PdaUpgradeChips;
+namespace PdaUpgradeChips.MonoBehaviours.Upgrades;
 
 public abstract class UpgradeChipBase : MonoBehaviour
 {
