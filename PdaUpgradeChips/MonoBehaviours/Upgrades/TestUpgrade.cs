@@ -11,4 +11,9 @@ public class TestUpgrade : UpgradeChipBase
     {
         ErrorMessage.AddMessage("Removed upgrade!");
     }
+
+    private void Update()
+    {
+        ErrorMessage.AddMessage("active!");
+    }
 }
