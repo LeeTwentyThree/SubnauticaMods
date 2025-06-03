@@ -35,7 +35,7 @@ public static class PdaUpgradesAPI
         ChipData.Add(techType, behaviourType);
     }
 
-    public static bool GetUpgradeChipBehaviourType(TechType techType, out Type behaviourType)
+    internal static bool TryGetUpgradeChipBehaviourType(TechType techType, out Type behaviourType)
     {
         return ChipData.TryGetValue(techType, out behaviourType);
     }
