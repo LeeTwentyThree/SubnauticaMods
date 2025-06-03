@@ -1,7 +1,7 @@
 ﻿using HarmonyLib;
-using PdaUpgradeChips.MonoBehaviours;
+using PdaUpgradeCards.MonoBehaviours;
 
-namespace PdaUpgradeChips.Patches;
+namespace PdaUpgradeCards.Patches;
 
 [HarmonyPatch(typeof(uGUI_PDA))]
 internal static class ToggleOpenMenuButtonPatch

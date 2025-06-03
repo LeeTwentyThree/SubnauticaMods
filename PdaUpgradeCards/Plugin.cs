@@ -5,13 +5,13 @@ using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Utility;
-using PdaUpgradeChips.MonoBehaviours.Upgrades;
-using PdaUpgradeChips.Prefabs;
+using PdaUpgradeCards.MonoBehaviours.Upgrades;
+using PdaUpgradeCards.Prefabs;
 using UnityEngine;
 
-namespace PdaUpgradeChips;
+namespace PdaUpgradeCards;
 
-[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+[BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_GUID)]
 [BepInDependency("com.snmodding.nautilus")]
 public class Plugin : BaseUnityPlugin
 {
@@ -39,10 +39,10 @@ public class Plugin : BaseUnityPlugin
         PdaUpgradesAPI.Register();
     }
 
-    private void InitializePrefabs()
+    private static void InitializePrefabs()
     {
         PdaUpgradesContainerPrefab.Register();
         
-        new UpgradeChipPrefab<TestUpgrade>(PrefabInfo.WithTechType("TestChip")).Register();
+        new UpgradeCardPrefab<TestUpgrade>(PrefabInfo.WithTechType("TestChip")).Register();
     }
 }

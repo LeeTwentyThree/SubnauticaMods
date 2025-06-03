@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using PdaUpgradeChips.MonoBehaviours.Upgrades;
+using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using UnityEngine;
 
-namespace PdaUpgradeChips.MonoBehaviours;
+namespace PdaUpgradeCards.MonoBehaviours;
 
 public class PdaUpgradesManager : MonoBehaviour
 {

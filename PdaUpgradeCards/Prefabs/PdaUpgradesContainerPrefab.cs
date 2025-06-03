@@ -1,10 +1,10 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
-using PdaUpgradeChips.MonoBehaviours;
+using PdaUpgradeCards.MonoBehaviours;
 using UnityEngine;
 
-namespace PdaUpgradeChips.Prefabs;
+namespace PdaUpgradeCards.Prefabs;
 
 public static class PdaUpgradesContainerPrefab
 {

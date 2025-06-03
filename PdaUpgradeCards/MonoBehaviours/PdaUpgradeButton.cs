@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace PdaUpgradeChips.MonoBehaviours;
+namespace PdaUpgradeCards.MonoBehaviours;
 
 public class PdaUpgradeButton : MonoBehaviour
 {

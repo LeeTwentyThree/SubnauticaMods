@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PdaUpgradeChips.Patches;
+namespace PdaUpgradeCards.Patches;
 
 [HarmonyPatch(typeof(uGUI_InventoryTab))]
 internal static class AddEquipmentUISlotsPatch

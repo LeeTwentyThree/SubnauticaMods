@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Nautilus.Handlers;
 
-namespace PdaUpgradeChips;
+namespace PdaUpgradeCards;
 
 public static class PdaUpgradesAPI
 {

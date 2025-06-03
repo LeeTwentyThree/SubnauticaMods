@@ -1,16 +1,16 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
-using PdaUpgradeChips.MonoBehaviours.Upgrades;
+using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using UnityEngine;
 
-namespace PdaUpgradeChips.Prefabs;
+namespace PdaUpgradeCards.Prefabs;
 
-public class UpgradeChipPrefab<T> where T : UpgradeChipBase
+public class UpgradeCardPrefab<T> where T : UpgradeChipBase
 {
     public PrefabInfo Info { get; }
 
-    public UpgradeChipPrefab(PrefabInfo info)
+    public UpgradeCardPrefab(PrefabInfo info)
     {
         Info = info;
     }

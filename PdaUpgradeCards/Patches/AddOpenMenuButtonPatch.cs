@@ -1,9 +1,9 @@
 ﻿using HarmonyLib;
-using PdaUpgradeChips.MonoBehaviours;
+using PdaUpgradeCards.MonoBehaviours;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PdaUpgradeChips.Patches;
+namespace PdaUpgradeCards.Patches;
 
 [HarmonyPatch(typeof(uGUI_PDA))]
 internal static class AddOpenMenuButtonPatch
