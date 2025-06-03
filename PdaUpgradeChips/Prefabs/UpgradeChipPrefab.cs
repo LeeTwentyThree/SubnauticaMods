@@ -1,6 +1,7 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Utility;
+using PdaUpgradeChips.MonoBehaviours.Upgrades;
 using UnityEngine;
 
 namespace PdaUpgradeChips.Prefabs;
