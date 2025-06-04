@@ -1,4 +1,5 @@
 ﻿using System;
+using Nautilus.Utility;
 using PdaUpgradeCards.Patches;
 using UnityEngine;
 
@@ -6,27 +7,30 @@ namespace PdaUpgradeCards.Data;
 
 public class CustomPdaElement
 {
-    public CustomPdaElement(string id, Action<RectTransform> placeButton, PDATab tab, bool activeByDefault)
+    public CustomPdaElement(string id, Action<RectTransform> placeElement, PDATab tab, bool activeByDefault)
     {
         Id = id;
-        PlaceButton = placeButton;
+        PlaceElement = placeElement;
         Tab = tab;
         ActiveByDefault = activeByDefault;
         BuildCustomPdaElementsPatch.BuildUIElementEvent += BuildAndCreateUI;
-        ErrorMessage.AddMessage("registering UI");
+        SaveUtils.RegisterOnQuitEvent(OnQuit);
     }
 
     private string Id { get; }
-    private Action<RectTransform> PlaceButton { get; }
+    private Action<RectTransform> PlaceElement { get; }
     private PDATab Tab { get; }
     private bool ActiveByDefault { get; }
     private GameObject _uiElement;
 
+    private bool? _active;
+    
     public void SetElementActive(bool active)
     {
+        _active = active;
         if (_uiElement == null)
         {
-            Plugin.Logger.LogError("UI element instance not found!");
+            Plugin.Logger.LogWarning($"UI element instance '{Id}' not found!");
             return;
         }
         _uiElement.SetActive(active);
@@ -34,11 +38,10 @@ public class CustomPdaElement
 
     private void BuildAndCreateUI(uGUI_PDA pda)
     {
-        ErrorMessage.AddMessage("creating Ui");
         var ui = BuildElement(pda);
-        PlaceButton?.Invoke(ui);
+        PlaceElement?.Invoke(ui);
         _uiElement = ui.gameObject;
-        _uiElement.SetActive(ActiveByDefault);
+        _uiElement.SetActive(_active ?? ActiveByDefault);
     }
 
     protected virtual RectTransform BuildElement(uGUI_PDA pda)
@@ -54,5 +57,10 @@ public class CustomPdaElement
         rect.localPosition = Vector3.zero;
 
         return rect;
+    }
+    
+    private void OnQuit()
+    {
+        _active = null;
     }
 }

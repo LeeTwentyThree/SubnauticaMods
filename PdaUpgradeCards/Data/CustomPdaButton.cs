@@ -9,8 +9,8 @@ public class CustomPdaButton : CustomPdaElement
     private Action OnPressed { get; }
     private ButtonIcons Icons { get; }
 
-    public CustomPdaButton(string id, Action<RectTransform> placeButton, ButtonIcons icons, PDATab tab, Action onPressed, bool activeByDefault) :
-        base(id, placeButton, tab, activeByDefault)
+    public CustomPdaButton(string id, Action<RectTransform> placeElement, ButtonIcons icons, PDATab tab, Action onPressed, bool activeByDefault) :
+        base(id, placeElement, tab, activeByDefault)
     {
         OnPressed = onPressed;
         Icons = icons;

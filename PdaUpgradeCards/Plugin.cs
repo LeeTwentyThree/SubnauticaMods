@@ -6,7 +6,6 @@ using Nautilus.Assets;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using PdaUpgradeCards.Data;
-using PdaUpgradeCards.MonoBehaviours;
 using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using PdaUpgradeCards.Prefabs;
 using UnityEngine;
@@ -41,6 +40,8 @@ public class Plugin : BaseUnityPlugin
         PdaUpgradesAPI.Register();
         
         PdaElements.RegisterAll();
+
+        StartCoroutine(PdaMusicDatabase.RefreshMusicDatabase());
     }
 
     private static void InitializePrefabs()

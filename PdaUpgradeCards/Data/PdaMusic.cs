@@ -1,13 +1,19 @@
-﻿namespace PdaUpgradeCards.Data;
+﻿using UnityEngine;
 
-public class PdaMusic
+namespace PdaUpgradeCards.Data;
+
+public abstract class PdaMusic
 {
-    public PdaMusic(string id, string eventPath)
+    protected PdaMusic(string id)
     {
         Id = id;
-        EventPath = eventPath;
     }
+    
+    
 
-    public string Id { get; }
-    public string EventPath { get; }
+    public abstract string GetTrackName();
+    public abstract float GetDuration();
+    
+    protected string Id { get; }
+    public AudioClip SoundAsset { get; protected set; }
 }
