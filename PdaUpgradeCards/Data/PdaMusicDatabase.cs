@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace PdaUpgradeCards.Data;
 
 public static class PdaMusicDatabase
 {
-    public static IReadOnlyList<PdaMusicEntry> GetAllMusic()
+    public static IEnumerable<PdaMusic> GetAllMusic()
     {
-        return AllMusic;
+        return AllMusic.Select(e => e.Music);
     }
 
     public static int GetTrackCount()
@@ -18,17 +19,31 @@ public static class PdaMusicDatabase
     
     private static List<PdaMusicEntry> AllMusic { get; } = new();
     private static Dictionary<string, PdaMusicEntry> MusicLookUp { get; } = new();
+    private static bool _initializedFirstLoad;
+    
+    public delegate void OnMusicDatabaseChangedDelegate();
+    
+    public static event OnMusicDatabaseChangedDelegate OnMusicDatabaseChanged;
 
     public static IEnumerator RefreshMusicDatabase()
     {
+        bool changed = !_initializedFirstLoad;
         var files = Directory.GetFiles(CustomTracksDirectory);
         foreach (var file in files)
         {
             if (!MusicLookUp.ContainsKey(file))
             {
                 yield return RegisterNewTrack(file);
+                changed = true;
             }
         }
+
+        if (changed)
+        {
+            OnMusicDatabaseChanged?.Invoke();
+        }
+        
+        _initializedFirstLoad = true;
     }
 
     private static IEnumerator RegisterNewTrack(string filePath)

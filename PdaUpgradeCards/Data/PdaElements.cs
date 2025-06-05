@@ -47,9 +47,14 @@ public static class PdaElements
                 musicPlayer.volumeSlider = volumeSlider;
                 volumeSlider.onValueChanged.AddListener(musicPlayer.OnVolumeSliderChanged);
                 musicPlayer.playButtonImage = musicPlayer.transform.SearchChild("PlayButton").GetComponent<Image>();
+                musicPlayer.volumeIndicatorImage = musicPlayer.transform.SearchChild("AudioIcon").GetComponent<Image>();
+                musicPlayer.loopButtonImage = musicPlayer.transform.SearchChild("LoopButton").GetComponent<Image>();
+                musicPlayer.shuffleButtonImage = musicPlayer.transform.SearchChild("ShuffleButton").GetComponent<Image>();
+                
                 musicPlayer.playSprite = Plugin.Bundle.LoadAsset<Sprite>("PlayButton");
                 musicPlayer.pauseSprite = Plugin.Bundle.LoadAsset<Sprite>("PauseButton");
-                musicPlayer.restartSprite = Plugin.Bundle.LoadAsset<Sprite>("RestartSongButton");
+                musicPlayer.soundOnSprite = Plugin.Bundle.LoadAsset<Sprite>("AudioIcon");
+                musicPlayer.soundOffSprite = Plugin.Bundle.LoadAsset<Sprite>("AudioMuteIcon");
 
                 musicPlayer.transform.SearchChild("PreviousButton").GetComponent<Button>().onClick
                     .AddListener(musicPlayer.OnPreviousButton);
@@ -59,6 +64,10 @@ public static class PdaElements
                     .AddListener(musicPlayer.OnNextButton);
                 musicPlayer.transform.SearchChild("MusicFolderButton").GetComponent<Button>().onClick
                     .AddListener(musicPlayer.OnOpenFolderButton);
+                musicPlayer.transform.SearchChild("LoopButton").GetComponent<Button>().onClick
+                    .AddListener(musicPlayer.OnLoopButton);
+                musicPlayer.transform.SearchChild("ShuffleButton").GetComponent<Button>().onClick
+                    .AddListener(musicPlayer.OnShuffleButton);
             },
             PDATab.Inventory,
             false);
