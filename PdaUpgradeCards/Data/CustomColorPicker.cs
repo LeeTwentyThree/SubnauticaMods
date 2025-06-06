@@ -70,6 +70,8 @@ public class CustomColorPicker : CustomPdaElement
         _colorPickerInstance.saturationSlider = saturationSlider;
         _colorPickerInstance.valueSlider = valueSlider;
         
+        _colorPickerInstance.playerPrefKey = "PdaColorizerColor";
+        
         return parent;
     }
 

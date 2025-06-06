@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace PdaUpgradeCards.MonoBehaviours.UI;
@@ -11,6 +12,8 @@ public class ColorPicker : MonoBehaviour
     public Slider hueSlider;
     public Slider saturationSlider;
     public Slider valueSlider;
+
+    public string playerPrefKey;
     
     private float _hue;
     private float _saturation;
@@ -36,6 +39,10 @@ public class ColorPicker : MonoBehaviour
     public delegate void OnColorChangeDelegate(Color color);
     
     public OnColorChangeDelegate OnColorChange;
+    
+    private string HKey => playerPrefKey + "_H";
+    private string SKey => playerPrefKey + "_S";
+    private string VKey => playerPrefKey + "_V";
 
     public void SetColor(Color color)
     {
@@ -46,7 +53,20 @@ public class ColorPicker : MonoBehaviour
         valueSlider.value = _value;
         UpdateColor();
     }
-    
+
+    private void Start()
+    {
+        if (string.IsNullOrEmpty(playerPrefKey)) return;
+        if (!PlayerPrefs.HasKey(HKey) || !PlayerPrefs.HasKey(SKey) || !PlayerPrefs.HasKey(VKey)) return;
+        _hue = PlayerPrefs.GetFloat(HKey);
+        _saturation = PlayerPrefs.GetFloat(SKey);
+        _value = PlayerPrefs.GetFloat(VKey);
+        hueSlider.value = _hue;
+        saturationSlider.value = _saturation;
+        valueSlider.value = _value;
+        UpdateColor();
+    }
+
     public void OnHueValueChanged(float hue)
     {
         _hue = hue;
@@ -76,5 +96,14 @@ public class ColorPicker : MonoBehaviour
         }
         if (saturationOverlay != null)
             saturationOverlay.color = new Color(1, 1, 1, _value);
+    }
+
+    private void OnDisable()
+    {
+        if (string.IsNullOrEmpty(playerPrefKey))
+            return;
+        PlayerPrefs.SetFloat(HKey, _hue);
+        PlayerPrefs.SetFloat(SKey, _saturation);
+        PlayerPrefs.SetFloat(VKey, _value);
     }
 }
