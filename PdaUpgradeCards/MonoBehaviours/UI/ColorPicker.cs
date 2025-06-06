@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace PdaUpgradeCards.MonoBehaviours.UI;
@@ -43,18 +44,21 @@ public class ColorPicker : MonoBehaviour
     private string SKey => playerPrefKey + "_S";
     private string VKey => playerPrefKey + "_V";
 
+    private bool _canSave;
+
     public void SetColor(Color color)
     {
-        Color.RGBToHSV(color, out _hue, out _saturation, out var newValue);
-        _value = newValue;
+        var adjustedColor = (color / ValueScale).WithAlpha(1);
+        Color.RGBToHSV(adjustedColor, out _hue, out _saturation, out _value);
         hueSlider.value = _hue;
         saturationSlider.value = _saturation;
-        valueSlider.value = _value / ValueScale;
+        valueSlider.value = _value;
         UpdateColor();
     }
 
     private void Start()
     {
+        _canSave = true;
         if (string.IsNullOrEmpty(playerPrefKey)) return;
         if (!PlayerPrefs.HasKey(HKey) || !PlayerPrefs.HasKey(SKey) || !PlayerPrefs.HasKey(VKey)) return;
         _hue = PlayerPrefs.GetFloat(HKey);
@@ -63,7 +67,6 @@ public class ColorPicker : MonoBehaviour
         hueSlider.value = _hue;
         saturationSlider.value = _saturation;
         valueSlider.value = _value;
-        UpdateColor();
     }
 
     public void OnHueValueChanged(float hue)
@@ -87,20 +90,25 @@ public class ColorPicker : MonoBehaviour
     private void UpdateColor()
     {
         _pureColor = Color.HSVToRGB(_hue, _saturation, _value);
-        _displayedColor = new Color(_pureColor.r, _pureColor.g, _pureColor.b * ValueScale);
+        _displayedColor = new Color(_pureColor.r  * ValueScale, _pureColor.g  * ValueScale, _pureColor.b  * ValueScale);
         OnColorChange?.Invoke(_displayedColor);
         foreach (var handle in previewImages)
         {
             handle.color = _pureColor;
         }
+        
         if (saturationOverlay != null)
             saturationOverlay.color = new Color(1, 1, 1, _value);
     }
 
     private void OnDisable()
     {
+        if (!_canSave)
+            return;
+        
         if (string.IsNullOrEmpty(playerPrefKey))
             return;
+        
         PlayerPrefs.SetFloat(HKey, _hue);
         PlayerPrefs.SetFloat(SKey, _saturation);
         PlayerPrefs.SetFloat(VKey, _value);
