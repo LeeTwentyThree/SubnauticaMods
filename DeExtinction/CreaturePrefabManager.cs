@@ -23,6 +23,7 @@ internal static class CreaturePrefabManager
     public static ClownPincherPrefab CitrineClownPincher { get; private set; }
     public static ThalassaceanPrefab StellarThalassacean { get; private set; }
     public static ThalassaceanPrefab JasperThalassacean { get; private set; }
+    public static ThalassaceanPrefab SnowThalassacean { get; private set; }
     public static GrandGliderPrefab GrandGlider { get; private set; }
     public static TwisteelPrefab Twisteel { get; private set; }
     public static TwisteelPrefab TwisteelJuvenile { get; private set; }
@@ -130,6 +131,18 @@ internal static class CreaturePrefabManager
         JasperThalassacean.EggInfo = StellarThalassaceanEgg;
         JasperThalassacean.Register();
         CreatureDataUtils.SetAcidImmune(JasperThalassacean.PrefabInfo.TechType);
+
+        SnowThalassacean = new ThalassaceanPrefab(PrefabInfo.WithTechType("SnowThalassacean")
+                //.WithIcon(LoadIcon("Jasper_Item"))
+                .WithSizeInInventory(new Vector2int(4, 4)),
+            () => Plugin.AssetBundle.LoadAsset<GameObject>("SnowThalassaceanPrefab"),
+            "Jasper_Ency", // MUST CHANGEMUST CHANGEMUST CHANGEMUST CHANGEMUST CHANGEMUST CHANGE
+            "Jasper_Popup",
+            true); // MUST CHANGE MUST CHANGEMUST CHANGEMUST CHANGEMUST CHANGEMUST CHANGE
+        //JasperThalassaceanEgg = CreateEggPrefab("JasperThalassaceanEgg", "JasperThalassaceanEggPrefab",
+        //    "JasperThalassaceanEgg_Icon", new Vector2int(3, 3), JasperThalassacean.PrefabInfo.TechType, 2, true);
+        //JasperThalassacean.EggInfo = StellarThalassaceanEgg;
+        SnowThalassacean.Register();
 
         GrandGlider = new GrandGliderPrefab(PrefabInfo.WithTechType("GrandGlider")
             .WithIcon(LoadIcon("GrandGlider_Item"))

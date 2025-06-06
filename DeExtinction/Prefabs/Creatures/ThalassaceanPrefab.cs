@@ -18,12 +18,15 @@ public class ThalassaceanPrefab : CreatureAsset
 
     private readonly Func<GameObject> _prefabModel;
 
-    public ThalassaceanPrefab(PrefabInfo prefabInfo, Func<GameObject> prefabModel, string encyImageName, string encyPopupName) : base(prefabInfo)
+    private readonly bool _isSnowVariant;
+
+    public ThalassaceanPrefab(PrefabInfo prefabInfo, Func<GameObject> prefabModel, string encyImageName, string encyPopupName, bool snowVariant = false) : base(prefabInfo)
     {
         _prefabModel = prefabModel;
         CreatureDataUtils.AddCreaturePDAEncyclopediaEntry(this, CommonDatabankPaths.Carnivores, null, null, 8,
             Plugin.AssetBundle.LoadAsset<Texture2D>(encyImageName),
             Plugin.AssetBundle.LoadAsset<Sprite>(encyPopupName));
+        _isSnowVariant = snowVariant;
     }
 
     protected override CreatureTemplate CreateTemplate()
@@ -79,6 +82,6 @@ public class ThalassaceanPrefab : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
-        MaterialUtils.ApplySNShaders(prefab, 7f, 3, 3, new FresnelModifier(0));
+        MaterialUtils.ApplySNShaders(prefab, _isSnowVariant ? 6f : 7f, _isSnowVariant ? 0.4f  : 3, 3, new FresnelModifier(_isSnowVariant ? 0.2f : 0f));
     }
 }
