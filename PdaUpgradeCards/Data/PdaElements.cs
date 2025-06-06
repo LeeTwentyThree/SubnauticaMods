@@ -12,6 +12,7 @@ public static class PdaElements
 {
     public static CustomPdaButton OpenMenuButton { get; private set; }
     public static CustomPdaElement MusicPlayerPanel { get; private set; }
+    public static CustomColorPicker PdaColorPicker { get; private set; }
 
     public static void RegisterAll()
     {
@@ -49,8 +50,9 @@ public static class PdaElements
                 musicPlayer.playButtonImage = musicPlayer.transform.SearchChild("PlayButton").GetComponent<Image>();
                 musicPlayer.volumeIndicatorImage = musicPlayer.transform.SearchChild("AudioIcon").GetComponent<Image>();
                 musicPlayer.loopButtonImage = musicPlayer.transform.SearchChild("LoopButton").GetComponent<Image>();
-                musicPlayer.shuffleButtonImage = musicPlayer.transform.SearchChild("ShuffleButton").GetComponent<Image>();
-                
+                musicPlayer.shuffleButtonImage =
+                    musicPlayer.transform.SearchChild("ShuffleButton").GetComponent<Image>();
+
                 musicPlayer.playSprite = Plugin.Bundle.LoadAsset<Sprite>("PlayButton");
                 musicPlayer.pauseSprite = Plugin.Bundle.LoadAsset<Sprite>("PauseButton");
                 musicPlayer.soundOnSprite = Plugin.Bundle.LoadAsset<Sprite>("AudioIcon");
@@ -68,6 +70,18 @@ public static class PdaElements
                     .AddListener(musicPlayer.OnLoopButton);
                 musicPlayer.transform.SearchChild("ShuffleButton").GetComponent<Button>().onClick
                     .AddListener(musicPlayer.OnShuffleButton);
+            },
+            PDATab.Inventory,
+            false);
+
+        PdaColorPicker = new CustomColorPicker(
+            "PdaColorPicker",
+            rect =>
+            {
+                rect.anchoredPosition = new Vector2(-300, -340);
+                var colorPicker = rect.GetChild(0).GetComponent<ColorPicker>();
+                colorPicker.ValueScale = 2;
+                colorPicker.SetColor(new Color(0, 0.62f, 1.18f));
             },
             PDATab.Inventory,
             false);

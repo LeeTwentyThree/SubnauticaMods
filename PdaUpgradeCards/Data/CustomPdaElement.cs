@@ -17,31 +17,31 @@ public class CustomPdaElement
         SaveUtils.RegisterOnQuitEvent(OnQuit);
     }
 
-    private string Id { get; }
+    protected string Id { get; }
     private Action<RectTransform> PlaceElement { get; }
     private PDATab Tab { get; }
     private bool ActiveByDefault { get; }
-    private GameObject _uiElement;
+    protected GameObject UIElement;
 
     private bool? _active;
     
     public void SetElementActive(bool active)
     {
         _active = active;
-        if (_uiElement == null)
+        if (UIElement == null)
         {
             Plugin.Logger.LogWarning($"UI element instance '{Id}' not found!");
             return;
         }
-        _uiElement.SetActive(active);
+        UIElement.SetActive(active);
     }
 
     private void BuildAndCreateUI(uGUI_PDA pda)
     {
         var ui = BuildElement(pda);
         PlaceElement?.Invoke(ui);
-        _uiElement = ui.gameObject;
-        _uiElement.SetActive(_active ?? ActiveByDefault);
+        UIElement = ui.gameObject;
+        UIElement.SetActive(_active ?? ActiveByDefault);
     }
 
     protected virtual RectTransform BuildElement(uGUI_PDA pda)

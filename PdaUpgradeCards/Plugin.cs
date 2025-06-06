@@ -49,5 +49,6 @@ public class Plugin : BaseUnityPlugin
         PdaUpgradesContainerPrefab.Register();
         
         new UpgradeCardPrefab<MusicUpgrade>(PrefabInfo.WithTechType("PdaMusicUpgrade")).Register();
+        new UpgradeCardPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade")).Register();
     }
 }
