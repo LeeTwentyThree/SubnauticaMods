@@ -1,4 +1,5 @@
-﻿using PdaUpgradeCards.Data;
+﻿using System;
+using PdaUpgradeCards.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +42,7 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
     public void OnMusicCardDestroyed()
     {
         StopOldTrackAndFadeOutIfNecessary();
+        playButtonImage.sprite = playSprite;
     }
 
     private void Start()
@@ -56,7 +58,15 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
         
         SetCurrentTrack(0);
     }
-    
+
+    private void OnEnable()
+    {
+        if (_playing)
+        {
+            SetCurrentTrack(_currentTrackNumber);
+        }
+    }
+
     private void OnDestroy()
     {
         if (_emitter != null)
@@ -69,9 +79,14 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
     public void ManagedUpdate()
     {
         if (!_playing) return;
+        if (_emitter == null)
+        {
+            Plugin.Logger.LogError("No emitter assigned while music is playing!");
+            return;
+        }
         if (enabled)
             UpdateProgressPercent(Mathf.Clamp01(_emitter.time / _currentMusic.GetDuration()));
-        if (_emitter.time >= _currentMusic.GetDuration())
+        if (_emitter.time >= _currentMusic.GetDuration() || !_emitter.isPlaying)
         {
             OnTrackFinish();
         }
@@ -126,9 +141,16 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
             return;
         }
 
+        if (_emitter == null)
+        {
+            _emitter = new GameObject("PdaMusicEmitter").AddComponent<AudioSource>();
+            _emitter.volume = volumeSlider.value;
+            _emitter.clip = _currentMusic.SoundAsset;
+        }
+
         if (newPlayingState)
         {
-            _emitter.Play();
+            _emitter.PlayDelayed(0.1f);
         }
         else
         {
