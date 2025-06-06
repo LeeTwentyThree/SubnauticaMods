@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Nautilus.Handlers;
 using Nautilus.Json;
 using Nautilus.Json.Attributes;
+using Nautilus.Utility;
 using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
 
     private Dictionary<Type, UpgradeChipBase> _upgradeChipBehaviors = new();
     
-    private SaveData _saveData = new();
+    private static SaveData _saveData;
     
     private void Awake()
     {
@@ -31,6 +32,11 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
         _equipment.onEquip += OnEquip;
         _equipment.onUnequip += OnUnequip;
         UnlockDefaultModuleSlots();
+    }
+
+    public static void RegisterSaveData()
+    {
+        _saveData = SaveDataHandler.RegisterSaveDataCache<SaveData>();
     }
 
     private void UnlockDefaultModuleSlots()
@@ -122,7 +128,6 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
 
     public void OnProtoDeserializeObjectTree(ProtobufSerializer serializer)
     {
-        _saveData.Load();
         var savedSlots = _saveData.savedSlots;
         if (savedSlots == null)
             return;
