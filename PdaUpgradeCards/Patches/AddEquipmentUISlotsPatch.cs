@@ -26,11 +26,10 @@ internal static class AddEquipmentUISlotsPatch
                     spacing * PdaUpgradesAPI.UpgradeSlotsCount / 2 - spacing * i );
             i++;
             module.name = slotName;
+            module.transform.localScale = Vector3.one * 0.6f;
             var slot = module.GetComponent<uGUI_EquipmentSlot>();
             slot.slot = slotName;
             slot.hint.GetComponent<Image>().sprite = hintIcon;
-            module.transform.Find("Background").transform.localScale = new Vector3(0.6f, 0.6f, 1f);
-            module.transform.Find("IconRect").transform.localScale = new Vector3(0.6f, 0.6f, 1f);
             slot.hint.transform.localScale = new Vector3(0.7f, 1f, 1f);
         }
     }
