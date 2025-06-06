@@ -11,9 +11,11 @@ public class ColorizerUpgrade : UpgradeChipBase
     {
         var pdaObject = Player.main.pda.transform.Find("Mesh").gameObject;
         var sharedMaterials = pdaObject.GetComponent<Renderer>().sharedMaterials;
+        var borderMaterial = sharedMaterials[1];
         var customScreenMaterial = sharedMaterials[2];
         
         _colorChanger = pdaObject.EnsureComponent<PdaColorChanger>();
+        _colorChanger.borderMaterial = borderMaterial;
         _colorChanger.screenMaterial = customScreenMaterial;
         _colorChanger.whiteTexture = Plugin.Bundle.LoadAsset<Texture2D>("PdaScreenIllumWhite");
 
