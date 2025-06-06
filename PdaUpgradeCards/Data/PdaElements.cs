@@ -75,13 +75,13 @@ public static class PdaElements
             false);
 
         PdaColorPicker = new CustomColorPicker(
-            "PdaColorPicker",
+            "PDAColorPickerUpgrade",
             rect =>
             {
                 rect.anchoredPosition = new Vector2(-300, -340);
                 var colorPicker = rect.GetChild(0).GetComponent<ColorPicker>();
                 colorPicker.ValueScale = 2;
-                colorPicker.SetColor(new Color(0, 0.62f, 1.18f));
+                colorPicker.SetColor(new Color(0.22f, 0.65f, 1.1f));
             },
             PDATab.Inventory,
             false);

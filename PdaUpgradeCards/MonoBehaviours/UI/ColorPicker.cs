@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 namespace PdaUpgradeCards.MonoBehaviours.UI;
@@ -47,10 +46,10 @@ public class ColorPicker : MonoBehaviour
     public void SetColor(Color color)
     {
         Color.RGBToHSV(color, out _hue, out _saturation, out var newValue);
-        _value = newValue / ValueScale;
+        _value = newValue;
         hueSlider.value = _hue;
         saturationSlider.value = _saturation;
-        valueSlider.value = _value;
+        valueSlider.value = _value / ValueScale;
         UpdateColor();
     }
 
