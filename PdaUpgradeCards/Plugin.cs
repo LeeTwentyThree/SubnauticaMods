@@ -15,6 +15,9 @@ namespace PdaUpgradeCards;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus", "1.0.0.37")]
+[BepInDependency("com.lee23.theredplague", BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency("com.aci.hydra", BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency("com.aotu.returnoftheancients", BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
@@ -24,12 +27,16 @@ public class Plugin : BaseUnityPlugin
     internal static AssetBundle Bundle { get; } =
         AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "pdaupgradechips");
     
+    internal static ModConfig ModConfig { get; private set; }
+    
     private void Awake()
     {
         // set project-scoped logger instance
         Logger = base.Logger;
 
         LanguageHandler.RegisterLocalizationFolder();
+
+        ModConfig = OptionsPanelHandler.RegisterModOptions<ModConfig>();
         
         // Initialize custom prefabs
         InitializePrefabs();

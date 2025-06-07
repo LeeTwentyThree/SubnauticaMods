@@ -122,7 +122,7 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
             StopOldTrackAndFadeOutIfNecessary();
         
             _emitter = new GameObject("PdaMusicEmitter").AddComponent<AudioSource>();
-            _emitter.volume = volumeSlider.value;
+            _emitter.volume = volumeSlider.value * _currentMusic.VolumeMultiplier;
             _emitter.clip = _currentMusic.SoundAsset;
             
             SetMusicPlaying(wasPlaying);
@@ -144,7 +144,7 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
         if (_emitter == null)
         {
             _emitter = new GameObject("PdaMusicEmitter").AddComponent<AudioSource>();
-            _emitter.volume = volumeSlider.value;
+            _emitter.volume = volumeSlider.value * _currentMusic.VolumeMultiplier;
             _emitter.clip = _currentMusic.SoundAsset;
         }
 
@@ -215,7 +215,7 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
     public void OnVolumeSliderChanged(float newValue)
     {
         if (_emitter)
-            _emitter.volume = newValue;
+            _emitter.volume = newValue * (_currentMusic?.VolumeMultiplier ?? 1);
         volumeIndicatorImage.sprite = newValue > 0.01f ? soundOnSprite : soundOffSprite;
     }
 
