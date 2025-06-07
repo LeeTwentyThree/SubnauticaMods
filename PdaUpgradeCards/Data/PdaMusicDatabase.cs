@@ -30,7 +30,7 @@ public static class PdaMusicDatabase
     {
         new("com.aci.hydra", "hydra_assets", "CreatureAttack_Quiet", "CotV - Creature Attack", 1.3f),
         new("com.aci.hydra", "hydra_assets", "abandon hope extended_Quiet", "CotV - Abandon Hope", 1.3f),
-        new("com.aci.hydra", "hydra_assets", "Hydra_Sting", "CotV - The Hydra", 0.8f),
+        new("com.aci.hydra", "hydra_assets", "Hydra_Sting", "CotV - The Hydra", 0.7f),
         new("com.lee23.theredplague", "theredplagueaudio", "infectedbiomedemo1", "TRP - Infected Zone", 1.3f),
         new("com.lee23.theredplague", "theredplagueaudio", "skyisland", "TRP - Among the Clouds", 1.5f),
         new("com.lee23.theredplague", "theredplagueaudio", "voidislandcave", "TRP - Void Island Cave", 1.5f),
