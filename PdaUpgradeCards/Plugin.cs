@@ -50,7 +50,9 @@ public class Plugin : BaseUnityPlugin
     {
         PdaUpgradesContainerPrefab.Register();
         
-        new UpgradeCardPrefab<MusicUpgrade>(PrefabInfo.WithTechType("PdaMusicUpgrade")).Register();
-        new UpgradeCardPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade")).Register();
+        new UpgradeCardPrefab<MusicUpgrade>(PrefabInfo.WithTechType("PdaMusicUpgrade")
+            .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_MusicPlayer"))).Register();
+        new UpgradeCardPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade")
+            .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay"))).Register();
     }
 }

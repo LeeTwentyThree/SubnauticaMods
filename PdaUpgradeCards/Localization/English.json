@@ -1,4 +1,7 @@
 {
   "PdaUpgradesStorageLabel": "PDA UPGRADES",
-  "PDAMusic_CyclopsMusic": "Cyclops music"
+  "PdaMusicUpgrade": "PDA music upgrade",
+  "Tooltip_PdaMusicUpgrade": "Allows the user to play custom music tracks with their own PDA.",
+  "PdaColorizerUpgrade": "PDA colorizer upgrade",
+  "Tooltip_PdaColorizerUpgrade": "Overrides the PDA lighting controls to display any color the user desires."
 }
