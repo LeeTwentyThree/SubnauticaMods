@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using PdaUpgradeCards.Data;
 using TMPro;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
 {
     private const string VolumeSaveKey = "PdaUpgradeCardsVolumePercent";
     private static readonly Color EnabledColor = new(0.2f, 1f, 0.4f, 1f);
+    private const float RefreshMusicInterval = 11;
 
     public static MusicPlayerUI Main { get; private set; }
 
@@ -28,6 +30,7 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
     public Sprite soundOffSprite;
 
     private bool _playing;
+    private bool _refreshingDatabase;
 
     private PdaMusic _currentMusic;
     private AudioSource _emitter;
@@ -36,6 +39,8 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
 
     private bool _looping;
     private bool _shuffled;
+
+    private float _timeRefreshDatabaseAgain;
     
     private MusicPlaylist _currentPlaylist;
     
@@ -53,8 +58,8 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
             volumeSlider.value = PlayerPrefs.GetFloat(VolumeSaveKey);
         }
         BehaviourUpdateUtils.Register(this);
-        PdaMusicDatabase.OnMusicDatabaseChanged += RefreshMusicDatabase;
-        RefreshMusicDatabase();
+        PdaMusicDatabase.OnMusicDatabaseChanged += OnRefreshMusicDatabase;
+        OnRefreshMusicDatabase();
         
         SetCurrentTrack(0);
     }
@@ -73,11 +78,16 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
             Destroy(_emitter.gameObject);
         PlayerPrefs.SetFloat(VolumeSaveKey, volumeSlider.value);
         BehaviourUpdateUtils.Deregister(this);
-        PdaMusicDatabase.OnMusicDatabaseChanged -= RefreshMusicDatabase;
+        PdaMusicDatabase.OnMusicDatabaseChanged -= OnRefreshMusicDatabase;
     }
     
     public void ManagedUpdate()
     {
+        if (!_refreshingDatabase && Time.realtimeSinceStartup > _timeRefreshDatabaseAgain)
+        {
+            StartCoroutine(RefreshMusicDatabaseCoroutine());
+        }
+        
         if (!_playing) return;
         if (_emitter == null)
         {
@@ -92,9 +102,19 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
         }
     }
 
-    private void RefreshMusicDatabase()
+    private void OnRefreshMusicDatabase()
     {
         _currentPlaylist = new MusicPlaylist(PdaMusicDatabase.GetAllMusic());
+        if (_shuffled)
+            _currentPlaylist.Shuffle();
+    }
+
+    private IEnumerator RefreshMusicDatabaseCoroutine()
+    {
+        _refreshingDatabase = true;
+        yield return PdaMusicDatabase.RefreshMusicDatabase();
+        _timeRefreshDatabaseAgain = Time.realtimeSinceStartup + RefreshMusicInterval;
+        _refreshingDatabase = false;
     }
 
     private void SetCurrentTrack(int songIndex)

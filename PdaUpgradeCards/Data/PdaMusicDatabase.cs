@@ -72,11 +72,37 @@ public static class PdaMusicDatabase
         var files = Directory.GetFiles(CustomTracksDirectory);
         foreach (var file in files)
         {
-            if (!MusicLookUp.ContainsKey(file))
+            if (!MusicLookUp.TryGetValue(file, out var music))
             {
                 yield return RegisterNewTrack(file);
                 changed = true;
             }
+            else if (music.KnownFileInfo.Length != new FileInfo(file).Length)
+            {
+                yield return UpdateExistingTrack(file);
+                changed = true;
+            }
+
+            yield return null;
+        }
+        
+        try
+        {
+            for (int i = 0; i < AllMusic.Count; i++)
+            {
+                var track = AllMusic[i];
+                if (!track.IsModMusic && !File.Exists(track.FilePath))
+                {
+                    MusicLookUp.Remove(track.FilePath);
+                    AllMusic.Remove(track);
+                    changed = true;
+                    i--;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            Plugin.Logger.LogError("Exception thrown while trying to remove unused music: " + e);
         }
 
         if (changed)
@@ -190,6 +216,26 @@ public static class PdaMusicDatabase
         var entry = new PdaMusicEntry(filePath, music, new FileInfo(filePath));
         MusicLookUp.Add(filePath, entry);
         AllMusic.Add(entry);
+    }
+    
+    private static IEnumerator UpdateExistingTrack(string filePath)
+    {
+        if (!MusicLookUp.TryGetValue(filePath, out var musicEntry))
+        {
+            Plugin.Logger.LogWarning("Somehow failed to find music track matching path " + filePath);
+            yield break;
+        }
+
+        if (musicEntry.Music is not PdaMusicCustom customMusic)
+        {
+            Plugin.Logger.LogWarning($"Music track '{musicEntry.Music.GetTrackName()}' is of the incorrect type!");
+            yield break;
+        }
+        
+        var success = new TaskResult<bool>();
+        yield return customMusic.LoadAudio(success);
+        if (success.value == false)
+            Plugin.Logger.LogWarning("Failed to update music track at path " + filePath);
     }
 
     public static string CustomTracksDirectory
