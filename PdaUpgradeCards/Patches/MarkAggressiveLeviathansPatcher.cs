@@ -13,7 +13,8 @@ internal static class MarkAggressiveLeviathansPatcher
         var ecoTarget = __instance.GetComponent<EcoTarget>();
         if (ecoTarget == null)
             return;
-        if (ecoTarget.type != EcoTargetType.Leviathan)
+        if (ecoTarget.type != EcoTargetType.Leviathan &&
+            CreatureData.GetBehaviourType(__instance.gameObject) != BehaviourType.Leviathan)
             return;
         var aggressive = __instance.GetComponent<AggressiveWhenSeeTarget>();
         var attack = __instance.GetComponent<AttackLastTarget>();

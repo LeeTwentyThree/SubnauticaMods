@@ -34,7 +34,7 @@ public class LeviathanDetectorUpgrade : UpgradeChipBase, IScheduledUpdateBehavio
             AggressiveLeviathanTracker.GetNumberOfTrackersInRange(Player.main.transform.position, DetectionRadius);
         
         // Detecting first leviathan
-        if (_knownLeviathanCount == 0 && newLeviathanCount == 1)
+        if (_knownLeviathanCount == 0 && newLeviathanCount >= 1)
         {
             if (Time.time > _timeDespawnCooldownEnds)
             {
@@ -51,7 +51,7 @@ public class LeviathanDetectorUpgrade : UpgradeChipBase, IScheduledUpdateBehavio
                 _timeDetectionCooldownEnds = Time.time + CooldownWhileLeviathansAreActive;
             }
         }
-        else if (newLeviathanCount == 0)
+        else if (_knownLeviathanCount > 0 && newLeviathanCount == 0)
         {
             _timeDespawnCooldownEnds = Time.time + CooldownAfterLeviathanDisappears;
         }
