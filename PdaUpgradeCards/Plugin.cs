@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
+using FMOD;
 using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Handlers;
@@ -26,9 +27,9 @@ public class Plugin : BaseUnityPlugin
 
     internal static AssetBundle Bundle { get; } =
         AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "pdaupgradechips");
-    
+
     internal static ModConfig ModConfig { get; private set; }
-    
+
     private void Awake()
     {
         // set project-scoped logger instance
@@ -37,17 +38,18 @@ public class Plugin : BaseUnityPlugin
         LanguageHandler.RegisterLocalizationFolder();
 
         ModConfig = OptionsPanelHandler.RegisterModOptions<ModConfig>();
-        
+
         // Initialize custom prefabs
         InitializePrefabs();
 
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
-        
+
+        RegisterAudio();
         PdaUpgradesAPI.Register();
         PdaUpgradesManager.RegisterSaveData();
-        
+
         PdaElements.RegisterAll();
 
         StartCoroutine(PdaMusicDatabase.RefreshMusicDatabase());
@@ -56,11 +58,25 @@ public class Plugin : BaseUnityPlugin
     private static void InitializePrefabs()
     {
         PdaUpgradesContainerPrefab.Register();
-        
+
         new UpgradeCardPrefab<MusicUpgrade>(PrefabInfo.WithTechType("PdaMusicUpgrade")
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_MusicPlayer"))).Register();
         new UpgradeCardPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade")
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay"))).Register();
-        new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("LeviathanDetectorUpgrade")).Register();
+        new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade"))
+            .Register();
+    }
+
+    private static void RegisterAudio()
+    {
+        CustomSoundHandler.RegisterCustomSound("PdaDetectingLeviathan1",
+            Bundle.LoadAsset<AudioClip>("DetectingLeviathan1"),
+            AudioUtils.BusPaths.PDAVoice, AudioUtils.StandardSoundModes_2D);
+        CustomSoundHandler.RegisterCustomSound("PdaDetectingLeviathan2",
+            Bundle.LoadAsset<AudioClip>("DetectingLeviathan2"),
+            AudioUtils.BusPaths.PDAVoice, AudioUtils.StandardSoundModes_2D);
+        CustomSoundHandler.RegisterCustomSound("PdaDetectingLeviathan3",
+            Bundle.LoadAsset<AudioClip>("DetectingLeviathan3"),
+            AudioUtils.BusPaths.PDAVoice, AudioUtils.StandardSoundModes_2D);
     }
 }
