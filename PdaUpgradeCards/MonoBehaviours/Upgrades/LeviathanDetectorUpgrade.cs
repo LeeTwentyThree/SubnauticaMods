@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Nautilus.Utility;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PdaUpgradeCards.MonoBehaviours.Upgrades;
 
@@ -7,20 +9,40 @@ public class LeviathanDetectorUpgrade : UpgradeChipBase, IScheduledUpdateBehavio
     private const float CooldownWhileLeviathansAreActive = 150;
     private const float CooldownAfterLeviathanDisappears = 15;
     private const float DetectionRadius = 120;
+    private const string VoiceLinePrefix = "PdaDetectingLeviathan";
+    private const int VoiceLineVariations = 3;
 
     private float _timeDetectionCooldownEnds;
     private float _timeDespawnCooldownEnds;
 
     private int _knownLeviathanCount;
 
+    private FMODAsset[] _sounds;
+
     private void OnEnable()
     {
+        if (_sounds == null)
+        {
+            _sounds = new FMODAsset[VoiceLineVariations];
+            for (var i = 0; i < VoiceLineVariations; i++)
+            {
+                _sounds[i] = AudioUtils.GetFmodAsset(VoiceLinePrefix + (i + 1));
+            }
+        }
         UpdateSchedulerUtils.Register(this);
     }
 
     private void OnDisable()
     {
         UpdateSchedulerUtils.Deregister(this);
+    }
+
+    private void OnDestroy()
+    {
+        foreach (var sound in _sounds)
+        {
+            Destroy(sound);
+        }
     }
 
     public string GetProfileTag()
@@ -61,7 +83,9 @@ public class LeviathanDetectorUpgrade : UpgradeChipBase, IScheduledUpdateBehavio
 
     private void WarnPlayer()
     {
-        ErrorMessage.AddMessage("Detecting leviathans!!");
+        var voiceLineIndex = Random.Range(0, VoiceLineVariations);
+        Subtitles.Add(VoiceLinePrefix + (voiceLineIndex + 1));
+        Utils.PlayFMODAsset(_sounds[voiceLineIndex], Player.main.transform.position);
     }
 
     public int scheduledUpdateIndex { get; set; }
