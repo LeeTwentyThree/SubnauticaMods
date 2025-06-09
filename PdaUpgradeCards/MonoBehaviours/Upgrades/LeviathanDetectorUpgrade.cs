@@ -8,7 +8,7 @@ public class LeviathanDetectorUpgrade : UpgradeChipBase, IScheduledUpdateBehavio
 {
     private const float CooldownWhileLeviathansAreActive = 150;
     private const float CooldownAfterLeviathanDisappears = 15;
-    private const float DetectionRadius = 120;
+    private const float DetectionRadius = 140;
     private const string VoiceLinePrefix = "PdaDetectingLeviathan";
     private const int VoiceLineVariations = 3;
 
