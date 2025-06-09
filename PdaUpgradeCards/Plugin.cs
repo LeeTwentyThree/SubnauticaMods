@@ -63,8 +63,8 @@ public class Plugin : BaseUnityPlugin
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_MusicPlayer"))).Register();
         new UpgradeCardPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade")
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay"))).Register();
-        new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade"))
-            .Register();
+        new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade")
+            .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LeviathanDetector"))).Register();
     }
 
     private static void RegisterAudio()
