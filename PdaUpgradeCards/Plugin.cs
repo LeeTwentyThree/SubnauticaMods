@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
 using FMOD;
@@ -11,6 +12,7 @@ using PdaUpgradeCards.MonoBehaviours;
 using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using PdaUpgradeCards.Prefabs;
 using UnityEngine;
+using UWE;
 
 namespace PdaUpgradeCards;
 
@@ -65,6 +67,22 @@ public class Plugin : BaseUnityPlugin
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay"))).Register();
         new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade")
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LeviathanDetector"))).Register();
+        new UpgradeCardPrefab<PocketDimensionUpgrade>(PrefabInfo.WithTechType("PdaPocketDimensionUpgrade"))
+            .Register();
+
+        var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),
+            "c794ac3f-d506-4338-9a8d-4b418a2e6741", Vector3.zero)
+        {
+            ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier1
+        };
+        pocketTier1.Register();
+
+        var pocketTier3 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier3"),
+            "c80288ce-9522-45f5-b3c2-01fe459ae5fe", Vector3.zero)
+        {
+            ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier3
+        };
+        pocketTier3.Register();
     }
 
     private static void RegisterAudio()
