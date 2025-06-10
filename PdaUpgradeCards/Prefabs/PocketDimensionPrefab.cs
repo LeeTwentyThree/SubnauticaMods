@@ -150,6 +150,8 @@ public class PocketDimensionPrefab
     internal static IEnumerator ModifyPocketDimensionTier1(GameObject obj)
     {
         var room = obj.transform.Find("ExplorableWreckRoom04(Clone)");
+        var floor = room.Find("explorable_wreckage_modular_room_03_collision/Cube (20)").GetComponents<BoxCollider>()[5];
+        floor.center = new Vector3(floor.center.x, 0, floor.center.z);
         var ventCoverTask = PrefabDatabase.GetPrefabAsync("235f771a-bb5a-4f58-8484-4ad9a6f4e95c");
         yield return ventCoverTask;
         if (ventCoverTask.TryGetPrefab(out var ventCoverPrefab))
