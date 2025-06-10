@@ -10,9 +10,9 @@ public class ColorizerUpgrade : UpgradeChipBase
     private void Start()
     {
         var pdaObject = Player.main.pda.transform.Find("Mesh").gameObject;
-        var sharedMaterials = pdaObject.GetComponent<Renderer>().sharedMaterials;
-        var borderMaterial = sharedMaterials[1];
-        var customScreenMaterial = sharedMaterials[2];
+        var materials = pdaObject.GetComponent<Renderer>().materials;
+        var borderMaterial = materials[1];
+        var customScreenMaterial = materials[2];
         
         _colorChanger = pdaObject.EnsureComponent<PdaColorChanger>();
         _colorChanger.borderMaterial = borderMaterial;
