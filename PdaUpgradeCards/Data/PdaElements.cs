@@ -2,6 +2,7 @@
 using Nautilus.Utility;
 using PdaUpgradeCards.MonoBehaviours;
 using PdaUpgradeCards.MonoBehaviours.UI;
+using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public static class PdaElements
     public static CustomPdaButton OpenMenuButton { get; private set; }
     public static CustomPdaElement MusicPlayerPanel { get; private set; }
     public static CustomColorPicker PdaColorPicker { get; private set; }
+    public static CustomPdaButton PocketDimensionButton { get; private set; }
 
     public static void RegisterAll()
     {
@@ -84,6 +86,15 @@ public static class PdaElements
                 colorPicker.SetColor(new Color(0.22f, 0.65f, 1.1f));
             },
             PDATab.Inventory,
+            false);
+
+        PocketDimensionButton = new CustomPdaButton(
+            "PocketDimensionButton",
+            rect => { rect.anchoredPosition = new Vector2(-480, 380); },
+            new CustomPdaButton.ButtonIcons("UpgradeIcon_PocketDimension", "PocketDimensionButtonSelected",
+                "UpgradeIcon_PocketDimension"),
+            PDATab.Inventory,
+            PocketDimensionUpgrade.OnPlayerRequestedEntrance,
             false);
     }
 }

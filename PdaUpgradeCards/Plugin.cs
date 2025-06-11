@@ -32,6 +32,10 @@ public class Plugin : BaseUnityPlugin
 
     internal static ModConfig ModConfig { get; private set; }
 
+    internal static TechType PocketDimensionTier1TechType { get; private set; }
+    internal static TechType PocketDimensionTier2TechType { get; private set; }
+    internal static TechType PocketDimensionTier3TechType { get; private set; }
+
     private void Awake()
     {
         // set project-scoped logger instance
@@ -67,15 +71,17 @@ public class Plugin : BaseUnityPlugin
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay"))).Register();
         new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade")
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LeviathanDetector"))).Register();
-        new UpgradeCardPrefab<PocketDimensionUpgrade>(PrefabInfo.WithTechType("PdaPocketDimensionUpgrade"))
+        new UpgradeCardPrefab<PocketDimensionUpgradeTier1>(PrefabInfo.WithTechType("PdaPocketDimensionUpgradeTier1")
+                .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimension")))
             .Register();
 
         var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),
-            "c794ac3f-d506-4338-9a8d-4b418a2e6741", Vector3.zero)
+            "c794ac3f-d506-4338-9a8d-4b418a2e6741", new Vector3(0, 1.3f, 0))
         {
             ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier1
         };
         pocketTier1.Register();
+        PocketDimensionTier1TechType = pocketTier1.Info.TechType;
 
         var pocketTier3 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier3"),
             "c80288ce-9522-45f5-b3c2-01fe459ae5fe", Vector3.zero)
@@ -83,6 +89,7 @@ public class Plugin : BaseUnityPlugin
             ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier3
         };
         pocketTier3.Register();
+        PocketDimensionTier3TechType = pocketTier3.Info.TechType;
     }
 
     private static void RegisterAudio()

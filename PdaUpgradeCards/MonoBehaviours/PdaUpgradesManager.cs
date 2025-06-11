@@ -64,6 +64,7 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
 
     private void OnEquip(string slot, InventoryItem item)
     {
+        ErrorMessage.AddMessage("equip");
         if (PdaUpgradesAPI.TryGetUpgradeChipBehaviourType(item.techType, out var upgradeChipType))
         {
             AddChipBehaviour(upgradeChipType);
@@ -76,6 +77,7 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
 
     private void OnUnequip(string slot, InventoryItem item)
     {
+        ErrorMessage.AddMessage("unequip");
         if (PdaUpgradesAPI.TryGetUpgradeChipBehaviourType(item.techType, out var upgradeChipType))
         {
             RemoveChipBehaviour(upgradeChipType);
@@ -88,6 +90,11 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
 
     private void AddChipBehaviour(Type chipType)
     {
+        if (_upgradeChipBehaviors.ContainsKey(chipType))
+        {
+            Plugin.Logger.LogWarning("Can't add duplicate upgrade chip modules!");
+            return;
+        }
         var chipObject = new GameObject(chipType.Name);
         chipObject.transform.parent = transform;
         var chipComponent = chipObject.AddComponent(chipType);

@@ -110,6 +110,7 @@ public class PocketDimensionPrefab
         subRoot.glassSky = glassSky;
         subRoot.lightControl = lightControl;
         subRoot.isBase = true;
+        subRoot.dimensionTechType = Info.TechType;
 
         var subDamageSounds = new GameObject("SubDamageSoundsDummy");
         subDamageSounds.transform.SetParent(prefab.transform, false);
@@ -123,6 +124,12 @@ public class PocketDimensionPrefab
         {
             Object.DestroyImmediate(sa);
         }
+        
+        var entrancePosition = new GameObject("EntrancePosition").transform;
+        entrancePosition.SetParent(prefab.transform, false);
+        entrancePosition.localPosition = LocalSpawnPosition;
+        entrancePosition.localRotation = Quaternion.identity;
+        subRoot.entrancePosition = entrancePosition;
         
         if (ModifyPrefab != null)
         {
@@ -143,7 +150,6 @@ public class PocketDimensionPrefab
         interiorSkyApplier.anchorSky = Skies.BaseInterior;
         interiorSkyApplier.lightControl = lightControl;
         
-
         result.Set(prefab);
     }
     
