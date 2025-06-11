@@ -23,7 +23,7 @@ public class PocketDimensionPrefab
         RoomModelClassId = roomModelClassId;
         LocalSpawnPosition = localSpawnPosition;
     }
-    
+
     public void Register()
     {
         var prefab = new CustomPrefab(Info);
@@ -56,7 +56,7 @@ public class PocketDimensionPrefab
         room.transform.localScale = Vector3.one;
         room.transform.localEulerAngles = Vector3.zero;
         room.transform.localPosition = Vector3.zero;
-        
+
         Object.DestroyImmediate(room.GetComponent<LargeWorldEntity>());
         Object.DestroyImmediate(room.GetComponent<PrefabIdentifier>());
 
@@ -124,18 +124,18 @@ public class PocketDimensionPrefab
         {
             Object.DestroyImmediate(sa);
         }
-        
+
         var entrancePosition = new GameObject("EntrancePosition").transform;
         entrancePosition.SetParent(prefab.transform, false);
         entrancePosition.localPosition = LocalSpawnPosition;
         entrancePosition.localRotation = Quaternion.identity;
         subRoot.entrancePosition = entrancePosition;
-        
+
         if (ModifyPrefab != null)
         {
             yield return ModifyPrefab(prefab);
         }
-        
+
         var interiorSkyApplier = room.AddComponent<SkyApplier>();
         var roomRenderers = room.GetComponentsInChildren<Renderer>();
         foreach (var renderer in roomRenderers)
@@ -146,18 +146,23 @@ public class PocketDimensionPrefab
                 material.SetFloat(LightmapStrength, 0.5f);
             }
         }
+
         interiorSkyApplier.renderers = roomRenderers;
         interiorSkyApplier.anchorSky = Skies.BaseInterior;
         interiorSkyApplier.lightControl = lightControl;
-        
+
         result.Set(prefab);
     }
-    
+
     internal static IEnumerator ModifyPocketDimensionTier1(GameObject obj)
     {
         var room = obj.transform.Find("ExplorableWreckRoom04(Clone)");
-        var floor = room.Find("explorable_wreckage_modular_room_03_collision/Cube (20)").GetComponents<BoxCollider>()[5];
+        var colliders = room.Find("explorable_wreckage_modular_room_03_collision/Cube (20)")
+            .GetComponents<BoxCollider>();
+        var floor = colliders[5];
         floor.center = new Vector3(floor.center.x, 0, floor.center.z);
+        var backWall = colliders[7];
+        backWall.center = new Vector3(backWall.center.x, backWall.center.y, -5.1f);
         var ventCoverTask = PrefabDatabase.GetPrefabAsync("235f771a-bb5a-4f58-8484-4ad9a6f4e95c");
         yield return ventCoverTask;
         if (ventCoverTask.TryGetPrefab(out var ventCoverPrefab))
@@ -167,6 +172,7 @@ public class PocketDimensionPrefab
             ventCover.transform.localPosition = new Vector3(6.2f, 3.05f, -2.4f);
             ventCover.transform.localEulerAngles = new Vector3(90, 90, 0);
         }
+
         var doorFrameTask = PrefabDatabase.GetPrefabAsync("055b3160-f57b-46ba-80f5-b708d0c8180e");
         yield return doorFrameTask;
         if (doorFrameTask.TryGetPrefab(out var doorFramePrefab))
@@ -176,6 +182,7 @@ public class PocketDimensionPrefab
             doorFrame.transform.localPosition = new Vector3(-0.1f, 0.4f, 0.2f);
             doorFrame.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
+
         var doorTask = PrefabDatabase.GetPrefabAsync("ef1370e3-832f-4008-ac39-99ad24f43f76");
         yield return doorTask;
         if (doorTask.TryGetPrefab(out var doorPrefab))
@@ -184,9 +191,10 @@ public class PocketDimensionPrefab
             CleanUpPrefabComponents(door);
             door.transform.localPosition = new Vector3(-0.1f, 0.4f, 0.2f);
             door.transform.localEulerAngles = new Vector3(0, 0, 0);
+            door.AddComponent<ExitDimensionDoor>();
         }
     }
-    
+
     internal static IEnumerator ModifyPocketDimensionTier3(GameObject obj)
     {
         var room = obj.transform.Find("CrashedShip_cargo_room(Clone)");

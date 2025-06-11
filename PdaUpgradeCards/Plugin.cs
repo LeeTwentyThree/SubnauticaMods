@@ -71,12 +71,12 @@ public class Plugin : BaseUnityPlugin
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay"))).Register();
         new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade")
             .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LeviathanDetector"))).Register();
-        new UpgradeCardPrefab<PocketDimensionUpgradeTier1>(PrefabInfo.WithTechType("PdaPocketDimensionUpgradeTier1")
+        new UpgradeCardPrefab<PocketDimensionUpgradeTier1>(PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk1")
                 .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimension")))
             .Register();
 
         var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),
-            "c794ac3f-d506-4338-9a8d-4b418a2e6741", new Vector3(0, 1.3f, 0))
+            "c794ac3f-d506-4338-9a8d-4b418a2e6741", new Vector3(-0.6f, 1.4f, 0.2f))
         {
             ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier1
         };

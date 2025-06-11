@@ -64,20 +64,22 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
 
     private void OnEquip(string slot, InventoryItem item)
     {
-        ErrorMessage.AddMessage("equip");
         if (PdaUpgradesAPI.TryGetUpgradeChipBehaviourType(item.techType, out var upgradeChipType))
         {
-            AddChipBehaviour(upgradeChipType);
+            if (isActiveAndEnabled)
+                StartCoroutine(AddChipCoroutine(upgradeChipType));
+            else
+                AddChipBehaviour(upgradeChipType);
         }
         else
         {
             Plugin.Logger.LogError("Failed to find upgrade chip behaviour type for TechType " + item.techType);
         }
+
     }
 
     private void OnUnequip(string slot, InventoryItem item)
     {
-        ErrorMessage.AddMessage("unequip");
         if (PdaUpgradesAPI.TryGetUpgradeChipBehaviourType(item.techType, out var upgradeChipType))
         {
             RemoveChipBehaviour(upgradeChipType);
@@ -86,6 +88,13 @@ public class PdaUpgradesManager : MonoBehaviour, IProtoEventListener, IProtoTree
         {
             Plugin.Logger.LogError("Failed to find upgrade chip behaviour type for TechType " + item.techType);
         }
+    }
+
+    private IEnumerator AddChipCoroutine(Type chipType)
+    {
+        // Wait at least a frame to prevent issues when quickly swapping in the same frame (required with this setup)
+        yield return null;
+        AddChipBehaviour(chipType);
     }
 
     private void AddChipBehaviour(Type chipType)

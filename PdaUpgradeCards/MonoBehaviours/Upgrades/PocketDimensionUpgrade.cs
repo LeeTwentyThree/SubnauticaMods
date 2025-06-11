@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Nautilus.Utility;
 using PdaUpgradeCards.Data;
 using UnityEngine;
 
@@ -8,9 +9,12 @@ namespace PdaUpgradeCards.MonoBehaviours.Upgrades;
 
 public abstract class PocketDimensionUpgrade : UpgradeChipBase
 {
+    private const float BufferDuration = 0.5f;
+    private static readonly FMODAsset TeleportSound = AudioUtils.GetFmodAsset("event:/env/use_teleporter_use_loop");
+
     private static readonly List<PocketDimensionUpgrade> All = new();
     private static PocketDimensionUpgrade _currentDimensionUpgrade;
-    
+
     protected abstract TechType DimensionTechType { get; }
     protected abstract int DimensionTier { get; }
     protected abstract Vector3 WorldLocation { get; }
@@ -20,6 +24,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
     private static bool _loadingPocketDimensionPrefab;
     private static bool _cancelingLoading;
     private static bool _teleporting;
+    private static bool _teleportationComplete;
 
     private static Coroutine _setUpCoroutine;
     private static Coroutine _teleportCoroutine;
@@ -63,27 +68,35 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
         }
 
         var existedBefore = _currentDimensionUpgrade != null;
-        
+
         if (_currentDimensionUpgrade == newModule)
         {
             return;
         }
-        
+
         _currentDimensionUpgrade = newModule;
-        
+
         if (existedBefore)
             ChangePocketDimension();
-        else 
+        else
             CreatePocketDimension();
     }
 
     private static void DisablePocketDimension()
     {
+        DisruptPocketDimensionCreation();
         CancelTeleportIfActive();
         PdaElements.PocketDimensionButton.SetElementActive(false);
     }
 
     private static void CreatePocketDimension()
+    {
+        DisruptPocketDimensionCreation();
+
+        _setUpCoroutine = UWE.CoroutineHost.StartCoroutine(SetUpPocketDimensionsCoroutine());
+    }
+
+    private static void DisruptPocketDimensionCreation()
     {
         if (_setUpCoroutine != null)
         {
@@ -98,8 +111,6 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
                 _cancelingLoading = true;
             }
         }
-        
-        _setUpCoroutine = UWE.CoroutineHost.StartCoroutine(SetUpPocketDimensionsCoroutine());
     }
 
     private static void ChangePocketDimension()
@@ -126,26 +137,27 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             Plugin.Logger.LogWarning("The pocket dimension system is already buffering!");
             yield break;
         }
-        
+
         // Initial arbitrary buffer timer
         _bufferTimeActive = true;
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(BufferDuration);
         _bufferTimeActive = false;
 
         var dimension = _currentDimensionUpgrade;
-        
+
         if (dimension == null)
         {
             Plugin.Logger.LogWarning("Failed to find active dimension upgrade! Canceling...");
             yield break;
         }
-        
-        if (PocketDimensionSub.TryGetPocketDimension(dimension.DimensionTechType, out _))
+
+        if (PocketDimensionSub.TryGetPocketDimension(dimension.DimensionTechType, out var existingSub))
         {
+            _activeSub = existingSub;
             PdaElements.PocketDimensionButton.SetElementActive(true);
             yield break;
         }
-        
+
         _loadingPocketDimensionPrefab = true;
 
         var task = CraftData.GetPrefabForTechTypeAsync(_currentDimensionUpgrade.DimensionTechType);
@@ -160,11 +172,11 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
         }
 
         _loadingPocketDimensionPrefab = false;
-        
+
         var prefab = task.GetResult();
         var dimensionObject = Instantiate(prefab, dimension.WorldLocation, Quaternion.identity);
         _activeSub = dimensionObject.GetComponent<PocketDimensionSub>();
-        
+
         // Completion
         PdaElements.PocketDimensionButton.SetElementActive(true);
     }
@@ -177,41 +189,142 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             return;
         }
 
+        if (Player.main.GetCurrentSub() == _activeSub)
+        {
+            TeleportPlayerOut();
+            return;
+        }
+
+        if (Player.main.GetVehicle() != null)
+        {
+            ErrorMessage.AddMessage(Language.main.Get("ExitVehicleToEnterPocketDimension"));
+        }
+        
         if (!_teleporting)
         {
-            _teleportCoroutine = UWE.CoroutineHost.StartCoroutine(TeleportCoroutine());
+            _teleportCoroutine = UWE.CoroutineHost.StartCoroutine(TeleportCoroutine(0, OnTeleportIntoSub, true));
         }
     }
 
-    private static IEnumerator TeleportCoroutine()
+    private static void OnTeleportIntoSub()
+    {
+        var player = Player.main;
+
+        if (player && _activeSub)
+        {
+            player.SetPosition(_activeSub.entrancePosition.position);
+            player.SetCurrentSub(_activeSub);
+        }
+
+        var cameraControl = MainCameraControl.main;
+        if (cameraControl)
+        {
+            cameraControl.rotationY = 0;
+            cameraControl.rotationX = 180;
+        }
+    }
+
+    private static void OnTeleportToLastLocation()
+    {
+        var player = Player.main;
+
+        player.SetPosition(Vector3.zero);
+    }
+
+    private static IEnumerator TeleportCoroutine(float waitDuration, Action onTeleportComplete,
+        bool properTeleport = false)
     {
         _teleporting = true;
-        
+
         TeleportScreenFXController teleportVfx = null;
         try
         {
             teleportVfx = MainCamera.camera.GetComponent<TeleportScreenFXController>();
-            teleportVfx.Start();
+            teleportVfx.StartTeleport();
         }
         catch (Exception e)
         {
             Plugin.Logger.LogError("Exception loading teleport VFX: " + e);
         }
 
-        yield return new WaitForSeconds(2);
-        
         var player = Player.main;
 
-        if (player)
+        if (player != null && player.pda != null)
         {
-            player.SetPosition(_activeSub.entrancePosition.position);
-            player.SetCurrentSub(_activeSub);
+            player.pda.Close();
         }
-        
+
+        var teleportSound = new GameObject("TeleportSound").AddComponent<FMOD_CustomLoopingEmitter>();
+        teleportSound.SetAsset(TeleportSound);
+        teleportSound.Play();
+
+        yield return new WaitForSeconds(1f);
+
+        try
+        {
+            onTeleportComplete();
+        }
+        catch (Exception e)
+        {
+            Plugin.Logger.LogError("Exception thrown while handling teleportation: " + e);
+        }
+
+        if (properTeleport)
+        {
+            Player.main.onTeleportationComplete += OnTeleportationComplete;
+            Player.main.WaitForTeleportation();
+            _teleportationComplete = false;
+            var timeOut = Time.realtimeSinceStartup + 10f;
+            while (Time.realtimeSinceStartup < timeOut && !_teleportationComplete)
+            {
+                yield return null;
+            }
+            Player.main.onTeleportationComplete -= OnTeleportationComplete;
+        }
+        else
+        {
+            yield return new WaitForSeconds(waitDuration);
+        }
+
         yield return new WaitForSeconds(0.5f);
 
         if (teleportVfx != null) teleportVfx.StopTeleport();
 
+        if (teleportSound)
+        {
+            teleportSound.Stop();
+            Destroy(teleportSound.gameObject, 2);
+        }
+
         _teleporting = false;
+    }
+
+    private static void OnTeleportationComplete()
+    {
+        _teleportationComplete = true;
+    }
+
+    public static void QueryKickOutPlayer(PocketDimensionSub playerSub)
+    {
+        foreach (var active in All)
+        {
+            if (active.DimensionTechType == playerSub.dimensionTechType)
+                return;
+        }
+
+        TeleportPlayerOut();
+    }
+
+    public static void TeleportPlayerOut()
+    {
+        if (!_teleporting)
+        {
+            _teleportCoroutine = UWE.CoroutineHost.StartCoroutine(TeleportCoroutine(5, OnTeleportToLastLocation, true));
+        }
+    }
+
+    public static bool GetPlayerInsideAnyPocketDimension()
+    {
+        return Player.main && Player.main.GetCurrentSub() == _activeSub && _activeSub != null;
     }
 }
