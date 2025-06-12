@@ -118,6 +118,7 @@ public class PocketDimensionPrefab
         subRoot.subDamageSoundsPrefab = subDamageSounds;
 
         subRoot.LOD = lod;
+        subRoot.modulesRoot = prefab.transform; 
 
         var oldSkyAppliers = room.GetComponentsInChildren<SkyApplier>();
         foreach (var sa in oldSkyAppliers)
@@ -181,6 +182,7 @@ public class PocketDimensionPrefab
             CleanUpPrefabComponents(doorFrame);
             doorFrame.transform.localPosition = new Vector3(-0.1f, 0.4f, 0.2f);
             doorFrame.transform.localEulerAngles = new Vector3(0, 0, 0);
+            doorFrame.GetComponentInChildren<Renderer>().material.color = Color.white;
         }
 
         var doorTask = PrefabDatabase.GetPrefabAsync("ef1370e3-832f-4008-ac39-99ad24f43f76");
