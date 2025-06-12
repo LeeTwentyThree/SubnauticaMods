@@ -28,7 +28,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
     private static Coroutine _setUpCoroutine;
     private static Coroutine _teleportCoroutine;
-
+    
     private void OnEnable()
     {
         All.Add(this);
@@ -84,6 +84,8 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
     private static void DisablePocketDimension()
     {
+        Plugin.Logger.LogInfo("Disabling pocket dimension");
+
         DisruptPocketDimensionCreation();
         CancelTeleportIfActive();
         PdaElements.PocketDimensionButton.SetElementActive(false);
@@ -91,6 +93,8 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
     private static void CreatePocketDimension()
     {
+        Plugin.Logger.LogInfo("Creating a new pocket dimension");
+
         DisruptPocketDimensionCreation();
 
         _setUpCoroutine = UWE.CoroutineHost.StartCoroutine(SetUpPocketDimensionsCoroutine());
@@ -115,6 +119,8 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
     private static void ChangePocketDimension()
     {
+        Plugin.Logger.LogInfo("Changing the current pocket dimension");
+        
         CancelTeleportIfActive();
         CreatePocketDimension();
     }
@@ -153,6 +159,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
         if (PocketDimensionSub.TryGetPocketDimension(dimension.DimensionTechType, out var existingSub))
         {
+            Plugin.Logger.LogInfo("Found an existing pocket dimension");
             _activeSub = existingSub;
             PdaElements.PocketDimensionButton.SetElementActive(true);
             yield break;
