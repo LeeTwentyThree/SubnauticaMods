@@ -202,6 +202,8 @@ public class MusicPlayerUI : MonoBehaviour, IManagedUpdateBehaviour
 
     public void OnPlayButton()
     {
+        if (!_playing && _currentPlaylist.Size == 0)
+            return;
         SetMusicPlaying(!_playing);
     }
 
