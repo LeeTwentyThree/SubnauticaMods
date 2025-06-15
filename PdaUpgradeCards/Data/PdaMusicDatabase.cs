@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace PdaUpgradeCards.Data;
 
 public static class PdaMusicDatabase
 {
+    private const string ConfigFolderName = "PdaUpgradeCards";
+    private const string MusicTracksFolderName = "MusicTracks";
+    private const string ModMusicConfigFileName = "ModMusic.config";
+
     public static IEnumerable<PdaMusic> GetAllMusic()
     {
         return AllMusic.Select(e => e.Music);
@@ -26,29 +31,6 @@ public static class PdaMusicDatabase
 
     private static bool _busyRefreshingDatabase;
 
-    private static ModMusicData[] _modMusic =
-    {
-        new("com.aci.hydra", "hydra_assets", "CreatureAttack_Quiet", "CotV - Creature Attack", 1.3f),
-        new("com.aci.hydra", "hydra_assets", "abandon hope extended_Quiet", "CotV - Abandon Hope", 1.3f),
-        new("com.aci.hydra", "hydra_assets", "Hydra_Sting", "CotV - The Hydra", 0.7f),
-        new("com.lee23.theredplague", "theredplagueaudio", "infectedbiomedemo1", "Red Plague - Infected Zone", 1.3f),
-        new("com.lee23.theredplague", "theredplagueaudio", "skyisland", "Red Plague - Among the Clouds", 1.5f),
-        new("com.lee23.theredplague", "theredplagueaudio", "voidislandcave", "Red Plague - Void Island Cave", 1.5f),
-        new("com.lee23.theredplague", "theredplagueaudio", "infectedaurorademo1_2", "Red Plague - Mr. Teeth", 1.5f),
-        new("com.lee23.theredplague", "theredplagueaudio", "RedPlagueDemo1.1", "Red Plague - The Plaggue Spreads", 1.5f),
-        new("com.lee23.theredplague", "theredplagueaudio", "TRPConceptOST4(1)", "Red Plague - In the Halls of the Insane", 1.5f),
-        new("com.lee23.theredplague", "theredplagueaudio", "TRPOstConcept2", "Red Plague - The Regular", 1.5f),
-        new("com.lee23.theredplague", "theredplagueaudio", "TRPOstConecpt1(1)", "Red Plague - Bioweapon", 1.5f),
-        new("com.aotu.returnoftheancients", "projectacientsaudio", "Main_Theme", "Return of the Ancients - Menu", 1.3f),
-    };
-
-    private static Dictionary<string, Func<bool>> ModMusicConfigLookUp { get; } = new()
-    {
-        { "com.aci.hydra", () => Plugin.ModConfig.LoadHydraModMusic },
-        { "com.lee23.theredplague", () => Plugin.ModConfig.LoadRedPlagueMusic },
-        { "com.aotu.returnoftheancients", () => Plugin.ModConfig.LoadReturnOfTheAncientsMusic }
-    };
-
     public delegate void OnMusicDatabaseChangedDelegate();
 
     public static event OnMusicDatabaseChangedDelegate OnMusicDatabaseChanged;
@@ -62,12 +44,19 @@ public static class PdaMusicDatabase
         }
 
         _busyRefreshingDatabase = true;
-        
+
         if (!_initializedFirstLoad)
         {
-            LoadModMusic();
+            try
+            {
+                LoadModMusic();
+            }
+            catch (Exception e)
+            {
+                Plugin.Logger.LogError("Exception thrown while loading mod music: " + e);
+            }
         }
-        
+
         bool changed = !_initializedFirstLoad;
         var files = Directory.GetFiles(CustomTracksDirectory);
         foreach (var file in files)
@@ -85,7 +74,7 @@ public static class PdaMusicDatabase
 
             yield return null;
         }
-        
+
         try
         {
             for (int i = 0; i < AllMusic.Count; i++)
@@ -114,10 +103,26 @@ public static class PdaMusicDatabase
         _busyRefreshingDatabase = false;
     }
 
+    private static ModMusicData[] GetModMusicDataFromJson()
+    {
+        return JsonConvert.DeserializeObject<ModMusicData[]>(File.ReadAllText(ModMusicFilePath));
+    }
+
     private static void LoadModMusic()
     {
+        ModMusicData[] musicData;
+        try
+        {
+            musicData = GetModMusicDataFromJson();
+        }
+        catch (Exception e)
+        {
+            Plugin.Logger.LogError("Exception thrown while trying to load mod music JSON data: " + e);
+            return;
+        }
+
         var validModsByGuid = new Dictionary<string, List<ModMusicData>>();
-        foreach (var entry in _modMusic)
+        foreach (var entry in musicData)
         {
             if (!BepInEx.Bootstrap.Chainloader.PluginInfos.Keys.Contains(entry.ModGuid))
             {
@@ -135,12 +140,6 @@ public static class PdaMusicDatabase
 
         foreach (var mod in validModsByGuid)
         {
-            if (ModMusicConfigLookUp.TryGetValue(mod.Key, out var shouldCheckModFunc) && !shouldCheckModFunc.Invoke())
-            {
-                Plugin.Logger.LogInfo($"Skipping loading music from {mod.Key} because it is disabled.");
-                continue;
-            }
-            
             try
             {
                 var pluginInfo = BepInEx.Bootstrap.Chainloader.PluginInfos[mod.Key];
@@ -148,7 +147,7 @@ public static class PdaMusicDatabase
                 var assetBundleName = mod.Value[0].AssetBundleName;
 
                 AssetBundle bundle = null;
-                
+
                 var pluginInstance = pluginInfo.Instance;
                 var assetBundleMembers = GetMembersOfType(pluginInstance.GetType(), typeof(AssetBundle));
 
@@ -217,7 +216,7 @@ public static class PdaMusicDatabase
         MusicLookUp.Add(filePath, entry);
         AllMusic.Add(entry);
     }
-    
+
     private static IEnumerator UpdateExistingTrack(string filePath)
     {
         if (!MusicLookUp.TryGetValue(filePath, out var musicEntry))
@@ -231,11 +230,30 @@ public static class PdaMusicDatabase
             Plugin.Logger.LogWarning($"Music track '{musicEntry.Music.GetTrackName()}' is of the incorrect type!");
             yield break;
         }
-        
+
         var success = new TaskResult<bool>();
         yield return customMusic.LoadAudio(success);
         if (success.value == false)
             Plugin.Logger.LogWarning("Failed to update music track at path " + filePath);
+    }
+
+    private static string ConfigFolderDirectory
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_configFolderDirectory))
+            {
+                return _configFolderDirectory;
+            }
+
+            _configFolderDirectory = Path.Combine(BepInEx.Paths.ConfigPath, ConfigFolderName);
+            if (!Directory.Exists(_configFolderDirectory))
+            {
+                Directory.CreateDirectory(_configFolderDirectory);
+            }
+
+            return _configFolderDirectory;
+        }
     }
 
     public static string CustomTracksDirectory
@@ -245,13 +263,7 @@ public static class PdaMusicDatabase
             if (!string.IsNullOrEmpty(_customTracksDirectory) && Directory.Exists(_customTracksDirectory))
                 return _customTracksDirectory;
 
-            var modConfigPath = Path.Combine(BepInEx.Paths.ConfigPath, "PdaUpgradeCards");
-            if (!Directory.Exists(modConfigPath))
-            {
-                Directory.CreateDirectory(modConfigPath);
-            }
-
-            _customTracksDirectory = Path.Combine(modConfigPath, "MusicTracks");
+            _customTracksDirectory = Path.Combine(ConfigFolderDirectory, MusicTracksFolderName);
             if (!Directory.Exists(_customTracksDirectory))
             {
                 Directory.CreateDirectory(_customTracksDirectory);
@@ -261,7 +273,20 @@ public static class PdaMusicDatabase
         }
     }
 
+    public static string ModMusicFilePath
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(_modMusicFilePath)) return _modMusicFilePath;
+
+            _modMusicFilePath = Path.Combine(ConfigFolderDirectory, ModMusicConfigFileName);
+            return _modMusicFilePath;
+        }
+    }
+
+    private static string _configFolderDirectory;
     private static string _customTracksDirectory;
+    private static string _modMusicFilePath;
 
     public class PdaMusicEntry
     {
@@ -285,15 +310,23 @@ public static class PdaMusicDatabase
         public FileInfo KnownFileInfo { get; }
     }
 
+    [Serializable]
     private struct ModMusicData
     {
-        public string ModGuid { get; }
-        public string AssetBundleName { get; }
-        public string AudioClipName { get; }
-        public string DisplayName { get; }
-        public float Volume { get; }
+        public string ModGuid { get; set; }
+        public string AssetBundleName { get; set; }
+        public string AudioClipName { get; set; }
+        public string DisplayName { get; set; }
+        public float Volume { get; set; }
 
-        public ModMusicData(string modGuid, string assetBundleName, string audioClipName, string displayName, float volume)
+        [JsonConstructor]
+        public ModMusicData()
+        {
+            
+        }
+        
+        public ModMusicData(string modGuid, string assetBundleName, string audioClipName, string displayName,
+            float volume)
         {
             ModGuid = modGuid;
             AssetBundleName = assetBundleName;

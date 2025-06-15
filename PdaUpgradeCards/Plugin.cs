@@ -29,9 +29,7 @@ public class Plugin : BaseUnityPlugin
 
     internal static AssetBundle Bundle { get; } =
         AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "pdaupgradechips");
-
-    internal static ModConfig ModConfig { get; private set; }
-
+    
     internal static TechType PocketDimensionTier1TechType { get; private set; }
     internal static TechType PocketDimensionTier2TechType { get; private set; }
     internal static TechType PocketDimensionTier3TechType { get; private set; }
@@ -42,9 +40,7 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
 
         LanguageHandler.RegisterLocalizationFolder();
-
-        ModConfig = OptionsPanelHandler.RegisterModOptions<ModConfig>();
-
+        
         // Initialize custom prefabs
         InitializePrefabs();
 
