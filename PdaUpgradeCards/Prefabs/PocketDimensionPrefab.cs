@@ -132,10 +132,43 @@ public class PocketDimensionPrefab
         entrancePosition.localRotation = Quaternion.identity;
         subRoot.entrancePosition = entrancePosition;
 
+        var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
+        
+        var powerRelay = prefab.AddComponent<PowerRelay>();
+        powerRelay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
+        
+        var powerCellsParent = new GameObject("PowerCellsParent").transform;
+        powerCellsParent.SetParent(prefab.transform, false);
+        powerCellsParent.localPosition = Vector3.zero;
+        powerCellsParent.localEulerAngles = Vector3.zero;
+        powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "PocketDimensionPower";
+
+        var placeholdersGroup = prefab.AddComponent<PrefabPlaceholdersGroup>();
+        var powerCellLocations = new[] { new Vector3(-1, -1, 0),  new Vector3(1, -1, 0) };
+
+        var placeholders = new PrefabPlaceholder[powerCellLocations.Length];
+        
+        for (int i = 0; i < powerCellLocations.Length; i++)
+        {
+            var placeholder = new GameObject("PowerCellPlaceholder");
+            var placeholderComponent = placeholder.AddComponent<PrefabPlaceholder>();
+            placeholderComponent.prefabClassId = "0cb22d0e-ba5e-4e4b-b7a7-a67931fb5e0c";
+            placeholder.transform.SetParent(powerCellsParent, false);
+            placeholder.transform.localPosition = powerCellLocations[i];
+            placeholder.transform.localRotation = Quaternion.identity;
+            placeholders[i] = placeholderComponent;
+        }
+
+        placeholdersGroup.prefabPlaceholders = placeholders;
+        
+        // MODIFY PREFAB AFTER MAIN CHANGES
+        
         if (ModifyPrefab != null)
         {
             yield return ModifyPrefab(prefab);
         }
+        
+        // FINAL ADJUSTMENTS
 
         var interiorSkyApplier = room.AddComponent<SkyApplier>();
         var roomRenderers = room.GetComponentsInChildren<Renderer>();
