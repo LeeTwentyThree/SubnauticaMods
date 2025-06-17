@@ -5,7 +5,9 @@ using BepInEx.Logging;
 using FMOD;
 using HarmonyLib;
 using Nautilus.Assets;
+using Nautilus.Crafting;
 using Nautilus.Handlers;
+using Nautilus.Handlers.TitleScreen;
 using Nautilus.Utility;
 using PdaUpgradeCards.Data;
 using PdaUpgradeCards.MonoBehaviours;
@@ -29,7 +31,7 @@ public class Plugin : BaseUnityPlugin
 
     internal static AssetBundle Bundle { get; } =
         AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "pdaupgradechips");
-    
+
     internal static TechType PocketDimensionTier1TechType { get; private set; }
     internal static TechType PocketDimensionTier2TechType { get; private set; }
     internal static TechType PocketDimensionTier3TechType { get; private set; }
@@ -40,7 +42,7 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
 
         LanguageHandler.RegisterLocalizationFolder();
-        
+
         // Initialize custom prefabs
         InitializePrefabs();
 
@@ -61,14 +63,26 @@ public class Plugin : BaseUnityPlugin
     {
         PdaUpgradesContainerPrefab.Register();
 
-        new UpgradeCardPrefab<MusicUpgrade>(PrefabInfo.WithTechType("PdaMusicUpgrade")
-            .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_MusicPlayer"))).Register();
-        new UpgradeCardPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade")
-            .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay"))).Register();
-        new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade")
-            .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LeviathanDetector"))).Register();
-        new UpgradeCardPrefab<PocketDimensionUpgradeTier1>(PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk1")
-                .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimension")))
+        new UpgradeCardPrefab<MusicUpgrade>(PrefabInfo.WithTechType("PdaMusicUpgrade", true)
+                .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_MusicPlayer")),
+            new RecipeData(new CraftData.Ingredient(TechType.ComputerChip),
+                new CraftData.Ingredient(TechType.FiberMesh), new CraftData.Ingredient(TechType.Magnetite))).Register();
+        new UpgradeCardPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade", true)
+                    .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay")),
+                new RecipeData(new CraftData.Ingredient(TechType.AluminumOxide),
+                    new CraftData.Ingredient(TechType.UraniniteCrystal), new CraftData.Ingredient(TechType.Diamond)))
+            .Register();
+        new UpgradeCardPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade", true)
+                    .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LeviathanDetector")),
+                new RecipeData(new CraftData.Ingredient(TechType.ComputerChip),
+                    new CraftData.Ingredient(TechType.AdvancedWiringKit), new CraftData.Ingredient(TechType.Quartz)))
+            .Register();
+        new UpgradeCardPrefab<PocketDimensionUpgradeTier1>(PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk1", true)
+                    .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimension")),
+                new RecipeData(new CraftData.Ingredient(TechType.TitaniumIngot),
+                    new CraftData.Ingredient(TechType.PrecursorIonCrystal),
+                    new CraftData.Ingredient(TechType.AdvancedWiringKit),
+                    new CraftData.Ingredient(TechType.Pipe, 2)))
             .Register();
 
         var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),

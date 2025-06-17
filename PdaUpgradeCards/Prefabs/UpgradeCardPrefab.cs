@@ -1,5 +1,7 @@
 ﻿using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
+using Nautilus.Crafting;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using UnityEngine;
@@ -9,10 +11,15 @@ namespace PdaUpgradeCards.Prefabs;
 public class UpgradeCardPrefab<T> where T : UpgradeChipBase
 {
     public PrefabInfo Info { get; }
+    
+    public bool InModificationStation { private get; init; }
 
-    public UpgradeCardPrefab(PrefabInfo info)
+    private readonly RecipeData _recipe;
+
+    public UpgradeCardPrefab(PrefabInfo info, RecipeData recipe)
     {
         Info = info;
+        _recipe = recipe;
     }
 
     public void Register()
@@ -20,6 +27,11 @@ public class UpgradeCardPrefab<T> where T : UpgradeChipBase
         var prefab = new CustomPrefab(Info);
         prefab.SetGameObject(GetPrefab);
         prefab.SetEquipment(PdaUpgradesAPI.PdaUpgradeEquipmentType);
+        prefab.SetRecipe(_recipe)
+            .WithCraftingTime(3)
+            .WithFabricatorType(InModificationStation ? CraftTree.Type.Workbench : CraftTree.Type.Fabricator)
+            .WithStepsToFabricatorTab(InModificationStation ? null : CraftTreeHandler.Paths.FabricatorEquipment);
+        prefab.SetPdaGroupCategory(PdaUpgradesAPI.PdaUpgradesTechGroup, PdaUpgradesAPI.PdaUpgradesTechCategory);
         prefab.Register();
         PdaUpgradesAPI.RegisterUpgradeChip(Info.TechType, typeof(T));
     }
