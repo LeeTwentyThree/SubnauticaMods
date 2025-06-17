@@ -1,20 +1,16 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using System.Reflection;
 using BepInEx;
 using BepInEx.Logging;
-using FMOD;
 using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Crafting;
 using Nautilus.Handlers;
-using Nautilus.Handlers.TitleScreen;
 using Nautilus.Utility;
 using PdaUpgradeCards.Data;
 using PdaUpgradeCards.MonoBehaviours;
 using PdaUpgradeCards.MonoBehaviours.Upgrades;
 using PdaUpgradeCards.Prefabs;
 using UnityEngine;
-using UWE;
 
 namespace PdaUpgradeCards;
 
