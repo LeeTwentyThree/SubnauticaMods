@@ -5,6 +5,8 @@ namespace PdaUpgradeChips.MonoBehaviours.UI;
 
 public class ColorPicker : MonoBehaviour
 {
+    public GameObject barsPanel;
+    
     public Image[] previewImages;
     public Image saturationOverlay;
 
@@ -45,6 +47,8 @@ public class ColorPicker : MonoBehaviour
 
     private bool _canSave;
 
+    private bool _expanded;
+
     public void SetColor(Color color)
     {
         var adjustedColor = (color / ValueScale).WithAlpha(1);
@@ -57,6 +61,8 @@ public class ColorPicker : MonoBehaviour
 
     private void Start()
     {
+        _expanded = barsPanel.activeSelf;
+        
         _canSave = true;
         if (string.IsNullOrEmpty(playerPrefKey)) return;
         if (!PlayerPrefs.HasKey(HKey) || !PlayerPrefs.HasKey(SKey) || !PlayerPrefs.HasKey(VKey)) return;
@@ -84,6 +90,12 @@ public class ColorPicker : MonoBehaviour
     {
         _value = value;
         UpdateColor();
+    }
+
+    public void OnExpandButtonPressed()
+    {
+        _expanded = !_expanded;
+        barsPanel.SetActive(_expanded);
     }
 
     private void UpdateColor()

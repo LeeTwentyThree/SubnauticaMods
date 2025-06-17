@@ -44,25 +44,25 @@ public class CustomColorPicker : CustomPdaElement
         _colorPickerInstance.OnColorChange += OnColorChangedCallback;
         _colorPickerInstance.previewImages = new[]
         {
-            pickerTransform.Find("HueBar/Handle Slide Area/Handle").GetComponent<Image>(),
+            pickerTransform.Find("BarsParent/HueBar/Handle Slide Area/Handle").GetComponent<Image>(),
 
-            pickerTransform.Find("SaturationBar/Handle Slide Area/Handle").GetComponent<Image>(),
-            pickerTransform.Find("SaturationBar/CurrentColor").GetComponent<Image>(),
+            pickerTransform.Find("BarsParent/SaturationBar/Handle Slide Area/Handle").GetComponent<Image>(),
+            pickerTransform.Find("BarsParent/SaturationBar/CurrentColor").GetComponent<Image>(),
 
-            pickerTransform.Find("ValueBar/Handle Slide Area/Handle").GetComponent<Image>(),
-            pickerTransform.Find("ValueBar/ValueBarBackground").GetComponent<Image>()
+            pickerTransform.Find("BarsParent/ValueBar/Handle Slide Area/Handle").GetComponent<Image>(),
+            pickerTransform.Find("BarsParent/ValueBar/ValueBarBackground").GetComponent<Image>()
         };
 
         _colorPickerInstance.saturationOverlay =
-            pickerTransform.Find("SaturationBar/CurrentColor/SaturationOverlay").GetComponent<Image>();
+            pickerTransform.Find("BarsParent/SaturationBar/CurrentColor/SaturationOverlay").GetComponent<Image>();
 
-        var hueSlider = pickerTransform.Find("HueBar").GetComponent<Slider>();
+        var hueSlider = pickerTransform.Find("BarsParent/HueBar").GetComponent<Slider>();
         hueSlider.onValueChanged
             .AddListener(_colorPickerInstance.OnHueValueChanged);
-        var saturationSlider = pickerTransform.Find("SaturationBar").GetComponent<Slider>();
+        var saturationSlider = pickerTransform.Find("BarsParent/SaturationBar").GetComponent<Slider>();
         saturationSlider.onValueChanged
             .AddListener(_colorPickerInstance.OnSaturationValueChanged);
-        var valueSlider = pickerTransform.Find("ValueBar").GetComponent<Slider>();
+        var valueSlider = pickerTransform.Find("BarsParent/ValueBar").GetComponent<Slider>();
         valueSlider.onValueChanged
             .AddListener(_colorPickerInstance.OnBrightnessValueChanged);
 
@@ -71,6 +71,9 @@ public class CustomColorPicker : CustomPdaElement
         _colorPickerInstance.valueSlider = valueSlider;
         
         _colorPickerInstance.playerPrefKey = Id;
+
+        pickerTransform.Find("ExpandButton").GetComponent<Button>().onClick.AddListener(_colorPickerInstance.OnExpandButtonPressed);
+        _colorPickerInstance.barsPanel = pickerTransform.Find("BarsParent").gameObject;
         
         return parent;
     }

@@ -80,7 +80,7 @@ public static class PdaElements
             "PDAColorPickerUpgrade",
             rect =>
             {
-                rect.anchoredPosition = new Vector2(-300, -340);
+                rect.anchoredPosition = new Vector2(-425, -370);
                 var colorPicker = rect.GetChild(0).GetComponent<ColorPicker>();
                 colorPicker.ValueScale = 2;
                 colorPicker.SetColor(new Color(0.22f, 0.65f, 1.1f));
