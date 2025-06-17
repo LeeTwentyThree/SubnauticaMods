@@ -1,4 +1,5 @@
 ﻿using Nautilus.Utility;
+using PdaUpgradeCards.MonoBehaviours.UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -35,6 +36,10 @@ public class LeviathanDetectorUpgrade : UpgradeChipBase, IScheduledUpdateBehavio
     private void OnDisable()
     {
         UpdateSchedulerUtils.Deregister(this);
+        if (LeviathanDetectorUI.main)
+        {
+            LeviathanDetectorUI.main.gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()
@@ -54,7 +59,12 @@ public class LeviathanDetectorUpgrade : UpgradeChipBase, IScheduledUpdateBehavio
     {
         var newLeviathanCount =
             AggressiveLeviathanTracker.GetNumberOfTrackersInRange(Player.main.transform.position, DetectionRadius);
-        
+
+        if (LeviathanDetectorUI.main)
+        {
+            LeviathanDetectorUI.main.gameObject.SetActive(newLeviathanCount > 0);
+        }
+
         // Detecting first leviathan
         if (_knownLeviathanCount == 0 && newLeviathanCount >= 1)
         {
