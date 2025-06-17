@@ -1,0 +1,20 @@
+{
+  "TechCategoryPdaUpgrades": "PDA Upgrade Chips",
+  
+  "PdaUpgradesStorageLabel": "PDA UPGRADES",
+  "PdaMusicUpgrade": "PDA music upgrade",
+  "Tooltip_PdaMusicUpgrade": "A PDA upgrade that allows its user to play any music file.",
+  "PdaColorizerUpgrade": "PDA colorizer upgrade",
+  "Tooltip_PdaColorizerUpgrade": "Overrides the PDA lighting controls to display any color the user desires.",
+  "PdaLeviathanDetectorUpgrade": "PDA leviathan detector upgrade",
+  "Tooltip_PdaLeviathanDetectorUpgrade": "A PDA upgrade that enables the PDA to alert its user of the presence of hostile leviathan.",
+  "PdaPocketDimensionUpgradeMk1": "PDA pocket dimension upgrade MK1",
+  "Tooltip_PdaPocketDimensionUpgradeMk1": "Creates a digital representation of space that the user may occupy.",
+  
+  "PdaDetectingLeviathan1": "Attention: detecting a leviathan-class lifeform nearby.",
+  "PdaDetectingLeviathan2": "Warning: detecting a leviathan-class predator in the region.",
+  "PdaDetectingLeviathan3": "Caution: scans detected a hostile leviathan in the region.",
+  
+  "ExitPocketDimensionDoor": "Exit dimension",
+  "ExitVehicleToEnterPocketDimension": "<color=#00ff00>Please exit your vehicle before initiating teleportation!</color>"
+}
