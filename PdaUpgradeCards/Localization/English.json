@@ -1,4 +1,6 @@
 {
+  "TechCategoryPdaUpgrades": "PDA Upgrade Cards",
+  
   "PdaUpgradesStorageLabel": "PDA UPGRADES",
   "PdaMusicUpgrade": "PDA music upgrade",
   "Tooltip_PdaMusicUpgrade": "A PDA upgrade that allows its user to play any music file.",

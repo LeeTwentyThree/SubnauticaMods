@@ -9,10 +9,18 @@ public static class PdaUpgradesAPI
     public static EquipmentType PdaUpgradeEquipmentType { get; } = EnumHandler.AddEntry<EquipmentType>("PdaUpgrade");
 
     public static int UpgradeSlotsCount => 8;
-    
+
     public const string PdaUpgradesEquipmentSlotPrefix = "PdaUpgradeChip";
 
     private static readonly Dictionary<TechType, Type> ChipData = new();
+
+    public static TechGroup PdaUpgradesTechGroup { get; private set; } = EnumHandler.AddEntry<TechGroup>("PdaUpgrades")
+        .WithPdaInfo(null);
+
+    public static TechCategory PdaUpgradesTechCategory { get; private set; } =
+        EnumHandler.AddEntry<TechCategory>("PdaUpgrades")
+            .WithPdaInfo(null)
+            .RegisterToTechGroup(PdaUpgradesTechGroup);
 
     internal static void Register()
     {
@@ -21,7 +29,7 @@ public static class PdaUpgradesAPI
             Equipment.slotMapping.Add(upgrade, PdaUpgradeEquipmentType);
         }
     }
-    
+
     public static IEnumerable<string> GetUpgradeEquipmentSlotNames()
     {
         for (var i = 1; i <= UpgradeSlotsCount; i++)
@@ -29,7 +37,7 @@ public static class PdaUpgradesAPI
             yield return $"{PdaUpgradesEquipmentSlotPrefix}{i}";
         }
     }
-    
+
     public static void RegisterUpgradeChip(TechType techType, Type behaviourType)
     {
         ChipData.Add(techType, behaviourType);
