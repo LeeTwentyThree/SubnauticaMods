@@ -9,8 +9,12 @@
   "PdaLeviathanDetectorUpgrade": "PDA leviathan detector upgrade",
   "Tooltip_PdaLeviathanDetectorUpgrade": "A PDA upgrade that enables the PDA to alert its user of the presence of hostile leviathan.",
   "PdaPocketDimensionUpgradeMk1": "PDA pocket dimension upgrade MK1",
-  "Tooltip_PdaPocketDimensionUpgradeMk1": "Creates a digital representation of space that the user may occupy.",
-  
+  "Tooltip_PdaPocketDimensionUpgradeMk1": "Creates a digital representation of physical space that the user may occupy.",
+  "PdaPocketDimensionUpgradeMk2": "PDA pocket dimension upgrade MK2",
+  "Tooltip_PdaPocketDimensionUpgradeMk2": "An expanded, digital representation of space that the user may occupy.",
+  "PdaPocketDimensionUpgradeMk3": "PDA pocket dimension upgrade MK3",
+  "Tooltip_PdaPocketDimensionUpgradeMk3": "A heavily compressed representation of physical space that provides a spacious living space.",
+
   "PdaDetectingLeviathan1": "Attention: detecting a leviathan-class lifeform nearby.",
   "PdaDetectingLeviathan2": "Warning: detecting a leviathan-class predator in the region.",
   "PdaDetectingLeviathan3": "Caution: scans detected a hostile leviathan in the region.",

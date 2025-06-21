@@ -73,12 +73,35 @@ public class Plugin : BaseUnityPlugin
                 new RecipeData(new CraftData.Ingredient(TechType.ComputerChip),
                     new CraftData.Ingredient(TechType.AdvancedWiringKit), new CraftData.Ingredient(TechType.Quartz)))
             .Register();
-        new UpgradeChipPrefab<PocketDimensionUpgradeTier1>(PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk1", true)
+        var pocketDimensionMk1 = PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk1", true);
+        new UpgradeChipPrefab<PocketDimensionUpgradeTier1>(pocketDimensionMk1
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimension")),
                 new RecipeData(new CraftData.Ingredient(TechType.TitaniumIngot),
                     new CraftData.Ingredient(TechType.PrecursorIonCrystal),
-                    new CraftData.Ingredient(TechType.AdvancedWiringKit),
+                    new CraftData.Ingredient(TechType.VehicleStorageModule),
                     new CraftData.Ingredient(TechType.Pipe, 2)))
+            .Register();
+        var pocketDimensionMk2 = PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk2", true);
+        new UpgradeChipPrefab<PocketDimensionUpgradeTier2>(pocketDimensionMk2
+                    .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimensionTier2")),
+                new RecipeData(new CraftData.Ingredient(pocketDimensionMk1.TechType),
+                    new CraftData.Ingredient(TechType.PlasteelIngot),
+                    new CraftData.Ingredient(TechType.PrecursorIonCrystal),
+                    new CraftData.Ingredient(TechType.AdvancedWiringKit)))
+            {
+                InModificationStation = true
+            }
+            .Register();
+        var pocketDimensionMk3 = PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk3", true);
+        new UpgradeChipPrefab<PocketDimensionUpgradeTier3>(pocketDimensionMk3
+                    .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimensionTier3")),
+                new RecipeData(new CraftData.Ingredient(pocketDimensionMk2.TechType),
+                    new CraftData.Ingredient(TechType.LabEquipment1),
+                    new CraftData.Ingredient(TechType.PrecursorKey_Blue),
+                    new CraftData.Ingredient(TechType.RedGreenTentacleSeed, 2)))
+            {
+                InModificationStation = true
+            }
             .Register();
 
         var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),
