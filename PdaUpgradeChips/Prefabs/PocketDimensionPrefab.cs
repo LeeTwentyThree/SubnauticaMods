@@ -260,6 +260,17 @@ public class PocketDimensionPrefab
             door.transform.localScale = Vector3.one * 2.5f;
             door.AddComponent<ExitDimensionDoor>();
         }
+        
+        var holeCoverTask = PrefabDatabase.GetPrefabAsync("872c799a-4de2-4531-a846-3b362d666e0b");
+        yield return holeCoverTask;
+        if (holeCoverTask.TryGetPrefab(out var holeCoverPrefab))
+        {
+            var holeCover = Object.Instantiate(holeCoverPrefab, room, false);
+            CleanUpPrefabComponents(holeCover);
+            holeCover.transform.localPosition = new Vector3(28, 76, -27);
+            holeCover.transform.localEulerAngles = new Vector3(0, 179, 180);
+            holeCover.transform.localScale = new Vector3(7, 7, 3);
+        }
     }
 
     private static void CleanUpPrefabComponents(GameObject obj)
