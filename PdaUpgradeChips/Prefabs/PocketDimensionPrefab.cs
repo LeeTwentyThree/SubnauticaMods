@@ -139,7 +139,7 @@ public class PocketDimensionPrefab
         
         var powerCellsParent = new GameObject("PowerCellsParent").transform;
         powerCellsParent.SetParent(prefab.transform, false);
-        powerCellsParent.localPosition = Vector3.zero;
+        powerCellsParent.localPosition = new Vector3(0, -15, 0);
         powerCellsParent.localEulerAngles = Vector3.zero;
         powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "PocketDimensionPower";
 
@@ -232,10 +232,34 @@ public class PocketDimensionPrefab
 
     internal static IEnumerator ModifyPocketDimensionTier3(GameObject obj)
     {
+        obj.GetComponent<PocketDimensionSub>().entrancePosition.localPosition = new Vector3(0, 0, -1);
         var room = obj.transform.Find("CrashedShip_cargo_room(Clone)");
         room.localEulerAngles = new Vector3(-90, 0, 0);
         room.localScale = Vector3.one * 0.4f;
-        yield break;
+        
+        var doorFrameTask = PrefabDatabase.GetPrefabAsync("055b3160-f57b-46ba-80f5-b708d0c8180e");
+        yield return doorFrameTask;
+        if (doorFrameTask.TryGetPrefab(out var doorFramePrefab))
+        {
+            var doorFrame = Object.Instantiate(doorFramePrefab, room, false);
+            CleanUpPrefabComponents(doorFrame);
+            doorFrame.transform.localPosition = new Vector3(0.5f, 0.2f, -6.5f);
+            doorFrame.transform.localEulerAngles = new Vector3(90, 0, 0);
+            doorFrame.transform.localScale = Vector3.one * 2.5f;
+            doorFrame.GetComponentInChildren<Renderer>().material.color = Color.white;
+        }
+
+        var doorTask = PrefabDatabase.GetPrefabAsync("ef1370e3-832f-4008-ac39-99ad24f43f76");
+        yield return doorTask;
+        if (doorTask.TryGetPrefab(out var doorPrefab))
+        {
+            var door = Object.Instantiate(doorPrefab, room, false);
+            CleanUpPrefabComponents(door);
+            door.transform.localPosition = new Vector3(0.5f, 0.2f, -6.5f);
+            door.transform.localEulerAngles = new Vector3(90, 0, 0);
+            door.transform.localScale = Vector3.one * 2.5f;
+            door.AddComponent<ExitDimensionDoor>();
+        }
     }
 
     private static void CleanUpPrefabComponents(GameObject obj)
