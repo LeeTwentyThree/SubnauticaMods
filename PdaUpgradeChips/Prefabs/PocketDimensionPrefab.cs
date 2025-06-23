@@ -16,13 +16,15 @@ public class PocketDimensionPrefab
     public PrefabInfo Info { get; }
     public string RoomModelClassId { get; }
     public Vector3 LocalSpawnPosition { get; }
-    public Func<GameObject, IEnumerator> ModifyPrefab { get; set; }
+    public float EntranceCamRotation { get; }
+    public Func<GameObject, IEnumerator> ModifyPrefab { get; init; }
 
-    public PocketDimensionPrefab(PrefabInfo info, string roomModelClassId, Vector3 localSpawnPosition)
+    public PocketDimensionPrefab(PrefabInfo info, string roomModelClassId, Vector3 localSpawnPosition, float entranceCamRotation)
     {
         Info = info;
         RoomModelClassId = roomModelClassId;
         LocalSpawnPosition = localSpawnPosition;
+        EntranceCamRotation = entranceCamRotation;
     }
 
     public void Register()

@@ -232,7 +232,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
         if (cameraControl)
         {
             cameraControl.rotationY = 0;
-            cameraControl.rotationX = 180;
+            cameraControl.rotationX = _activeSub ? _activeSub.entranceCamRotation : 180;
         }
 
         Player.main.SetPrecursorOutOfWater(false);
