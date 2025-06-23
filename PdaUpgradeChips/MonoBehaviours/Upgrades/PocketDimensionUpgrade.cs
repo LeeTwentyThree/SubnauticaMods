@@ -279,7 +279,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             {
                 _lastPosition = player.transform.position;
                 _lastSub = player.GetCurrentSub();
-                _wasInPrecursorZone = true;
+                _wasInPrecursorZone = player.precursorOutOfWater;
             }
         }
 
