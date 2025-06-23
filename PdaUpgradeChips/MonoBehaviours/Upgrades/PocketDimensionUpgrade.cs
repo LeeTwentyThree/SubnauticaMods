@@ -31,6 +31,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
     private static Vector3 _lastPosition;
     private static SubRoot _lastSub;
+    private static EscapePod _lastEscapePod;
     private static bool _wasInPrecursorZone;
 
     private void OnEnable()
@@ -247,6 +248,11 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             _lastSub = null;
         }
 
+        if (_lastEscapePod != null)
+        {
+            player.currentEscapePod = _lastEscapePod;
+        }
+
         player.SetPosition(_lastPosition);
 
         if (_wasInPrecursorZone)
@@ -279,6 +285,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             {
                 _lastPosition = player.transform.position;
                 _lastSub = player.GetCurrentSub();
+                _lastEscapePod = player.currentEscapePod;
                 _wasInPrecursorZone = player.precursorOutOfWater;
             }
         }
