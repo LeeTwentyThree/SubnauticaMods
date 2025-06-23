@@ -11,13 +11,28 @@ public class PocketDimensionSub : SubRoot, IScheduledUpdateBehaviour
     public TechType dimensionTechType;
     
     public Transform entrancePosition;
+
+    public float entranceCamRotation;
     
     private static readonly Dictionary<TechType, PocketDimensionSub> PocketDimensionSubs = new();
+
+    private CanvasGroup _pingsCanvasGroup;
+
+    private bool _playerWasInside;
 
     public override void Awake()
     {
         base.Awake();
         PocketDimensionSubs.Add(dimensionTechType, this);
+        var ugui = uGUI.main;
+        if (ugui)
+        {
+            var pingsCanvas = ugui.transform.Find("ScreenCanvas/Pings");
+            if (pingsCanvas)
+            {
+                _pingsCanvasGroup = pingsCanvas.gameObject.GetComponent<CanvasGroup>();
+            }
+        }
     }
 
     private new void OnDestroy()
@@ -48,7 +63,21 @@ public class PocketDimensionSub : SubRoot, IScheduledUpdateBehaviour
     public void ScheduledUpdate()
     {
         if (Player.main.GetCurrentSub() != this)
+        {
+            if (_playerWasInside)
+            {
+                if (_pingsCanvasGroup)
+                    _pingsCanvasGroup.alpha = 1;
+                _playerWasInside = false;
+            }
             return;
+        }
+        if (!_playerWasInside)
+        {
+            if (_pingsCanvasGroup)
+                _pingsCanvasGroup.alpha = 0;
+            _playerWasInside = true;
+        }
         
         PocketDimensionUpgrade.QueryKickOutPlayer(this);
         
