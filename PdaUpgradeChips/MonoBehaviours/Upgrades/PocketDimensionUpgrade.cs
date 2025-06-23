@@ -236,6 +236,10 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
         }
 
         Player.main.SetPrecursorOutOfWater(false);
+        
+        if (player.currentEscapePod)
+            player.escapePod.Update(false);
+        player.currentEscapePod = null;
     }
 
     private static void OnTeleportToLastLocation()
@@ -250,6 +254,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
         if (_lastEscapePod != null)
         {
+            player.escapePod.Update(true);
             player.currentEscapePod = _lastEscapePod;
         }
 
@@ -257,10 +262,6 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
         if (_wasInPrecursorZone)
             player.SetPrecursorOutOfWater(true);
-
-        if (player.currentEscapePod)
-            player.escapePod.Update(false);
-        player.currentEscapePod = null;
     }
 
     private static IEnumerator TeleportCoroutine(float waitDuration, Action onTeleportComplete,
