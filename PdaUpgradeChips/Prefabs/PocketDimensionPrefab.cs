@@ -2,6 +2,7 @@
 using System.Collections;
 using mset;
 using Nautilus.Assets;
+using Nautilus.Utility;
 using PdaUpgradeChips.MonoBehaviours;
 using UnityEngine;
 using UWE;
@@ -229,10 +230,68 @@ public class PocketDimensionPrefab
             door.AddComponent<ExitDimensionDoor>();
         }
     }
+    
+    internal static IEnumerator ModifyPocketDimensionTier2(GameObject obj)
+    {
+        var room = obj.transform.Find("Precursor_Prison_EggLab_Hallway(Clone)");
+
+        var blockPositions = new Vector3[]
+        {
+            // row 1
+            new(5, -3.7f, 3),
+            new(5, -3.7f, 6),
+            new(5, -3.7f, 9),
+            // row 2
+            new(5, -0.7f, 3),
+            new(5, -0.7f, 6),
+            new(5, -0.7f, 9),
+            // row 3
+            new(5, 2.3f, 3),
+            new(5, 2.3f, 6),
+            new(5, 2.3f, 9),
+            // row 4
+            new(5, 5.3f, 3),
+            new(5, 5.3f, 6),
+            new(5, 5.3f, 9),
+        };
+        
+        var blockDecoTask = PrefabDatabase.GetPrefabAsync("2a836e22-26fc-4853-98c8-fcb1f639f9ad");
+        yield return blockDecoTask;
+        if (blockDecoTask.TryGetPrefab(out var blockDecoPrefab))
+        {
+            foreach (var pos in blockPositions)
+            {
+                var blockDeco1 = Object.Instantiate(blockDecoPrefab, room, false);
+                CleanUpPrefabComponents(blockDeco1);
+                blockDeco1.transform.localPosition = pos;
+                blockDeco1.transform.localEulerAngles = new Vector3(0, 0, 270);
+                blockDeco1.transform.localScale = Vector3.one * 2;
+            }
+        }
+        
+        var doorwayTask = PrefabDatabase.GetPrefabAsync("19d017a5-2e59-4c1f-bc44-e642f7d7fbd3");
+        yield return doorwayTask;
+        if (doorwayTask.TryGetPrefab(out var doorwayPrefab))
+        {
+            var doorway = Object.Instantiate(doorwayPrefab, room, false);
+            CleanUpPrefabComponents(doorway);
+            doorway.transform.localPosition = new Vector3(-4.1f, -5.2f, -3.8f);
+            doorway.transform.localEulerAngles = new Vector3(0, 90, 0);
+            doorway.transform.localScale = Vector3.one;
+        }
+
+        var door = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        door.name = "Door";
+        door.transform.parent = room.transform;
+        door.GetComponent<Renderer>().material = new Material(MaterialUtils.ForceFieldMaterial);
+        door.AddComponent<ExitDimensionDoor>();
+        door.transform.localPosition = new Vector3(-4f, -4.3f, -3.8f);
+        door.transform.localEulerAngles = new Vector3(90, 90, 0);
+        door.transform.localScale = new Vector3(0.6f, 1, 1.4f);
+    }
 
     internal static IEnumerator ModifyPocketDimensionTier3(GameObject obj)
     {
-        obj.GetComponent<PocketDimensionSub>().entrancePosition.localPosition = new Vector3(0, 0, -1);
         var room = obj.transform.Find("CrashedShip_cargo_room(Clone)");
         room.localEulerAngles = new Vector3(-90, 0, 0);
         room.localScale = Vector3.one * 0.4f;

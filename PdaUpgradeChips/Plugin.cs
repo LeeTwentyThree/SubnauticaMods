@@ -111,9 +111,17 @@ public class Plugin : BaseUnityPlugin
         };
         pocketTier1.Register();
         PocketDimensionTier1TechType = pocketTier1.Info.TechType;
-
+        
+        var pocketTier2 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier2"),
+            "4130f650-bfa6-4d2f-9f5f-6f79f6649ca4", new Vector3(-4, -4, -3))
+        {
+            ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier2
+        };
+        pocketTier2.Register();
+        PocketDimensionTier2TechType = pocketTier2.Info.TechType;
+        
         var pocketTier3 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier3"),
-            "c80288ce-9522-45f5-b3c2-01fe459ae5fe", Vector3.zero)
+            "c80288ce-9522-45f5-b3c2-01fe459ae5fe", new Vector3(0, 0, -1))
         {
             ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier3
         };
