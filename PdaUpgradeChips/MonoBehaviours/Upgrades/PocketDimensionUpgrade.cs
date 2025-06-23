@@ -28,7 +28,11 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
     private static Coroutine _setUpCoroutine;
     private static Coroutine _teleportCoroutine;
-    
+
+    private static Vector3 _lastPosition;
+    private static SubRoot _lastSub;
+    private static bool _wasInPrecursorZone;
+
     private void OnEnable()
     {
         All.Add(this);
@@ -120,7 +124,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
     private static void ChangePocketDimension()
     {
         Plugin.Logger.LogInfo("Changing the current pocket dimension");
-        
+
         CancelTeleportIfActive();
         CreatePocketDimension();
     }
@@ -206,10 +210,10 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
         {
             ErrorMessage.AddMessage(Language.main.Get("ExitVehicleToEnterPocketDimension"));
         }
-        
+
         if (!_teleporting)
         {
-            _teleportCoroutine = UWE.CoroutineHost.StartCoroutine(TeleportCoroutine(0, OnTeleportIntoSub, true));
+            _teleportCoroutine = UWE.CoroutineHost.StartCoroutine(TeleportCoroutine(0, OnTeleportIntoSub, true, true));
         }
     }
 
@@ -229,17 +233,28 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             cameraControl.rotationY = 0;
             cameraControl.rotationX = 180;
         }
+
+        Player.main.SetPrecursorOutOfWater(false);
     }
 
     private static void OnTeleportToLastLocation()
     {
         var player = Player.main;
 
-        player.SetPosition(Vector3.zero);
+        if (_lastSub != null)
+        {
+            player.SetCurrentSub(_lastSub);
+            _lastSub = null;
+        }
+
+        player.SetPosition(_lastPosition);
+
+        if (_wasInPrecursorZone)
+            player.SetPrecursorOutOfWater(true);
     }
 
     private static IEnumerator TeleportCoroutine(float waitDuration, Action onTeleportComplete,
-        bool properTeleport = false)
+        bool properTeleport, bool saveLastPosition)
     {
         _teleporting = true;
 
@@ -256,9 +271,16 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
         var player = Player.main;
 
-        if (player != null && player.pda != null)
+        if (player != null)
         {
-            player.pda.Close();
+            if (player.pda != null)
+                player.pda.Close();
+            if (saveLastPosition)
+            {
+                _lastPosition = player.transform.position;
+                _lastSub = player.GetCurrentSub();
+                _wasInPrecursorZone = true;
+            }
         }
 
         var teleportSound = new GameObject("TeleportSound").AddComponent<FMOD_CustomLoopingEmitter>();
@@ -286,6 +308,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             {
                 yield return null;
             }
+
             Player.main.onTeleportationComplete -= OnTeleportationComplete;
         }
         else
@@ -326,7 +349,8 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
     {
         if (!_teleporting)
         {
-            _teleportCoroutine = UWE.CoroutineHost.StartCoroutine(TeleportCoroutine(5, OnTeleportToLastLocation, true));
+            _teleportCoroutine =
+                UWE.CoroutineHost.StartCoroutine(TeleportCoroutine(5, OnTeleportToLastLocation, true, false));
         }
     }
 
