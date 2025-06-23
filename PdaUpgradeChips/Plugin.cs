@@ -121,7 +121,7 @@ public class Plugin : BaseUnityPlugin
         PocketDimensionTier2TechType = pocketTier2.Info.TechType;
         
         var pocketTier3 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier3"),
-            "c80288ce-9522-45f5-b3c2-01fe459ae5fe", new Vector3(0, 0, -1), 0)
+            "c80288ce-9522-45f5-b3c2-01fe459ae5fe", new Vector3(0, 0, -1), 180)
         {
             ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier3
         };

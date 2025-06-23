@@ -286,7 +286,7 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
         {
             if (player.pda != null)
                 player.pda.Close();
-            if (saveLastPosition)
+            if (saveLastPosition && player.GetCurrentSub() is not PocketDimensionSub)
             {
                 _lastPosition = player.transform.position;
                 _lastSub = player.GetCurrentSub();
