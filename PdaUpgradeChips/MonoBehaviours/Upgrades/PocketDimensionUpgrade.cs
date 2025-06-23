@@ -257,6 +257,10 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
 
         if (_wasInPrecursorZone)
             player.SetPrecursorOutOfWater(true);
+
+        if (player.currentEscapePod)
+            player.escapePod.Update(false);
+        player.currentEscapePod = null;
     }
 
     private static IEnumerator TeleportCoroutine(float waitDuration, Action onTeleportComplete,
@@ -285,6 +289,8 @@ public abstract class PocketDimensionUpgrade : UpgradeChipBase
             {
                 _lastPosition = player.transform.position;
                 _lastSub = player.GetCurrentSub();
+                if (_lastEscapePod)
+                    player.escapePod.Update(true);
                 _lastEscapePod = player.currentEscapePod;
                 _wasInPrecursorZone = player.precursorOutOfWater;
             }
