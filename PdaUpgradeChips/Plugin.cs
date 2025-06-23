@@ -113,7 +113,7 @@ public class Plugin : BaseUnityPlugin
         PocketDimensionTier1TechType = pocketTier1.Info.TechType;
         
         var pocketTier2 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier2"),
-            "4130f650-bfa6-4d2f-9f5f-6f79f6649ca4", new Vector3(-4, -4, -3), 90)
+            "4130f650-bfa6-4d2f-9f5f-6f79f6649ca4", new Vector3(-3, -4, -3), 90)
         {
             ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier2
         };
@@ -121,7 +121,7 @@ public class Plugin : BaseUnityPlugin
         PocketDimensionTier2TechType = pocketTier2.Info.TechType;
         
         var pocketTier3 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier3"),
-            "c80288ce-9522-45f5-b3c2-01fe459ae5fe", new Vector3(0, 0, -1), 180)
+            "c80288ce-9522-45f5-b3c2-01fe459ae5fe", new Vector3(0, 0, -1), 0)
         {
             ModifyPrefab = PocketDimensionPrefab.ModifyPocketDimensionTier3
         };

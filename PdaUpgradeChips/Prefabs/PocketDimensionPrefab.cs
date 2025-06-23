@@ -114,6 +114,7 @@ public class PocketDimensionPrefab
         subRoot.lightControl = lightControl;
         subRoot.isBase = true;
         subRoot.dimensionTechType = Info.TechType;
+        subRoot.entranceCamRotation = EntranceCamRotation;
 
         var subDamageSounds = new GameObject("SubDamageSoundsDummy");
         subDamageSounds.transform.SetParent(prefab.transform, false);
