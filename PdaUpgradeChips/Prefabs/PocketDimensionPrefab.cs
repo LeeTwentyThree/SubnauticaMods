@@ -278,7 +278,7 @@ public class PocketDimensionPrefab
         {
             var doorway = Object.Instantiate(doorwayPrefab, room, false);
             CleanUpPrefabComponents(doorway);
-            doorway.transform.localPosition = new Vector3(-4.1f, -5.2f, -3.8f);
+            doorway.transform.localPosition = new Vector3(-5.1f, -5.2f, -3.8f);
             doorway.transform.localEulerAngles = new Vector3(0, 90, 0);
             doorway.transform.localScale = Vector3.one;
         }
@@ -286,9 +286,11 @@ public class PocketDimensionPrefab
         var door = GameObject.CreatePrimitive(PrimitiveType.Plane);
         door.name = "Door";
         door.transform.parent = room.transform;
-        door.GetComponent<Renderer>().material = new Material(MaterialUtils.ForceFieldMaterial);
+        var doorMaterial = new Material(MaterialUtils.ForceFieldMaterial);
+        doorMaterial.color = new Color(0, 0.1f, 0, 50);
+        door.GetComponent<Renderer>().material = doorMaterial;
         door.AddComponent<ExitDimensionDoor>();
-        door.transform.localPosition = new Vector3(-4f, -4.3f, -3.8f);
+        door.transform.localPosition = new Vector3(-5f, -4.3f, -3.8f);
         door.transform.localEulerAngles = new Vector3(90, 90, 0);
         door.transform.localScale = new Vector3(0.6f, 1, 1.4f);
     }
