@@ -76,7 +76,7 @@ public class Plugin : BaseUnityPlugin
         var pocketDimensionMk1 = PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk1", true);
         new UpgradeChipPrefab<PocketDimensionUpgradeTier1>(pocketDimensionMk1
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimension")),
-                new RecipeData(new CraftData.Ingredient(TechType.TitaniumIngot),
+                new RecipeData(new CraftData.Ingredient(TechType.TitaniumIngot, 2),
                     new CraftData.Ingredient(TechType.PrecursorIonCrystal),
                     new CraftData.Ingredient(TechType.VehicleStorageModule),
                     new CraftData.Ingredient(TechType.Pipe, 2)))
@@ -96,6 +96,7 @@ public class Plugin : BaseUnityPlugin
         new UpgradeChipPrefab<PocketDimensionUpgradeTier3>(pocketDimensionMk3
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimensionTier3")),
                 new RecipeData(new CraftData.Ingredient(pocketDimensionMk2.TechType),
+                    new CraftData.Ingredient(TechType.PlasteelIngot, 2),
                     new CraftData.Ingredient(TechType.LabEquipment1),
                     new CraftData.Ingredient(TechType.PrecursorKey_Blue),
                     new CraftData.Ingredient(TechType.RedGreenTentacleSeed, 2)))
