@@ -43,7 +43,7 @@ public class UpgradeChipPrefab<T> where T : UpgradeChipBase
         PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Near);
         obj.AddComponent<Pickupable>();
         MaterialUtils.ApplySNShaders(obj, 7);
-        PrefabUtils.AddVFXFabricating(obj, "PDAUpgradeChip", -0.02f, 0.03f,
+        PrefabUtils.AddVFXFabricating(obj, "PDAUpgradeChip", -0.02f, 0.01f,
             new Vector3(0, InModificationStation ? 0.01f : -0.01f, 0), 4f, new Vector3(-90, 0, 0));
         PrefabUtils.AddWorldForces(obj, 1.2f);
         return obj;
