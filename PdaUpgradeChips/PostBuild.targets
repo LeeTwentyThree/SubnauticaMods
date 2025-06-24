@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Condition="Exists('TargetDirectories.targets')" Project="TargetDirectories.targets"/>
+
+    <ItemGroup>
+        <LocalizationFiles Include="Localization/*.json"/>
+        <AssetFiles Include="$(AssetBundlesDir)/pdaupgradechips"/>
+    </ItemGroup>
+    <Target Condition="Exists('TargetDirectories.targets')" Name="CopyToBepInEx" AfterTargets="Build">
+        <MakeDir Directories="$(ModDir)"/>
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModDir)"/>
+        
+        <MakeDir Directories="$(ModDir)\Localization"/>
+        <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModDir)\Localization"/>
+    </Target>
+    <Target Condition="Exists('TargetDirectories.targets')" Name="CopyAssets" AfterTargets="Build">
+        <Copy SourceFiles="@(AssetFiles)" DestinationFolder="$(ModDir)\Assets"/>
+    </Target>
+</Project>
