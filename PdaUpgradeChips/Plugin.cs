@@ -31,11 +31,15 @@ public class Plugin : BaseUnityPlugin
     internal static TechType PocketDimensionTier1TechType { get; private set; }
     internal static TechType PocketDimensionTier2TechType { get; private set; }
     internal static TechType PocketDimensionTier3TechType { get; private set; }
+    
+    internal new static Config Config { get; private set; }
 
     private void Awake()
     {
         // set project-scoped logger instance
         Logger = base.Logger;
+
+        Config = OptionsPanelHandler.RegisterModOptions<Config>();
 
         LanguageHandler.RegisterLocalizationFolder();
 
@@ -103,6 +107,11 @@ public class Plugin : BaseUnityPlugin
             {
                 InModificationStation = true
             }
+            .Register();
+        new UpgradeChipPrefab<MinimapUpgrade>(PrefabInfo.WithTechType("PdaMinimapUpgrade", true)
+                    .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_Minimap")),
+                new RecipeData(new CraftData.Ingredient(TechType.AdvancedWiringKit),
+                    new CraftData.Ingredient(TechType.Beacon), new CraftData.Ingredient(TechType.MapRoomCamera)))
             .Register();
 
         var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),
