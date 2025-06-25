@@ -37,6 +37,8 @@ public class PocketDimensionSub : SubRoot, IScheduledUpdateBehaviour
 
     private new void OnDestroy()
     {
+        if (PocketDimensionSubs.TryGetValue(dimensionTechType, out var sub) && sub == this)
+            PocketDimensionSubs.Remove(dimensionTechType);
         base.OnDestroy();
     }
 
