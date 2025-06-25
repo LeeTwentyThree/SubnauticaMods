@@ -20,7 +20,7 @@ public static class PdaElements
     {
         OpenMenuButton = new CustomPdaButton(
             "OpenUpgradesMenuButton",
-            rect => { rect.anchoredPosition = new Vector2(500, 240); },
+            rect => { rect.anchoredPosition = new Vector2(480, 380); },
             new CustomPdaButton.ButtonIcons("ViewUpgradeChipsButtonIcon", "ViewUpgradeChipsButtonSelectedIcon",
                 "ViewUpgradeChipsButtonPressedIcon"),
             PDATab.Inventory,
