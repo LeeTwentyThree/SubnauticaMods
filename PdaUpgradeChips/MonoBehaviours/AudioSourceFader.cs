@@ -8,10 +8,13 @@ public class AudioSourceFader : MonoBehaviour, IManagedUpdateBehaviour
     public AudioSource source;
     public float fadeDuration;
 
-    private float _volume = 1f;
+    private float _volume;
+    private float _startingVolume;
     
     private void Start()
     {
+        _startingVolume = source.volume;
+        _volume = _startingVolume;
         BehaviourUpdateUtils.Register(this);
     }
 
@@ -28,7 +31,7 @@ public class AudioSourceFader : MonoBehaviour, IManagedUpdateBehaviour
     public void ManagedUpdate()
     {
         if (FreezeTime.ShouldPauseMusic()) return;
-        _volume -= Time.deltaTime / fadeDuration;
+        _volume -= Time.deltaTime * _startingVolume / fadeDuration;
         source.volume = Mathf.Clamp01(_volume);
         if (_volume <= 0)
         {
