@@ -29,6 +29,6 @@ internal class Config : ConfigFile
     [Slider("Minimap offset (Y)", 0, 400, DefaultValue = 50f, Step = 5)]
     public float MinimapOffsetY { get; set; } = 50f;
     
-    [Slider("Minimap sonar effect modifier", 0, 1f, DefaultValue = 0.4f, Step = 0.05f)]
+    [Slider("Minimap sonar effect modifier", 0, 1f, DefaultValue = 0.4f, Step = 0.05f, Format = "{0:F2}")]
     public float MinimapSonarEffectModifier { get; set; } = 0.4f;
 }
