@@ -6,5 +6,5 @@ public class PocketDimensionUpgradeTier2 : PocketDimensionUpgrade
 {
     protected override TechType DimensionTechType => Plugin.PocketDimensionTier2TechType;
     protected override int DimensionTier => 2;
-    protected override Vector3 WorldLocation => new(-2500, -500, 120);
+    protected override Vector3 WorldLocation => new(-2500, 2000, 120);
 }
