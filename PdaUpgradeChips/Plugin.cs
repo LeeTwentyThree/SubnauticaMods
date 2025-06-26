@@ -113,6 +113,11 @@ public class Plugin : BaseUnityPlugin
                 new RecipeData(new CraftData.Ingredient(TechType.AdvancedWiringKit),
                     new CraftData.Ingredient(TechType.Beacon), new CraftData.Ingredient(TechType.MapRoomCamera)))
             .Register();
+        new UpgradeChipPrefab<AmbientLightUpgrade>(PrefabInfo.WithTechType("PdaAmbientLightUpgrade", true)
+                    .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LightEmitter")),
+                new RecipeData(new CraftData.Ingredient(TechType.Glass),
+                    new CraftData.Ingredient(TechType.LEDLight), new CraftData.Ingredient(TechType.CopperWire)))
+            .Register();
 
         var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),
             "c794ac3f-d506-4338-9a8d-4b418a2e6741", new Vector3(-0.6f, 1.4f, 0.2f), 180)

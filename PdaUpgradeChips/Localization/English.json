@@ -16,6 +16,8 @@
   "Tooltip_PdaPocketDimensionUpgradeMk3": "A heavily compressed representation of physical space that provides a spacious living space.",
   "PdaMinimapUpgrade": "PDA live minimap upgrade",
   "Tooltip_PdaMinimapUpgrade": "Equips the PDA with an aerial-view minimap that is updated constantly with live environmental data.",
+  "PdaAmbientLightUpgrade": "PDA ambient light upgrade",
+  "Tooltip_PdaAmbientLightUpgrade": "Forces the PDA light to remain enabled even when holstered, emitting a dim light to provide visibility in darkness.",
 
   "PdaDetectingLeviathan1": "Attention: detecting a leviathan-class lifeform nearby.",
   "PdaDetectingLeviathan2": "Warning: detecting a leviathan-class predator in the region.",
