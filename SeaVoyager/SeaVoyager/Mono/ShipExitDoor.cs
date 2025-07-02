@@ -18,7 +18,7 @@ namespace SeaVoyager.Mono
         }
         public void OnHandClick(GUIHand hand)
         {
-            Player.main.SetCurrentSub(null, true);
+            EnterExitHelper.Exit(Player.main.transform, Player.main, false, true);
             if (entrancePosition == null) return;
             Player.main.SetPosition(entrancePosition.position);
             if (sub == null) return;
