@@ -210,9 +210,10 @@ public class SeaVoyagerPrefab
             Plugin.Logger.LogError("Failed to load base prefab!");
             yield break;
         }
-        var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
-                
+                var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
+        
         shipBehaviour.solarPanel.relay = shipBehaviour.solarPanel.gameObject.AddComponent<PowerRelay>();
+        shipBehaviour.solarPanel.relay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
         powerRelay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
         
         var powerCellsParent = new GameObject("PowerCellsParent").transform;
