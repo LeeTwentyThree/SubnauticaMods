@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SeaVoyager.Mono;
 using UnityEngine;
-
+using UWE;
 using static CraftData;
 
 namespace SeaVoyager.Prefabs.Vehicles;
@@ -201,8 +201,45 @@ public class SeaVoyagerPrefab
         shipBehaviour.solarPanel = Helpers.FindChild(prefab, "SolarPanel").AddComponent<ShipSolarPanel>();
         shipBehaviour.solarPanel.powerSource = shipBehaviour.solarPanel.gameObject.AddComponent<PowerSource>();
         shipBehaviour.solarPanel.powerSource.maxPower = 1000;
-
+        
+        //To fix bug
+        var baseTask = PrefabDatabase.GetPrefabAsync("e9b75112-f920-45a9-97cc-838ee9b389bb");
+        yield return baseTask;
+        if (!baseTask.TryGetPrefab(out var basePrefab))
+        {
+            Plugin.Logger.LogError("Failed to load base prefab!");
+            yield break;
+        }
+        var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
+                
         shipBehaviour.solarPanel.relay = shipBehaviour.solarPanel.gameObject.AddComponent<PowerRelay>();
+        powerRelay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
+        
+        var powerCellsParent = new GameObject("PowerCellsParent").transform;
+        powerCellsParent.SetParent(prefab.transform, false);
+        powerCellsParent.localPosition = new Vector3(0, -15, 0);
+        powerCellsParent.localEulerAngles = Vector3.zero;
+        powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "PocketDimensionPower";
+
+        var placeholdersGroup = prefab.AddComponent<PrefabPlaceholdersGroup>();
+        var powerCellLocations = new[] { new Vector3(-1, -1, 0),  new Vector3(1, -1, 0) };
+
+        var placeholders = new PrefabPlaceholder[powerCellLocations.Length];
+        
+        for (int i = 0; i < powerCellLocations.Length; i++)
+        {
+            var placeholder = new GameObject("PowerCellPlaceholder");
+            var placeholderComponent = placeholder.AddComponent<PrefabPlaceholder>();
+            placeholderComponent.prefabClassId = "0cb22d0e-ba5e-4e4b-b7a7-a67931fb5e0c";
+            placeholder.transform.SetParent(powerCellsParent, false);
+            placeholder.transform.localPosition = powerCellLocations[i];
+            placeholder.transform.localRotation = Quaternion.identity;
+            placeholders[i] = placeholderComponent;
+        }
+        
+
+        placeholdersGroup.prefabPlaceholders = placeholders;
+        
         shipBehaviour.solarPanel.relay.maxOutboundDistance = 20;
         shipBehaviour.solarPanel.relay.internalPowerSource = shipBehaviour.solarPanel.powerSource;
 
