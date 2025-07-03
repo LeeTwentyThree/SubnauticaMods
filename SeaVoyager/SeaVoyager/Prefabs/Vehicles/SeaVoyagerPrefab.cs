@@ -191,7 +191,7 @@ public class SeaVoyagerPrefab
         }
 
         //Arbitrary number. The ship doesn't have batteries anyway.
-        energyMixin.maxEnergy = 1200f;
+        energyMixin.maxEnergy = 0f;
 
 
         //Add this component. It inherits from the same component that both the cyclops submarine and seabases use.
@@ -201,7 +201,6 @@ public class SeaVoyagerPrefab
         shipBehaviour.solarPanel = Helpers.FindChild(prefab, "SolarPanel").AddComponent<ShipSolarPanel>();
         shipBehaviour.solarPanel.powerSource = shipBehaviour.solarPanel.gameObject.AddComponent<PowerSource>();
         shipBehaviour.solarPanel.powerSource.maxPower = 1000;
-        
         //To fix bug
         var baseTask = PrefabDatabase.GetPrefabAsync("e9b75112-f920-45a9-97cc-838ee9b389bb");
         yield return baseTask;
