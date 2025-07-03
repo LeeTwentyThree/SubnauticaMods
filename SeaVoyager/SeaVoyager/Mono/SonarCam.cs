@@ -14,6 +14,7 @@ namespace SeaVoyager.Mono
             _cam = gameObject.GetComponent<Camera>();
             _screenFx = gameObject.EnsureComponent<SonarScreenFX>();
             _screenFx._shader = Shader.Find("Image Effects/Sonar");
+            Plugin.Logger.LogDebug($"{_screenFx._shader}");
         }
 
         private void Update()

@@ -207,6 +207,7 @@ public class SeaVoyagerPrefab
         shipBehaviour.solarPanel.relay.internalPowerSource = shipBehaviour.solarPanel.powerSource;
 
         shipBehaviour.solarPanel.powerSource.connectedRelay = shipBehaviour.solarPanel.relay;
+        shipBehaviour.solarPanel.relay.AddInboundPower(shipBehaviour.solarPanel.relay);
 
         PowerFX powerFXComponent = shipBehaviour.solarPanel.gameObject.AddComponent<PowerFX>();
         var solarPanelTask = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
