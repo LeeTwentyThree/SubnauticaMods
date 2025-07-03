@@ -27,6 +27,7 @@ namespace SeaVoyager.Mono
                 sub.skyraySpawner.SpawnSkyrays(Random.Range(3, 6));
             }
             Utils.PlayFMODAsset(useDoorSound, transform.position);
+            Player.main.UpdateMotorMode();
         }
 
         public void OnHandHover(GUIHand hand)

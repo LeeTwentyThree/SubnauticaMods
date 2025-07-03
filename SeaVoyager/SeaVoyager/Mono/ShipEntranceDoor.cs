@@ -17,13 +17,14 @@ namespace SeaVoyager.Mono
 
         public void OnHandClick(GUIHand hand)
         {
-            Player.main.SetCurrentSub(sub, true);
+            EnterExitHelper.Enter(sub.gameObject, Player.main, false);
             Player.main.SetPosition(entrancePosition.position);
             Utils.PlayFMODAsset(useDoorSound, transform.position);
             if (sub.HasPower)
             {
                 sub.voice.PlayVoiceLine(ShipVoice.VoiceLine.WelcomeAboard);
             }
+            Player.main.UpdateMotorMode();
         }
 
         public void OnHandHover(GUIHand hand)
