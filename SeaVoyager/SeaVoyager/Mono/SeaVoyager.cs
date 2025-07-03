@@ -20,7 +20,6 @@ namespace SeaVoyager.Mono
         private SuspendedDock dock2;
 
         public SkyraySpawner skyraySpawner;
-        public ShipSolarPanel solarPanel;
         public ShipHUD hud;
         public ShipPropeller propeller;
         [FormerlySerializedAs("shipMove")] public ShipMotor shipMotor;

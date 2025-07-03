@@ -191,17 +191,13 @@ public class SeaVoyagerPrefab
         }
 
         //Arbitrary number. The ship doesn't have batteries anyway.
-        energyMixin.maxEnergy = 0f;
+        energyMixin.maxEnergy = 1200f;
 
 
         //Add this component. It inherits from the same component that both the cyclops submarine and seabases use.
         var shipBehaviour = prefab.AddComponent<Mono.SeaVoyager>();
 
         //It needs to produce power somehow
-        shipBehaviour.solarPanel = Helpers.FindChild(prefab, "SolarPanel").AddComponent<ShipSolarPanel>();
-        shipBehaviour.solarPanel.powerSource = shipBehaviour.solarPanel.gameObject.AddComponent<PowerSource>();
-        shipBehaviour.solarPanel.powerSource.maxPower = 1000;
-        //To fix bug
         var baseTask = PrefabDatabase.GetPrefabAsync("e9b75112-f920-45a9-97cc-838ee9b389bb");
         yield return baseTask;
         if (!baseTask.TryGetPrefab(out var basePrefab))
@@ -210,9 +206,7 @@ public class SeaVoyagerPrefab
             yield break;
         }
                 var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
-        
-        shipBehaviour.solarPanel.relay = shipBehaviour.solarPanel.gameObject.AddComponent<PowerRelay>();
-        shipBehaviour.solarPanel.relay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
+                
         powerRelay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
         
         var powerCellsParent = new GameObject("PowerCellsParent").transform;
@@ -236,28 +230,7 @@ public class SeaVoyagerPrefab
             placeholder.transform.localRotation = Quaternion.identity;
             placeholders[i] = placeholderComponent;
         }
-        
-
         placeholdersGroup.prefabPlaceholders = placeholders;
-        
-        shipBehaviour.solarPanel.relay.maxOutboundDistance = 20;
-        shipBehaviour.solarPanel.relay.internalPowerSource = shipBehaviour.solarPanel.powerSource;
-
-        shipBehaviour.solarPanel.powerSource.connectedRelay = shipBehaviour.solarPanel.relay;
-        shipBehaviour.solarPanel.relay.AddInboundPower(shipBehaviour.solarPanel.relay);
-
-        PowerFX powerFXComponent = shipBehaviour.solarPanel.gameObject.AddComponent<PowerFX>();
-        var solarPanelTask = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
-        yield return solarPanelTask;
-        var solarPanelReference = solarPanelTask.GetResult();
-        PowerRelay referenceRelay = solarPanelReference.GetComponent<PowerRelay>();
-        powerFXComponent.vfxPrefab = referenceRelay.powerFX.vfxPrefab;
-        shipBehaviour.solarPanel.relay.powerFX = powerFXComponent;
-
-        powerFXComponent.attachPoint = shipBehaviour.solarPanel.transform;
-
-        // shipBehaviour.solarPanel.relay.outboundRelay = GetComponentInParent<PowerRelay>();
-        shipBehaviour.solarPanel.relay.dontConnectToRelays = true;
 
         //A ping so you can see it from far away
         var ping = prefab.AddComponent<PingInstance>();
