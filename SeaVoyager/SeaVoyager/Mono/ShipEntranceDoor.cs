@@ -17,7 +17,7 @@ namespace SeaVoyager.Mono
 
         public void OnHandClick(GUIHand hand)
         {
-            EnterExitHelper.Enter(sub.gameObject, Player.main, false);
+            EnterExitHelper.Enter(gameObject, Player.main, false);
             Player.main.SetPosition(entrancePosition.position);
             Utils.PlayFMODAsset(useDoorSound, transform.position);
             if (sub.HasPower)
