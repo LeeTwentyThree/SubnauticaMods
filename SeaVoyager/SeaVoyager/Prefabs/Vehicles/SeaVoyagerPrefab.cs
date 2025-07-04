@@ -215,7 +215,7 @@ public class SeaVoyagerPrefab
         powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "PocketDimensionPower";
 
         var placeholdersGroup = prefab.AddComponent<PrefabPlaceholdersGroup>();
-        var powerCellLocations = new[] { new Vector3(-1, 15, 0),  new Vector3(1, 15, 0) };
+        var powerCellLocations = new[]{ prefab.gameObject.transform.position + new Vector3(0,15,0),  prefab.gameObject.transform.position + new Vector3(1, 15, 0) };
 
         var placeholders = new PrefabPlaceholder[powerCellLocations.Length];
         
