@@ -21,6 +21,8 @@ namespace SeaVoyager.Mono
             EnterExitHelper.Exit(Player.main.transform, Player.main, false, true);
             if (entrancePosition == null) return;
             Player.main.SetPosition(entrancePosition.position);
+            Player.main.SetMotorMode(Player.MotorMode.Run);
+            Utils.PlayFMODAsset(useDoorSound, transform.position);
             if (sub == null) return;
             if(Random.value > 0.5f)
             {
