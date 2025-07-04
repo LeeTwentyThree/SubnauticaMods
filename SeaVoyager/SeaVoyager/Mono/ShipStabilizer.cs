@@ -6,7 +6,7 @@ public class ShipStabilizer : Stabilizer
 {
     private Rigidbody _rigidbody;
     public float baseforcemultiplier = 10f;
-    public float depthforcemultiplier = 2f;
+    public float depthforcemultiplier = 5f;
 
     private void Awake()
     {
