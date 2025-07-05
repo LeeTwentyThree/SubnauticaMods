@@ -13,6 +13,8 @@ namespace SeaVoyager.Mono
         public SkinnedMeshRenderer dynamicCableModel;
         public Sprite spriteButtonActive;
         public Sprite spriteButtonInactive;
+        public Button toggleButton;
+        public Button releaseVehicleButton;
         public Button retractButton;
         public Button extendButton;
         public Image retractButtonImage;
@@ -130,30 +132,35 @@ namespace SeaVoyager.Mono
             cableTrigger = gameObject.SearchChild("CableTrigger").AddComponent<CableTrigger>();
             cableTrigger.dock = this;
 
-            var toggleButton = gameObject.SearchComponent<Button>("DockToggleButton");
-            toggleButton.onClick.AddListener(OnToggleDockButton);
+            toggleButton = gameObject.SearchComponent<Button>("DockToggleButton");
             toggleButtonTooltip = toggleButton.gameObject.AddComponent<ShipUITooltip>();
             toggleButtonTooltip.Init("Move arm");
 
-            var releaseVehicleButton = gameObject.SearchComponent<Button>("ReleaseVehicleButton");
-            releaseVehicleButton.onClick.AddListener(OnReleaseButton);
+            releaseVehicleButton = gameObject.SearchComponent<Button>("ReleaseVehicleButton");
             releaseVehicleButtonTooltip = releaseVehicleButton.gameObject.AddComponent<ShipUITooltip>();
             releaseVehicleButtonTooltip.Init("Release vehicle");
 
             retractButton = gameObject.SearchComponent<Button>("CableRaiseButton");
-            retractButton.onClick.AddListener(OnRetractButton);
             retractButtonImage = retractButton.GetComponent<Image>();
             retractCableButtonTooltip = retractButton.gameObject.AddComponent<ShipUITooltip>();
             retractCableButtonTooltip.Init("Retract cable");
 
             extendButton = gameObject.SearchComponent<Button>("CableDropButton");
-            extendButton.onClick.AddListener(OnExtendButton);
             extendButtonImage = extendButton.GetComponent<Image>();
             extendCableButtonTooltip = extendButton.gameObject.AddComponent<ShipUITooltip>();
             extendCableButtonTooltip.Init("Extend cable");
 
             spriteButtonActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
             spriteButtonInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
+        }
+
+        private void Awake()
+        {
+            toggleButton.onClick.AddListener(OnToggleDockButton);
+            releaseVehicleButton.onClick.AddListener(OnReleaseButton);
+            retractButton.onClick.AddListener(OnRetractButton);
+            extendButton.onClick.AddListener(OnExtendButton);
+
         }
 
         public void ManagedUpdate()
