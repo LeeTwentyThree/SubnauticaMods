@@ -13,7 +13,6 @@ namespace SeaVoyager.Mono
         private ShipLadder disembarkLadder;
         private ShipLadder engineRoomLadderUp;
         private ShipLadder engineRoomLadderDown;
-        private ShipExitDoor exitHatch;
         private ShipSlidingDoor slidingDoor1;
         private ShipSlidingDoor slidingDoor2;
         private SuspendedDock dock;
@@ -123,9 +122,6 @@ namespace SeaVoyager.Mono
             powerRelay = GetComponent<PowerRelay>();
             isBase = true;
             modulesRoot = this.transform;
-
-            entranceHatch.gameObject.transform= gameObject.transform.Find("Model/Exterior/MainDoor/DoorCollider");
-            
 
             lightControl = GetComponentInChildren<LightingController>();
 

@@ -58,6 +58,16 @@ public class SeaVoyagerPrefab
         var rocketPlatformRequest = GetPrefabForTechTypeAsync(TechType.RocketBase);
         yield return rocketPlatformRequest;
         GameObject rocketPlatformReference = rocketPlatformRequest.GetResult();
+        
+        
+        var door = prefab.transform.Find("Model/Exterior/MainDoor/DoorCollider").gameObject;
+        Plugin.Logger.LogDebug($"{door}");
+        var hatch = door.AddComponent<UseableDiveHatch>();
+        hatch.insideSpawn = prefab.transform.Find("Model/Exterior/MainDoor/EnterPosition").gameObject;
+        hatch.outsideExit = prefab.transform.Find("Model/Exterior/MainDoor/ExitPosition").gameObject;
+        hatch.enterCustomText = "SeaVoyager_Enter";
+        hatch.exitCustomText = "SeaVoyager_Exit";
+        hatch.ignoreObject = prefab;
 
         // Get glass material
         Material glassMaterial = null;
@@ -196,6 +206,7 @@ public class SeaVoyagerPrefab
 
         //Add this component. It inherits from the same component that both the cyclops submarine and seabases use.
         var shipBehaviour = prefab.AddComponent<Mono.SeaVoyager>();
+        shipBehaviour.worldForces = worldForces;
 
         //It needs to produce power somehow
         var baseTask = PrefabDatabase.GetPrefabAsync("e9b75112-f920-45a9-97cc-838ee9b389bb");
