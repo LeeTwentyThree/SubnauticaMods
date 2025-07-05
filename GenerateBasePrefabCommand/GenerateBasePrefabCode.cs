@@ -28,8 +28,27 @@ public static class GenerateBasePrefabCode
                     spawnablePieces.Add(name, piecesList);
                 }
 
-                piecesList.Add(new SpawnablePiece(name, childObject.transform.localPosition + cell.localPosition,
-                    childObject.transform.localRotation));
+                var spawnable = new SpawnablePiece(name, childObject.transform.localPosition + cell.localPosition,
+                    childObject.transform.localRotation);
+
+                if (settings.IncludeSupports)
+                {
+                    var baseFoundationPiece = childObject.gameObject.GetComponentInChildren<BaseFoundationPiece>();
+                    if (baseFoundationPiece != null)
+                    {
+                        var lengths = new float[baseFoundationPiece.pillars.Length];
+                        for (var i = 0; i < lengths.Length; i++)
+                        {
+                            lengths[i] = baseFoundationPiece.pillars[i].adjustable.localScale.z;
+                        }
+
+                        var pathToLegs = Utility.GetPathToChild(baseFoundationPiece.transform, childObject);
+                        spawnable.FoundationData = new FoundationData(lengths, pathToLegs,
+                            baseFoundationPiece.pillars[0].bottom != null);
+                    }
+                }
+
+                piecesList.Add(spawnable);
             }
         }
 
@@ -40,6 +59,12 @@ public static class GenerateBasePrefabCode
             "// Generated code is intended to be used in an IEnumerator/Coroutine for asynchronous prefab creation");
         sb.AppendLine(
             "// See https://subnauticamodding.github.io/Nautilus/api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_SetGameObject_System_Func_IOut_UnityEngine_GameObject__System_Collections_IEnumerator__");
+        if (settings.IncludeSupports)
+        {
+            sb.AppendLine(
+                "// Base supports are enabled; please make sure you strip the BaseFoundationPiece component for these to work properly!");
+        }
+
         sb.Append("\n\n\n");
 
         sb.AppendLine("// Prepare prefabs");
@@ -60,6 +85,7 @@ public static class GenerateBasePrefabCode
 
         sb.AppendLine("\n// Instantiate prefabs");
         int objIndex = 1;
+        int legsIndex = 1;
         foreach (var entry in spawnablePieces)
         {
             foreach (var piece in entry.Value)
@@ -70,6 +96,37 @@ public static class GenerateBasePrefabCode
                 sb.AppendLine($"{variableName}.transform.localPosition = {FormatVector3(piece.LocalPosition)};");
                 sb.AppendLine($"{variableName}.transform.localRotation = {FormatQuaternion(piece.LocalRotation)};");
                 sb.AppendLine($"{variableName}.SetActive(true);");
+                if (settings.IncludeSupports)
+                {
+                    if (piece.FoundationData.HasLegs)
+                    {
+                        var pillarsVariable = $"legs{legsIndex}";
+                        var legsCount = piece.FoundationData.LegLengths.Length;
+                        if (string.IsNullOrEmpty(piece.FoundationData.PathToLegs))
+                        {
+                            sb.AppendLine(
+                                $"var {pillarsVariable} = {variableName}.GetComponent<BaseFoundationPiece>().pillars;");
+                        }
+                        else
+                        {
+                            sb.AppendLine(
+                                $"var {pillarsVariable} = {variableName}.transform.Find(\"{piece.FoundationData.PathToLegs}\").GetComponent<BaseFoundationPiece>().pillars;");
+                        }
+
+                        for (int i = 0; i < legsCount; i++)
+                        {
+                            var legLength = piece.FoundationData.LegLengths[i];
+                            sb.AppendLine($"{pillarsVariable}[{i}].root.SetActive(true);");
+                            sb.AppendLine(
+                                $"{pillarsVariable}[{i}].adjustable.localScale = new Vector3(1, 1, {legLength}f);");
+                            if (piece.FoundationData.HasFeet)
+                                sb.AppendLine(
+                                    $"{pillarsVariable}[{i}].bottom.position = {pillarsVariable}[{i}].adjustable.position + {pillarsVariable}[{i}].adjustable.forward * {legLength}f;");
+                        }
+
+                        legsIndex++;
+                    }
+                }
                 sb.AppendLine($"StripComponents({variableName});");
                 objIndex++;
             }
@@ -106,12 +163,13 @@ public static class GenerateBasePrefabCode
         return char.ToLower(prefabName[0]) + prefabName.Substring(1);
     }
 
-    private readonly struct SpawnablePiece
+    private struct SpawnablePiece
     {
         public string Name { get; }
         public string AddressablePath { get; }
         public Vector3 LocalPosition { get; }
         public Quaternion LocalRotation { get; }
+        public FoundationData FoundationData { get; set; }
 
         public SpawnablePiece(string name, Vector3 localPosition, Quaternion localRotation)
         {
@@ -119,6 +177,22 @@ public static class GenerateBasePrefabCode
             AddressablePath = PathPrefix + name + ".prefab";
             LocalPosition = localPosition;
             LocalRotation = localRotation;
+        }
+    }
+
+    private readonly struct FoundationData
+    {
+        public float[] LegLengths { get; }
+        public string PathToLegs { get; }
+        public bool HasLegs { get; }
+        public bool HasFeet { get; }
+
+        public FoundationData(float[] legLengths, string pathToLegs, bool hasFeet)
+        {
+            LegLengths = legLengths;
+            PathToLegs = pathToLegs;
+            HasLegs = legLengths.Length > 0;
+            HasFeet = hasFeet;
         }
     }
 }

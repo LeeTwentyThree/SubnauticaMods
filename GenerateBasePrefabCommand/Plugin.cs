@@ -23,7 +23,7 @@ public class Plugin : BaseUnityPlugin
     }
 
     [ConsoleCommand("generatebaseprefabcode")]
-    private static void GenerateBasePrefabCodeCommand(bool includeSupports)
+    public static void GenerateBasePrefabCodeCommand(bool includeSupports)
     {
         var settings = new BaseGenerationSettings(includeSupports);
         try
