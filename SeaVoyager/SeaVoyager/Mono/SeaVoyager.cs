@@ -124,6 +124,9 @@ namespace SeaVoyager.Mono
             isBase = true;
             modulesRoot = this.transform;
 
+            entranceHatch.gameObject.transform= gameObject.transform.Find("Model/Exterior/MainDoor/DoorCollider");
+            
+
             lightControl = GetComponentInChildren<LightingController>();
 
             // embark ladder
