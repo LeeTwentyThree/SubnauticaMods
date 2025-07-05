@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using SeaVoyager.Mono;
 using UnityEngine;
-
+using UWE;
 using static CraftData;
 
 namespace SeaVoyager.Prefabs.Vehicles;
@@ -57,7 +57,7 @@ public class SeaVoyagerPrefab
         // Load the rocket platform for reference. I only use it for the constructor animation and sounds.
         var rocketPlatformRequest = GetPrefabForTechTypeAsync(TechType.RocketBase);
         yield return rocketPlatformRequest;
-        GameObject rocketPlatformReference = rocketPlatformRequest.GetResult();
+        var rocketPlatformReference = rocketPlatformRequest.GetResult();
 
         // Get glass material
         Material glassMaterial = null;
@@ -79,8 +79,17 @@ public class SeaVoyagerPrefab
                 }
             }
         }
+        
+        // Load the base prefab
+        var baseTask = PrefabDatabase.GetPrefabAsync("e9b75112-f920-45a9-97cc-838ee9b389bb");
+        yield return baseTask;
+        if (!baseTask.TryGetPrefab(out var basePrefab))
+        {
+            Plugin.Logger.LogError("Failed to load base prefab!");
+            yield break;
+        }
 
-        // Apply materials. It got so long and ugly that I made it its own method.
+        // Apply materials
         MaterialUtils.ApplySNShaders(prefab);
         prefab.SearchChild("Window").GetComponent<MeshRenderer>().material = glassMaterial;
 
@@ -95,8 +104,8 @@ public class SeaVoyagerPrefab
         // Basically an extension to Unity rigidbodys. Necessary for buoyancy.
         var worldForces = prefab.AddComponent<WorldForces>();
         worldForces.useRigidbody = rigidbody;
-        worldForces.underwaterGravity = -10f; // Despite it being negative, which would apply downward force, this actually makes it go UP on the y axis.
-        worldForces.aboveWaterGravity = 20f; // Counteract the strong upward force
+        worldForces.underwaterGravity = -5f; // Despite it being negative, which would apply downward force, this actually makes it go UP on the y axis.
+        worldForces.aboveWaterGravity = 5f; // Counteract the strong upward force
         worldForces.waterDepth = -5f;
         // Determines the places the little build bots point their laser beams at.
         var buildBots = prefab.AddComponent<BuildBotBeamPoints>();
@@ -133,7 +142,7 @@ public class SeaVoyagerPrefab
         lmData.invincibleInCreative = true;
         lmData.weldable = true;
         lmData.minDamageForSound = 20f;
-        lmData.maxHealth = 2500f;
+        lmData.maxHealth = 250000000000000000f;
         liveMixin.data = lmData;
         // I don't know if this does anything at all as ships float above the surface, but I'm keeping it.
         var oxygenManager = prefab.AddComponent<OxygenManager>();
@@ -169,6 +178,16 @@ public class SeaVoyagerPrefab
         skyApplierInterior.SetSky(Skies.BaseInterior);
         skyApplierInterior.lightControl = lights;
         
+        // Add entrance door
+        var door = prefab.transform.Find("Model/Exterior/MainDoor/DoorCollider").gameObject;
+        Plugin.Logger.LogDebug($"{door}");
+        var hatch = door.AddComponent<UseableDiveHatch>();
+        hatch.insideSpawn = prefab.transform.Find("Model/Exterior/MainDoor/EnterPosition").gameObject;
+        hatch.outsideExit = prefab.transform.Find("Model/Exterior/MainDoor/ExitPosition").gameObject;
+        hatch.enterCustomText = "SeaVoyager_Enter";
+        hatch.exitCustomText = "SeaVoyager_Exit";
+        hatch.ignoreObject = prefab;
+        
         // Load a seamoth for reference
         var seamothRequest = GetPrefabForTechTypeAsync(TechType.Seamoth);
         yield return seamothRequest;
@@ -190,51 +209,48 @@ public class SeaVoyagerPrefab
             waterClip.gameObject.layer = seamothProxy.gameObject.layer;
         }
 
-        //Arbitrary number. The ship doesn't have batteries anyway.
+        // Arbitrary number. The ship doesn't have batteries anyway.
         energyMixin.maxEnergy = 1200f;
 
 
-        //Add this component. It inherits from the same component that both the cyclops submarine and seabases use.
+        // Add the SeaVoyager component. Inherits from SubRoot, the same component that both the cyclops submarine and bases use.
         var shipBehaviour = prefab.AddComponent<Mono.SeaVoyager>();
+        shipBehaviour.worldForces = worldForces;
 
-        //It needs to produce power somehow
-        shipBehaviour.solarPanel = Helpers.FindChild(prefab, "SolarPanel").AddComponent<ShipSolarPanel>();
-        shipBehaviour.solarPanel.powerSource = shipBehaviour.solarPanel.gameObject.AddComponent<PowerSource>();
-        shipBehaviour.solarPanel.powerSource.maxPower = 1000;
+        // It needs to produce power somehow
+        var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
+        powerRelay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
+        
+        var powerCellsParent = new GameObject("PowerCellsParent").transform;
+        powerCellsParent.SetParent(prefab.transform, false);
+        powerCellsParent.localPosition = new Vector3(0, -15, 0);
+        powerCellsParent.localEulerAngles = Vector3.zero;
+        powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "PocketDimensionPower";
 
-        shipBehaviour.solarPanel.relay = shipBehaviour.solarPanel.gameObject.AddComponent<PowerRelay>();
-        shipBehaviour.solarPanel.relay.maxOutboundDistance = 20;
-        shipBehaviour.solarPanel.relay.internalPowerSource = shipBehaviour.solarPanel.powerSource;
+        var placeholdersGroup = prefab.AddComponent<PrefabPlaceholdersGroup>();
+        var powerCellLocations = new[]{ prefab.gameObject.transform.position + new Vector3(0,15,0),  prefab.gameObject.transform.position + new Vector3(1, 15, 0) };
 
-        shipBehaviour.solarPanel.powerSource.connectedRelay = shipBehaviour.solarPanel.relay;
+        var placeholders = new PrefabPlaceholder[powerCellLocations.Length];
+        
+        for (int i = 0; i < powerCellLocations.Length; i++)
+        {
+            var placeholder = new GameObject("PowerCellPlaceholder");
+            var placeholderComponent = placeholder.AddComponent<PrefabPlaceholder>();
+            placeholderComponent.prefabClassId = "0cb22d0e-ba5e-4e4b-b7a7-a67931fb5e0c";
+            placeholder.transform.SetParent(powerCellsParent, false);
+            placeholder.transform.localPosition = powerCellLocations[i];
+            placeholder.transform.localRotation = Quaternion.identity;
+            placeholders[i] = placeholderComponent;
+        }
+        placeholdersGroup.prefabPlaceholders = placeholders;
 
-        PowerFX powerFXComponent = shipBehaviour.solarPanel.gameObject.AddComponent<PowerFX>();
-        var solarPanelTask = CraftData.GetPrefabForTechTypeAsync(TechType.SolarPanel);
-        yield return solarPanelTask;
-        var solarPanelReference = solarPanelTask.GetResult();
-        PowerRelay referenceRelay = solarPanelReference.GetComponent<PowerRelay>();
-        powerFXComponent.vfxPrefab = referenceRelay.powerFX.vfxPrefab;
-        shipBehaviour.solarPanel.relay.powerFX = powerFXComponent;
-
-        powerFXComponent.attachPoint = shipBehaviour.solarPanel.transform;
-
-        // shipBehaviour.solarPanel.relay.outboundRelay = GetComponentInParent<PowerRelay>();
-        shipBehaviour.solarPanel.relay.dontConnectToRelays = true;
-
-        //A ping so you can see it from far away
+        // A ping so you can see it from far away
         var ping = prefab.AddComponent<PingInstance>();
         ping.pingType = Plugin.SeaVoyagerPingType;
         ping.origin = Helpers.FindChild(prefab, "PingOrigin").transform;
 
-        //Adjust volume.
-        var audiosources = prefab.GetComponentsInChildren<AudioSource>();
-        foreach (var source in audiosources)
-        {
-            // source.volume *= Plugin.config.NormalizedAudioVolume;
-        }
-
-        //Add a respawn point
-        var respawnPoint = Helpers.FindChild(prefab, "RespawnPoint").AddComponent<RespawnPoint>();
+        // Add a respawn point
+        Helpers.FindChild(prefab, "RespawnPoint").AddComponent<RespawnPoint>();
 
         // Motor sound
         var motorSound = Helpers.FindChild(prefab, "EngineLoop").AddComponent<ShipMotorSound>();
@@ -271,14 +287,13 @@ public class SeaVoyagerPrefab
         returnedPrefab.Set(prefab);
     }
 
-    BuildBotPath CreateBuildBotPath(GameObject gameobjectWithComponent, Transform parent)
+    private static void CreateBuildBotPath(GameObject gameObjectWithComponent, Transform parent)
     {
-        var comp = gameobjectWithComponent.AddComponent<BuildBotPath>();
+        var comp = gameObjectWithComponent.AddComponent<BuildBotPath>();
         comp.points = new Transform[parent.childCount];
         for (int i = 0; i < parent.childCount; i++)
         {
             comp.points[i] = parent.GetChild(i);
         }
-        return comp;
     }
 }

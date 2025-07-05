@@ -13,14 +13,12 @@ namespace SeaVoyager.Mono
         private ShipLadder disembarkLadder;
         private ShipLadder engineRoomLadderUp;
         private ShipLadder engineRoomLadderDown;
-        private ShipExitDoor exitHatch;
         private ShipSlidingDoor slidingDoor1;
         private ShipSlidingDoor slidingDoor2;
         private SuspendedDock dock;
         private SuspendedDock dock2;
 
         public SkyraySpawner skyraySpawner;
-        public ShipSolarPanel solarPanel;
         public ShipHUD hud;
         public ShipPropeller propeller;
         [FormerlySerializedAs("shipMove")] public ShipMotor shipMotor;
@@ -124,11 +122,6 @@ namespace SeaVoyager.Mono
             powerRelay = GetComponent<PowerRelay>();
             isBase = true;
             modulesRoot = this.transform;
-
-            entranceHatch = Helpers.FindChild(gameObject, "MainDoorEnter");
-            entranceHatch.AddComponent<ShipEntranceDoor>();
-
-            exitHatch = Helpers.FindChild(gameObject, "MainDoorExit").AddComponent<ShipExitDoor>();
 
             lightControl = GetComponentInChildren<LightingController>();
 
