@@ -49,7 +49,7 @@ public class SeaVoyagerPrefab
         return this;
     }
 
-    public IEnumerator GetGameObjectAsync(IOut<GameObject> returnedPrefab)
+    private IEnumerator GetGameObjectAsync(IOut<GameObject> returnedPrefab)
     {
         // Load the model
         var prefab = Object.Instantiate(Plugin.assetBundle.LoadAsset<GameObject>("SeaVoyagerPrefab"));

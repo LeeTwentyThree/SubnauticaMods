@@ -12,7 +12,7 @@ namespace SeaVoyager.Mono
         private SeaVoyager _ship;
         private bool _isMainEmbarkLadder;
 
-        private static string _firstUseStoryGoal = "SeaVoyagerFirstUse";
+        private const string FirstUseStoryGoal = "SeaVoyagerFirstUse";
 
         private void Start()
         {
@@ -51,7 +51,7 @@ namespace SeaVoyager.Mono
             Player.main.SetPosition(_entrancePosition.position);
             if (_isMainEmbarkLadder)
             {
-                if (StoryGoalManager.main.OnGoalComplete(_firstUseStoryGoal))
+                if (StoryGoalManager.main.OnGoalComplete(FirstUseStoryGoal))
                 {
                     _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.FirstUse);
                 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace SeaVoyager.Mono
@@ -14,7 +15,7 @@ namespace SeaVoyager.Mono
         private float _maxYDifference = 4f;
 
         [SerializeField] // unity doesn't like private fields on prefabs
-        private RenderTexture _renderTexture;
+        private RenderTexture renderTexture;
 
         public void SetupPrefab(SeaVoyager ship)
         {
@@ -24,9 +25,9 @@ namespace SeaVoyager.Mono
             rawImage = Helpers.FindChild(gameObject, "BedRoomWindowDisplay").GetComponent<RawImage>();
             distanceCheckTransform = Helpers.FindChild(gameObject, "BedRoomDistanceTracker").transform;
 
-            _renderTexture = new RenderTexture(850, 550, 16);
-            camera.targetTexture = _renderTexture;
-            rawImage.texture = _renderTexture;
+            renderTexture = new RenderTexture(850, 550, 16);
+            camera.targetTexture = renderTexture;
+            rawImage.texture = renderTexture;
 
             var waterVolumeOnCamera = camera.gameObject.AddComponent<WaterscapeVolumeOnCamera>();
             waterVolumeOnCamera.settings = WaterBiomeManager.main.gameObject.GetComponent<WaterscapeVolume>();

@@ -5,168 +5,168 @@ namespace SeaVoyager.Mono
 {
     public class ShipHUD : MonoBehaviour
     {
-        private SeaVoyager ship;
+        private SeaVoyager _ship;
 
         // UI images
-        private Image fwdImg;
-        private Image reverseImg;
-        private Image leftImg;
-        private Image rightImg;
-        private Image stopImg;
-        private Image bottomCamImg;
-        private Image frontCamImg;
-        private Image mapImg;
-        private Image speed1Img;
-        private Image speed2Img;
-        private Image speed3Img;
+        private Image _fwdImg;
+        private Image _reverseImg;
+        private Image _leftImg;
+        private Image _rightImg;
+        private Image _stopImg;
+        private Image _bottomCamImg;
+        private Image _frontCamImg;
+        private Image _mapImg;
+        private Image _speed1Img;
+        private Image _speed2Img;
+        private Image _speed3Img;
 
         // sprites that the UI images can use
-        private Sprite directionSpriteInactive;
-        private Sprite directionSpriteActive;
-        private Sprite switchedOn;
-        private Sprite switchedOff;
-        private Sprite spriteCamInactive;
-        private Sprite spriteCamActive;
-        private Sprite spriteSonarInactive;
-        private Sprite spriteSonarActive;
-        private Sprite spriteMapActive;
-        private Sprite spriteMapInactive;
-        private Sprite speed1Active;
-        private Sprite speed1Inactive;
-        private Sprite speed2Active;
-        private Sprite speed2Inactive;
-        private Sprite speed3Active;
-        private Sprite speed3Inactive;
+        private Sprite _directionSpriteInactive;
+        private Sprite _directionSpriteActive;
+        private Sprite _switchedOn;
+        private Sprite _switchedOff;
+        private Sprite _spriteCamInactive;
+        private Sprite _spriteCamActive;
+        private Sprite _spriteSonarInactive;
+        private Sprite _spriteSonarActive;
+        private Sprite _spriteMapActive;
+        private Sprite _spriteMapInactive;
+        private Sprite _speed1Active;
+        private Sprite _speed1Inactive;
+        private Sprite _speed2Active;
+        private Sprite _speed2Inactive;
+        private Sprite _speed3Active;
+        private Sprite _speed3Inactive;
 
         // map
-        private Transform mapTab;
-        private Transform camTab;
-        private RectTransform mapTransform;
-        private RectTransform mapShipMarker;
-        private ShipUITooltip zoomButtonTooltip;
-        private MapZoom mapZoom;
+        private Transform _mapTab;
+        private Transform _camTab;
+        private RectTransform _mapTransform;
+        private RectTransform _mapShipMarker;
+        private ShipUITooltip _zoomButtonTooltip;
+        private MapZoom _mapZoom;
 
         // cameras
-        private RenderTexture renderTextureBottom;
-        private RenderTexture renderTextureFront;
-        private Camera cameraBottom;
-        private Camera cameraFront;
-        private RawImage camRawImage;
-        private ShipCamera activeCamera;
+        private RenderTexture _renderTextureBottom;
+        private RenderTexture _renderTextureFront;
+        private Camera _cameraBottom;
+        private Camera _cameraFront;
+        private RawImage _camRawImage;
+        private ShipCamera _activeCamera;
 
         // audio
-        private AudioClip buttonPressSound;
-        private AudioSource buttonSource;
-        private float poweringDownVoiceLineDelay = 2f;
-        private float timeVehicleStopped;
-        private bool stopVoiceLineQueued;
-        private float poweringUpVoiceLineMinOfflineTime = 4f;
+        private AudioClip _buttonPressSound;
+        private AudioSource _buttonSource;
+        private float _poweringDownVoiceLineDelay = 2f;
+        private float _timeVehicleStopped;
+        private bool _stopVoiceLineQueued;
+        private float _poweringUpVoiceLineMinOfflineTime = 4f;
 
-        void Awake()
+        private void Awake()
         {
-            ship = GetComponentInParent<SeaVoyager>();
+            _ship = GetComponentInParent<SeaVoyager>();
             SetupHUD();
             SetActiveCamera(ShipCamera.Front);
         }
 
-        void SetupHUD()
+        private void SetupHUD()
         {
-            fwdImg = Helpers.FindChild(gameObject, "ForwardButton").GetComponent<Image>();
-            reverseImg = Helpers.FindChild(gameObject, "ReverseButton").GetComponent<Image>();
-            leftImg = Helpers.FindChild(gameObject, "LeftButton").GetComponent<Image>();
-            rightImg = Helpers.FindChild(gameObject, "RightButton").GetComponent<Image>();
-            stopImg = Helpers.FindChild(gameObject, "StopButton").GetComponent<Image>();
-            bottomCamImg = Helpers.FindChild(gameObject, "BottomCameraButton").GetComponent<Image>();
-            frontCamImg = Helpers.FindChild(gameObject, "FrontCameraButton").GetComponent<Image>();
-            mapImg = Helpers.FindChild(gameObject, "MapButton").GetComponent<Image>();
-            speed1Img = Helpers.FindChild(gameObject, "SpeedButton1").GetComponent<Image>();
-            speed2Img = Helpers.FindChild(gameObject, "SpeedButton2").GetComponent<Image>();
-            speed3Img = Helpers.FindChild(gameObject, "SpeedButton3").GetComponent<Image>();
+            _fwdImg = Helpers.FindChild(gameObject, "ForwardButton").GetComponent<Image>();
+            _reverseImg = Helpers.FindChild(gameObject, "ReverseButton").GetComponent<Image>();
+            _leftImg = Helpers.FindChild(gameObject, "LeftButton").GetComponent<Image>();
+            _rightImg = Helpers.FindChild(gameObject, "RightButton").GetComponent<Image>();
+            _stopImg = Helpers.FindChild(gameObject, "StopButton").GetComponent<Image>();
+            _bottomCamImg = Helpers.FindChild(gameObject, "BottomCameraButton").GetComponent<Image>();
+            _frontCamImg = Helpers.FindChild(gameObject, "FrontCameraButton").GetComponent<Image>();
+            _mapImg = Helpers.FindChild(gameObject, "MapButton").GetComponent<Image>();
+            _speed1Img = Helpers.FindChild(gameObject, "SpeedButton1").GetComponent<Image>();
+            _speed2Img = Helpers.FindChild(gameObject, "SpeedButton2").GetComponent<Image>();
+            _speed3Img = Helpers.FindChild(gameObject, "SpeedButton3").GetComponent<Image>();
 
-            mapTab = Helpers.FindChild(gameObject, "MapTab").transform;
-            camTab = Helpers.FindChild(gameObject, "CameraTab").transform;
-            mapTransform = Helpers.FindChild(gameObject, "MapBG").GetComponent<RectTransform>();
-            mapShipMarker = Helpers.FindChild(gameObject, "MapCenter").GetComponent<RectTransform>();
+            _mapTab = Helpers.FindChild(gameObject, "MapTab").transform;
+            _camTab = Helpers.FindChild(gameObject, "CameraTab").transform;
+            _mapTransform = Helpers.FindChild(gameObject, "MapBG").GetComponent<RectTransform>();
+            _mapShipMarker = Helpers.FindChild(gameObject, "MapCenter").GetComponent<RectTransform>();
 
-            fwdImg.GetComponent<Button>().onClick.AddListener(OnForward);
-            reverseImg.GetComponent<Button>().onClick.AddListener(OnReverse);
-            leftImg.GetComponent<Button>().onClick.AddListener(OnLeft);
-            rightImg.GetComponent<Button>().onClick.AddListener(OnRight);
-            stopImg.GetComponent<Button>().onClick.AddListener(OnStop);
-            bottomCamImg.GetComponent<Button>().onClick.AddListener(SetTabBottomCam);
-            frontCamImg.GetComponent<Button>().onClick.AddListener(SetTabFrontCam);
-            mapImg.GetComponent<Button>().onClick.AddListener(SetTabMap);
-            speed1Img.GetComponent<Button>().onClick.AddListener(OnSpeedSetting1);
-            speed2Img.GetComponent<Button>().onClick.AddListener(OnSpeedSetting2);
-            speed3Img.GetComponent<Button>().onClick.AddListener(OnSpeedSetting3);
+            _fwdImg.GetComponent<Button>().onClick.AddListener(OnForward);
+            _reverseImg.GetComponent<Button>().onClick.AddListener(OnReverse);
+            _leftImg.GetComponent<Button>().onClick.AddListener(OnLeft);
+            _rightImg.GetComponent<Button>().onClick.AddListener(OnRight);
+            _stopImg.GetComponent<Button>().onClick.AddListener(OnStop);
+            _bottomCamImg.GetComponent<Button>().onClick.AddListener(SetTabBottomCam);
+            _frontCamImg.GetComponent<Button>().onClick.AddListener(SetTabFrontCam);
+            _mapImg.GetComponent<Button>().onClick.AddListener(SetTabMap);
+            _speed1Img.GetComponent<Button>().onClick.AddListener(OnSpeedSetting1);
+            _speed2Img.GetComponent<Button>().onClick.AddListener(OnSpeedSetting2);
+            _speed3Img.GetComponent<Button>().onClick.AddListener(OnSpeedSetting3);
             var zoomButton = Helpers.FindChild(gameObject, "MapZoomButton");
             zoomButton.GetComponent<Button>().onClick.AddListener(OnToggleMapZoom);
 
-            fwdImg.gameObject.AddComponent<ShipUITooltip>().Init("Forward");
-            reverseImg.gameObject.AddComponent<ShipUITooltip>().Init("Reverse");
-            leftImg.gameObject.AddComponent<ShipUITooltip>().Init("Turn left");
-            rightImg.gameObject.AddComponent<ShipUITooltip>().Init("Turn right");
-            stopImg.gameObject.AddComponent<ShipUITooltip>().Init("Disable engine");
-            bottomCamImg.gameObject.AddComponent<ShipUITooltip>().Init("View sonar map");
-            frontCamImg.gameObject.AddComponent<ShipUITooltip>().Init("View forward-facing camera");
-            mapImg.gameObject.AddComponent<ShipUITooltip>().Init("View region map");
-            speed1Img.gameObject.AddComponent<ShipUITooltip>().Init("Slow speed");
-            speed2Img.gameObject.AddComponent<ShipUITooltip>().Init("Standard speed");
-            speed3Img.gameObject.AddComponent<ShipUITooltip>().Init("Emergency speed");
-            mapShipMarker.gameObject.AddComponent<ShipUITooltip>().Init("Sea Voyager", false);
-            zoomButtonTooltip = zoomButton.AddComponent<ShipUITooltip>();
-            zoomButtonTooltip.Init("Zoom in");
+            _fwdImg.gameObject.AddComponent<ShipUITooltip>().Init("Forward");
+            _reverseImg.gameObject.AddComponent<ShipUITooltip>().Init("Reverse");
+            _leftImg.gameObject.AddComponent<ShipUITooltip>().Init("Turn left");
+            _rightImg.gameObject.AddComponent<ShipUITooltip>().Init("Turn right");
+            _stopImg.gameObject.AddComponent<ShipUITooltip>().Init("Disable engine");
+            _bottomCamImg.gameObject.AddComponent<ShipUITooltip>().Init("View sonar map");
+            _frontCamImg.gameObject.AddComponent<ShipUITooltip>().Init("View forward-facing camera");
+            _mapImg.gameObject.AddComponent<ShipUITooltip>().Init("View region map");
+            _speed1Img.gameObject.AddComponent<ShipUITooltip>().Init("Slow speed");
+            _speed2Img.gameObject.AddComponent<ShipUITooltip>().Init("Standard speed");
+            _speed3Img.gameObject.AddComponent<ShipUITooltip>().Init("Emergency speed");
+            _mapShipMarker.gameObject.AddComponent<ShipUITooltip>().Init("Sea Voyager", false);
+            _zoomButtonTooltip = zoomButton.AddComponent<ShipUITooltip>();
+            _zoomButtonTooltip.Init("Zoom in");
 
-            directionSpriteInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
-            directionSpriteActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
+            _directionSpriteInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
+            _directionSpriteActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
 
-            switchedOn = Plugin.assetBundle.LoadAsset<Sprite>("ShipOn");
-            switchedOff = Plugin.assetBundle.LoadAsset<Sprite>("ShipOff");
+            _switchedOn = Plugin.assetBundle.LoadAsset<Sprite>("ShipOn");
+            _switchedOff = Plugin.assetBundle.LoadAsset<Sprite>("ShipOff");
 
-            spriteCamActive = Plugin.assetBundle.LoadAsset<Sprite>("CameraOn");
-            spriteCamInactive = Plugin.assetBundle.LoadAsset<Sprite>("CameraOff");
+            _spriteCamActive = Plugin.assetBundle.LoadAsset<Sprite>("CameraOn");
+            _spriteCamInactive = Plugin.assetBundle.LoadAsset<Sprite>("CameraOff");
 
-            spriteSonarActive = Plugin.assetBundle.LoadAsset<Sprite>("SonarOn");
-            spriteSonarInactive = Plugin.assetBundle.LoadAsset<Sprite>("SonarOff");
+            _spriteSonarActive = Plugin.assetBundle.LoadAsset<Sprite>("SonarOn");
+            _spriteSonarInactive = Plugin.assetBundle.LoadAsset<Sprite>("SonarOff");
 
-            spriteMapActive = Plugin.assetBundle.LoadAsset<Sprite>("MapOn");
-            spriteMapInactive = Plugin.assetBundle.LoadAsset<Sprite>("MapOff");
+            _spriteMapActive = Plugin.assetBundle.LoadAsset<Sprite>("MapOn");
+            _spriteMapInactive = Plugin.assetBundle.LoadAsset<Sprite>("MapOff");
 
-            speed1Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting1");
-            speed1Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting1Inactive");
-            speed2Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting2");
-            speed2Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting2Inactive");
-            speed3Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting3");
-            speed3Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting3Inactive");
+            _speed1Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting1");
+            _speed1Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting1Inactive");
+            _speed2Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting2");
+            _speed2Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting2Inactive");
+            _speed3Active = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting3");
+            _speed3Inactive = Plugin.assetBundle.LoadAsset<Sprite>("SpeedSetting3Inactive");
 
-            camRawImage = Helpers.FindChild(gameObject, "CameraView").GetComponent<RawImage>();
-            renderTextureBottom = new RenderTexture(256, 128, 24);
-            renderTextureFront = new RenderTexture(512, 256, 16);
+            _camRawImage = Helpers.FindChild(gameObject, "CameraView").GetComponent<RawImage>();
+            _renderTextureBottom = new RenderTexture(256, 128, 24);
+            _renderTextureFront = new RenderTexture(512, 256, 16);
 
-            cameraBottom = Helpers.FindChild(ship.gameObject, "BottomCamera").AddComponent<Camera>();
-            cameraBottom.fieldOfView = 70f;
-            cameraBottom.targetTexture = renderTextureBottom;
-            cameraBottom.gameObject.AddComponent<SonarCam>();
+            _cameraBottom = Helpers.FindChild(_ship.gameObject, "BottomCamera").AddComponent<Camera>();
+            _cameraBottom.fieldOfView = 70f;
+            _cameraBottom.targetTexture = _renderTextureBottom;
+            _cameraBottom.gameObject.AddComponent<SonarCam>();
 
-            cameraFront = Helpers.FindChild(ship.gameObject, "FrontCamera").AddComponent<Camera>();
-            cameraFront.fieldOfView = 80f;
-            cameraFront.targetTexture = renderTextureFront;
+            _cameraFront = Helpers.FindChild(_ship.gameObject, "FrontCamera").AddComponent<Camera>();
+            _cameraFront.fieldOfView = 80f;
+            _cameraFront.targetTexture = _renderTextureFront;
 
             // water fog fix
-            cameraFront.gameObject.SetActive(false);
+            _cameraFront.gameObject.SetActive(false);
 
-            var waterVolumeOnCamera = cameraFront.gameObject.AddComponent<WaterscapeVolumeOnCamera>();
+            var waterVolumeOnCamera = _cameraFront.gameObject.AddComponent<WaterscapeVolumeOnCamera>();
             waterVolumeOnCamera.settings = WaterBiomeManager.main.gameObject.GetComponent<WaterscapeVolume>();
 
             // This literally KILLS your PC if you uncomment it. DONT!!!!
             //var waterSurfaceOnCamera = cameraFront.gameObject.AddComponent<WaterSurfaceOnCamera>();
             //waterSurfaceOnCamera.waterSurface = WaterSurface.Get();
 
-            cameraFront.gameObject.SetActive(true);
+            _cameraFront.gameObject.SetActive(true);
 
-            buttonSource = gameObject.AddComponent<AudioSource>();
+            _buttonSource = gameObject.AddComponent<AudioSource>();
             // buttonSource.volume = Plugin.config.NormalizedAudioVolume;
-            buttonPressSound = Plugin.assetBundle.LoadAsset<AudioClip>("ButtonPress");
+            _buttonPressSound = Plugin.assetBundle.LoadAsset<AudioClip>("ButtonPress");
         }
 
         void Start()
@@ -176,72 +176,72 @@ namespace SeaVoyager.Mono
 
         void SetActiveCamera(ShipCamera cam)
         {
-            activeCamera = cam;
+            _activeCamera = cam;
             switch (cam)
             {
                 default:
                     return;
                 case ShipCamera.Front:
-                    camRawImage.texture = renderTextureFront;
+                    _camRawImage.texture = _renderTextureFront;
                     return;
                 case ShipCamera.Bottom:
-                    camRawImage.texture = renderTextureBottom;
+                    _camRawImage.texture = _renderTextureBottom;
                     return;
             }
         }
 
         void PlayClickSound()
         {
-            buttonSource.PlayOneShot(buttonPressSound);
+            _buttonSource.PlayOneShot(_buttonPressSound);
         }
 
         public void UpdateButtonImages()
         {
-            fwdImg.sprite = directionSpriteInactive;
-            reverseImg.sprite = directionSpriteInactive;
-            leftImg.sprite = directionSpriteInactive;
-            rightImg.sprite = directionSpriteInactive;
-            stopImg.sprite = switchedOff;
-            if (ship.currentState == ShipState.Idle)
+            _fwdImg.sprite = _directionSpriteInactive;
+            _reverseImg.sprite = _directionSpriteInactive;
+            _leftImg.sprite = _directionSpriteInactive;
+            _rightImg.sprite = _directionSpriteInactive;
+            _stopImg.sprite = _switchedOff;
+            if (_ship.currentState == ShipState.Idle)
             {
-                stopImg.sprite = switchedOn;
+                _stopImg.sprite = _switchedOn;
             }
-            if (ship.currentState == ShipState.Moving || ship.currentState == ShipState.MovingAndRotating)
+            if (_ship.currentState == ShipState.Moving || _ship.currentState == ShipState.MovingAndRotating)
             {
-                if (ship.moveDirection == ShipMoveDirection.Forward) fwdImg.sprite = directionSpriteActive;
-                else if (ship.moveDirection == ShipMoveDirection.Reverse) reverseImg.sprite = directionSpriteActive;
+                if (_ship.moveDirection == ShipMoveDirection.Forward) _fwdImg.sprite = _directionSpriteActive;
+                else if (_ship.moveDirection == ShipMoveDirection.Reverse) _reverseImg.sprite = _directionSpriteActive;
             }
-            if (ship.currentState == ShipState.Rotating || ship.currentState == ShipState.MovingAndRotating)
+            if (_ship.currentState == ShipState.Rotating || _ship.currentState == ShipState.MovingAndRotating)
             {
-                if (ship.rotateDirection == ShipRotateDirection.Left) leftImg.sprite = directionSpriteActive;
-                else if (ship.rotateDirection == ShipRotateDirection.Right) rightImg.sprite = directionSpriteActive;
+                if (_ship.rotateDirection == ShipRotateDirection.Left) _leftImg.sprite = _directionSpriteActive;
+                else if (_ship.rotateDirection == ShipRotateDirection.Right) _rightImg.sprite = _directionSpriteActive;
             }
-            var speed = ship.speedSetting;
-            speed1Img.sprite = speed == ShipSpeedSetting.Slow ? speed1Active : speed1Inactive;
-            speed2Img.sprite = speed == ShipSpeedSetting.Medium ? speed2Active : speed2Inactive;
-            speed3Img.sprite = speed == ShipSpeedSetting.Fast ? speed3Active : speed3Inactive;
-            zoomButtonTooltip.displayText = mapZoom == MapZoom.ZoomedIn ? "Zoom out" : "Zoom in";
+            var speed = _ship.speedSetting;
+            _speed1Img.sprite = speed == ShipSpeedSetting.Slow ? _speed1Active : _speed1Inactive;
+            _speed2Img.sprite = speed == ShipSpeedSetting.Medium ? _speed2Active : _speed2Inactive;
+            _speed3Img.sprite = speed == ShipSpeedSetting.Fast ? _speed3Active : _speed3Inactive;
+            _zoomButtonTooltip.displayText = _mapZoom == MapZoom.ZoomedIn ? "Zoom out" : "Zoom in";
         }
 
         #region Voices
         void TryPlayEnginePoweringUp()
         {
-            if (Time.time < timeVehicleStopped + poweringUpVoiceLineMinOfflineTime)
+            if (Time.time < _timeVehicleStopped + _poweringUpVoiceLineMinOfflineTime)
             {
                 return;
             }
-            if (ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.EnginePoweringUp, true))
+            if (_ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.EnginePoweringUp, true))
             {
                 MainCameraControl.main.ShakeCamera(3f, 5f, MainCameraControl.ShakeMode.BuildUp, 0.5f);
-                ship.shipMotor.StopMovementForSeconds(4f);
+                _ship.shipMotor.StopMovementForSeconds(4f);
             }
         }
         void TryPlayEnginePoweringDown()
         {
-            if (ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.EnginePoweringDown))
+            if (_ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.EnginePoweringDown))
             {
                 MainCameraControl.main.ShakeCamera(1f, 2f, MainCameraControl.ShakeMode.Sqrt, 0.5f);
-                stopVoiceLineQueued = false;
+                _stopVoiceLineQueued = false;
             }
         }
 
@@ -249,25 +249,25 @@ namespace SeaVoyager.Mono
         #region Movement buttons
         void OnForward()
         {
-            var lastState = ship.currentState;
-            if (ship.moveDirection == ShipMoveDirection.Forward)
+            var lastState = _ship.currentState;
+            if (_ship.moveDirection == ShipMoveDirection.Forward)
             {
-                ship.moveDirection = ShipMoveDirection.Idle;
-                if (ship.currentState == ShipState.MovingAndRotating) ship.currentState = ShipState.Rotating;
-                else if (ship.currentState == ShipState.Moving)
+                _ship.moveDirection = ShipMoveDirection.Idle;
+                if (_ship.currentState == ShipState.MovingAndRotating) _ship.currentState = ShipState.Rotating;
+                else if (_ship.currentState == ShipState.Moving)
                 {
                     SetStateIdle();
                 }
             }
-            else if (ship.currentState == ShipState.Rotating || ship.currentState == ShipState.MovingAndRotating)
+            else if (_ship.currentState == ShipState.Rotating || _ship.currentState == ShipState.MovingAndRotating)
             {
-                ship.currentState = ShipState.MovingAndRotating;
-                ship.moveDirection = ShipMoveDirection.Forward;
+                _ship.currentState = ShipState.MovingAndRotating;
+                _ship.moveDirection = ShipMoveDirection.Forward;
             }
             else
             {
-                ship.currentState = ShipState.Moving;
-                ship.moveDirection = ShipMoveDirection.Forward;
+                _ship.currentState = ShipState.Moving;
+                _ship.moveDirection = ShipMoveDirection.Forward;
                 if (lastState == ShipState.Idle)
                 {
                     TryPlayEnginePoweringUp();
@@ -278,25 +278,25 @@ namespace SeaVoyager.Mono
         }
         void OnReverse()
         {
-            var lastState = ship.currentState;
-            if (ship.moveDirection == ShipMoveDirection.Reverse)
+            var lastState = _ship.currentState;
+            if (_ship.moveDirection == ShipMoveDirection.Reverse)
             {
-                ship.moveDirection = ShipMoveDirection.Idle;
-                if (ship.currentState == ShipState.MovingAndRotating) ship.currentState = ShipState.Rotating;
-                else if (ship.currentState == ShipState.Moving)
+                _ship.moveDirection = ShipMoveDirection.Idle;
+                if (_ship.currentState == ShipState.MovingAndRotating) _ship.currentState = ShipState.Rotating;
+                else if (_ship.currentState == ShipState.Moving)
                 {
                     SetStateIdle();
                 }
             }
-            else if (ship.currentState == ShipState.Rotating || ship.currentState == ShipState.MovingAndRotating)
+            else if (_ship.currentState == ShipState.Rotating || _ship.currentState == ShipState.MovingAndRotating)
             {
-                ship.currentState = ShipState.MovingAndRotating;
-                ship.moveDirection = ShipMoveDirection.Reverse;
+                _ship.currentState = ShipState.MovingAndRotating;
+                _ship.moveDirection = ShipMoveDirection.Reverse;
             }
             else
             {
-                ship.currentState = ShipState.Moving;
-                ship.moveDirection = ShipMoveDirection.Reverse;
+                _ship.currentState = ShipState.Moving;
+                _ship.moveDirection = ShipMoveDirection.Reverse;
                 if (lastState == ShipState.Idle)
                 {
                     TryPlayEnginePoweringUp();
@@ -307,24 +307,24 @@ namespace SeaVoyager.Mono
         }
         void OnLeft()
         {
-            if (ship.rotateDirection == ShipRotateDirection.Left)
+            if (_ship.rotateDirection == ShipRotateDirection.Left)
             {
-                ship.rotateDirection = ShipRotateDirection.Idle;
-                if (ship.currentState == ShipState.MovingAndRotating) ship.currentState = ShipState.Moving;
-                else if (ship.currentState == ShipState.Rotating)
+                _ship.rotateDirection = ShipRotateDirection.Idle;
+                if (_ship.currentState == ShipState.MovingAndRotating) _ship.currentState = ShipState.Moving;
+                else if (_ship.currentState == ShipState.Rotating)
                 {
                     SetStateIdle();
                 }
             }
-            else if (ship.currentState == ShipState.Moving || ship.currentState == ShipState.MovingAndRotating)
+            else if (_ship.currentState == ShipState.Moving || _ship.currentState == ShipState.MovingAndRotating)
             {
-                ship.currentState = ShipState.MovingAndRotating;
-                ship.rotateDirection = ShipRotateDirection.Left;
+                _ship.currentState = ShipState.MovingAndRotating;
+                _ship.rotateDirection = ShipRotateDirection.Left;
             }
             else
             {
-                ship.currentState = ShipState.Rotating;
-                ship.rotateDirection = ShipRotateDirection.Left;
+                _ship.currentState = ShipState.Rotating;
+                _ship.rotateDirection = ShipRotateDirection.Left;
             }
             OnRotationChanged();
             PlayClickSound();
@@ -332,24 +332,24 @@ namespace SeaVoyager.Mono
         }
         void OnRight()
         {
-            if (ship.rotateDirection == ShipRotateDirection.Right)
+            if (_ship.rotateDirection == ShipRotateDirection.Right)
             {
-                ship.rotateDirection = ShipRotateDirection.Idle;
-                if (ship.currentState == ShipState.MovingAndRotating) ship.currentState = ShipState.Moving;
-                else if (ship.currentState == ShipState.Rotating)
+                _ship.rotateDirection = ShipRotateDirection.Idle;
+                if (_ship.currentState == ShipState.MovingAndRotating) _ship.currentState = ShipState.Moving;
+                else if (_ship.currentState == ShipState.Rotating)
                 {
                     SetStateIdle();
                 }
             }
-            else if (ship.currentState == ShipState.Moving || ship.currentState == ShipState.MovingAndRotating)
+            else if (_ship.currentState == ShipState.Moving || _ship.currentState == ShipState.MovingAndRotating)
             {
-                ship.currentState = ShipState.MovingAndRotating;
-                ship.rotateDirection = ShipRotateDirection.Right;
+                _ship.currentState = ShipState.MovingAndRotating;
+                _ship.rotateDirection = ShipRotateDirection.Right;
             }
             else
             {
-                ship.currentState = ShipState.Rotating;
-                ship.rotateDirection = ShipRotateDirection.Right;
+                _ship.currentState = ShipState.Rotating;
+                _ship.rotateDirection = ShipRotateDirection.Right;
             }
             OnRotationChanged();
             PlayClickSound();
@@ -357,66 +357,66 @@ namespace SeaVoyager.Mono
         }
         void SetStateIdle()
         {
-            ship.currentState = ShipState.Idle;
-            timeVehicleStopped = Time.time;
-            stopVoiceLineQueued = true;
+            _ship.currentState = ShipState.Idle;
+            _timeVehicleStopped = Time.time;
+            _stopVoiceLineQueued = true;
         }
         void OnRotationChanged()
         {
-            if (ship.currentState == ShipState.Rotating || ship.currentState == ShipState.MovingAndRotating)
+            if (_ship.currentState == ShipState.Rotating || _ship.currentState == ShipState.MovingAndRotating)
             {
-                ship.rb.AddTorque(Vector3.up * -ship.rb.angularVelocity.y * 50f * ship.rb.mass);
+                _ship.rb.AddTorque(Vector3.up * -_ship.rb.angularVelocity.y * 50f * _ship.rb.mass);
             }
         }
         public void OnStop()
         {
-            if (ship.currentState != ShipState.Idle)
+            if (_ship.currentState != ShipState.Idle)
             {
                 SetStateIdle();
             }
-            ship.currentState = ShipState.Idle;
-            ship.moveDirection = ShipMoveDirection.Idle;
-            ship.rotateDirection = ShipRotateDirection.Idle;
+            _ship.currentState = ShipState.Idle;
+            _ship.moveDirection = ShipMoveDirection.Idle;
+            _ship.rotateDirection = ShipRotateDirection.Idle;
             UpdateButtonImages();
             PlayClickSound();
         }
         void OnSpeedSetting1()
         {
-            ship.speedSetting = ShipSpeedSetting.Slow;
+            _ship.speedSetting = ShipSpeedSetting.Slow;
             UpdateButtonImages();
             PlayClickSound();
-            ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.AheadSlow);
+            _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.AheadSlow);
         }
         void OnSpeedSetting2()
         {
-            ship.speedSetting = ShipSpeedSetting.Medium;
+            _ship.speedSetting = ShipSpeedSetting.Medium;
             UpdateButtonImages();
             PlayClickSound();
-            ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.AheadStandard);
+            _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.AheadStandard);
         }
         void OnSpeedSetting3()
         {
-            ship.speedSetting = ShipSpeedSetting.Fast;
+            _ship.speedSetting = ShipSpeedSetting.Fast;
             UpdateButtonImages();
             PlayClickSound();
-            ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.AheadFlank);
+            _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.AheadFlank);
         }
         #endregion
 
         #region Map
         void SetTabMap()
         {
-            bottomCamImg.sprite = spriteSonarInactive;
-            frontCamImg.sprite = spriteCamInactive;
-            mapImg.sprite = spriteMapActive; 
-            mapTab.gameObject.SetActive(true);
-            camTab.gameObject.SetActive(false);
+            _bottomCamImg.sprite = _spriteSonarInactive;
+            _frontCamImg.sprite = _spriteCamInactive;
+            _mapImg.sprite = _spriteMapActive; 
+            _mapTab.gameObject.SetActive(true);
+            _camTab.gameObject.SetActive(false);
             PlayClickSound();
-            ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.RegionMap);
+            _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.RegionMap);
         }
         void OnToggleMapZoom()
         {
-            if(mapZoom == MapZoom.Full)
+            if(_mapZoom == MapZoom.Full)
             {
                 SetMapZoom(MapZoom.ZoomedIn);
             }
@@ -429,14 +429,14 @@ namespace SeaVoyager.Mono
         }
         void SetMapZoom(MapZoom newZoom)
         {
-            mapZoom = newZoom;
-            if (mapZoom == MapZoom.Full)
+            _mapZoom = newZoom;
+            if (_mapZoom == MapZoom.Full)
             {
-                mapTransform.localScale = new Vector2(0.3f, 0.3f);
+                _mapTransform.localScale = new Vector2(0.3f, 0.3f);
             }
             else
             {
-                mapTransform.localScale = new Vector2(1f, 1f);
+                _mapTransform.localScale = new Vector2(1f, 1f);
             }
         }
         #endregion
@@ -445,44 +445,44 @@ namespace SeaVoyager.Mono
         void SetTabBottomCam()
         {
             SwitchToCameraMode();
-            bottomCamImg.sprite = spriteSonarActive;
+            _bottomCamImg.sprite = _spriteSonarActive;
             SetActiveCamera(ShipCamera.Bottom);
-            ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.SonarMap);
+            _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.SonarMap);
         }
         void SetTabFrontCam()
         {
             SwitchToCameraMode();
-            frontCamImg.sprite = spriteCamActive;
+            _frontCamImg.sprite = _spriteCamActive;
             SetActiveCamera(ShipCamera.Front);
         }
         void SwitchToCameraMode()
         {
-            bottomCamImg.sprite = spriteSonarInactive;
-            frontCamImg.sprite = spriteCamInactive;
-            mapImg.sprite = spriteMapInactive;
-            mapTab.gameObject.SetActive(false);
-            camTab.gameObject.SetActive(true);
+            _bottomCamImg.sprite = _spriteSonarInactive;
+            _frontCamImg.sprite = _spriteCamInactive;
+            _mapImg.sprite = _spriteMapInactive;
+            _mapTab.gameObject.SetActive(false);
+            _camTab.gameObject.SetActive(true);
             PlayClickSound();
         }
         #endregion
 
         void Update()
         {
-            if (ship.LOD.current == LODState.Full) //Only run if you are close to or inside of the ship.
+            if (_ship.LOD.current == LODState.Full) //Only run if you are close to or inside of the ship.
             {
-                cameraBottom.enabled = activeCamera == ShipCamera.Bottom && ship.IsOccupiedByPlayer;
-                cameraFront.enabled = activeCamera == ShipCamera.Front && ship.IsOccupiedByPlayer;
-                if (mapZoom == MapZoom.Full)
+                _cameraBottom.enabled = _activeCamera == ShipCamera.Bottom && _ship.IsOccupiedByPlayer;
+                _cameraFront.enabled = _activeCamera == ShipCamera.Front && _ship.IsOccupiedByPlayer;
+                if (_mapZoom == MapZoom.Full)
                 {
-                    mapTransform.localPosition = Vector2.zero;
-                    mapShipMarker.localPosition = new Vector2(ship.transform.position.x / 26.3f, ship.transform.position.z / 26.3f);
+                    _mapTransform.localPosition = Vector2.zero;
+                    _mapShipMarker.localPosition = new Vector2(_ship.transform.position.x / 26.3f, _ship.transform.position.z / 26.3f);
                 }
                 else
                 {
-                    mapTransform.localPosition = new Vector2(-ship.transform.position.x / 7.8f, -ship.transform.position.z / 7.8f);
-                    mapShipMarker.localPosition = Vector2.zero;
+                    _mapTransform.localPosition = new Vector2(-_ship.transform.position.x / 7.8f, -_ship.transform.position.z / 7.8f);
+                    _mapShipMarker.localPosition = Vector2.zero;
                 }
-                mapShipMarker.localEulerAngles = new Vector3(0f, 0f, -ship.transform.eulerAngles.y);
+                _mapShipMarker.localEulerAngles = new Vector3(0f, 0f, -_ship.transform.eulerAngles.y);
 
                 /*if (Input.GetKeyDown(KeyCode.UpArrow)) These controls cause too many accidents...
                 {
@@ -503,10 +503,10 @@ namespace SeaVoyager.Mono
             }
             else
             {
-                cameraBottom.enabled = false;
-                cameraBottom.enabled = false;
+                _cameraBottom.enabled = false;
+                _cameraBottom.enabled = false;
             }
-            if (stopVoiceLineQueued && Time.time > timeVehicleStopped + poweringDownVoiceLineDelay && ship.Idle)
+            if (_stopVoiceLineQueued && Time.time > _timeVehicleStopped + _poweringDownVoiceLineDelay && _ship.Idle)
             {
                 TryPlayEnginePoweringDown();
             }

@@ -7,7 +7,7 @@ namespace SeaVoyager.Mono
         public SeaVoyager ship;
         private float _timeCanMoveAgain;
 
-        void FixedUpdate()
+        private void FixedUpdate()
         {
             if(ship.currentState == ShipState.Idle)
             {
@@ -55,33 +55,37 @@ namespace SeaVoyager.Mono
         {
             return Time.time > _timeCanMoveAgain;
         }
-        void Decelerotate()
+
+        private void Decelerotate()
         {
             ship.rb.AddTorque(-ship.rb.angularVelocity, ForceMode.Acceleration);
         }
-        void OnEnable()
+
+        private void OnEnable()
         {
             Player.main.playerDeathEvent.AddHandler(this, OnDeath);
             Player.main.playerRespawnEvent.AddHandler(this, OnRespawn);
         }
-        void OnDisable()
+
+        private void OnDisable()
         {
             Player.main.playerDeathEvent.RemoveHandler(this, OnDeath);
             Player.main.playerRespawnEvent.RemoveHandler(this, OnRespawn);
         }
-        void OnDeath(Player player)
+
+        private void OnDeath(Player player)
         {
-            if (ship.IsOccupiedByPlayer)
-            {
-                ship.currentState = ShipState.Idle;
-                ship.moveDirection = ShipMoveDirection.Idle;
-                ship.rotateDirection = ShipRotateDirection.Idle;
-                ship.rb.velocity = Vector3.zero;
-                ship.rb.angularVelocity = Vector3.zero;
-                ship.rb.isKinematic = true;
-            }
+            if (!ship.IsOccupiedByPlayer) return;
+            
+            ship.currentState = ShipState.Idle;
+            ship.moveDirection = ShipMoveDirection.Idle;
+            ship.rotateDirection = ShipRotateDirection.Idle;
+            ship.rb.velocity = Vector3.zero;
+            ship.rb.angularVelocity = Vector3.zero;
+            ship.rb.isKinematic = true;
         }
-        void OnRespawn(Player player)
+
+        private void OnRespawn(Player player)
         {
             ship.rb.isKinematic = false;
         }

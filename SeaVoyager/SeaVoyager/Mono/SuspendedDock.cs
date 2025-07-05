@@ -4,50 +4,50 @@ using UnityEngine.UI;
 
 namespace SeaVoyager.Mono
 {
-    public class SuspendedDock : MonoBehaviour
+    public class SuspendedDock : MonoBehaviour, IManagedUpdateBehaviour
     {
         public SeaVoyager ship;
-        private LineRenderer _cableRenderer;
-        private Transform _cableConnectionPoint;
-        private Transform _armTransform;
-        private SkinnedMeshRenderer _dynamicCableModel;
-        private Sprite _spriteButtonActive;
-        private Sprite _spriteButtonInactive;
-        private Button _retractButton;
-        private Button _extendButton;
-        private Image _retractButtonImage;
-        private Image _extendButtonImage;
-        private AudioSource _moveSound;
-        private CableTrigger _cableTrigger;
-        private ShipUITooltip _toggleButtonTooltip;
-        private ShipUITooltip _releaseVehicleButtonTooltip;
-        private ShipUITooltip _extendCableButtonTooltip;
-        private ShipUITooltip _retractCableButtonTooltip;
+        public LineRenderer cableRenderer;
+        public Transform cableConnectionPoint;
+        public Transform armTransform;
+        public SkinnedMeshRenderer dynamicCableModel;
+        public Sprite spriteButtonActive;
+        public Sprite spriteButtonInactive;
+        public Button retractButton;
+        public Button extendButton;
+        public Image retractButtonImage;
+        public Image extendButtonImage;
+        public AudioSource moveSound;
+        public CableTrigger cableTrigger;
+        public ShipUITooltip toggleButtonTooltip;
+        public ShipUITooltip releaseVehicleButtonTooltip;
+        public ShipUITooltip extendCableButtonTooltip;
+        public ShipUITooltip retractCableButtonTooltip;
 
         public Vehicle dockedVehicle;
 
-        float _buttonNextPressTime;
+        private float _buttonNextPressTime;
 
         /// <summary>
         /// The appearance-wise y position of the cable hook.
         /// </summary>
-        float _cableLocalY;
+        private float _cableLocalY;
 
         /// <summary>
         /// Whether the arm is hanging over the water or not.
         /// </summary>
-        bool _dockExtended;
+        private bool _dockExtended;
 
         /// <summary>
         /// The code-wide y position of the cable hook.
         /// </summary>
-        float _cableTargetLocation;
+        private float _cableTargetLocation;
 
-        CableState _cableState;
-        const float MaxCableDepth = -200f;
-        const float MaxDivingBellDepth = -400f;
-        const float CableSpeed = 10f;
-        const float CableSpeedInAir = 5f;
+        private CableState _cableState;
+        private const float MaxCableDepth = -200f;
+        private const float MaxDivingBellDepth = -400f;
+        private const float CableSpeed = 10f;
+        private const float CableSpeedInAir = 5f;
 
         /// <summary>
         /// Whether the cable is holding an object or not.
@@ -74,14 +74,14 @@ namespace SeaVoyager.Mono
         /// <summary>
         /// Where the cable ends code-wise.
         /// </summary>
-        private Vector3 CableTargetWorldPosition => new(_cableConnectionPoint.position.x,
-            _cableConnectionPoint.position.y + _cableTargetLocation, _cableConnectionPoint.position.z);
+        private Vector3 CableTargetWorldPosition => new(cableConnectionPoint.position.x,
+            cableConnectionPoint.position.y + _cableTargetLocation, cableConnectionPoint.position.z);
 
         /// <summary>
         /// Where the cable ends appearance-wise.
         /// </summary>
-        private Vector3 CableEndWorldPosition => new(_cableConnectionPoint.position.x,
-            _cableConnectionPoint.position.y + _cableLocalY, _cableConnectionPoint.position.z);
+        private Vector3 CableEndWorldPosition => new(cableConnectionPoint.position.x,
+            cableConnectionPoint.position.y + _cableLocalY, cableConnectionPoint.position.z);
 
         /// <summary>
         /// Whether the player is in the prawn suit while it is attached to the ship or not. I call it a "diving bell" because that's essentially what it is in this case.
@@ -109,44 +109,54 @@ namespace SeaVoyager.Mono
 
         private float CurrentCableSpeed => CableInWater ? CableSpeed : CableSpeedInAir;
 
+        private void OnEnable()
+        {
+            BehaviourUpdateUtils.Register(this);
+        }
+
+        private void OnDisable()
+        {
+            BehaviourUpdateUtils.Deregister(this);
+        }
+
         public void Initialize()
         {
-            _cableRenderer = gameObject.GetComponentInChildren<LineRenderer>();
-            _dynamicCableModel = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
-            _cableConnectionPoint = gameObject.SearchChild("CableTop").transform;
-            _armTransform = gameObject.SearchChild("DockArm").transform;
-            _moveSound = gameObject.SearchComponent<AudioSource>("ArmMoveSound");
+            cableRenderer = gameObject.GetComponentInChildren<LineRenderer>();
+            dynamicCableModel = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
+            cableConnectionPoint = gameObject.SearchChild("CableTop").transform;
+            armTransform = gameObject.SearchChild("DockArm").transform;
+            moveSound = gameObject.SearchComponent<AudioSource>("ArmMoveSound");
             // moveSound.volume = Plugin.config.NormalizedAudioVolume;
-            _cableTrigger = gameObject.SearchChild("CableTrigger").AddComponent<CableTrigger>();
-            _cableTrigger.dock = this;
+            cableTrigger = gameObject.SearchChild("CableTrigger").AddComponent<CableTrigger>();
+            cableTrigger.dock = this;
 
             var toggleButton = gameObject.SearchComponent<Button>("DockToggleButton");
             toggleButton.onClick.AddListener(OnToggleDockButton);
-            _toggleButtonTooltip = toggleButton.gameObject.AddComponent<ShipUITooltip>();
-            _toggleButtonTooltip.Init("Move arm");
+            toggleButtonTooltip = toggleButton.gameObject.AddComponent<ShipUITooltip>();
+            toggleButtonTooltip.Init("Move arm");
 
             var releaseVehicleButton = gameObject.SearchComponent<Button>("ReleaseVehicleButton");
             releaseVehicleButton.onClick.AddListener(OnReleaseButton);
-            _releaseVehicleButtonTooltip = releaseVehicleButton.gameObject.AddComponent<ShipUITooltip>();
-            _releaseVehicleButtonTooltip.Init("Release vehicle");
+            releaseVehicleButtonTooltip = releaseVehicleButton.gameObject.AddComponent<ShipUITooltip>();
+            releaseVehicleButtonTooltip.Init("Release vehicle");
 
-            _retractButton = gameObject.SearchComponent<Button>("CableRaiseButton");
-            _retractButton.onClick.AddListener(OnRetractButton);
-            _retractButtonImage = _retractButton.GetComponent<Image>();
-            _retractCableButtonTooltip = _retractButton.gameObject.AddComponent<ShipUITooltip>();
-            _retractCableButtonTooltip.Init("Retract cable");
+            retractButton = gameObject.SearchComponent<Button>("CableRaiseButton");
+            retractButton.onClick.AddListener(OnRetractButton);
+            retractButtonImage = retractButton.GetComponent<Image>();
+            retractCableButtonTooltip = retractButton.gameObject.AddComponent<ShipUITooltip>();
+            retractCableButtonTooltip.Init("Retract cable");
 
-            _extendButton = gameObject.SearchComponent<Button>("CableDropButton");
-            _extendButton.onClick.AddListener(OnExtendButton);
-            _extendButtonImage = _extendButton.GetComponent<Image>();
-            _extendCableButtonTooltip = _extendButton.gameObject.AddComponent<ShipUITooltip>();
-            _extendCableButtonTooltip.Init("Extend cable");
+            extendButton = gameObject.SearchComponent<Button>("CableDropButton");
+            extendButton.onClick.AddListener(OnExtendButton);
+            extendButtonImage = extendButton.GetComponent<Image>();
+            extendCableButtonTooltip = extendButton.gameObject.AddComponent<ShipUITooltip>();
+            extendCableButtonTooltip.Init("Extend cable");
 
-            _spriteButtonActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
-            _spriteButtonInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
+            spriteButtonActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
+            spriteButtonInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
         }
 
-        void Update()
+        public void ManagedUpdate()
         {
             UpdateTooltips();
             AttemptToPlayVehicleDockVoice();
@@ -195,8 +205,6 @@ namespace SeaVoyager.Mono
                     }
 
                     break;
-                default:
-                    break;
                 case CableState.Default:
                     _cableTargetLocation = -MinCableLength;
                     break;
@@ -236,20 +244,20 @@ namespace SeaVoyager.Mono
             }
 
             _cableLocalY =
-                Mathf.MoveTowards(_cableRenderer.GetPosition(1).y, _cableTargetLocation,
+                Mathf.MoveTowards(cableRenderer.GetPosition(1).y, _cableTargetLocation,
                     Time.deltaTime * 20f); //Move towards default position
-            _armTransform.localRotation =
-                Quaternion.RotateTowards(_armTransform.localRotation, armTargetRotation,
+            armTransform.localRotation =
+                Quaternion.RotateTowards(armTransform.localRotation, armTargetRotation,
                     Time.deltaTime *
                     30f); //Rotate the arm to the correct position, smoothly. I believe this makes it move at the rate of 30 degrees per second.
-            _cableRenderer.SetPosition(1,
+            cableRenderer.SetPosition(1,
                 new Vector3(0f, _cableLocalY, 0f)); //Apply the cableLocalY to the physical cable.
             float tightnessScale = Mathf.Clamp((_cableLocalY / -50f * 100f) - 4f, 0f, 100f);
-            _dynamicCableModel.SetBlendShapeWeight(0, tightnessScale);
-            _cableTrigger.transform.position = CableEndWorldPosition;
+            dynamicCableModel.SetBlendShapeWeight(0, tightnessScale);
+            cableTrigger.transform.position = CableEndWorldPosition;
             if (dockedVehicle)
             {
-                dockedVehicle.transform.position = _cableTrigger.transform.position +
+                dockedVehicle.transform.position = cableTrigger.transform.position +
                                                    (Vector3.down * (SeamothCurrentlyDocked ? 1f : 2f));
                 if (dockedVehicle is Exosuit)
                 {
@@ -292,66 +300,66 @@ namespace SeaVoyager.Mono
             }
         }
 
-        void UpdateTooltips()
+        private void UpdateTooltips()
         {
             // release vehicles button
             if (dockedVehicle == null)
             {
-                _releaseVehicleButtonTooltip.displayText = "No vehicle docked";
-                _releaseVehicleButtonTooltip.clickable = false;
+                releaseVehicleButtonTooltip.displayText = "No vehicle docked";
+                releaseVehicleButtonTooltip.clickable = false;
             }
             else if (!_dockExtended)
             {
-                _releaseVehicleButtonTooltip.displayText = string.Format("Cannot release vehicles onto the dock.");
-                _releaseVehicleButtonTooltip.clickable = false;
+                releaseVehicleButtonTooltip.displayText = "Cannot release vehicles onto the dock.";
+                releaseVehicleButtonTooltip.clickable = false;
             }
             else
             {
-                _releaseVehicleButtonTooltip.displayText = string.Format("Release {0}", dockedVehicle.GetName());
-                _releaseVehicleButtonTooltip.clickable = true;
+                releaseVehicleButtonTooltip.displayText = $"Release {dockedVehicle.GetName()}";
+                releaseVehicleButtonTooltip.clickable = true;
             }
 
-            _releaseVehicleButtonTooltip.showTooltip = Time.time > _buttonNextPressTime;
+            releaseVehicleButtonTooltip.showTooltip = Time.time > _buttonNextPressTime;
             // toggle cable extension button
             if (CableExtendedBeyondDeck)
             {
-                _toggleButtonTooltip.displayText = "Cable not fully retracted";
-                _toggleButtonTooltip.clickable = false;
+                toggleButtonTooltip.displayText = "Cable not fully retracted";
+                toggleButtonTooltip.clickable = false;
             }
             else if (dockedVehicle == null || SeamothCurrentlyDocked)
             {
-                _toggleButtonTooltip.displayText = _dockExtended ? "Return docking arm" : "Extend docking arm";
-                _toggleButtonTooltip.clickable = true;
+                toggleButtonTooltip.displayText = _dockExtended ? "Return docking arm" : "Extend docking arm";
+                toggleButtonTooltip.clickable = true;
             }
             else if (dockedVehicle != null)
             {
-                _toggleButtonTooltip.displayText =
-                    string.Format("Cannot move arm with {0} attached.", dockedVehicle.GetName());
-                _toggleButtonTooltip.clickable = false;
+                toggleButtonTooltip.displayText = $"Cannot move arm with {dockedVehicle.GetName()} attached.";
+                toggleButtonTooltip.clickable = false;
             }
 
-            _toggleButtonTooltip.showTooltip = Time.time > _buttonNextPressTime;
+            toggleButtonTooltip.showTooltip = Time.time > _buttonNextPressTime;
+            
             // cable buttons
             if (_cableState == CableState.Extending)
             {
-                _extendCableButtonTooltip.displayText = "Stop cable";
+                extendCableButtonTooltip.displayText = "Stop cable";
             }
             else
             {
-                _extendCableButtonTooltip.displayText = "Extend cable";
+                extendCableButtonTooltip.displayText = "Extend cable";
             }
 
-            _extendCableButtonTooltip.showTooltip = CableLength < MaxCableLength && _dockExtended;
+            extendCableButtonTooltip.showTooltip = CableLength < MaxCableLength && _dockExtended;
             if (_cableState == CableState.Retracting)
             {
-                _retractCableButtonTooltip.displayText = "Stop cable";
+                retractCableButtonTooltip.displayText = "Stop cable";
             }
             else
             {
-                _retractCableButtonTooltip.displayText = "Retract cable";
+                retractCableButtonTooltip.displayText = "Retract cable";
             }
 
-            _retractCableButtonTooltip.showTooltip = CableLength > MinCableLength;
+            retractCableButtonTooltip.showTooltip = CableLength > MinCableLength;
         }
 
         void ProcessInput()
@@ -432,7 +440,7 @@ namespace SeaVoyager.Mono
             }
 
             _dockExtended = newState;
-            _moveSound.Play();
+            moveSound.Play();
             return true;
         }
 
@@ -448,16 +456,16 @@ namespace SeaVoyager.Mono
             switch (state)
             {
                 default:
-                    _retractButtonImage.sprite = _spriteButtonInactive;
-                    _extendButtonImage.sprite = _spriteButtonInactive;
+                    retractButtonImage.sprite = spriteButtonInactive;
+                    extendButtonImage.sprite = spriteButtonInactive;
                     return;
                 case CableButtonsDisplay.Extending:
-                    _retractButtonImage.sprite = _spriteButtonInactive;
-                    _extendButtonImage.sprite = _spriteButtonActive;
+                    retractButtonImage.sprite = spriteButtonInactive;
+                    extendButtonImage.sprite = spriteButtonActive;
                     return;
                 case CableButtonsDisplay.Retracting:
-                    _retractButtonImage.sprite = _spriteButtonActive;
-                    _extendButtonImage.sprite = _spriteButtonInactive;
+                    retractButtonImage.sprite = spriteButtonActive;
+                    extendButtonImage.sprite = spriteButtonInactive;
                     return;
             }
         }
@@ -506,7 +514,7 @@ namespace SeaVoyager.Mono
             }
         }
 
-        void OnRetractButton()
+        private void OnRetractButton()
         {
             if (CableLength > 1f)
             {
@@ -523,7 +531,7 @@ namespace SeaVoyager.Mono
             }
         }
 
-        void OnExtendButton()
+        private void OnExtendButton()
         {
             if (_dockExtended && CableLength < MaxCableLength)
             {
@@ -539,6 +547,13 @@ namespace SeaVoyager.Mono
                 }
             }
         }
+
+        public string GetProfileTag()
+        {
+            return "SeaVoyager:SuspendedDock";
+        }
+
+        public int managedUpdateIndex { get; set; }
     }
 
     public enum CableState
