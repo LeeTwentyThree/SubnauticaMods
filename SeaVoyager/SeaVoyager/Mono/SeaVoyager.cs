@@ -124,11 +124,6 @@ namespace SeaVoyager.Mono
             isBase = true;
             modulesRoot = this.transform;
 
-            entranceHatch = Helpers.FindChild(gameObject, "MainDoorEnter");
-            entranceHatch.AddComponent<ShipEntranceDoor>();
-
-            exitHatch = Helpers.FindChild(gameObject, "MainDoorExit").AddComponent<ShipExitDoor>();
-
             lightControl = GetComponentInChildren<LightingController>();
 
             // embark ladder

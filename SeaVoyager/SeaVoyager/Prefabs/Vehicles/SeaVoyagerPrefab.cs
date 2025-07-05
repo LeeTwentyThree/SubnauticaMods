@@ -95,8 +95,8 @@ public class SeaVoyagerPrefab
         // Basically an extension to Unity rigidbodys. Necessary for buoyancy.
         var worldForces = prefab.AddComponent<WorldForces>();
         worldForces.useRigidbody = rigidbody;
-        worldForces.underwaterGravity = -10f; // Despite it being negative, which would apply downward force, this actually makes it go UP on the y axis.
-        worldForces.aboveWaterGravity = 20f; // Counteract the strong upward force
+        worldForces.underwaterGravity = -5f; // Despite it being negative, which would apply downward force, this actually makes it go UP on the y axis.
+        worldForces.aboveWaterGravity = 5f; // Counteract the strong upward force
         worldForces.waterDepth = -5f;
         // Determines the places the little build bots point their laser beams at.
         var buildBots = prefab.AddComponent<BuildBotBeamPoints>();
@@ -123,7 +123,7 @@ public class SeaVoyagerPrefab
         vfxConstructing.Regenerate();
         // Don't want it tipping over...
         var stabilizier = prefab.AddComponent<Stabilizer>();
-        stabilizier.uprightAccelerationStiffness = 1f;
+        stabilizier.uprightAccelerationStiffness = 40f;
         // Some components might need this. I don't WANT it to take damage though, so I will just give it a LOT of health.
         var liveMixin = prefab.AddComponent<LiveMixin>();
         var lmData = ScriptableObject.CreateInstance<LiveMixinData>();
