@@ -89,7 +89,7 @@ public class SeaVoyagerPrefab
             yield break;
         }
 
-        // Apply materials. It got so long and ugly that I made it its own method.
+        // Apply materials
         MaterialUtils.ApplySNShaders(prefab);
         prefab.SearchChild("Window").GetComponent<MeshRenderer>().material = glassMaterial;
 
@@ -250,7 +250,7 @@ public class SeaVoyagerPrefab
         ping.origin = Helpers.FindChild(prefab, "PingOrigin").transform;
 
         // Add a respawn point
-        var respawnPoint = Helpers.FindChild(prefab, "RespawnPoint").AddComponent<RespawnPoint>();
+        Helpers.FindChild(prefab, "RespawnPoint").AddComponent<RespawnPoint>();
 
         // Motor sound
         var motorSound = Helpers.FindChild(prefab, "EngineLoop").AddComponent<ShipMotorSound>();
@@ -287,14 +287,13 @@ public class SeaVoyagerPrefab
         returnedPrefab.Set(prefab);
     }
 
-    BuildBotPath CreateBuildBotPath(GameObject gameobjectWithComponent, Transform parent)
+    private static void CreateBuildBotPath(GameObject gameObjectWithComponent, Transform parent)
     {
-        var comp = gameobjectWithComponent.AddComponent<BuildBotPath>();
+        var comp = gameObjectWithComponent.AddComponent<BuildBotPath>();
         comp.points = new Transform[parent.childCount];
         for (int i = 0; i < parent.childCount; i++)
         {
             comp.points[i] = parent.GetChild(i);
         }
-        return comp;
     }
 }
