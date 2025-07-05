@@ -1,6 +1,7 @@
 ﻿using System;
 using BepInEx;
 using BepInEx.Logging;
+using Nautilus.Commands;
 using Nautilus.Handlers;
 
 namespace GenerateBasePrefabCommand;
@@ -16,17 +17,19 @@ public class Plugin : BaseUnityPlugin
         // set project-scoped logger instance
         Logger = base.Logger;
 
-        ConsoleCommandsHandler.RegisterConsoleCommand("generatebaseprefabcode", GenerateBasePrefabCodeCommand);
+        ConsoleCommandsHandler.RegisterConsoleCommands(typeof(Plugin));
 
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
     }
 
-    private static void GenerateBasePrefabCodeCommand()
+    [ConsoleCommand("generatebaseprefabcode")]
+    private static void GenerateBasePrefabCodeCommand(bool includeSupports)
     {
+        var settings = new BaseGenerationSettings(includeSupports);
         try
         {
-            GenerateBasePrefabCode.ConvertBaseToPrefabConstructionCode(Player.main.GetCurrentSub()
-                .GetComponent<Base>());
+            GenerateBasePrefabCode.ConvertBaseToPrefabConstructionCode(
+                Player.main.GetCurrentSub().GetComponent<Base>(), settings);
         }
         catch (Exception e)
         {

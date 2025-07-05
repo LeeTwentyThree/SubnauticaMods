@@ -10,8 +10,8 @@ namespace GenerateBasePrefabCommand;
 public static class GenerateBasePrefabCode
 {
     private const string PathPrefix = "Assets/Prefabs/Base/GeneratorPieces/";
-    
-    public static void ConvertBaseToPrefabConstructionCode(Base @base)
+
+    public static void ConvertBaseToPrefabConstructionCode(Base @base, BaseGenerationSettings settings)
     {
         var cells = @base.cellObjects;
 
@@ -27,23 +27,28 @@ public static class GenerateBasePrefabCode
                     piecesList = new List<SpawnablePiece>();
                     spawnablePieces.Add(name, piecesList);
                 }
-                piecesList.Add(new SpawnablePiece(name, childObject.transform.localPosition + cell.localPosition, childObject.transform.localRotation));
 
+                piecesList.Add(new SpawnablePiece(name, childObject.transform.localPosition + cell.localPosition,
+                    childObject.transform.localRotation));
             }
         }
 
         var sb = new StringBuilder();
 
         sb.AppendLine($"// Generated with {PluginInfo.PLUGIN_GUID} ({PluginInfo.PLUGIN_VERSION})");
-        sb.AppendLine("// Generated code is intended to be used in an IEnumerator/Coroutine for asynchronous prefab creation");
-        sb.AppendLine("// See https://subnauticamodding.github.io/Nautilus/api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_SetGameObject_System_Func_IOut_UnityEngine_GameObject__System_Collections_IEnumerator__");
+        sb.AppendLine(
+            "// Generated code is intended to be used in an IEnumerator/Coroutine for asynchronous prefab creation");
+        sb.AppendLine(
+            "// See https://subnauticamodding.github.io/Nautilus/api/Nautilus.Assets.CustomPrefab.html#Nautilus_Assets_CustomPrefab_SetGameObject_System_Func_IOut_UnityEngine_GameObject__System_Collections_IEnumerator__");
         sb.Append("\n\n\n");
 
+        sb.AppendLine("// Prepare prefabs");
         int requestIndex = 1;
         foreach (var entry in spawnablePieces)
         {
             var requestVariable = $"request{requestIndex}";
-            sb.AppendLine($"var {requestVariable} = PrefabDatabase.GetPrefabForFilenameAsync(\"{PathPrefix}{entry.Key}.prefab\");");
+            sb.AppendLine(
+                $"var {requestVariable} = PrefabDatabase.GetPrefabForFilenameAsync(\"{PathPrefix}{entry.Key}.prefab\");");
             sb.AppendLine($"yield return {requestVariable};");
             sb.AppendLine($"if (!{requestVariable}.TryGetPrefab(out var {GetPrefabVariableName(entry.Key)}))");
             sb.AppendLine("{");
@@ -53,13 +58,15 @@ public static class GenerateBasePrefabCode
             requestIndex++;
         }
 
+        sb.AppendLine("\n// Instantiate prefabs");
         int objIndex = 1;
         foreach (var entry in spawnablePieces)
         {
             foreach (var piece in entry.Value)
             {
                 var variableName = $"child{objIndex}";
-                sb.AppendLine($"var {variableName} = Object.Instantiate({GetPrefabVariableName(entry.Key)}, obj.transform);");
+                sb.AppendLine(
+                    $"var {variableName} = Object.Instantiate({GetPrefabVariableName(entry.Key)}, obj.transform);");
                 sb.AppendLine($"{variableName}.transform.localPosition = {FormatVector3(piece.LocalPosition)};");
                 sb.AppendLine($"{variableName}.transform.localRotation = {FormatQuaternion(piece.LocalRotation)};");
                 sb.AppendLine($"{variableName}.SetActive(true);");
@@ -76,6 +83,7 @@ public static class GenerateBasePrefabCode
         {
             Directory.CreateDirectory(outputFolder);
         }
+
         var path = Path.Combine(outputFolder,
             $"BaseGenerationCode-{dateString}.txt");
         File.WriteAllText(path, text);
@@ -86,18 +94,18 @@ public static class GenerateBasePrefabCode
     {
         return $"new Vector3({vector3.x}f, {vector3.y}f, {vector3.z}f)";
     }
-    
+
     private static string FormatQuaternion(Quaternion quaternion)
     {
         return $"new Quaternion({quaternion.x}f, {quaternion.y}f, {quaternion.z}f, {quaternion.w}f)";
     }
-    
+
     private static string GetPrefabVariableName(string prefabName)
     {
         if (prefabName.Length <= 1) return prefabName;
         return char.ToLower(prefabName[0]) + prefabName.Substring(1);
     }
-    
+
     private readonly struct SpawnablePiece
     {
         public string Name { get; }
