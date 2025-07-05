@@ -33,6 +33,11 @@
     "SeaVoyagerDockVehicle": "Sea Voyager: Vehicle docked successfully.",
     "SeaVoyagerVehicleReleased": "Sea Voyager: Vehicle released.",
     "SeaVoyagerWelcomeAboard": "Sea Voyager: Welcome aboard captain. All systems operational.",
+    
+    // Dock
+    "SuspendedDockReturnToSurface": "Return to surface: {0}",
+    "SuspendedDockDescend": "Descend: {0}",
+    "SuspendedDockDetachCable": "Detach cable: {0}",
 
     // Hand text
     "SeaVoyager_Enter": "Enter",

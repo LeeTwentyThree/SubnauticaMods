@@ -52,11 +52,6 @@ public static class DockPatches
         var heldByCable = vehicle.gameObject.GetComponent<HeldByCable>();
         if (heldByCable == null) return;
         if (heldByCable.dock == null) return;
-        ErrorMessage.AddMessage(string.Format("Return to surface: '{0}'",
-            new[] { GameInput.GetBindingName(GameInput.Button.MoveUp, GameInput.BindingSet.Primary) }));
-        ErrorMessage.AddMessage(string.Format("Descend: '{0}'",
-            new[] { GameInput.GetBindingName(GameInput.Button.MoveDown, GameInput.BindingSet.Primary) }));
-        ErrorMessage.AddMessage(string.Format("Detach cable: '{0}'",
-            new[] { GameInput.GetBindingName(GameInput.Button.Deconstruct, GameInput.BindingSet.Primary) }));
+        SuspendedDock.PrintExoCustomControls();
     }
 }

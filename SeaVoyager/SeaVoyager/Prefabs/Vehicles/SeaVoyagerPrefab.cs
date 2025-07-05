@@ -12,6 +12,10 @@ namespace SeaVoyager.Prefabs.Vehicles;
 
 public class SeaVoyagerPrefab
 {
+    private static readonly FMODAsset ClimbUpLongSound = Helpers.GetFmodAsset("event:/sub/cyclops/climb_front_up");
+    private static readonly FMODAsset ClimbUpShortSound = Helpers.GetFmodAsset("event:/sub/cyclops/climb_back_up");
+    private static readonly FMODAsset SlideDownSound = Helpers.GetFmodAsset("event:/sub/rocket/ladders/innerRocketShip_ladder_down");
+
     public PrefabInfo Info { get; } = PrefabInfo.WithTechType("SeaVoyager", "Sea Voyager", "A large self-sustaining ship that specializes in quick transportation.");
 
     public SeaVoyagerPrefab Register()
@@ -168,7 +172,7 @@ public class SeaVoyagerPrefab
         {
             var newLight = new MultiStatesLight();
             newLight.light = child.GetComponent<Light>();
-            newLight.intensities = new[] { 1f, 0.5f, 0f }; //Full power: intensity 1. Emergency : intensity 0.5. No power: intensity 0.
+            newLight.intensities = new[] { 1f, 0.5f, 0.1f }; //Full power: intensity 1. Emergency : intensity 0.5. No power: intensity 0.
             lights.RegisterLight(newLight);
         }
         // Sky appliers to make it look nicer. Not sure if it even makes a difference, but I'm sticking with it.
@@ -212,10 +216,16 @@ public class SeaVoyagerPrefab
         // Arbitrary number. The ship doesn't have batteries anyway.
         energyMixin.maxEnergy = 1200f;
 
-
         // Add the SeaVoyager component. Inherits from SubRoot, the same component that both the cyclops submarine and bases use.
         var shipBehaviour = prefab.AddComponent<Mono.SeaVoyager>();
         shipBehaviour.worldForces = worldForces;
+        shipBehaviour.LOD = lod;
+        shipBehaviour.rb = rigidbody;
+        shipBehaviour.powerRelay = powerRelay;
+        shipBehaviour.isBase = true;
+        shipBehaviour.modulesRoot = prefab.transform;
+        shipBehaviour.oxygenMgr = oxygenManager;
+        shipBehaviour.lightControl = lights;
 
         // It needs to produce power somehow
         var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
@@ -285,6 +295,85 @@ public class SeaVoyagerPrefab
         var walkableAreaBounds = prefab.AddComponent<ShipWalkableAreaBounds>();
         walkableAreaBounds.ship = shipBehaviour;
         returnedPrefab.Set(prefab);
+        
+        // embark ladder
+            var embarkLadder = Helpers.FindChild(prefab, "EmbarkLadder").AddComponent<ShipLadder>();
+            embarkLadder.interactText = "Embark Sea Voyager";
+            embarkLadder.SetAsMainEmbarkLadder(shipBehaviour);
+
+            var embarkCinematic = Helpers.FindChild(prefab, "EmbarkCinematic").AddComponent<ShipCinematic>();
+            embarkCinematic.Initialize("cyclops_ladder_long_up", "cinematic", 1.9f, ClimbUpLongSound, embarkLadder.transform.GetChild(0));
+
+            embarkLadder.cinematic = embarkCinematic;
+
+            // disembark ladder
+            var disembarkLadder = Helpers.FindChild(prefab, "DisembarkLadder").AddComponent<ShipLadder>();
+            disembarkLadder.interactText = "Disembark";
+
+            // exit lower area ladder
+            var exitLadder = Helpers.FindChild(prefab, "ExitLadder").AddComponent<ShipLadder>();
+            exitLadder.interactText = "Ascend";
+
+            var exitCinematic = Helpers.FindChild(prefab, "ExitCinematic").AddComponent<ShipCinematic>();
+            exitCinematic.Initialize("cyclops_ladder_long_up", "cinematic", 1.9f, ClimbUpLongSound, exitLadder.transform.GetChild(0));
+
+            exitLadder.cinematic = exitCinematic;
+
+            // access cockpit loft ladder
+            var loftLadder = Helpers.FindChild(prefab, "LoftLadder").AddComponent<ShipLadder>();
+            loftLadder.interactText = "Ascend";
+
+            var loftCinematic = Helpers.FindChild(prefab, "LoftLadderCinematic").AddComponent<ShipCinematic>();
+            loftCinematic.Initialize("cyclops_ladder_short_up", "cinematic", 1f, ClimbUpShortSound, loftLadder.transform.GetChild(0));
+
+            loftLadder.cinematic = loftCinematic;
+
+            // access lower area ladder
+            var descendLadder = Helpers.FindChild(prefab, "EntranceLadder").AddComponent<ShipLadder>();
+            descendLadder.interactText = "Descend";
+
+            var slideCinematic = Helpers.FindChild(prefab, "SlideDownCinematic").AddComponent<ShipCinematic>();
+            slideCinematic.Initialize("rockethsip_cockpitLadderDown", "cinematic", 5f, SlideDownSound, descendLadder.transform.GetChild(0));
+
+            descendLadder.cinematic = slideCinematic;
+
+            // engine room ladder (up)
+            var engineRoomLadderUp = Helpers.FindChild(prefab, "EngineRoomLadderUp").AddComponent<ShipLadder>();
+            engineRoomLadderUp.interactText = "Ascend";
+            
+            var engineRoomUpCinematic = Helpers.FindChild(prefab, "EngineRoomUpCinematic").AddComponent<ShipCinematic>();
+            engineRoomUpCinematic.Initialize("cyclops_ladder_short_up", "cinematic", 0.9f, ClimbUpShortSound, engineRoomLadderUp.transform.GetChild(0));
+
+            engineRoomLadderUp.cinematic = engineRoomUpCinematic;
+
+            // engine room ladder (down)
+            var engineRoomLadderDown = Helpers.FindChild(prefab, "EngineRoomLadderDown").AddComponent<ShipLadder>();
+            engineRoomLadderDown.interactText = "Descend";
+
+            shipBehaviour.hud = Helpers.FindChild(prefab, "PilotCanvas").AddComponent<ShipHUD>();
+
+            shipBehaviour.shipMotor = prefab.AddComponent<ShipMotor>();
+            shipBehaviour.shipMotor.ship = shipBehaviour;
+
+            shipBehaviour.propeller = Helpers.FindChild(prefab, "Propeller").AddComponent<ShipPropeller>();
+            shipBehaviour.propeller.rotationDirection = new Vector3(0f, 0f, 1f);
+            shipBehaviour.propeller.ship = shipBehaviour;
+
+            shipBehaviour.voiceNotificationManager = Helpers.FindChild(prefab, "VoiceSource").AddComponent<VoiceNotificationManager>();
+            shipBehaviour.voiceNotificationManager.subRoot = shipBehaviour;
+
+            Helpers.FindChild(prefab, "KeyPadDoor1").AddComponent<ShipSlidingDoor>();
+            Helpers.FindChild(prefab, "KeyPadDoor2").AddComponent<ShipSlidingDoor>();
+
+            var dock1 = prefab.SearchChild("ExosuitDock").AddComponent<SuspendedDock>();
+            dock1.ship = shipBehaviour;
+            dock1.Initialize();
+
+            var dock2 = prefab.SearchChild("ExosuitDock2").AddComponent<SuspendedDock>();
+            dock2.ship = shipBehaviour;
+            dock2.Initialize();
+
+            shipBehaviour.skyraySpawner = prefab.SearchChild("SkyraySpawns").AddComponent<SkyraySpawner>();
     }
 
     private static void CreateBuildBotPath(GameObject gameObjectWithComponent, Transform parent)

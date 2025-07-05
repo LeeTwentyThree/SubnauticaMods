@@ -6,12 +6,13 @@ namespace SeaVoyager.Mono
     public class ShipCinematic : MonoBehaviour
     {
         public PlayerCinematicController controller;
-        private float length;
-        private string playerAnim;
-        private string animatorParam;
-        private Action finishCinematicAction;
-        private FMODAsset sound;
-        private Transform endTransform;
+        public float length;
+        public string playerAnim;
+        public string animatorParam;
+        public FMODAsset sound;
+        public Transform endTransform;
+
+        private Action _finishCinematicAction;
 
         public void Initialize(string playerAnim, string animatorParam, float length, FMODAsset sound = null, Transform endTransform = null)
         {
@@ -43,7 +44,7 @@ namespace SeaVoyager.Mono
             {
                 return false;
             }
-            finishCinematicAction = onFinished;
+            _finishCinematicAction = onFinished;
             Invoke(nameof(FinishCinematic), length);
             if (sound != null)
             {
@@ -56,10 +57,7 @@ namespace SeaVoyager.Mono
         private void FinishCinematic()
         {
             controller.OnPlayerCinematicModeEnd();
-            if (finishCinematicAction != null)
-            {
-                finishCinematicAction.Invoke();
-            }
+            _finishCinematicAction?.Invoke();
         }
     }
 }
