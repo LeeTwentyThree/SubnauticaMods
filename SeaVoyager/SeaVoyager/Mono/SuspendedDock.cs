@@ -134,21 +134,21 @@ namespace SeaVoyager.Mono
 
             toggleButton = gameObject.SearchComponent<Button>("DockToggleButton");
             toggleButtonTooltip = toggleButton.gameObject.AddComponent<ShipUITooltip>();
-            toggleButtonTooltip.Init("Move arm");
+            toggleButtonTooltip.Init(Language.main.Get("SuspendedDockMoveArm"));
 
             releaseVehicleButton = gameObject.SearchComponent<Button>("ReleaseVehicleButton");
             releaseVehicleButtonTooltip = releaseVehicleButton.gameObject.AddComponent<ShipUITooltip>();
-            releaseVehicleButtonTooltip.Init("Release vehicle");
+            releaseVehicleButtonTooltip.Init(Language.main.Get("SuspendedDockReleaseVehicle"));
 
             retractButton = gameObject.SearchComponent<Button>("CableRaiseButton");
             retractButtonImage = retractButton.GetComponent<Image>();
             retractCableButtonTooltip = retractButton.gameObject.AddComponent<ShipUITooltip>();
-            retractCableButtonTooltip.Init("Retract cable");
+            retractCableButtonTooltip.Init(Language.main.Get("SuspendedDockRetractCable"));
 
             extendButton = gameObject.SearchComponent<Button>("CableDropButton");
             extendButtonImage = extendButton.GetComponent<Image>();
             extendCableButtonTooltip = extendButton.gameObject.AddComponent<ShipUITooltip>();
-            extendCableButtonTooltip.Init("Extend cable");
+            extendCableButtonTooltip.Init(Language.main.Get("SuspendedDockExtendCable"));
 
             spriteButtonActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
             spriteButtonInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
@@ -198,8 +198,7 @@ namespace SeaVoyager.Mono
                         {
                             int depth = Mathf.Abs(Mathf.RoundToInt(CableTargetWorldPosition.y));
                             if (CableTargetWorldPosition.y < 0f)
-                                ErrorMessage.AddMessage(String.Format("Cable hit seafloor at depth {0} of meters.",
-                                    depth));
+                                ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockCableHitSeaFloor", depth));
                             _cableState = CableState.Stopped;
                             SetButtonState(CableButtonsDisplay.Stopped);
                             break;
@@ -223,13 +222,11 @@ namespace SeaVoyager.Mono
                 _cableState = CableState.Stopped;
                 if (PlayerInDivingBell)
                 {
-                    ErrorMessage.AddMessage(String.Format("Cable reached maximum diving bell length ({0} meters).",
-                        MaxCableLength));
+                    ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockMaxDivingBellLength", MaxCableLength));
                 }
                 else
                 {
-                    ErrorMessage.AddMessage(String.Format("Cable reached maximum recommended length ({0} meters).",
-                        MaxCableLength));
+                    ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockMaxRecommendedLength", MaxCableLength));
                 }
             }
 
@@ -312,17 +309,17 @@ namespace SeaVoyager.Mono
             // release vehicles button
             if (dockedVehicle == null)
             {
-                releaseVehicleButtonTooltip.displayText = "No vehicle docked";
+                releaseVehicleButtonTooltip.displayText = Language.main.Get("SuspendedDockNoVehicleDocked");
                 releaseVehicleButtonTooltip.clickable = false;
             }
             else if (!_dockExtended)
             {
-                releaseVehicleButtonTooltip.displayText = "Cannot release vehicles onto the dock.";
+                releaseVehicleButtonTooltip.displayText = Language.main.Get("SuspendedDockVehicleCannotReleaseOnDock");
                 releaseVehicleButtonTooltip.clickable = false;
             }
             else
             {
-                releaseVehicleButtonTooltip.displayText = $"Release {dockedVehicle.GetName()}";
+                releaseVehicleButtonTooltip.displayText = Language.main.GetFormat("SuspendedDockReleaseVehicleName", dockedVehicle.GetName());
                 releaseVehicleButtonTooltip.clickable = true;
             }
 
@@ -330,17 +327,17 @@ namespace SeaVoyager.Mono
             // toggle cable extension button
             if (CableExtendedBeyondDeck)
             {
-                toggleButtonTooltip.displayText = "Cable not fully retracted";
+                toggleButtonTooltip.displayText = Language.main.Get("SuspendedDockCableNotFullyRetracted");
                 toggleButtonTooltip.clickable = false;
             }
             else if (dockedVehicle == null || SeamothCurrentlyDocked)
             {
-                toggleButtonTooltip.displayText = _dockExtended ? "Return docking arm" : "Extend docking arm";
+                toggleButtonTooltip.displayText = Language.main.Get(_dockExtended ? "SuspendedDockReturnDockingArm" : "SuspendedDockExtendDockingArm"); 
                 toggleButtonTooltip.clickable = true;
             }
             else if (dockedVehicle != null)
             {
-                toggleButtonTooltip.displayText = $"Cannot move arm with {dockedVehicle.GetName()} attached.";
+                toggleButtonTooltip.displayText = Language.main.GetFormat("SuspendedDockCannotMoveArm", dockedVehicle.GetName());
                 toggleButtonTooltip.clickable = false;
             }
 
@@ -349,21 +346,21 @@ namespace SeaVoyager.Mono
             // cable buttons
             if (_cableState == CableState.Extending)
             {
-                extendCableButtonTooltip.displayText = "Stop cable";
+                extendCableButtonTooltip.displayText = Language.main.Get("SuspendedDockStopCable");
             }
             else
             {
-                extendCableButtonTooltip.displayText = "Extend cable";
+                extendCableButtonTooltip.displayText = Language.main.Get("SuspendedDockExtendCable");
             }
 
             extendCableButtonTooltip.showTooltip = CableLength < MaxCableLength && _dockExtended;
             if (_cableState == CableState.Retracting)
             {
-                retractCableButtonTooltip.displayText = "Stop cable";
+                retractCableButtonTooltip.displayText = Language.main.Get("SuspendedDockStopCable");
             }
             else
             {
-                retractCableButtonTooltip.displayText = "Retract cable";
+                retractCableButtonTooltip.displayText = Language.main.Get("SuspendedDockRetractCable");
             }
 
             retractCableButtonTooltip.showTooltip = CableLength > MinCableLength;
@@ -480,7 +477,7 @@ namespace SeaVoyager.Mono
         public void AttachVehicle(Vehicle vehicle)
         {
             dockedVehicle = vehicle;
-            ErrorMessage.AddMessage(string.Format("{0} attached.", new object[] { dockedVehicle.GetName() }));
+            ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockOnVehicleAttach", dockedVehicle.GetName()));
             if (dockedVehicle is Exosuit) dockedVehicle.useRigidbody.isKinematic = true;
             dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = this;
             _cableState = CableState.Stopped;
