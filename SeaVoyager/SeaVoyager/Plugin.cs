@@ -41,7 +41,7 @@ public class Plugin : BaseUnityPlugin
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         
-        SeaVoyagerPingType = EnumHandler.AddEntry<PingType>("SealSub")
+        SeaVoyagerPingType = EnumHandler.AddEntry<PingType>("SeaVoyager")
             .WithIcon(new Atlas.Sprite(assetBundle.LoadAsset<Sprite>("ShipPing")));
     }
 
