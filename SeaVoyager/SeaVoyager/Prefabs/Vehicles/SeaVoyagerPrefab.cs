@@ -57,17 +57,7 @@ public class SeaVoyagerPrefab
         // Load the rocket platform for reference. I only use it for the constructor animation and sounds.
         var rocketPlatformRequest = GetPrefabForTechTypeAsync(TechType.RocketBase);
         yield return rocketPlatformRequest;
-        GameObject rocketPlatformReference = rocketPlatformRequest.GetResult();
-        
-        
-        var door = prefab.transform.Find("Model/Exterior/MainDoor/DoorCollider").gameObject;
-        Plugin.Logger.LogDebug($"{door}");
-        var hatch = door.AddComponent<UseableDiveHatch>();
-        hatch.insideSpawn = prefab.transform.Find("Model/Exterior/MainDoor/EnterPosition").gameObject;
-        hatch.outsideExit = prefab.transform.Find("Model/Exterior/MainDoor/ExitPosition").gameObject;
-        hatch.enterCustomText = "SeaVoyager_Enter";
-        hatch.exitCustomText = "SeaVoyager_Exit";
-        hatch.ignoreObject = prefab;
+        var rocketPlatformReference = rocketPlatformRequest.GetResult();
 
         // Get glass material
         Material glassMaterial = null;
@@ -88,6 +78,15 @@ public class SeaVoyagerPrefab
                     break;
                 }
             }
+        }
+        
+        // Load the base prefab
+        var baseTask = PrefabDatabase.GetPrefabAsync("e9b75112-f920-45a9-97cc-838ee9b389bb");
+        yield return baseTask;
+        if (!baseTask.TryGetPrefab(out var basePrefab))
+        {
+            Plugin.Logger.LogError("Failed to load base prefab!");
+            yield break;
         }
 
         // Apply materials. It got so long and ugly that I made it its own method.
@@ -179,6 +178,16 @@ public class SeaVoyagerPrefab
         skyApplierInterior.SetSky(Skies.BaseInterior);
         skyApplierInterior.lightControl = lights;
         
+        // Add entrance door
+        var door = prefab.transform.Find("Model/Exterior/MainDoor/DoorCollider").gameObject;
+        Plugin.Logger.LogDebug($"{door}");
+        var hatch = door.AddComponent<UseableDiveHatch>();
+        hatch.insideSpawn = prefab.transform.Find("Model/Exterior/MainDoor/EnterPosition").gameObject;
+        hatch.outsideExit = prefab.transform.Find("Model/Exterior/MainDoor/ExitPosition").gameObject;
+        hatch.enterCustomText = "SeaVoyager_Enter";
+        hatch.exitCustomText = "SeaVoyager_Exit";
+        hatch.ignoreObject = prefab;
+        
         // Load a seamoth for reference
         var seamothRequest = GetPrefabForTechTypeAsync(TechType.Seamoth);
         yield return seamothRequest;
@@ -200,24 +209,16 @@ public class SeaVoyagerPrefab
             waterClip.gameObject.layer = seamothProxy.gameObject.layer;
         }
 
-        //Arbitrary number. The ship doesn't have batteries anyway.
+        // Arbitrary number. The ship doesn't have batteries anyway.
         energyMixin.maxEnergy = 1200f;
 
 
-        //Add this component. It inherits from the same component that both the cyclops submarine and seabases use.
+        // Add the SeaVoyager component. Inherits from SubRoot, the same component that both the cyclops submarine and bases use.
         var shipBehaviour = prefab.AddComponent<Mono.SeaVoyager>();
         shipBehaviour.worldForces = worldForces;
 
-        //It needs to produce power somehow
-        var baseTask = PrefabDatabase.GetPrefabAsync("e9b75112-f920-45a9-97cc-838ee9b389bb");
-        yield return baseTask;
-        if (!baseTask.TryGetPrefab(out var basePrefab))
-        {
-            Plugin.Logger.LogError("Failed to load base prefab!");
-            yield break;
-        }
-                var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
-                
+        // It needs to produce power somehow
+        var basePowerRelay = basePrefab.GetComponent<PowerRelay>();
         powerRelay.powerSystemPreviewPrefab = basePowerRelay.powerSystemPreviewPrefab;
         
         var powerCellsParent = new GameObject("PowerCellsParent").transform;
@@ -243,19 +244,12 @@ public class SeaVoyagerPrefab
         }
         placeholdersGroup.prefabPlaceholders = placeholders;
 
-        //A ping so you can see it from far away
+        // A ping so you can see it from far away
         var ping = prefab.AddComponent<PingInstance>();
         ping.pingType = Plugin.SeaVoyagerPingType;
         ping.origin = Helpers.FindChild(prefab, "PingOrigin").transform;
 
-        //Adjust volume.
-        var audiosources = prefab.GetComponentsInChildren<AudioSource>();
-        foreach (var source in audiosources)
-        {
-            // source.volume *= Plugin.config.NormalizedAudioVolume;
-        }
-
-        //Add a respawn point
+        // Add a respawn point
         var respawnPoint = Helpers.FindChild(prefab, "RespawnPoint").AddComponent<RespawnPoint>();
 
         // Motor sound
