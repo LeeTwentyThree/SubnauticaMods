@@ -1,0 +1,40 @@
+{
+    // Items
+    "SeaVoyagerFragment": "Sea Voyager fragment",
+    "Tooltip_SeaVoyagerFragment": "A fragment of a destroyed Sea Voyager.",
+    
+    // Encyclopedia
+    "Ency_SeaVoyager": "Alterra Sea Voyager Piloting Manual",
+    "EncyDesc_SeaVoyager": "A shallow-water alternative to the Cyclops submarine that provides extensive mobility and a large building space.
+    
+    To control this vehicle, the pilot should select a speed and a movement direction. The ship will continue moving in the set direction. Pressing the off button will immediately decelerate the vessel to a halt. If you fall off of the deck of the Sea Voyager for any reason, the ship will automatically come to a stop.
+    
+    Additional features:
+    - Two above-water docks for small submersibles.
+    - Front-facing camera to assist piloting through shallow waters.
+    - Sonar map to examine the local environment.
+    - Global positioning system that shows the vessel's location within the region.
+    - Underwater window display in the Pilot's Cab to alleviate stress levels.
+    
+    Please keep in mind this vehicle was not fully approved by any safety departments. As always, save often.",
+
+    // Voice lines
+    "SeaVoyagerAheadFlank": "Sea Voyager: Ahead flank. Emergency speed!",
+    "SeaVoyagerAheadSlow": "Sea Voyager: Ahead slow.",
+    "SeaVoyagerAheadStandard": "Sea Voyager: Ahead standard.",
+    "SeaVoyagerShallowWater": "Sea Voyager: Attention! Approaching shallow water. Proceed with caution.",
+    "SeaVoyagerPoweringDown": "Sea Voyager: Engine powering down.",
+    "SeaVoyagerPoweringUp": "Sea Voyager: Engine powering up...",
+    "SeaVoyagerFirstUse": "Sea Voyager MK. II operational and ready for service.",
+    "SeaVoyagerNoPower": "Sea Voyager: Warning: Reserve power depleted.",
+    "SeaVoyagerSonarMap": "Sea Voyager: Sonar map activated.",
+    "SeaVoyagerRegionMap": "Sea Voyager: Updating regional map.",
+    "SeaVoyagerVehicleAttached": "Sea Voyager: Vehicle attached.",
+    "SeaVoyagerDockVehicle": "Sea Voyager: Vehicle docked successfully.",
+    "SeaVoyagerVehicleReleased": "Sea Voyager: Vehicle released.",
+    "SeaVoyagerWelcomeAboard": "Sea Voyager: Welcome aboard captain. All systems operational.",
+
+    // Hand text
+    "SeaVoyager_Enter": "Enter",
+    "SeaVoyager_Exit": "Exit"
+}
