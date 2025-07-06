@@ -234,6 +234,7 @@ public class SeaVoyagerPrefab
         interiorSkyApplier.renderers = interiorRenderersList.ToArray();
         interiorSkyApplier.anchorSky = Skies.BaseInterior;
         interiorSkyApplier.lightControl = lightControl;
+        interiorSkyApplier.lightControl = lightControl;
 
         var exteriorSkyApplier = prefab.AddComponent<SkyApplier>();
         exteriorSkyApplier.dynamic = true;
@@ -248,6 +249,7 @@ public class SeaVoyagerPrefab
         var glassSkyApplier = prefab.AddComponent<SkyApplier>();
         glassSkyApplier.renderers = new[] { windowRenderer };
         glassSkyApplier.anchorSky = Skies.BaseGlass;
+        glassSkyApplier.lightControl = lightControl;
 
         // Add entrance door
         var door = prefab.transform.Find("Model/Exterior/MainDoor/DoorCollider").gameObject;
