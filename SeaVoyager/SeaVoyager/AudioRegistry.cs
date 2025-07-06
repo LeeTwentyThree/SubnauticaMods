@@ -32,5 +32,21 @@ public static class AudioRegistry
             .SetSound("ButtonPress")
             .SetMode2D()
             .Register();
+
+        var voiceFileNames = new[]
+        {
+            "ahead_flank", "ahead_slow", "ahead_standard", "approaching_shallow_water", "engine_powering_down",
+            "engine_powering_up", "first_use", "reserve_power_empty", "seavoyager_main", "sonar_map_activated",
+            "updating_regional_map", "vehicle_attached", "vehicle_docked_successfully", "vehicle_released",
+            "welcome_aboard_captain"
+        };
+
+        foreach (var voice in voiceFileNames)
+        {
+            soundBuilder.CreateNewEvent("seavoyager_" + voice, AudioUtils.BusPaths.CyclopsVoice)
+                .SetSound(voice)
+                .SetMode2D()
+                .Register();
+        }
     }
 }

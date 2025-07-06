@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using Nautilus.Utility;
 using UnityEngine;
 
 namespace SeaVoyager.Mono
 {
     public class ShipVoice : MonoBehaviour
     {
-        public AudioSource source;
+        public FMOD_CustomEmitter emitter;
 
-        private Dictionary<VoiceLine, float> timeLinesCanPlayAgain = new Dictionary<VoiceLine, float>();
+        private readonly Dictionary<VoiceLine, float> _timeLinesCanPlayAgain = new();
 
-        private Dictionary<VoiceLine, float> voiceLineMinDelays = new Dictionary<VoiceLine, float>()
+        private readonly Dictionary<VoiceLine, float> _voiceLineMinDelays = new()
         {
             {VoiceLine.AheadFlank, 3f},
             {VoiceLine.AheadSlow, 3f},
@@ -27,7 +28,7 @@ namespace SeaVoyager.Mono
             {VoiceLine.WelcomeAboard, 12f},
         };
 
-        private Dictionary<VoiceLine, string> voiceLineSubtitleKey = new Dictionary<VoiceLine, string>()
+        private readonly Dictionary<VoiceLine, string> _voiceLineSubtitleKey = new()
         {
             {VoiceLine.AheadFlank, "SeaVoyagerAheadFlank"},
             {VoiceLine.AheadSlow, "SeaVoyagerAheadSlow"},
@@ -45,51 +46,45 @@ namespace SeaVoyager.Mono
             {VoiceLine.WelcomeAboard, "SeaVoyagerWelcomeAboard"},
         };
 
-        public bool VoiceLinePlaying
-        {
-            get
-            {
-                return source.isPlaying;
-            }
-        }
+        private bool VoiceLinePlaying => emitter.playing;
 
         private void Start()
         {
             LoadAudioClips();
         }
 
-        private Dictionary<VoiceLine, AudioClip> voiceLineClips;
+        private Dictionary<VoiceLine, FMODAsset> voiceLineClips;
 
         private void LoadAudioClips()
         {
-            voiceLineClips = new Dictionary<VoiceLine, AudioClip>();
-            voiceLineClips.Add(VoiceLine.AheadFlank, Plugin.assetBundle.LoadAsset<AudioClip>("ahead_flank"));
-            voiceLineClips.Add(VoiceLine.AheadSlow, Plugin.assetBundle.LoadAsset<AudioClip>("ahead_slow"));
-            voiceLineClips.Add(VoiceLine.AheadStandard, Plugin.assetBundle.LoadAsset<AudioClip>("ahead_standard"));
-            voiceLineClips.Add(VoiceLine.ApproachingShallowWater, Plugin.assetBundle.LoadAsset<AudioClip>("approaching_shallow_water"));
-            voiceLineClips.Add(VoiceLine.EnginePoweringDown, Plugin.assetBundle.LoadAsset<AudioClip>("engine_powering_down"));
-            voiceLineClips.Add(VoiceLine.EnginePoweringUp, Plugin.assetBundle.LoadAsset<AudioClip>("engine_powering_up"));
-            voiceLineClips.Add(VoiceLine.FirstUse, Plugin.assetBundle.LoadAsset<AudioClip>("first_use"));
-            voiceLineClips.Add(VoiceLine.PowerDepleted, Plugin.assetBundle.LoadAsset<AudioClip>("reserve_power_empty"));
-            voiceLineClips.Add(VoiceLine.SonarMap, Plugin.assetBundle.LoadAsset<AudioClip>("sonar_map_activated"));
-            voiceLineClips.Add(VoiceLine.RegionMap, Plugin.assetBundle.LoadAsset<AudioClip>("updating_regional_map"));
-            voiceLineClips.Add(VoiceLine.VehicleAttached, Plugin.assetBundle.LoadAsset<AudioClip>("vehicle_attached"));
-            voiceLineClips.Add(VoiceLine.VehicleDock, Plugin.assetBundle.LoadAsset<AudioClip>("vehicle_docked_successfully"));
-            voiceLineClips.Add(VoiceLine.VehicleReleased, Plugin.assetBundle.LoadAsset<AudioClip>("vehicle_released"));
-            voiceLineClips.Add(VoiceLine.WelcomeAboard, Plugin.assetBundle.LoadAsset<AudioClip>("welcome_aboard_captain"));
+            voiceLineClips = new Dictionary<VoiceLine, FMODAsset>();
+            voiceLineClips.Add(VoiceLine.AheadFlank, AudioUtils.GetFmodAsset("seavoyager_ahead_flank"));
+            voiceLineClips.Add(VoiceLine.AheadSlow, AudioUtils.GetFmodAsset("seavoyager_ahead_slow"));
+            voiceLineClips.Add(VoiceLine.AheadStandard, AudioUtils.GetFmodAsset("seavoyager_ahead_standard"));
+            voiceLineClips.Add(VoiceLine.ApproachingShallowWater, AudioUtils.GetFmodAsset("seavoyager_approaching_shallow_water"));
+            voiceLineClips.Add(VoiceLine.EnginePoweringDown, AudioUtils.GetFmodAsset("seavoyager_engine_powering_down"));
+            voiceLineClips.Add(VoiceLine.EnginePoweringUp, AudioUtils.GetFmodAsset("seavoyager_engine_powering_up"));
+            voiceLineClips.Add(VoiceLine.FirstUse, AudioUtils.GetFmodAsset("seavoyager_first_use"));
+            voiceLineClips.Add(VoiceLine.PowerDepleted, AudioUtils.GetFmodAsset("seavoyager_reserve_power_empty"));
+            voiceLineClips.Add(VoiceLine.SonarMap, AudioUtils.GetFmodAsset("seavoyager_sonar_map_activated"));
+            voiceLineClips.Add(VoiceLine.RegionMap, AudioUtils.GetFmodAsset("seavoyager_updating_regional_map"));
+            voiceLineClips.Add(VoiceLine.VehicleAttached, AudioUtils.GetFmodAsset("seavoyager_vehicle_attached"));
+            voiceLineClips.Add(VoiceLine.VehicleDock, AudioUtils.GetFmodAsset("seavoyager_vehicle_docked_successfully"));
+            voiceLineClips.Add(VoiceLine.VehicleReleased, AudioUtils.GetFmodAsset("seavoyager_vehicle_released"));
+            voiceLineClips.Add(VoiceLine.WelcomeAboard, AudioUtils.GetFmodAsset("seavoyager_welcome_aboard_captain"));
         }
 
         private void SetTimeCanPlayAgain(VoiceLine line)
         {
-            if (voiceLineMinDelays.TryGetValue(line, out float minDelay))
+            if (_voiceLineMinDelays.TryGetValue(line, out float minDelay))
             {
-                if (timeLinesCanPlayAgain.ContainsKey(line))
+                if (_timeLinesCanPlayAgain.ContainsKey(line))
                 {
-                    timeLinesCanPlayAgain[line] = Time.time + minDelay;
+                    _timeLinesCanPlayAgain[line] = Time.time + minDelay;
                 }
                 else
                 {
-                    timeLinesCanPlayAgain.Add(line, Time.time + minDelay);
+                    _timeLinesCanPlayAgain.Add(line, Time.time + minDelay);
                 }
             }
         }
@@ -100,17 +95,17 @@ namespace SeaVoyager.Mono
             {
                 return false;
             }
-            if (timeLinesCanPlayAgain.TryGetValue(line, out float timeCanPlayAgain))
+            if (_timeLinesCanPlayAgain.TryGetValue(line, out float timeCanPlayAgain))
             {
                 if (Time.time < timeCanPlayAgain)
                 {
                     return false;
                 }
             }
-            source.clip = voiceLineClips[line];
-            source.Play();
+            emitter.SetAsset(voiceLineClips[line]);
+            emitter.Play();
             SetTimeCanPlayAgain(line);
-            if (voiceLineSubtitleKey.TryGetValue(line, out var subtitleKey))
+            if (_voiceLineSubtitleKey.TryGetValue(line, out var subtitleKey))
             {
                 Subtitles.Add(subtitleKey);
             }

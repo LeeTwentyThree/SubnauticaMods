@@ -296,7 +296,7 @@ public class SeaVoyagerPrefab
         powerCellsParent.SetParent(prefab.transform, false);
         powerCellsParent.localPosition = new Vector3(0, -15, -0.2f);
         powerCellsParent.localEulerAngles = Vector3.zero;
-        powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "PocketDimensionPower";
+        powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "SeaVoyagerPower";
 
         var placeholdersGroup = prefab.AddComponent<PrefabPlaceholdersGroup>();
         var powerCellLocations = new[]
@@ -348,9 +348,12 @@ public class SeaVoyagerPrefab
 
         // Voice
         var shipVoice = prefab.AddComponent<ShipVoice>();
-        var voiceSource = prefab.AddComponent<AudioSource>();
+        var voiceSource = prefab.AddComponent<FMOD_CustomEmitter>();
+        voiceSource.followParent = true;
+        voiceSource.restartOnPlay = true;
+        voiceSource.playOnAwake = false;
         // voiceSource.volume = Plugin.config.NormalizedAudioVolume;
-        shipVoice.source = voiceSource;
+        shipVoice.emitter = voiceSource;
         shipBehaviour.voice = shipVoice;
 
         // Shallow water scanner
