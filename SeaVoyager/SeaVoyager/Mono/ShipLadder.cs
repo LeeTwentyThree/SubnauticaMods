@@ -10,7 +10,8 @@ namespace SeaVoyager.Mono
 
         private Transform _entrancePosition;
         private SeaVoyager _ship;
-        private bool _isMainEmbarkLadder;
+        
+        public bool isMainEmbarkLadder;
 
         private const string FirstUseStoryGoal = "SeaVoyagerFirstUse";
 
@@ -42,14 +43,15 @@ namespace SeaVoyager.Mono
 
         public void SetAsMainEmbarkLadder(SeaVoyager ship)
         {
-            _isMainEmbarkLadder = true;
+            isMainEmbarkLadder = true;
             _ship = ship;
         }
 
         private void SetPlayerPosition()
         {
             Player.main.SetPosition(_entrancePosition.position);
-            if (_isMainEmbarkLadder)
+            
+            if (isMainEmbarkLadder)
             {
                 if (StoryGoalManager.main.OnGoalComplete(FirstUseStoryGoal))
                 {
