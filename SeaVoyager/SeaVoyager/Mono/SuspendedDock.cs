@@ -271,7 +271,7 @@ namespace SeaVoyager.Mono
                                                    (Vector3.down * (SeamothCurrentlyDocked ? 1f : 2f));
                 if (dockedVehicle is Exosuit)
                 {
-                    dockedVehicle.useRigidbody.isKinematic = true;
+                    UWE.Utils.SetIsKinematicAndUpdateInterpolation(dockedVehicle.useRigidbody, isKinematic: true);
                 }
                 else
                 {
@@ -484,7 +484,7 @@ namespace SeaVoyager.Mono
         {
             dockedVehicle = vehicle;
             ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockOnVehicleAttach", dockedVehicle.GetName()));
-            if (dockedVehicle is Exosuit) dockedVehicle.useRigidbody.isKinematic = true;
+            if (dockedVehicle is Exosuit) UWE.Utils.SetIsKinematicAndUpdateInterpolation(dockedVehicle.useRigidbody, isKinematic: true);
             dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = this;
             _cableState = CableState.Stopped;
             SetButtonState(CableButtonsDisplay.Stopped);
@@ -511,7 +511,7 @@ namespace SeaVoyager.Mono
         {
             if (dockedVehicle != null)
             {
-                if (dockedVehicle is Exosuit) dockedVehicle.useRigidbody.isKinematic = false;
+                if (dockedVehicle is Exosuit) UWE.Utils.SetIsKinematicAndUpdateInterpolation(dockedVehicle.useRigidbody, isKinematic: false);
                 dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = null;
                 _cableState = CableState.Stopped;
                 SetButtonState(CableButtonsDisplay.Stopped);
