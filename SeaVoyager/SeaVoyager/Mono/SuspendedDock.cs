@@ -1,5 +1,4 @@
-﻿using System;
-using Nautilus.Utility;
+﻿using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,6 +31,8 @@ namespace SeaVoyager.Mono
         private static readonly FMODAsset MoveSoundAsset = AudioUtils.GetFmodAsset("SuspendedDockMove");
         
         private float _buttonNextPressTime;
+
+        private float _timeCanDockAgain;
 
         /// <summary>
         /// The appearance-wise y position of the cable hook.
@@ -166,7 +167,6 @@ namespace SeaVoyager.Mono
             releaseVehicleButton.onClick.AddListener(OnReleaseButton);
             retractButton.onClick.AddListener(OnRetractButton);
             extendButton.onClick.AddListener(OnExtendButton);
-
         }
 
         public void ManagedUpdate()
@@ -458,6 +458,8 @@ namespace SeaVoyager.Mono
 
         public bool GetCanDock()
         {
+            if (Time.time < _timeCanDockAgain)
+                return false;
             return !Occupied && _dockExtended;
         }
 
@@ -509,18 +511,18 @@ namespace SeaVoyager.Mono
 
         public void DetatchVehicle()
         {
-            if (dockedVehicle != null)
+            if (dockedVehicle == null) return;
+            
+            _timeCanDockAgain = Time.time + 1f;
+            if (dockedVehicle is Exosuit) UWE.Utils.SetIsKinematicAndUpdateInterpolation(dockedVehicle.useRigidbody, isKinematic: false);
+            dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = null;
+            _cableState = CableState.Stopped;
+            SetButtonState(CableButtonsDisplay.Stopped);
+            IgnorePhysicsWithVehicle(dockedVehicle, false);
+            dockedVehicle = null;
+            if (ship != null)
             {
-                if (dockedVehicle is Exosuit) UWE.Utils.SetIsKinematicAndUpdateInterpolation(dockedVehicle.useRigidbody, isKinematic: false);
-                dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = null;
-                _cableState = CableState.Stopped;
-                SetButtonState(CableButtonsDisplay.Stopped);
-                IgnorePhysicsWithVehicle(dockedVehicle, false);
-                dockedVehicle = null;
-                if (ship != null)
-                {
-                    ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.VehicleReleased);
-                }
+                ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.VehicleReleased);
             }
         }
 
