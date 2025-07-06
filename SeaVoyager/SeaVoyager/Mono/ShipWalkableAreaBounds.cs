@@ -2,26 +2,35 @@
 
 namespace SeaVoyager.Mono
 {
-    public class ShipWalkableAreaBounds : MonoBehaviour
+    public class ShipWalkableAreaBounds : MonoBehaviour, IScheduledUpdateBehaviour
     {
         public SeaVoyager ship;
-        private float _timeCheckAgain;
-        private float _checkInterval = 0.8f;
-        private float _maxDistance = 45f;
+        private const float MaxDistance = 45f;
 
-        private void Update()
+        public int scheduledUpdateIndex { get; set; }
+
+        public string GetProfileTag()
         {
-            if (Time.time > _timeCheckAgain)
+            return "SeaVoyager:ShipWalkableAreaBounds";
+        }
+
+        private void OnEnable()
+        {
+            UpdateSchedulerUtils.Register(this);
+        }
+
+        private void OnDisable()
+        {
+            UpdateSchedulerUtils.Deregister(this);
+        }
+
+        public void ScheduledUpdate()
+        {
+            if (!ship.IsOccupiedByPlayer) return;
+            var distance = Vector3.Distance(Player.main.transform.position, transform.position);
+            if (distance > MaxDistance)
             {
-                if (ship.IsOccupiedByPlayer)
-                {
-                    var distance = Vector3.Distance(Player.main.transform.position, transform.position);
-                    if (distance > _maxDistance)
-                    {
-                        Player.main.SetCurrentSub(null);
-                    }
-                }
-                _timeCheckAgain = Time.time + _checkInterval;
+                Player.main.SetCurrentSub(null);
             }
         }
     }
