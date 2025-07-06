@@ -40,7 +40,7 @@ public static class ConstructableDock
         constructable.placeMaxDistance = 14;
         constructable.placeDefaultDistance = 8;
 
-        obj.transform.Find("CableTrigger").localScale = Vector3.one * 3;
+        obj.transform.Find("CableTrigger").localScale = Vector3.one * 4;
         
         return obj;
     }

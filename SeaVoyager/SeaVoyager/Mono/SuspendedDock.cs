@@ -234,15 +234,18 @@ namespace SeaVoyager.Mono
                     }
                     else
                     {
-                        if (Physics.Raycast(CableTargetWorldPosition, Vector3.down, 3.5f, ~0,
+                        if (Physics.Raycast(CableTargetWorldPosition, Vector3.down, out var hit, 2f, ~0,
                                 QueryTriggerInteraction.Ignore))
                         {
-                            int depth = Mathf.Abs(Mathf.RoundToInt(CableTargetWorldPosition.y));
-                            if (CableTargetWorldPosition.y < 0f)
-                                ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockCableHitSeaFloor", depth));
-                            _cableState = CableState.Stopped;
-                            SetButtonState(CableButtonsDisplay.Stopped);
-                            break;
+                            if (!hit.collider.gameObject.GetComponentInParent<Vehicle>())
+                            {
+                                int depth = Mathf.Abs(Mathf.RoundToInt(CableTargetWorldPosition.y));
+                                if (CableTargetWorldPosition.y < 0f)
+                                    ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockCableHitSeaFloor", depth));
+                                _cableState = CableState.Stopped;
+                                SetButtonState(CableButtonsDisplay.Stopped);
+                                break;   
+                            }
                         }
                     }
 
