@@ -41,7 +41,7 @@ public class SeaVoyagerPrefab
             .WithFabricatorType(CraftTree.Type.Constructor);
 
         prefab.SetPdaGroupCategory(TechGroup.Constructor, TechCategory.Constructor)
-            .WithAnalysisTech(null)
+            .WithAnalysisTech(Plugin.assetBundle.LoadAsset<Sprite>("SeaVoyagerUnlockPopup"))
             .WithEncyclopediaEntry("Tech/Vehicles", null)
             .RequiredForUnlock = Fragments.SeaVoyagerFragment.SeaVoyagerFragmentTechType;
 
