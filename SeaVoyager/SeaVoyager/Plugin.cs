@@ -7,6 +7,7 @@ using UnityEngine;
 using Nautilus.Utility;
 using Nautilus.Handlers;
 using System.Collections.Generic;
+using SeaVoyager.Prefabs;
 using SeaVoyager.Prefabs.Vehicles;
 
 namespace SeaVoyager;
@@ -24,6 +25,7 @@ public class Plugin : BaseUnityPlugin
 
     public static SeaVoyagerPrefab SeaVoyager { get; private set; }
     public static PingType SeaVoyagerPingType { get; private set; }
+    public static DockSaveData SavedDocks { get; private set; }
     
     private void Awake()
     {
@@ -46,6 +48,8 @@ public class Plugin : BaseUnityPlugin
             .WithIcon(new Atlas.Sprite(assetBundle.LoadAsset<Sprite>("ShipPing")));
         
         AudioRegistry.RegisterAudio();
+
+        SavedDocks = SaveDataHandler.RegisterSaveDataCache<DockSaveData>();
     }
 
     private void InitializePrefabs()
@@ -77,5 +81,7 @@ public class Plugin : BaseUnityPlugin
         });
 
         PDAHandler.AddCustomScannerEntry(SeaVoyagerFragment.SeaVoyagerFragmentTechType, SeaVoyager.Info.TechType, true, 10, 4);
+        
+        ConstructableDock.Register();
     }
 }

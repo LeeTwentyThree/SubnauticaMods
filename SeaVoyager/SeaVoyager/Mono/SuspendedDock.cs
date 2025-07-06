@@ -1,4 +1,5 @@
-﻿using Nautilus.Utility;
+﻿using System.Collections.Generic;
+using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ namespace SeaVoyager.Mono
 {
     public class SuspendedDock : MonoBehaviour, IManagedUpdateBehaviour
     {
+        public PrefabIdentifier identifier;
         public SeaVoyager ship;
         public LineRenderer cableRenderer;
         public Transform cableConnectionPoint;
@@ -33,6 +35,8 @@ namespace SeaVoyager.Mono
         private float _buttonNextPressTime;
 
         private float _timeCanDockAgain;
+
+        private bool _loadedSaveData;
 
         /// <summary>
         /// The appearance-wise y position of the cable hook.
@@ -159,18 +163,48 @@ namespace SeaVoyager.Mono
             moveSoundEmitter.playOnAwake = false;
             moveSoundEmitter.SetAsset(MoveSoundAsset);
             moveSoundEmitter.followParent = true;
+
+            identifier = GetComponent<PrefabIdentifier>();
+            if (identifier == null && ship != null)
+                identifier = ship.GetComponent<PrefabIdentifier>();
         }
 
-        private void Awake()
+        private void Start()
         {
             toggleButton.onClick.AddListener(OnToggleDockButton);
             releaseVehicleButton.onClick.AddListener(OnReleaseButton);
             retractButton.onClick.AddListener(OnRetractButton);
             extendButton.onClick.AddListener(OnExtendButton);
+
+            Invoke(nameof(LoadSaveDataDelayed), 0.1f);
+        }
+
+        private void LoadSaveDataDelayed()
+        {
+            _loadedSaveData = true;
+
+            if (Plugin.SavedDocks.savedRotations != null &&
+                Plugin.SavedDocks.savedRotations.TryGetValue(GetIdForSaving(), out var rotation))
+            {
+                armTransform.localEulerAngles = new Vector3(0, 0, rotation);
+                SetDockExtended(Mathf.Abs(rotation) < 10);
+            }
+            
+            if (Plugin.SavedDocks.savedCableLocations != null &&
+                Plugin.SavedDocks.savedCableLocations.TryGetValue(GetIdForSaving(), out var cableLocation))
+            {
+                _cableLocalY = cableLocation;
+                _cableTargetLocation = cableLocation;
+            }
+            
+            PickUpVehiclesInRangeOnLoad();
         }
 
         public void ManagedUpdate()
         {
+            if (!_loadedSaveData)
+                return;
+            
             UpdateTooltips();
             AttemptToPlayVehicleDockVoice();
             switch (_cableState)
@@ -179,6 +213,7 @@ namespace SeaVoyager.Mono
                     if (_cableTargetLocation < -MinCableLength)
                     {
                         _cableTargetLocation += Time.deltaTime * CurrentCableSpeed;
+                        SaveCableState();
                     }
                     else
                     {
@@ -214,11 +249,17 @@ namespace SeaVoyager.Mono
                     if (_cableTargetLocation > -MaxCableLength)
                     {
                         _cableTargetLocation -= Time.deltaTime * CurrentCableSpeed;
+                        SaveCableState();
                     }
 
                     break;
                 case CableState.Default:
+                    bool save = !Mathf.Approximately(_cableTargetLocation, -MinCableLength);
                     _cableTargetLocation = -MinCableLength;
+                    if (save)
+                    {
+                        SaveCableState();
+                    }
                     break;
             }
 
@@ -256,6 +297,10 @@ namespace SeaVoyager.Mono
             _cableLocalY =
                 Mathf.MoveTowards(cableRenderer.GetPosition(1).y, _cableTargetLocation,
                     Time.deltaTime * 20f); //Move towards default position
+            if (armTransform.localRotation != armTargetRotation)
+            {
+                SaveRotationState();
+            }
             armTransform.localRotation =
                 Quaternion.RotateTowards(armTransform.localRotation, armTargetRotation,
                     Time.deltaTime *
@@ -289,14 +334,48 @@ namespace SeaVoyager.Mono
             }
         }
 
+        private string GetIdForSaving()
+        {
+            if (identifier.gameObject == gameObject)
+            {
+                return identifier.Id;
+            }
+
+            return identifier.Id + gameObject.name;
+        }
+
+        private void PickUpVehiclesInRangeOnLoad()
+        {
+            if (Occupied)
+                return;
+            int hit = UWE.Utils.OverlapSphereIntoSharedBuffer(CableEndWorldPosition, 8);
+            for (int i = 0; i < hit; i++)
+            {
+                var collider = UWE.Utils.sharedColliderBuffer[i];
+                if (collider == null)
+                    continue;
+                var vehicle = collider.gameObject.GetComponentInParent<Vehicle>();
+                if (vehicle)
+                {
+                    AttachVehicle(vehicle, false);
+                    return;
+                }
+            }
+        }
+
         void AttemptToPlayVehicleDockVoice()
         {
+            if (_cableState != CableState.Retracting)
+            {
+                return;
+            }
+            
             if (dockedVehicle == null)
             {
                 return;
             }
 
-            if (_cableState != CableState.Retracting)
+            if (ship == null)
             {
                 return;
             }
@@ -394,6 +473,10 @@ namespace SeaVoyager.Mono
         {
             if (Time.time > _buttonNextPressTime)
             {
+                if (ship != null && !ship.HasPower)
+                {
+                    return;
+                }
                 if (SetDockExtended(!_dockExtended))
                 {
                     _buttonNextPressTime = Time.time + 3f;
@@ -444,11 +527,6 @@ namespace SeaVoyager.Mono
                 return false;
             }
 
-            if (ship != null && !ship.HasPower)
-            {
-                return false;
-            }
-
             _dockExtended = newState;
             moveSoundEmitter.Play();
             return true;
@@ -482,10 +560,11 @@ namespace SeaVoyager.Mono
             }
         }
 
-        public void AttachVehicle(Vehicle vehicle)
+        public void AttachVehicle(Vehicle vehicle, bool verbose)
         {
             dockedVehicle = vehicle;
-            ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockOnVehicleAttach", dockedVehicle.GetName()));
+            if (verbose)
+                ErrorMessage.AddMessage(Language.main.GetFormat("SuspendedDockOnVehicleAttach", dockedVehicle.GetName()));
             if (dockedVehicle is Exosuit) UWE.Utils.SetIsKinematicAndUpdateInterpolation(dockedVehicle.useRigidbody, isKinematic: true);
             dockedVehicle.gameObject.EnsureComponent<HeldByCable>().dock = this;
             _cableState = CableState.Stopped;
@@ -496,7 +575,7 @@ namespace SeaVoyager.Mono
                 PrintExoCustomControls();
             }
 
-            if (ship != null)
+            if (verbose && ship != null)
             {
                 ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.VehicleAttached);
             }
@@ -566,6 +645,26 @@ namespace SeaVoyager.Mono
         }
 
         public int managedUpdateIndex { get; set; }
+
+        private void SaveCableState()
+        {
+            if (Plugin.SavedDocks.savedCableLocations == null)
+            {
+                Plugin.SavedDocks.savedCableLocations = new Dictionary<string, float>();
+            }
+
+            Plugin.SavedDocks.savedCableLocations[GetIdForSaving()] = _cableTargetLocation;
+        }
+        
+        private void SaveRotationState()
+        {
+            if (Plugin.SavedDocks.savedRotations == null)
+            {
+                Plugin.SavedDocks.savedRotations = new Dictionary<string, float>();
+            }
+
+            Plugin.SavedDocks.savedRotations[GetIdForSaving()] = armTransform.localEulerAngles.z;
+        }
     }
 
     public enum CableState

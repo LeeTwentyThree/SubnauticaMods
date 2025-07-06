@@ -38,6 +38,8 @@
     "SeaVoyagerWelcomeAboard": "Sea Voyager: Welcome aboard captain. All systems operational.<delay=0><duration=4300>",
     
     // Dock
+    "SuspendedDock": "Suspended dock",
+    "Tooltip_SuspendedDock": "Holds vehicles above water by cable for safekeeping. Cannot be placed underwater. Vehicles function similarly to diving bells while docked.",
     "SuspendedDockReturnToSurface": "Return to surface: {0}",
     "SuspendedDockDescend": "Descend: {0}",
     "SuspendedDockDetachCable": "Detach cable: {0}",

@@ -11,7 +11,7 @@ namespace SeaVoyager.Mono
             var exosuit = collider.gameObject.GetComponentInParent<Vehicle>();
             if (exosuit != null && dock.GetCanDock())
             {
-                dock.AttachVehicle(exosuit);
+                dock.AttachVehicle(exosuit, true);
             }
         }
     }

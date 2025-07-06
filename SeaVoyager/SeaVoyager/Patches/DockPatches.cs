@@ -37,6 +37,7 @@ public static class DockPatches
         var hbc = vehicle.GetComponent<HeldByCable>();
         if (!hbc) return;
         if (!hbc.Docked) return;
+        if (hbc.dock.ship == null) return;
         if (Vector3.Distance(hbc.dock.transform.position, hbc.transform.position) > 15f)
         {
             return;
