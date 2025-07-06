@@ -147,10 +147,12 @@ namespace SeaVoyager.Mono
             _cameraBottom.fieldOfView = 70f;
             _cameraBottom.targetTexture = _renderTextureBottom;
             _cameraBottom.gameObject.AddComponent<SonarCam>();
+            _cameraBottom.cullingMask = 1711275799;
 
             _cameraFront = Helpers.FindChild(_ship.gameObject, "FrontCamera").AddComponent<Camera>();
             _cameraFront.fieldOfView = 80f;
             _cameraFront.targetTexture = _renderTextureFront;
+            _cameraFront.cullingMask = 1711275799;
 
             // water fog fix
             _cameraFront.gameObject.SetActive(false);
