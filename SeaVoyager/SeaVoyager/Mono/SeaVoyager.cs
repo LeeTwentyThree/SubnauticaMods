@@ -1,8 +1,4 @@
-﻿using UnityEngine;
-using System.Reflection;
-using UnityEngine.Serialization;
-
-namespace SeaVoyager.Mono
+﻿namespace SeaVoyager.Mono
 {
     public class SeaVoyager : SubRoot
     {
@@ -35,21 +31,9 @@ namespace SeaVoyager.Mono
             }
         }
 
-        public bool IsOccupiedByPlayer
-        {
-            get
-            {
-                return Player.main.GetCurrentSub() == this;
-            }
-        }
+        public bool IsOccupiedByPlayer => Player.main.GetCurrentSub() == this;
 
-        public bool Idle
-        {
-            get
-            {
-                return currentState == ShipState.Idle;
-            }
-        }
+        public bool Idle => currentState == ShipState.Idle;
 
         public float RotateAmount
         {
@@ -86,13 +70,7 @@ namespace SeaVoyager.Mono
             }
         }
 
-        public bool HasPower
-        {
-            get
-            {
-                return powerRelay.GetPower() >= 1f;
-            }
-        }
+        public bool HasPower => powerRelay.GetPower() >= 1f;
 
         public override void Awake()
         {
@@ -101,14 +79,13 @@ namespace SeaVoyager.Mono
 
         public override void OnTakeDamage(DamageInfo damageInfo)
         {
-            var live = gameObject.GetComponent<LiveMixin>();
-            if (live.GetHealthFraction() < 0.5f && this._lastHealthPercent >= 0.5f)
+            if (live.GetHealthFraction() < 0.5f && _lastHealthPercent >= 0.5f)
             {
-                voiceNotificationManager.PlayVoiceNotification(this.hullLowNotification, true, false);
+                voiceNotificationManager.PlayVoiceNotification(hullLowNotification, true, false);
             }
-            else if (live.GetHealthFraction() < 0.25f && this._lastHealthPercent >= 0.25f)
+            else if (live.GetHealthFraction() < 0.25f && _lastHealthPercent >= 0.25f)
             {
-                voiceNotificationManager.PlayVoiceNotification(this.hullCriticalNotification, true, false);
+                voiceNotificationManager.PlayVoiceNotification(hullCriticalNotification, true, false);
             }
             _lastHealthPercent = live.GetHealthFraction();
         }

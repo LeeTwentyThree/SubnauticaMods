@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Nautilus.Utility;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace SeaVoyager.Mono
@@ -55,8 +56,7 @@ namespace SeaVoyager.Mono
         private ShipCamera _activeCamera;
 
         // audio
-        private AudioClip _buttonPressSound;
-        private AudioSource _buttonSource;
+        private static readonly FMODAsset ButtonPressSound = AudioUtils.GetFmodAsset("SvButtonPress");
         private float _poweringDownVoiceLineDelay = 2f;
         private float _timeVehicleStopped;
         private bool _stopVoiceLineQueued;
@@ -163,10 +163,6 @@ namespace SeaVoyager.Mono
             //waterSurfaceOnCamera.waterSurface = WaterSurface.Get();
 
             _cameraFront.gameObject.SetActive(true);
-
-            _buttonSource = gameObject.AddComponent<AudioSource>();
-            // buttonSource.volume = Plugin.config.NormalizedAudioVolume;
-            _buttonPressSound = Plugin.assetBundle.LoadAsset<AudioClip>("ButtonPress");
         }
 
         void Start()
@@ -190,9 +186,9 @@ namespace SeaVoyager.Mono
             }
         }
 
-        void PlayClickSound()
+        private void PlayClickSound()
         {
-            _buttonSource.PlayOneShot(_buttonPressSound);
+            Utils.PlayFMODAsset(ButtonPressSound, Player.main.transform.position);
         }
 
         public void UpdateButtonImages()

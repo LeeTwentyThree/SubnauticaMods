@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,14 +7,16 @@ namespace SeaVoyager.Mono
 {
     public class ShipSlidingDoor : MonoBehaviour
     {
-        bool isOpen = false;
-        float timeCanOpenAgain = 0f;
-        Animator animator;
-        AudioSource openSource;
-        AudioSource closeSource;
-        private List<ShipUITooltip> tooltips = new List<ShipUITooltip>();
+        private bool _isOpen;
+        private float _timeCanOpenAgain;
+        private Animator _animator;
+        private FMOD_CustomEmitter _emitter;
+        private readonly List<ShipUITooltip> _tooltips = new();
+        
+        private static readonly FMODAsset OpenSound = AudioUtils.GetFmodAsset("SvSlidingDoorOpen");
+        private static readonly FMODAsset CloseSound = AudioUtils.GetFmodAsset("SvSlidingDoorClose");
 
-        void Awake()
+        private void Awake()
         {
             var buttons = GetComponentsInChildren<Button>();
             foreach(var button in buttons)
@@ -21,45 +24,44 @@ namespace SeaVoyager.Mono
                 button.onClick.AddListener(OnToggle);
                 var tooltip = button.gameObject.AddComponent<ShipUITooltip>();
                 tooltip.Init("Open door", true);
-                tooltips.Add(tooltip);
+                _tooltips.Add(tooltip);
             }
 
-            animator = GetComponent<Animator>();
-            openSource = Helpers.FindChild(gameObject, "OpenSound").GetComponent<AudioSource>();
-            closeSource = Helpers.FindChild(gameObject, "CloseSound").GetComponent<AudioSource>();
+            _animator = GetComponent<Animator>();
+            _emitter = gameObject.AddComponent<FMOD_CustomEmitter>();
+            _emitter.playOnAwake = false;
+            _emitter.followParent = true;
+            _emitter.restartOnPlay = true;
+
+            RefreshTooltips();
         }
 
-        void OnToggle()
+        private void OnToggle()
         {
-            if(Time.time > timeCanOpenAgain)
+            if (Time.time < _timeCanOpenAgain) return;
+            
+            _isOpen = !_isOpen;
+            _emitter.SetAsset(_isOpen ? OpenSound : CloseSound);
+            _emitter.Play();
+            _timeCanOpenAgain = Time.time + 1f;
+            _animator.SetBool("open", _isOpen);
+            
+            foreach (var tooltip in _tooltips)
             {
-                isOpen = !isOpen;
-                if (isOpen)
-                {
-                    openSource.Play();
-                }
-                else
-                {
-                    closeSource.Play();
-                }
-                timeCanOpenAgain = Time.time + 1f;
-                animator.SetBool("open", isOpen);
-            }
-        }
-
-        void Update()
-        {
-            foreach (var tooltip in tooltips)
-            {
-                if (Time.time < timeCanOpenAgain)
-                {
-                    tooltip.showTooltip = false;
-                }
-                else
+                tooltip.showTooltip = false;
                 {
                     tooltip.showTooltip = true;
-                    tooltip.displayText = isOpen ? "Close door" : "Open door";
                 }
+            }
+            Invoke(nameof(RefreshTooltips), 1f);
+        }
+
+        private void RefreshTooltips()
+        {
+            foreach (var tooltip in _tooltips)
+            {
+                tooltip.showTooltip = true;
+                tooltip.displayText = Language.main.Get(_isOpen ? "SvSlidingDoorClose" : "SvSlidingDoorOpen");
             }
         }
     }

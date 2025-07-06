@@ -1,4 +1,5 @@
 ﻿using System;
+using Nautilus.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,15 +20,17 @@ namespace SeaVoyager.Mono
         public Button extendButton;
         public Image retractButtonImage;
         public Image extendButtonImage;
-        public AudioSource moveSound;
         public CableTrigger cableTrigger;
         public ShipUITooltip toggleButtonTooltip;
         public ShipUITooltip releaseVehicleButtonTooltip;
         public ShipUITooltip extendCableButtonTooltip;
         public ShipUITooltip retractCableButtonTooltip;
+        public FMOD_CustomEmitter moveSoundEmitter;
 
         public Vehicle dockedVehicle;
 
+        private static readonly FMODAsset MoveSoundAsset = AudioUtils.GetFmodAsset("SuspendedDockMove");
+        
         private float _buttonNextPressTime;
 
         /// <summary>
@@ -127,8 +130,6 @@ namespace SeaVoyager.Mono
             dynamicCableModel = gameObject.GetComponentInChildren<SkinnedMeshRenderer>();
             cableConnectionPoint = gameObject.SearchChild("CableTop").transform;
             armTransform = gameObject.SearchChild("DockArm").transform;
-            moveSound = gameObject.SearchComponent<AudioSource>("ArmMoveSound");
-            // moveSound.volume = Plugin.config.NormalizedAudioVolume;
             cableTrigger = gameObject.SearchChild("CableTrigger").AddComponent<CableTrigger>();
             cableTrigger.dock = this;
 
@@ -152,6 +153,11 @@ namespace SeaVoyager.Mono
 
             spriteButtonActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
             spriteButtonInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
+            
+            moveSoundEmitter = transform.Find("ArmMoveSound").gameObject.AddComponent<FMOD_CustomEmitter>();
+            moveSoundEmitter.playOnAwake = false;
+            moveSoundEmitter.SetAsset(MoveSoundAsset);
+            moveSoundEmitter.followParent = true;
         }
 
         private void Awake()
@@ -444,7 +450,7 @@ namespace SeaVoyager.Mono
             }
 
             _dockExtended = newState;
-            moveSound.Play();
+            moveSoundEmitter.Play();
             return true;
         }
 

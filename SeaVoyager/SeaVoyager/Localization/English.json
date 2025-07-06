@@ -2,6 +2,9 @@
     // Items
     "SeaVoyagerFragment": "Sea Voyager fragment",
     "Tooltip_SeaVoyagerFragment": "A fragment of a destroyed Sea Voyager.",
+
+    "SeaVoyager": "Sea Voyager",
+    "Tooltip_SeaVoyager": "A large, solar-powered ship that specializes in quick transportation across the surface.",
     
     // Encyclopedia
     "Ency_SeaVoyager": "Alterra Sea Voyager Piloting Manual",
@@ -57,5 +60,7 @@
 
     // Hand text
     "SeaVoyager_Enter": "Enter",
-    "SeaVoyager_Exit": "Exit"
+    "SeaVoyager_Exit": "Exit",
+    "SvSlidingDoorOpen": "Open door",
+    "SvSlidingDoorClose": "Close door"
 }

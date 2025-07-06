@@ -5,7 +5,7 @@ namespace SeaVoyager.Mono
     public class ShipAutoStop : MonoBehaviour
     {
         public SeaVoyager ship;
-        private float _maxDistance = 30f;
+        private readonly float _maxDistance = 30f;
 
         private void Start()
         {
