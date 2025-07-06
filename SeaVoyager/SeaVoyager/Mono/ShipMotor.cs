@@ -18,7 +18,7 @@ namespace SeaVoyager.Mono
             {
                 return;
             }
-            if(GameModeUtils.IsInvisible() || ship.powerRelay.ConsumeEnergy(Time.fixedDeltaTime * 0.5f * ship.SpeedMultiplier, out float amountConsumed))
+            if(GameModeUtils.IsInvisible() || ship.powerRelay.ConsumeEnergy(Time.fixedDeltaTime * 0.3f * ship.SpeedMultiplier, out float amountConsumed))
             {
                 switch (ship.currentState)
                 {

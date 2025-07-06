@@ -36,7 +36,7 @@ public static class AudioRegistry
         var voiceFileNames = new[]
         {
             "ahead_flank", "ahead_slow", "ahead_standard", "approaching_shallow_water", "engine_powering_down",
-            "engine_powering_up", "first_use", "reserve_power_empty", "seavoyager_main", "sonar_map_activated",
+            "engine_powering_up", "first_use", "reserve_power_empty", "sonar_map_activated",
             "updating_regional_map", "vehicle_attached", "vehicle_docked_successfully", "vehicle_released",
             "welcome_aboard_captain"
         };

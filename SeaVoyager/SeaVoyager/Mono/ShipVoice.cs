@@ -10,6 +10,24 @@ namespace SeaVoyager.Mono
 
         private readonly Dictionary<VoiceLine, float> _timeLinesCanPlayAgain = new();
 
+        private readonly Dictionary<VoiceLine, float> _voiceLineDurations = new()
+        {
+            {VoiceLine.AheadFlank, 3.3f},
+            {VoiceLine.AheadSlow, 1.5f},
+            {VoiceLine.AheadStandard, 1.5f},
+            {VoiceLine.ApproachingShallowWater, 5.5f},
+            {VoiceLine.EnginePoweringDown, 5.5f},
+            {VoiceLine.EnginePoweringUp, 8},
+            {VoiceLine.FirstUse, 4.5f},
+            {VoiceLine.PowerDepleted, 3},
+            {VoiceLine.SonarMap, 2},
+            {VoiceLine.RegionMap, 1.5f},
+            {VoiceLine.VehicleAttached, 1.5f},
+            {VoiceLine.VehicleDock, 5f},
+            {VoiceLine.VehicleReleased, 1f},
+            {VoiceLine.WelcomeAboard, 4.3f},
+        };
+        
         private readonly Dictionary<VoiceLine, float> _voiceLineMinDelays = new()
         {
             {VoiceLine.AheadFlank, 3f},
@@ -46,7 +64,18 @@ namespace SeaVoyager.Mono
             {VoiceLine.WelcomeAboard, "SeaVoyagerWelcomeAboard"},
         };
 
-        private bool VoiceLinePlaying => emitter.playing;
+        private float _currentLineEndTime;
+        private VoiceLine _current = VoiceLine.None;
+        
+        private bool IsAnyVoiceLinePlaying()
+        {
+            if (_current == VoiceLine.None)
+            {
+                return false;
+            }
+
+            return Time.time < _currentLineEndTime; 
+        }
 
         private void Start()
         {
@@ -91,10 +120,11 @@ namespace SeaVoyager.Mono
 
         public bool PlayVoiceLine(VoiceLine line, bool canInterruptSelf = false)
         {
-            if (!canInterruptSelf && VoiceLinePlaying)
+            if (!canInterruptSelf && IsAnyVoiceLinePlaying())
             {
                 return false;
             }
+
             if (_timeLinesCanPlayAgain.TryGetValue(line, out float timeCanPlayAgain))
             {
                 if (Time.time < timeCanPlayAgain)
@@ -102,6 +132,17 @@ namespace SeaVoyager.Mono
                     return false;
                 }
             }
+            
+            _current = line;
+            if (_voiceLineDurations.TryGetValue(line, out var duration))
+            {
+                _currentLineEndTime = Time.time + duration;
+            }
+            else
+            {
+                _currentLineEndTime = Time.time + 0.5f;
+            }
+
             emitter.SetAsset(voiceLineClips[line]);
             emitter.Play();
             SetTimeCanPlayAgain(line);
@@ -114,6 +155,7 @@ namespace SeaVoyager.Mono
 
         public enum VoiceLine
         {
+            None = -1,
             AheadFlank,
             AheadSlow,
             AheadStandard,
