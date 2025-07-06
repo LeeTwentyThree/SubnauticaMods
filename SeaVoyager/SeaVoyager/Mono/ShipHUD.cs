@@ -102,20 +102,20 @@ namespace SeaVoyager.Mono
             var zoomButton = Helpers.FindChild(gameObject, "MapZoomButton");
             zoomButton.GetComponent<Button>().onClick.AddListener(OnToggleMapZoom);
 
-            _fwdImg.gameObject.AddComponent<ShipUITooltip>().Init("Forward");
-            _reverseImg.gameObject.AddComponent<ShipUITooltip>().Init("Reverse");
-            _leftImg.gameObject.AddComponent<ShipUITooltip>().Init("Turn left");
-            _rightImg.gameObject.AddComponent<ShipUITooltip>().Init("Turn right");
-            _stopImg.gameObject.AddComponent<ShipUITooltip>().Init("Disable engine");
-            _bottomCamImg.gameObject.AddComponent<ShipUITooltip>().Init("View sonar map");
-            _frontCamImg.gameObject.AddComponent<ShipUITooltip>().Init("View forward-facing camera");
-            _mapImg.gameObject.AddComponent<ShipUITooltip>().Init("View region map");
-            _speed1Img.gameObject.AddComponent<ShipUITooltip>().Init("Slow speed");
-            _speed2Img.gameObject.AddComponent<ShipUITooltip>().Init("Standard speed");
-            _speed3Img.gameObject.AddComponent<ShipUITooltip>().Init("Emergency speed");
-            _mapShipMarker.gameObject.AddComponent<ShipUITooltip>().Init("Sea Voyager", false);
+            _fwdImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerForward"));
+            _reverseImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerReverse"));
+            _leftImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerTurnLeft"));
+            _rightImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerTurnRight"));
+            _stopImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerDisableEngine"));
+            _bottomCamImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerViewSonarMap"));
+            _frontCamImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerViewForwardCamera"));
+            _mapImg.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerViewRegionMap"));
+            _speed1Img.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerSlowSpeed"));
+            _speed2Img.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerStandardSpeed"));
+            _speed3Img.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerEmergencySpeed"));
+            _mapShipMarker.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerMapIcon"), false);
             _zoomButtonTooltip = zoomButton.AddComponent<ShipUITooltip>();
-            _zoomButtonTooltip.Init("Zoom in");
+            _zoomButtonTooltip.Init(Language.main.Get("SeaVoyagerMapZoomIn"));
 
             _directionSpriteInactive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOff");
             _directionSpriteActive = Plugin.assetBundle.LoadAsset<Sprite>("ArrowOn");
@@ -218,7 +218,7 @@ namespace SeaVoyager.Mono
             _speed1Img.sprite = speed == ShipSpeedSetting.Slow ? _speed1Active : _speed1Inactive;
             _speed2Img.sprite = speed == ShipSpeedSetting.Medium ? _speed2Active : _speed2Inactive;
             _speed3Img.sprite = speed == ShipSpeedSetting.Fast ? _speed3Active : _speed3Inactive;
-            _zoomButtonTooltip.displayText = _mapZoom == MapZoom.ZoomedIn ? "Zoom out" : "Zoom in";
+            _zoomButtonTooltip.displayText = Language.main.Get(_mapZoom == MapZoom.ZoomedIn ? "SeaVoyagerMapZoomOut" : "SeaVoyagerMapZoomIn");
         }
 
         #region Voices

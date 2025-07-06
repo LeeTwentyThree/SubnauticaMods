@@ -62,5 +62,21 @@
     "SeaVoyager_Enter": "Enter",
     "SeaVoyager_Exit": "Exit",
     "SvSlidingDoorOpen": "Open door",
-    "SvSlidingDoorClose": "Close door"
+    "SvSlidingDoorClose": "Close door",
+    
+    // HUD
+    "SeaVoyagerForward": "Forward",
+    "SeaVoyagerReverse": "Reverse",
+    "SeaVoyagerTurnLeft": "Turn left",
+    "SeaVoyagerTurnRight": "Turn right",
+    "SeaVoyagerDisableEngine": "Disable engine",
+    "SeaVoyagerViewSonarMap": "View sonar map",
+    "SeaVoyagerViewForwardCamera": "View forward-facing camera",
+    "SeaVoyagerViewRegionMap": "View region map",
+    "SeaVoyagerSlowSpeed": "Slow speed",
+    "SeaVoyagerStandardSpeed": "Standard speed",
+    "SeaVoyagerEmergencySpeed": "Emergency speed",
+    "SeaVoyagerMapIcon": "Sea Voyager",
+    "SeaVoyagerMapZoomIn": "Zoom in",
+    "SeaVoyagerMapZoomOut": "Zoom out"
 }
