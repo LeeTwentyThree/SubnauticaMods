@@ -9,7 +9,8 @@ namespace SeaVoyager.Mono
         public ShipCinematic cinematic;
 
         private Transform _entrancePosition;
-        private SeaVoyager _ship;
+        
+        public SeaVoyager ship;
         
         public bool isMainEmbarkLadder;
 
@@ -44,7 +45,7 @@ namespace SeaVoyager.Mono
         public void SetAsMainEmbarkLadder(SeaVoyager ship)
         {
             isMainEmbarkLadder = true;
-            _ship = ship;
+            this.ship = ship;
         }
 
         private void SetPlayerPosition()
@@ -55,7 +56,7 @@ namespace SeaVoyager.Mono
             {
                 if (StoryGoalManager.main.OnGoalComplete(FirstUseStoryGoal))
                 {
-                    _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.FirstUse);
+                    ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.FirstUse);
                 }
             }
         }
