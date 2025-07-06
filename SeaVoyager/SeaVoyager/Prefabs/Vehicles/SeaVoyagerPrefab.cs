@@ -100,7 +100,8 @@ public class SeaVoyagerPrefab
 
         // Apply materials
         MaterialUtils.ApplySNShaders(prefab, 5.5f);
-        prefab.SearchChild("Window").GetComponent<MeshRenderer>().material = glassMaterial;
+        var windowRenderer = prefab.SearchChild("Window").GetComponent<Renderer>();
+        windowRenderer.material = glassMaterial;
 
         // Get the Transform of the models
         Transform interiorModels = Helpers.FindChild(prefab, "Interior").transform;
@@ -241,7 +242,12 @@ public class SeaVoyagerPrefab
         exteriorRenderersList.AddRange(prefab.transform.Find("Propeller").GetComponentsInChildren<Renderer>());
         exteriorRenderersList.AddRange(prefab.transform.Find("ExosuitDock").GetComponentsInChildren<Renderer>());
         exteriorRenderersList.AddRange(prefab.transform.Find("ExosuitDock2").GetComponentsInChildren<Renderer>());
+        exteriorRenderersList.Remove(windowRenderer);
         exteriorSkyApplier.renderers = exteriorRenderersList.ToArray();
+
+        var glassSkyApplier = prefab.AddComponent<SkyApplier>();
+        glassSkyApplier.renderers = new[] { windowRenderer };
+        glassSkyApplier.anchorSky = Skies.BaseGlass;
 
         // Add entrance door
         var door = prefab.transform.Find("Model/Exterior/MainDoor/DoorCollider").gameObject;
