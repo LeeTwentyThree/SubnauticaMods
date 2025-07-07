@@ -154,7 +154,7 @@ public class SeaVoyagerPrefab
         lmData.invincibleInCreative = true;
         lmData.weldable = true;
         lmData.minDamageForSound = 20f;
-        lmData.maxHealth = 250000000000000000f;
+        lmData.maxHealth = 2500;
         liveMixin.data = lmData;
         // I don't know if this does anything at all as ships float above the surface, but I'm keeping it.
         var oxygenManager = prefab.AddComponent<OxygenManager>();
