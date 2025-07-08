@@ -470,6 +470,8 @@ public class SeaVoyagerPrefab
 
         shipBehaviour.skyraySpawner = prefab.SearchChild("SkyraySpawns").AddComponent<SkyraySpawner>();
         
+        vfxConstructing.disableBehaviours = new List<Behaviour> { shipBehaviour };
+        
         returnedPrefab.Set(prefab);
     }
 
