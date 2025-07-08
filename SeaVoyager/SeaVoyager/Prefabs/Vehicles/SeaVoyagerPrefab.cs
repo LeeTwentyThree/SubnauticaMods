@@ -475,6 +475,13 @@ public class SeaVoyagerPrefab
         
         vfxConstructing.disableBehaviours = new List<Behaviour> { shipBehaviour };
         
+        // Fix player flying or falling while inside the lower area
+        var setKinematic = prefab.AddComponent<SetSeaVoyagerKinematic>();
+        setKinematic.rb = rigidbody;
+        setKinematic.voyager = shipBehaviour;
+        setKinematic.maxInteriorYLevelMeasure = prefab.transform.Find("InteriorMaxYLevel");
+        
+        // FINALLY, return the prefab!
         returnedPrefab.Set(prefab);
     }
 
