@@ -291,6 +291,7 @@ public class SeaVoyagerPrefab
         shipBehaviour.LOD = lod;
         shipBehaviour.rb = rigidbody;
         shipBehaviour.powerRelay = powerRelay;
+        shipBehaviour.isBase = true;
         shipBehaviour.isCyclops = true;
         shipBehaviour.modulesRoot = prefab.transform;
         shipBehaviour.oxygenMgr = oxygenManager;
