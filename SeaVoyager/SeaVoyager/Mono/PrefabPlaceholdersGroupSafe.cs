@@ -20,10 +20,8 @@ public class PrefabPlaceholdersGroupSafe : MonoBehaviour
 
 	private void DelayedLoad()
 	{
-		ErrorMessage.AddMessage("delayed load");
 		if (AlreadySpawned()) return;
 		
-		ErrorMessage.AddMessage("spawning");
 		Spawn();
 		MarkAsAlreadySpawned();
 	}
