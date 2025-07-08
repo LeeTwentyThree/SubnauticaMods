@@ -384,7 +384,6 @@ public class SeaVoyagerPrefab
         // Make sure you don't walk on the seafloor
         var walkableAreaBounds = prefab.AddComponent<ShipWalkableAreaBounds>();
         walkableAreaBounds.ship = shipBehaviour;
-        returnedPrefab.Set(prefab);
 
         // embark ladder
         var embarkLadder = Helpers.FindChild(prefab, "EmbarkLadder").AddComponent<ShipLadder>();
@@ -470,6 +469,8 @@ public class SeaVoyagerPrefab
         dock2.Initialize();
 
         shipBehaviour.skyraySpawner = prefab.SearchChild("SkyraySpawns").AddComponent<SkyraySpawner>();
+        
+        returnedPrefab.Set(prefab);
     }
 
     private static void CreateBuildBotPath(GameObject gameObjectWithComponent, Transform parent)
