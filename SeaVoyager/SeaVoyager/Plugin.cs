@@ -7,6 +7,7 @@ using UnityEngine;
 using Nautilus.Utility;
 using Nautilus.Handlers;
 using System.Collections.Generic;
+using SeaVoyager.Mono;
 using SeaVoyager.Prefabs;
 using SeaVoyager.Prefabs.Vehicles;
 
@@ -26,6 +27,7 @@ public class Plugin : BaseUnityPlugin
     public static SeaVoyagerPrefab SeaVoyager { get; private set; }
     public static PingType SeaVoyagerPingType { get; private set; }
     public static DockSaveData SavedDocks { get; private set; }
+    public static PrefabPlaceholdersGroupSafe.SaveData PrefabPlaceholdersSaveData { get; private set; }
     
     private void Awake()
     {
@@ -50,6 +52,7 @@ public class Plugin : BaseUnityPlugin
         AudioRegistry.RegisterAudio();
 
         SavedDocks = SaveDataHandler.RegisterSaveDataCache<DockSaveData>();
+        PrefabPlaceholdersSaveData = SaveDataHandler.RegisterSaveDataCache<PrefabPlaceholdersGroupSafe.SaveData>();
     }
 
     private void InitializePrefabs()

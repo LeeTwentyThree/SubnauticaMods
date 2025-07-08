@@ -59,7 +59,8 @@ public class SeaVoyagerPrefab
         prefab.SetActive(false);
 
         // Add essential components
-        prefab.AddComponent<PrefabIdentifier>().ClassId = Info.ClassID;
+        var identifier = prefab.AddComponent<PrefabIdentifier>();
+        identifier.ClassId = Info.ClassID;
         prefab.AddComponent<TechTag>().type = Info.TechType;
         prefab.AddComponent<LargeWorldEntity>().cellLevel = LargeWorldEntity.CellLevel.Global;
 
@@ -307,7 +308,8 @@ public class SeaVoyagerPrefab
         powerCellsParent.localEulerAngles = Vector3.zero;
         powerCellsParent.gameObject.AddComponent<ChildObjectIdentifier>().ClassId = "SeaVoyagerPower";
 
-        var placeholdersGroup = prefab.AddComponent<PrefabPlaceholdersGroup>();
+        var placeholdersGroup = prefab.AddComponent<PrefabPlaceholdersGroupSafe>();
+        placeholdersGroup.prefabIdentifier = identifier;
         var powerCellLocations = new[]
         {
             prefab.gameObject.transform.position + new Vector3(-1.7f, 17, -0.5f),
