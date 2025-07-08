@@ -144,8 +144,8 @@ public class SeaVoyagerPrefab
         vfxConstructing.surfaceSplashFX = rocketPlatformVfx.surfaceSplashFX;
         vfxConstructing.Regenerate();
         // Don't want it tipping over...
-        var stabilizier = prefab.AddComponent<Stabilizer>();
-        stabilizier.uprightAccelerationStiffness = 40f;
+        var stabilizer = prefab.AddComponent<Stabilizer>();
+        stabilizer.uprightAccelerationStiffness = 40f;
         // Some components might need this. I don't WANT it to take damage though, so I will just give it a LOT of health.
         var liveMixin = prefab.AddComponent<LiveMixin>();
         var lmData = ScriptableObject.CreateInstance<LiveMixinData>();
