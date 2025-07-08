@@ -21,11 +21,11 @@
             {
                 if(moveDirection == ShipMoveDirection.Forward)
                 {
-                    return 25f * SpeedMultiplier;
+                    return 20f * SpeedMultiplier;
                 }
                 if(moveDirection == ShipMoveDirection.Reverse)
                 {
-                    return -20f * SpeedMultiplier;
+                    return -17f * SpeedMultiplier;
                 }
                 return 0f;
             }
