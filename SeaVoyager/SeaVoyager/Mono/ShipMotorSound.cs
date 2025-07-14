@@ -7,9 +7,9 @@ namespace SeaVoyager.Mono
         public SeaVoyager seaVoyager;
         public FMOD_CustomLoopingEmitter emitter;
 
-        private static FMODAsset engineLoopSlow = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_loop_slow");
-        private static FMODAsset engineLoopNormal = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_loop_normal");
-        private static FMODAsset engineLoopFast = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_loop_epic_fast");
+        private static readonly FMODAsset EngineLoopSlow = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_loop_slow");
+        private static readonly FMODAsset EngineLoopNormal = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_loop_normal");
+        private static readonly FMODAsset EngineLoopFast = Helpers.GetFmodAsset("event:/sub/cyclops/cyclops_loop_epic_fast");
 
         private void Update()
         {
@@ -34,7 +34,7 @@ namespace SeaVoyager.Mono
             {
                 return false;
             }
-            if (Vector3.Distance(seaVoyager.transform.position, MainCameraControl.main.transform.position) > 100f)
+            if (Vector3.SqrMagnitude(seaVoyager.transform.position - MainCameraControl.main.transform.position) > 100 * 100)
             {
                 return false;
             }
@@ -46,11 +46,11 @@ namespace SeaVoyager.Mono
             switch (seaVoyager.speedSetting)
             {
                 default:
-                    return engineLoopNormal;
+                    return EngineLoopNormal;
                 case ShipSpeedSetting.Fast:
-                    return engineLoopFast;
+                    return EngineLoopFast;
                 case ShipSpeedSetting.Slow:
-                    return engineLoopSlow;
+                    return EngineLoopSlow;
             }
         }
     }

@@ -6,30 +6,30 @@ namespace SeaVoyager.Mono
 {
     public class SkyraySpawner : MonoBehaviour
     {
-        List<Transform> spawnPoints;
-        GameObject prefab;
+        private List<Transform> _spawnPoints;
+        private GameObject _prefab;
 
         private IEnumerator Start()
         {
-            spawnPoints = new List<Transform>();
+            _spawnPoints = new List<Transform>();
             foreach(Transform child in transform)
             {
-                spawnPoints.Add(child);
+                _spawnPoints.Add(child);
             }
 
             var task = CraftData.GetPrefabForTechTypeAsync(TechType.Skyray);
             yield return task;
-            prefab = task.GetResult();
+            _prefab = task.GetResult();
         }
 
         public void SpawnSkyrays(int amount)
         {
-            List<Transform> possibleSpawnPoints = new List<Transform>(spawnPoints);
-            int spawned = 0;
+            var possibleSpawnPoints = new List<Transform>(_spawnPoints);
+            var spawned = 0;
             while (possibleSpawnPoints.Count > 0 && spawned < amount)
             {
                 Transform random = possibleSpawnPoints[Random.Range(0, possibleSpawnPoints.Count)];
-                Instantiate(prefab, random.position, Quaternion.identity);
+                Instantiate(_prefab, random.position, Quaternion.identity);
                 possibleSpawnPoints.Remove(random);
                 spawned++;
             }

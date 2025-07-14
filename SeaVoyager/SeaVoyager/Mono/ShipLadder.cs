@@ -9,10 +9,12 @@ namespace SeaVoyager.Mono
         public ShipCinematic cinematic;
 
         private Transform _entrancePosition;
-        private SeaVoyager _ship;
-        private bool _isMainEmbarkLadder;
+        
+        public SeaVoyager ship;
+        
+        public bool isMainEmbarkLadder;
 
-        private static string _firstUseStoryGoal = "SeaVoyagerFirstUse";
+        private const string FirstUseStoryGoal = "SeaVoyagerFirstUse";
 
         private void Start()
         {
@@ -42,18 +44,19 @@ namespace SeaVoyager.Mono
 
         public void SetAsMainEmbarkLadder(SeaVoyager ship)
         {
-            _isMainEmbarkLadder = true;
-            _ship = ship;
+            isMainEmbarkLadder = true;
+            this.ship = ship;
         }
 
         private void SetPlayerPosition()
         {
             Player.main.SetPosition(_entrancePosition.position);
-            if (_isMainEmbarkLadder)
+            
+            if (isMainEmbarkLadder)
             {
-                if (StoryGoalManager.main.OnGoalComplete(_firstUseStoryGoal))
+                if (StoryGoalManager.main.OnGoalComplete(FirstUseStoryGoal))
                 {
-                    _ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.FirstUse);
+                    ship.voice.PlayVoiceLine(ShipVoice.VoiceLine.FirstUse);
                 }
             }
         }

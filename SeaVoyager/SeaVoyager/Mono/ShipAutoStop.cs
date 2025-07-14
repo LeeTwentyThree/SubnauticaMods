@@ -5,7 +5,7 @@ namespace SeaVoyager.Mono
     public class ShipAutoStop : MonoBehaviour
     {
         public SeaVoyager ship;
-        private float _maxDistance = 30f;
+        private readonly float _maxDistance = 30f;
 
         private void Start()
         {
@@ -14,6 +14,9 @@ namespace SeaVoyager.Mono
 
         private void Check()
         {
+            if (Player.main.GetVehicle() != null)
+                return;
+            
             if (Vector3.Distance(Player.main.transform.position, transform.position) > _maxDistance)
             {
                 ship.currentState = ShipState.Idle;

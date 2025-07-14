@@ -7,11 +7,13 @@ using UnityEngine;
 using Nautilus.Utility;
 using Nautilus.Handlers;
 using System.Collections.Generic;
+using SeaVoyager.Mono;
+using SeaVoyager.Prefabs;
 using SeaVoyager.Prefabs.Vehicles;
 
 namespace SeaVoyager;
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.nautilus")]
+[BepInDependency("com.snmodding.nautilus", "1.0.0.38")]
 public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
@@ -20,9 +22,12 @@ public class Plugin : BaseUnityPlugin
 
     public static AssetBundle assetBundle;
 
-    public static SeaVoyagerConfig config = OptionsPanelHandler.RegisterModOptions<SeaVoyagerConfig>();
+    public static readonly SeaVoyagerConfig config = OptionsPanelHandler.RegisterModOptions<SeaVoyagerConfig>();
 
+    public static SeaVoyagerPrefab SeaVoyager { get; private set; }
     public static PingType SeaVoyagerPingType { get; private set; }
+    public static DockSaveData SavedDocks { get; private set; }
+    public static PrefabPlaceholdersGroupSafe.SaveData PrefabPlaceholdersSaveData { get; private set; }
     
     private void Awake()
     {
@@ -43,11 +48,16 @@ public class Plugin : BaseUnityPlugin
         
         SeaVoyagerPingType = EnumHandler.AddEntry<PingType>("SeaVoyager")
             .WithIcon(new Atlas.Sprite(assetBundle.LoadAsset<Sprite>("ShipPing")));
+        
+        AudioRegistry.RegisterAudio();
+
+        SavedDocks = SaveDataHandler.RegisterSaveDataCache<DockSaveData>();
+        PrefabPlaceholdersSaveData = SaveDataHandler.RegisterSaveDataCache<PrefabPlaceholdersGroupSafe.SaveData>();
     }
 
     private void InitializePrefabs()
     {
-        var seaVoyager = new SeaVoyagerPrefab().Register();
+        SeaVoyager = new SeaVoyagerPrefab().Register();
 
         var seaVoyagerDockFragment = new SeaVoyagerFragment("SeaVoyagerFragment1", "SeaVoyagerFragment1", 90).Register();
         var seaVoyagerPoleFragment = new SeaVoyagerFragment("SeaVoyagerFragment2", "SeaVoyagerFragment2", 150).Register();
@@ -73,6 +83,8 @@ public class Plugin : BaseUnityPlugin
                 new(seaVoyagerLadderFragment.ClassID, new Vector3(-45.51f, -24.08f, 411.84f), new Vector3(2, 0, 358)),
         });
 
-        PDAHandler.AddCustomScannerEntry(SeaVoyagerFragment.SeaVoyagerFragmentTechType, seaVoyager.Info.TechType, true, 10, 4);
+        PDAHandler.AddCustomScannerEntry(SeaVoyagerFragment.SeaVoyagerFragmentTechType, SeaVoyager.Info.TechType, true, 10, 4);
+        
+        ConstructableDock.Register();
     }
 }
