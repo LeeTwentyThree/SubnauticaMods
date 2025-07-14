@@ -21,11 +21,11 @@ public class SeaVoyagerPrefab
         Info.WithIcon(Plugin.assetBundle.LoadAsset<Sprite>("SeaVoyagerCraftIcon"));
         /**/
         var craftingGadget = prefab.SetRecipe(new Nautilus.Crafting.RecipeData(
-            new Ingredient(TechType.PlasteelIngot),
+            new Ingredient(TechType.CopperWire),
             new Ingredient(TechType.Lubricant, 2),
             new Ingredient(TechType.Floater, 3),
             new Ingredient(TechType.WiringKit),
-            new Ingredient(TechType.Glass, 3)
+            new Ingredient(TechType.Glass, 5)
         ));
 
         craftingGadget
