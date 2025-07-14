@@ -7,6 +7,7 @@ namespace SeaVoyager.Mono
     public class ShipVoice : MonoBehaviour
     {
         public FMOD_CustomEmitter emitter;
+        public AudioSource source;
 
         private readonly Dictionary<VoiceLine, float> _timeLinesCanPlayAgain = new();
 
