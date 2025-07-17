@@ -119,6 +119,9 @@ public class SeaVoyagerPrefab
             -5f; // Despite it being negative, which would apply downward force, this actually makes it go UP on the y axis.
         worldForces.aboveWaterGravity = 5f; // Counteract the strong upward force
         worldForces.waterDepth = -5f;
+        var changeDepth = prefab.AddComponent<ChangeWaterDepth>();
+        changeDepth.worldForces = worldForces;
+        changeDepth.newDepth = 1;
         // Determines the places the little build bots point their laser beams at.
         var buildBots = prefab.AddComponent<BuildBotBeamPoints>();
         Transform beamPointsParent = Helpers.FindChild(prefab, "BuildBotPoints").transform;
