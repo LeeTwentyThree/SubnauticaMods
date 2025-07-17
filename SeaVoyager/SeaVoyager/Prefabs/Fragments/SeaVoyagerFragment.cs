@@ -37,27 +37,21 @@ public class SeaVoyagerFragment
             localScale = Vector3.one
         };
 
-        customPrefab.SetGameObject(GetGameObject);
+        PrefabUtils.AddBasicComponents(_model, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
+        MaterialUtils.ApplySNShaders(_model);
+        var rb = _model.AddComponent<Rigidbody>();
+        rb.mass = _mass;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+        var wf = _model.AddComponent<WorldForces>();
+        wf.useRigidbody = rb;
+        customPrefab.SetGameObject(_model);
+
         customPrefab.SetSpawns(entityInfo, BiomesToSpawnIn);
 
         customPrefab.Register();
 
         return Info;
-    }
-
-    private GameObject GetGameObject()
-    {
-        var prefab = Object.Instantiate(_model);
-        prefab.SetActive(false);
-        PrefabUtils.AddBasicComponents(prefab, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Medium);
-        MaterialUtils.ApplySNShaders(prefab);
-        var rb = prefab.AddComponent<Rigidbody>();
-        rb.mass = _mass;
-        rb.useGravity = false;
-        rb.isKinematic = true;
-        var wf = prefab.AddComponent<WorldForces>();
-        wf.useRigidbody = rb;
-        return prefab;
     }
 
     private static LootDistributionData.BiomeData[] BiomesToSpawnIn => new LootDistributionData.BiomeData[]
