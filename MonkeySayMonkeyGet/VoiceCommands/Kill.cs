@@ -15,7 +15,7 @@ public class Kill : VoiceCommandBase
         {
             return false;
         }
-        var mentionedEverything = Plugin.config.CanMentionEverything && PhraseManager.ContainsPhrase(input, PhraseManager.Everything);
+        var mentionedEverything = Plugin.ModConfig.CanMentionEverything && PhraseManager.ContainsPhrase(input, PhraseManager.Everything);
         if (mentionedEverything)
         {
             return true;

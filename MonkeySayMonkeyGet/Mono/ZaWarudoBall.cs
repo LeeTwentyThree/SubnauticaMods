@@ -18,7 +18,7 @@ public class ZaWarudoBall : MonoBehaviour
         go.AddComponent<ZaWarudoBall>();
         DestroyImmediate(go.GetComponent<Collider>());
         var renderer = go.GetComponent<Renderer>();
-        go.GetComponent<MeshFilter>().mesh = Plugin.assetBundle.LoadAsset<Mesh>("InverseSphere");
+        go.GetComponent<MeshFilter>().mesh = Plugin.AssetBundle.LoadAsset<Mesh>("InverseSphere");
         var m = renderer.material;
         m.shader = Shader.Find("MarmosetUBER");
         m.EnableKeyword("MARMO_EMISSION");

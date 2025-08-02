@@ -8,7 +8,7 @@ public class BeatGame : VoiceCommandBase
 
     protected override bool IsValid(SpeechInput input)
     {
-        if (Plugin.config.DisableBeatTheGame)
+        if (Plugin.ModConfig.DisableBeatTheGame)
         {
             return false;
         }

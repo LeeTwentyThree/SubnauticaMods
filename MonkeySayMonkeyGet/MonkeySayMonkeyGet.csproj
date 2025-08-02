@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <Reference Include="SpeechRecognitionSystem">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica.stable\BepInEx\plugins\MonkeySayMonkeyGet\SpeechRecognitionSystem.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\MonkeySayMonkeyGet\SpeechRecognitionSystem.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

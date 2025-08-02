@@ -12,7 +12,7 @@ public class StarPlatinumInstance : MonoBehaviour
 
     public static IEnumerator CreateInstance(IOut<StarPlatinumInstance> result)
     {
-        var spawnedPrefab = Instantiate(Plugin.assetBundle.LoadAsset<GameObject>("StarPlatinumPrefab"));
+        var spawnedPrefab = Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("StarPlatinumPrefab"));
         spawnedPrefab.SetActive(false);
         spawnedPrefab.transform.localScale = Vector3.one * 4f;
         var instance = spawnedPrefab.AddComponent<StarPlatinumInstance>();

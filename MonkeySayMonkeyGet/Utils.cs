@@ -51,9 +51,9 @@ public static class Utils
     public static AudioSource PlaySoundEffect(string clipName, float duration)
     {
         var source = new GameObject("MonkeyAudioSource").AddComponent<AudioSource>();
-        source.clip = Plugin.assetBundle.LoadAsset<AudioClip>(clipName);
+        source.clip = Plugin.AssetBundle.LoadAsset<AudioClip>(clipName);
         source.Play();
-        source.volume = Plugin.config.SoundVolume / 100f;
+        source.volume = Plugin.ModConfig.SoundVolume / 100f;
         Object.Destroy(source.gameObject, duration);
         return source;
     }

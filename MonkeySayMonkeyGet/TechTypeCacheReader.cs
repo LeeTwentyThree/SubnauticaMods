@@ -7,7 +7,7 @@ public class TechTypeCacheReader
 {
     public bool Read()
     {
-        var modFolder = Path.GetDirectoryName(Plugin.assembly.Location);
+        var modFolder = Path.GetDirectoryName(Plugin.Assembly.Location);
         if (InvalidPath(modFolder)) return false;
         var pluginsFolder = Path.GetDirectoryName(modFolder);
         if (InvalidPath(pluginsFolder)) return false;

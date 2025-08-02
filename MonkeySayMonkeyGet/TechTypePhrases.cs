@@ -67,7 +67,7 @@ public class TechTypePhrases
             ErrorMessage.AddMessage("MonkeySayMonkeyGet: Failed to load modded TechTypes.");
         }
 
-        if (Plugin.config.EnableDebugMode)
+        if (Plugin.ModConfig.EnableDebugMode)
         {
             ErrorMessage.AddMessage(string.Format("MonkeySayMonkeyGet: Patched {0} TechType names. Open mod settings to disable this notification.", entries.Count));
         }

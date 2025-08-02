@@ -12,7 +12,7 @@ public class Hello : VoiceCommandBase
 
     protected override bool IsValid(SpeechInput input)
     {
-        if (Plugin.config.DisableShrek)
+        if (Plugin.ModConfig.DisableShrek)
         {
             return false;
         }
@@ -22,7 +22,7 @@ public class Hello : VoiceCommandBase
     protected override void Perform(SpeechInput input)
     {
         Utils.PlaySoundEffect("OhHelloThere", 2f);
-        var shrekHud = Object.Instantiate(Plugin.assetBundle.LoadAsset<GameObject>("ShrekHUD"));
+        var shrekHud = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("ShrekHUD"));
         Object.Destroy(shrekHud, 1f);
     }
 }

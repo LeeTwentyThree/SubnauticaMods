@@ -230,7 +230,7 @@ public static class PhraseManager
         AddKnownPhrase("brain coral", "brain core");
         AddKnownPhrase("table coral", "table cholera", "cable coral", "table girl");
         AddKnownPhrase("creepvine", "creep vine", "creep fine", "creep design", "creep divine");
-        AddKnownPhrase("writhing weed", "creep vine", "reading weed", "ribbing weed", "writing reed");
+        AddKnownPhrase("writhing weed", "reading weed", "ribbing weed", "writing reed");
 
         // outcrops
         AddKnownPhrase("limestone chunk", "limestone outcrop", "limestone");
@@ -362,7 +362,7 @@ public static class PhraseManager
             return new Subject(Subject.Type.Self);
         }
 
-        if (everythingIsAnOption && Plugin.config.CanMentionEverything)
+        if (everythingIsAnOption && Plugin.ModConfig.CanMentionEverything)
         {
             if (ContainsPhrase(input, Everything))
             {
@@ -436,7 +436,7 @@ public static class PhraseManager
         {
             amount = Amount.All;
         }
-        if (Plugin.config.CanMentionEverything)
+        if (Plugin.ModConfig.CanMentionEverything)
         {
             if (ContainsPhrase(input, Everything))
             {

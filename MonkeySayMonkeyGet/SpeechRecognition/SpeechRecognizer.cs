@@ -66,7 +66,7 @@ public class SpeechRecognizer : MonoBehaviour
     {
         LogMessageReceived.AddListener(_errorHandler.ReceiveMessage);
         ResultReceived.AddListener(_testingHandler.ReceiveMessage);
-        var path = Path.Combine(Directory.GetParent(Plugin.assembly.Location).FullName, Plugin.LanguageModelDirPath).Replace('\\', '/'); // just to be safe... i'm afraid the unmanaged assembly dislikes backslashes
+        var path = Path.Combine(Directory.GetParent(Plugin.Assembly.Location).FullName, Plugin.LanguageModelDirPath).Replace('\\', '/'); // just to be safe... i'm afraid the unmanaged assembly dislikes backslashes
         onInitResult(path);
     }
 
