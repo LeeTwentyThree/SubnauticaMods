@@ -16,8 +16,8 @@ public static class ConstructableDock
     {
         var prefab = new CustomPrefab(Info);
         prefab.SetGameObject(GetPrefab);
-        prefab.SetRecipe(new RecipeData(new CraftData.Ingredient(TechType.Titanium, 2),
-            new CraftData.Ingredient(TechType.CopperWire, 2), new CraftData.Ingredient(TechType.Silicone, 4)));
+        prefab.SetRecipe(new RecipeData(new Ingredient(TechType.Titanium, 2),
+            new Ingredient(TechType.CopperWire, 2), new Ingredient(TechType.Silicone, 4)));
         prefab.SetPdaGroupCategoryAfter(TechGroup.ExteriorModules, TechCategory.ExteriorModule, TechType.Spotlight);
         prefab.Register();
     }

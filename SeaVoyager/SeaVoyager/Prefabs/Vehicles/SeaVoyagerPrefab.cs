@@ -29,9 +29,9 @@ public class SeaVoyagerPrefab
 
         var craftingGadget = prefab.SetRecipe(new Nautilus.Crafting.RecipeData(
             new Ingredient(TechType.TitaniumIngot, 2),
-            new Ingredient(TechType.Lubricant),
+            new Ingredient(TechType.Lubricant, 1),
             new Ingredient(TechType.Floater, 2),
-            new Ingredient(TechType.AdvancedWiringKit),
+            new Ingredient(TechType.AdvancedWiringKit, 1),
             new Ingredient(TechType.Glass, 2)
         ));
 

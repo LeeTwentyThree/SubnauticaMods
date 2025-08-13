@@ -13,7 +13,7 @@ using SeaVoyager.Prefabs.Vehicles;
 
 namespace SeaVoyager;
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.nautilus", "1.0.0.38")]
+[BepInDependency("com.snmodding.nautilus", "1.0.0.42")]
 public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
@@ -47,7 +47,7 @@ public class Plugin : BaseUnityPlugin
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         
         SeaVoyagerPingType = EnumHandler.AddEntry<PingType>("SeaVoyager")
-            .WithIcon(new Atlas.Sprite(assetBundle.LoadAsset<Sprite>("ShipPing")));
+            .WithIcon(assetBundle.LoadAsset<Sprite>("ShipPing"));
         
         AudioRegistry.RegisterAudio();
 
