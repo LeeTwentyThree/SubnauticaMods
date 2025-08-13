@@ -49,6 +49,7 @@ public static class DeathContainerPrefab
             ping.visitDistance = 1f;
             ping.minDist = 1f;
             ping.range = 5f;
+            obj.AddComponent<DestroyContainerIfEmpty>().container = container;
         };
         customPrefab.SetGameObject(obj);
         customPrefab.Register();

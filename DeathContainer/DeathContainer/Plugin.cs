@@ -20,7 +20,7 @@ public class Plugin : BaseUnityPlugin
     internal static AssetBundle AssetBundle { get; } = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "deathcontainerassets");
 
     internal static PingType DeathContainerPingType { get; } = EnumHandler.AddEntry<PingType>("DeathContainerPing")
-        .WithIcon(new Atlas.Sprite(AssetBundle.LoadAsset<Sprite>("DeathContainerPing")));
+        .WithIcon(AssetBundle.LoadAsset<Sprite>("DeathContainerPing"));
 
     internal static Options Options { get; } = OptionsPanelHandler.RegisterModOptions<Options>();
 
