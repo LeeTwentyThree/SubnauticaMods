@@ -3,7 +3,6 @@ using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
 using UnityEngine;
-using Ingredient = CraftData.Ingredient;
 
 namespace YoutoozGargStatue.Items.Equipment;
 
@@ -18,7 +17,7 @@ public static class GargStatuePrefab
         var customPrefab = new CustomPrefab(Info);
         
         customPrefab.SetGameObject(GetGameObject);
-        customPrefab.SetRecipe(new RecipeData(new Ingredient(TechType.Silicone), new Ingredient(TechType.CreepvineSeedCluster)))
+        customPrefab.SetRecipe(new RecipeData(new Ingredient(TechType.Silicone, 1), new Ingredient(TechType.CreepvineSeedCluster, 1)))
             .WithFabricatorType(CraftTree.Type.Fabricator)
             .WithStepsToFabricatorTab("Machines")
             .WithCraftingTime(13);

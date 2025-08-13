@@ -9,7 +9,7 @@ using YoutoozGargStatue.Items.Equipment;
 namespace YoutoozGargStatue;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.nautilus", "1.0.0.36")]
+[BepInDependency("com.snmodding.nautilus", "1.0.0.42")]
 public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }
