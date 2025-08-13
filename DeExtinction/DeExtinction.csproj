@@ -39,16 +39,12 @@
 
 	<ItemGroup Condition="'$(Configuration)|$(Platform)' == 'SN1|AnyCPU'">
 		<PackageReference Include="Subnautica.GameLibs" Version="82304.0.0-r.0" />
-		<Reference Include="Nautilus">
-			<HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\Nautilus\Nautilus.dll</HintPath>
-		</Reference>
+		<PackageReference Include="Subnautica.Nautilus" Version="1.*-*" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)|$(Platform)' == 'BZ|AnyCPU'">
 		<PackageReference Include="Subnautica.BelowZero.GameLibs" Version="53115.0.0-r.0" />
-		<Reference Include="NautilusZero">
-			<HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\BepInEx\plugins\Nautilus\Nautilus.dll</HintPath>
-		</Reference>
+		<PackageReference Include="SubnauticaZero.Nautilus" Version="1.*-*" PrivateAssets="all" />
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
