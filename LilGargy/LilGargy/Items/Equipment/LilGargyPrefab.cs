@@ -1,5 +1,4 @@
-﻿using Ingredient = CraftData.Ingredient;
-using Nautilus.Assets;
+﻿using Nautilus.Assets;
 using Nautilus.Assets.Gadgets;
 using Nautilus.Crafting;
 using Nautilus.Utility;
@@ -18,7 +17,7 @@ public static class LilGargyPrefab
         var customPrefab = new CustomPrefab(Info);
         
         customPrefab.SetGameObject(GetGameObject);
-        customPrefab.SetRecipe(new RecipeData(new Ingredient(TechType.FiberMesh), new Ingredient(TechType.CreepvineSeedCluster)))
+        customPrefab.SetRecipe(new RecipeData(new Ingredient(TechType.FiberMesh, 1), new Ingredient(TechType.CreepvineSeedCluster, 1)))
             .WithFabricatorType(CraftTree.Type.Fabricator)
             .WithStepsToFabricatorTab("Machines")
             .WithCraftingTime(10);
