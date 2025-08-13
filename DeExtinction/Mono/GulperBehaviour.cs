@@ -23,7 +23,7 @@ public class GulperBehaviour : MonoBehaviour
     private CreatureVoice _voice;
     private FMODAsset _attackSeamothSound = AudioUtils.GetFmodAsset("GulperAttackSeamoth");
     private FMODAsset _attackExosuitSound = AudioUtils.GetFmodAsset("GulperAttackExosuit");
-    
+
     void Start()
     {
         creature = GetComponent<Creature>();
@@ -44,7 +44,7 @@ public class GulperBehaviour : MonoBehaviour
             return _subHoldPoint;
         }
     }
-    
+
     public bool IsHoldingVehicle()
     {
         return _heldVehicleType != VehicleType.None;
@@ -89,7 +89,20 @@ public class GulperBehaviour : MonoBehaviour
     private void GrabVehicle(Vehicle vehicle, VehicleType vehicleType)
     {
         vehicle.GetComponent<Rigidbody>().isKinematic = true;
-        vehicle.collisionModel.SetActive(false);
+        #if BELOWZERO
+        if (_heldVehicle.collisionModel)
+            _heldVehicle.collisionModel.SetActive(false);
+        #elif SUBNAUTICA
+        if (_heldVehicle.collisionModel != null)
+        {
+            foreach (var collisionModel in vehicle.collisionModel)
+            {
+                if (collisionModel)
+                    collisionModel.SetActive(false);
+            }
+        }
+        #endif
+
         _heldVehicle = vehicle;
         _heldVehicleType = vehicleType;
         if (_heldVehicleType == VehicleType.Exosuit)
@@ -107,10 +120,10 @@ public class GulperBehaviour : MonoBehaviour
 
         _vehicleInitialRotation = vehicle.transform.rotation;
         _vehicleInitialPosition = vehicle.transform.position;
-        
+
         _voice.emitter.Stop();
         _voice.BlockIdleSoundsForTime(attackLength + 1f);
-        
+
         switch (_heldVehicleType)
         {
             case VehicleType.GenericSub:
@@ -156,7 +169,20 @@ public class GulperBehaviour : MonoBehaviour
             }
 
             _heldVehicle.GetComponent<Rigidbody>().isKinematic = false;
-            _heldVehicle.collisionModel.SetActive(true);
+#if BELOWZERO
+            if (_heldVehicle.collisionModel)
+                _heldVehicle.collisionModel.SetActive(true);
+#elif SUBNAUTICA
+            if (_heldVehicle.collisionModel != null)
+            {
+                foreach (var collisionModel in _heldVehicle.collisionModel)
+                {
+                    if (collisionModel)
+                        collisionModel.SetActive(true);
+                }
+            }
+#endif
+
             _heldVehicle = null;
             _timeVehicleReleased = Time.time;
         }

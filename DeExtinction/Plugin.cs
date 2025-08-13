@@ -11,8 +11,8 @@ using UnityEngine;
 namespace DeExtinction;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.nautilus", "1.0.0.37")]
-[BepInDependency("com.lee23.ecclibrary", "2.1.0")]
+[BepInDependency("com.snmodding.nautilus", "1.0.0.42")]
+[BepInDependency("com.lee23.ecclibrary", "2.2.0")]
 public class Plugin : BaseUnityPlugin
 {
     public new static ManualLogSource Logger { get; private set; }

@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
 		<AssemblyName>DeExtinction</AssemblyName>
-		<Version>2.1.0</Version>
+		<Version>2.2.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>11</LangVersion>
 		<RootNamespace>DeExtinction</RootNamespace>
@@ -38,13 +38,17 @@
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)|$(Platform)' == 'SN1|AnyCPU'">
-		<PackageReference Include="Subnautica.GameLibs" Version="71288.0.0-r.0" />
-		<PackageReference Include="Subnautica.Nautilus" Version="1.*-*" PrivateAssets="all" />
+		<PackageReference Include="Subnautica.GameLibs" Version="82304.0.0-r.0" />
+		<Reference Include="Nautilus">
+			<HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Subnautica\BepInEx\plugins\Nautilus\Nautilus.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(Configuration)|$(Platform)' == 'BZ|AnyCPU'">
-		<PackageReference Include="Subnautica.BelowZero.GameLibs" Version="49371.0.0.1-r.0" />
-		<PackageReference Include="SubnauticaZero.Nautilus" Version="1.*-*" PrivateAssets="all" />
+		<PackageReference Include="Subnautica.BelowZero.GameLibs" Version="53115.0.0-r.0" />
+		<Reference Include="NautilusZero">
+			<HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\SubnauticaZero\BepInEx\plugins\Nautilus\Nautilus.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
