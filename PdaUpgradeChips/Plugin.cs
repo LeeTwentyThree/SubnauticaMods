@@ -15,7 +15,7 @@ using UnityEngine;
 namespace PdaUpgradeChips;
 
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-[BepInDependency("com.snmodding.nautilus", "1.0.0.37")]
+[BepInDependency("com.snmodding.nautilus", "1.0.0.42")]
 [BepInDependency("com.lee23.theredplague", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("com.aci.hydra", BepInDependency.DependencyFlags.SoftDependency)]
 [BepInDependency("com.aotu.returnoftheancients", BepInDependency.DependencyFlags.SoftDependency)]
@@ -65,33 +65,33 @@ public class Plugin : BaseUnityPlugin
 
         new UpgradeChipPrefab<MusicUpgrade>(PrefabInfo.WithTechType("PdaMusicUpgrade", true)
                 .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_MusicPlayer")),
-            new RecipeData(new CraftData.Ingredient(TechType.ComputerChip),
-                new CraftData.Ingredient(TechType.FiberMesh), new CraftData.Ingredient(TechType.Magnetite))).Register();
+            new RecipeData(new Ingredient(TechType.ComputerChip, 1),
+                new Ingredient(TechType.FiberMesh, 1), new Ingredient(TechType.Magnetite, 1))).Register();
         new UpgradeChipPrefab<ColorizerUpgrade>(PrefabInfo.WithTechType("PdaColorizerUpgrade", true)
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PDGay")),
-                new RecipeData(new CraftData.Ingredient(TechType.AluminumOxide),
-                    new CraftData.Ingredient(TechType.UraniniteCrystal), new CraftData.Ingredient(TechType.Diamond)))
+                new RecipeData(new Ingredient(TechType.AluminumOxide, 1),
+                    new Ingredient(TechType.UraniniteCrystal, 1), new Ingredient(TechType.Diamond, 1)))
             .Register();
         new UpgradeChipPrefab<LeviathanDetectorUpgrade>(PrefabInfo.WithTechType("PdaLeviathanDetectorUpgrade", true)
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LeviathanDetector")),
-                new RecipeData(new CraftData.Ingredient(TechType.ComputerChip),
-                    new CraftData.Ingredient(TechType.AdvancedWiringKit), new CraftData.Ingredient(TechType.Quartz)))
+                new RecipeData(new Ingredient(TechType.ComputerChip, 1),
+                    new Ingredient(TechType.AdvancedWiringKit, 1), new Ingredient(TechType.Quartz, 1)))
             .Register();
         var pocketDimensionMk1 = PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk1", true);
         new UpgradeChipPrefab<PocketDimensionUpgradeTier1>(pocketDimensionMk1
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimension")),
-                new RecipeData(new CraftData.Ingredient(TechType.TitaniumIngot, 2),
-                    new CraftData.Ingredient(TechType.PrecursorIonCrystal),
-                    new CraftData.Ingredient(TechType.VehicleStorageModule),
-                    new CraftData.Ingredient(TechType.Pipe, 2)))
+                new RecipeData(new Ingredient(TechType.TitaniumIngot, 2),
+                    new Ingredient(TechType.PrecursorIonCrystal, 1),
+                    new Ingredient(TechType.VehicleStorageModule, 1),
+                    new Ingredient(TechType.Pipe, 2)))
             .Register();
         var pocketDimensionMk2 = PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk2", true);
         new UpgradeChipPrefab<PocketDimensionUpgradeTier2>(pocketDimensionMk2
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimensionTier2")),
-                new RecipeData(new CraftData.Ingredient(pocketDimensionMk1.TechType),
-                    new CraftData.Ingredient(TechType.PlasteelIngot),
-                    new CraftData.Ingredient(TechType.PrecursorIonCrystal),
-                    new CraftData.Ingredient(TechType.AdvancedWiringKit)))
+                new RecipeData(new Ingredient(pocketDimensionMk1.TechType, 1),
+                    new Ingredient(TechType.PlasteelIngot, 1),
+                    new Ingredient(TechType.PrecursorIonCrystal, 1),
+                    new Ingredient(TechType.AdvancedWiringKit, 1)))
             {
                 InModificationStation = true
             }
@@ -99,24 +99,24 @@ public class Plugin : BaseUnityPlugin
         var pocketDimensionMk3 = PrefabInfo.WithTechType("PdaPocketDimensionUpgradeMk3", true);
         new UpgradeChipPrefab<PocketDimensionUpgradeTier3>(pocketDimensionMk3
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_PocketDimensionTier3")),
-                new RecipeData(new CraftData.Ingredient(pocketDimensionMk2.TechType),
-                    new CraftData.Ingredient(TechType.PlasteelIngot, 2),
-                    new CraftData.Ingredient(TechType.LabEquipment1),
-                    new CraftData.Ingredient(TechType.PrecursorKey_Blue),
-                    new CraftData.Ingredient(TechType.RedGreenTentacleSeed, 2)))
+                new RecipeData(new Ingredient(pocketDimensionMk2.TechType, 1),
+                    new Ingredient(TechType.PlasteelIngot, 2),
+                    new Ingredient(TechType.LabEquipment1, 1),
+                    new Ingredient(TechType.PrecursorKey_Blue, 1),
+                    new Ingredient(TechType.RedGreenTentacleSeed, 2)))
             {
                 InModificationStation = true
             }
             .Register();
         new UpgradeChipPrefab<MinimapUpgrade>(PrefabInfo.WithTechType("PdaMinimapUpgrade", true)
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_Minimap")),
-                new RecipeData(new CraftData.Ingredient(TechType.AdvancedWiringKit),
-                    new CraftData.Ingredient(TechType.Beacon), new CraftData.Ingredient(TechType.MapRoomCamera)))
+                new RecipeData(new Ingredient(TechType.AdvancedWiringKit, 1),
+                    new Ingredient(TechType.Beacon, 1), new Ingredient(TechType.MapRoomCamera, 1)))
             .Register();
         new UpgradeChipPrefab<AmbientLightUpgrade>(PrefabInfo.WithTechType("PdaAmbientLightUpgrade", true)
                     .WithIcon(Bundle.LoadAsset<Sprite>("UpgradeIcon_LightEmitter")),
-                new RecipeData(new CraftData.Ingredient(TechType.Glass),
-                    new CraftData.Ingredient(TechType.LEDLight), new CraftData.Ingredient(TechType.CopperWire)))
+                new RecipeData(new Ingredient(TechType.Glass, 1),
+                    new Ingredient(TechType.LEDLight, 1), new Ingredient(TechType.CopperWire, 1)))
             .Register();
 
         var pocketTier1 = new PocketDimensionPrefab(PrefabInfo.WithTechType("PdaPocketDimensionTier1"),
