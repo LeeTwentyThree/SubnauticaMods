@@ -5,7 +5,6 @@ using Nautilus.Crafting;
 using Nautilus.Utility;
 using PrawnSuitSpeedModule.Mono;
 using System.IO;
-using Ingredient = CraftData.Ingredient;
 
 namespace PrawnSuitSpeedModule.Items.Equipment;
 public static class PrawnSuitSpeedUpgrade
