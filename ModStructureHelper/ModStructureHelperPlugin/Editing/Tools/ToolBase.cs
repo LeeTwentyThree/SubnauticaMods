@@ -29,7 +29,7 @@ public abstract class ToolBase : TooltipTarget
     
     private string GetBindString()
     {
-        var inputName = GameInput.GetKeyCodeAsInputName(manager.GetKeyBindForTool(Type));
+        var inputName = manager.GetKeyBindForTool(Type).ToString();
         return PairedWithControl ? $"Ctrl + {inputName}" : inputName;
     }
 
