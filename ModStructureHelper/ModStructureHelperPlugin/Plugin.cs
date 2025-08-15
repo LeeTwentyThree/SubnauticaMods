@@ -3,6 +3,7 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using ModStructureHelperPlugin.OutlineShit;
+using ModStructureHelperPlugin.Utility;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
@@ -36,5 +37,7 @@ public class Plugin : BaseUnityPlugin
         OutlineResources.ResetToDefaults();
         
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
+        
+        AutosaveUtils.ClearOldAutoSaves();
     }
 }

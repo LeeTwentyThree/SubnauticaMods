@@ -1,26 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using ModStructureFormat;
 using ModStructureHelperPlugin.Editing.Managers;
-using ModStructureHelperPlugin.Editing.Tools;
 using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
+using ModStructureHelperPlugin.Utility;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.StructureHandling;
 
-public class StructureInstance : MonoBehaviour
+public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
 {
     public static StructureInstance Main;
     
     public Structure data;
     public string path;
+    public string structureName;
 
     private List<ManagedEntity> _managedEntities = new List<ManagedEntity>();
 
     public delegate void OnStructureInstanceChangedHandler(StructureInstance newInstance);
-    public static event OnStructureInstanceChangedHandler OnStructureInstanceChanged; 
+    public static event OnStructureInstanceChangedHandler OnStructureInstanceChanged;
+
+    private float _timeLastAutosave;
 
     public static void CreateNewInstance(Structure data, string path)
     {
@@ -33,12 +38,34 @@ public class StructureInstance : MonoBehaviour
         var instance = new GameObject("StructureInstance").AddComponent<StructureInstance>();
         instance.data = data;
         instance.path = path;
+        instance.structureName = Path.GetFileNameWithoutExtension(path);
 
         instance._managedEntities = new List<ManagedEntity>(data.Entities.Select(e => new ManagedEntity(e)));
         
         instance.TryGrabManagedEntities();
 
         OnStructureInstanceChanged?.Invoke(instance);
+
+        if (Plugin.ModConfig.AutosaveStructureOnLoad)
+        {
+            Autosave();
+        }
+        
+        instance._timeLastAutosave = Time.realtimeSinceStartup;
+    }
+
+    private void Start()
+    {
+        UpdateSchedulerUtils.Register(this);
+    }
+
+    public void ScheduledUpdate()
+    {
+        if (Plugin.ModConfig.AutosaveStructureOverTime && Time.realtimeSinceStartup > _timeLastAutosave + Plugin.ModConfig.AutosaveDelay * 60)
+        {
+            Autosave();
+            _timeLastAutosave = Time.realtimeSinceStartup;
+        }
     }
 
     public static void TrySave()
@@ -49,8 +76,21 @@ public class StructureInstance : MonoBehaviour
             ErrorMessage.AddMessage("There is nothing to save!");
             return;
         }
-        Main.Save();
+        Main.Save(false);
         ErrorMessage.AddMessage($"Successfully saved to path '{Main.path}.'");
+    }
+    
+    public static void Autosave()
+    {
+        ErrorMessage.AddMessage("Autosaving current structure...");
+        try
+        {
+            Main.Save(true);
+        }
+        catch (Exception e)
+        {
+            Plugin.Logger.LogError("Exception thrown while autosaving: " + e);
+        }
     }
 
     public GameObject SpawnPrefabIntoStructure(GameObject prefab, bool makeSnapshot)
@@ -104,13 +144,24 @@ public class StructureInstance : MonoBehaviour
 
     private void OnDestroy()
     {
+        Autosave();
         OnStructureInstanceChanged?.Invoke(null);
         SelectionManager.ClearSelection();
+        UpdateSchedulerUtils.Deregister(this);
     }
 
-    private void Save()
+    private void Save(bool autosave)
     {
-        GetCurrentStructureData().SaveToFile(path);
+        GetCurrentStructureData().SaveToFile(autosave ? GetAutosaveFilePath() : path);
+    }
+    
+    private string GetAutosaveFilePath()
+    {
+        var folder = AutosaveUtils.GetAutoSaveFolderPath();
+        if (!Directory.Exists(folder))
+            Directory.CreateDirectory(folder);
+        var fileName = structureName + "-" + DateTime.Now.ToString("yyyy-M-d-HH-mm-ss") + ".structure";
+        return Path.Combine(folder, fileName);
     }
 
     private void TryGrabManagedEntities()
@@ -245,4 +296,11 @@ public class StructureInstance : MonoBehaviour
     public int GetLoadedEntityCount() => _managedEntities.Count(entity => entity.EntityInstance != null);
 
     public bool IsEntityLoadedIntoWorld(string id) => _managedEntities.Any(entity => entity.Id == id && entity.EntityInstance != null);
+    
+    public string GetProfileTag()
+    {
+        return "StructureInstance";
+    }
+
+    public int scheduledUpdateIndex { get; set; }
 }
