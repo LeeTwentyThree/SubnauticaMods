@@ -34,6 +34,9 @@ public class AutosaveUtils
     
     public static string GetAutoSaveFolderPath()
     {
-        return Path.Combine(Path.GetDirectoryName(Plugin.Assembly.Location), AutosaveFolderName);
+        var folder = Path.Combine(Path.GetDirectoryName(Plugin.Assembly.Location), AutosaveFolderName);
+        if (!Directory.Exists(folder))
+            Directory.CreateDirectory(folder);
+        return folder;
     }
 }

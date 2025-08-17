@@ -158,8 +158,6 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
     private string GetAutosaveFilePath()
     {
         var folder = AutosaveUtils.GetAutoSaveFolderPath();
-        if (!Directory.Exists(folder))
-            Directory.CreateDirectory(folder);
         var fileName = structureName + "-" + DateTime.Now.ToString("yyyy-M-d-HH-mm-ss") + ".structure";
         return Path.Combine(folder, fileName);
     }
