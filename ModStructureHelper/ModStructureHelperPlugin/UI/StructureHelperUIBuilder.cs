@@ -20,5 +20,12 @@ public static class StructureHelperUIBuilder
     private static void ConstructUI()
     {
         var obj = Object.Instantiate(Plugin.AssetBundle.LoadAsset<GameObject>("StructureHelperCanvas"));
+        // FIX FOR 2025 PATCH:
+        obj.GetComponent<uGUI_InputGroup>().acceptedMouseButtonsForActivation = new bool[]
+        {
+            true,
+            false,
+            false
+        };
     }
 }
