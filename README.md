@@ -24,8 +24,6 @@ You can access this repository's unorganized releases page [here](https://github
 
 Join the Subnautica Modding Discord server to discuss mods & receive support: https://discord.gg/UpWuWwq
 
-Contact me: `32eel`
-
 ### Mods from other developers 🔧
 
 Coming soon!
@@ -33,18 +31,6 @@ Coming soon!
 ### Patreon ❤️
 
 Thank you so much to all of my Patrons for your incredible support!
-
-- Andrea
-- Brad
-- Dylan
-- Ej
-- FireGodDemon
-- Indigo
-- SpeedyMouse
-- SteveKong
-- The Last Bacon
-
-If you want your name changed/removed/added to the Patreon list, please message me through Patreon.
 
 <div>
   <a href="https://patreon.com/user?u=71441969&utm_medium=clipboard_copy&utm_source=copyLink&utm_campaign=creatorshare_creator">
