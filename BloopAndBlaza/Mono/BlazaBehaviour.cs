@@ -83,7 +83,14 @@ public class BlazaBehaviour : MonoBehaviour
     private void GrabVehicle(Vehicle vehicle, VehicleType vehicleType)
     {
         vehicle.GetComponent<Rigidbody>().isKinematic = true;
-        vehicle.collisionModel.SetActive(false);
+        if (vehicle.collisionModel != null)
+        {
+            foreach (var cm in vehicle.collisionModel)
+            {
+                if (cm)
+                    cm.SetActive(false);
+            }
+        }
         _heldVehicle = vehicle;
         _heldVehicleType = vehicleType;
         if (_heldVehicleType == VehicleType.Exosuit)
@@ -145,7 +152,14 @@ public class BlazaBehaviour : MonoBehaviour
             }
 
             _heldVehicle.GetComponent<Rigidbody>().isKinematic = false;
-            _heldVehicle.collisionModel.SetActive(true);
+            if (_heldVehicle.collisionModel != null)
+            {
+                foreach (var cm in _heldVehicle.collisionModel)
+                {
+                    if (cm)
+                        cm.SetActive(true);
+                }
+            }
             _heldVehicle = null;
             _timeVehicleReleased = Time.time;
         }

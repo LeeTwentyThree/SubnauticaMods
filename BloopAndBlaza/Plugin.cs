@@ -57,7 +57,7 @@ public class Plugin : BaseUnityPlugin
         registerShallowBloopSpawns = Config.Bind(
             "Spawns",
             "Enable shallow bloop spawns",
-            true,
+            false,
             "Enable shallow bloop spawns");
 
         registerDeepBloopSpawns = Config.Bind(
