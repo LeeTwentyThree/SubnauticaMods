@@ -21,7 +21,7 @@ public class ObjectPickerTool : ToolBase
 
     public override void UpdateTool()
     {
-        if (Input.GetMouseButtonDown(0) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
+        if (GameInput.GetButtonDown(StructureHelperInput.Interact) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
             // extend the ray to ignore the main character's collider

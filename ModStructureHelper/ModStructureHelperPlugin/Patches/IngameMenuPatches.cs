@@ -16,7 +16,7 @@ public static class IngameMenuPatches
         var buttonLayout = __instance.transform.Find("Main/ButtonLayout");
         var structuresButton = Object.Instantiate(buttonLayout.transform.Find("ButtonBack"), buttonLayout.GetComponent<RectTransform>());
         structuresButton.transform.SetSiblingIndex(structuresButton.parent.Find("ButtonSave").GetSiblingIndex() + 1);
-        structuresButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Edit Structures ({Plugin.ModConfig.ToggleStructureHelperKeyBind})";
+        structuresButton.GetComponentInChildren<TextMeshProUGUI>().text = $"Edit Structures ({GameInput.FormatButton(StructureHelperInput.ToggleStructureHelperKeyBind)})";
         structuresButton.name = "ButtonEditStructures";
         var button = structuresButton.GetComponent<Button>();
         button.onClick = new Button.ButtonClickedEvent();

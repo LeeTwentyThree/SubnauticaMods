@@ -7,7 +7,7 @@ public class UndoTool : ToolBase
 {
     public override ToolType Type => ToolType.Undo;
     public override bool MultitaskTool => true;
-    public override bool PairedWithControl => true;
+    public override bool RequiresModifierHeld => true;
 
     private bool _coroutineRunning;
     

@@ -180,11 +180,11 @@ public class UIEntityWindow : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse4))
+        if (GameInput.GetButtonDown(StructureHelperInput.GoForward))
         {
             GoUnback();
         }
-        if (Input.GetKeyDown(KeyCode.Mouse3))
+        if (GameInput.GetButtonDown(StructureHelperInput.GoBack))
         {
             GoBack();
         }

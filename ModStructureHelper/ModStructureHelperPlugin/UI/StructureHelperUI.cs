@@ -39,7 +39,7 @@ public class StructureHelperUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (GameInput.GetButtonDown(GameInput.Button.UIMenu))
         {
             gameObject.SetActive(false);
         }

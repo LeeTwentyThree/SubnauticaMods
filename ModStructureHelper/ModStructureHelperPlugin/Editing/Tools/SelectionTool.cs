@@ -32,7 +32,7 @@ public class SelectionTool : ToolBase
 
     public override void UpdateTool()
     {
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (!GameInput.GetButtonDown(StructureHelperInput.Interact)) return;
         if (StructureHelperUI.main.editingScreenChecker.IsCursorHoveredOverExternalWindows()) return;
         if (manager.handle.GetIsAnyHandleHovered()) return;
         
@@ -55,7 +55,7 @@ public class SelectionTool : ToolBase
             }
         }
 
-        if (!Input.GetKey(Plugin.ModConfig.PrioritizeTriggers))
+        if (!GameInput.GetButtonHeld(StructureHelperInput.PrioritizeTriggers))
         {
             return;
         }
@@ -82,7 +82,7 @@ public class SelectionTool : ToolBase
         
         var isSelected = SelectionManager.IsSelected(obj);
         
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (GameInput.GetButtonHeld(StructureHelperInput.SelectMultipleModifier))
         {
             if (isSelected) SelectionManager.RemoveSelectedObject(obj);
             else SelectionManager.AddSelectedObject(obj);

@@ -8,7 +8,7 @@ public class SelectAllTool : ToolBase
 {
     public override ToolType Type => ToolType.SelectAll;
     public override bool MultitaskTool => true;
-    public override bool PairedWithControl => true;
+    public override bool RequiresModifierHeld => true;
 
     protected override void OnToolEnabled()
     {

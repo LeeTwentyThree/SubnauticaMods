@@ -63,11 +63,11 @@ public class PaintTool : ToolBase
             CreatePreview();
         }
 
-        if (Input.GetKey(Plugin.ModConfig.BrushRotateLeft))
+        if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateLeft))
         {
             _rotation -= Time.deltaTime / 2f;
         }
-        else if (Input.GetKey(Plugin.ModConfig.BrushRotateRight))
+        else if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateRight))
         {
             _rotation += Time.deltaTime / 2f;
         }
@@ -80,7 +80,7 @@ public class PaintTool : ToolBase
 
         if (!_brushLocationValid) return;
         
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
+        if (GameInput.GetButtonDown(StructureHelperInput.Interact) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var placedObject = Instantiate(_selectedPrefab, _brushPosition, _brushRotation);
             StructureInstance.Main.RegisterNewEntity(placedObject.GetComponent<PrefabIdentifier>(), true);

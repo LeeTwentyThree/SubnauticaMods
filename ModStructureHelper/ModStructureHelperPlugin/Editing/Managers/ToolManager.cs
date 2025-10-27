@@ -35,7 +35,7 @@ public class ToolManager : MonoBehaviour
         foreach (var tool in tools)
         {
             if (tool.Type != ToolType.BrowseEntities && entityBrowserOpen) continue;
-            if (Input.GetKeyDown(GetKeyBindForTool(tool.Type)) && (!tool.PairedWithControl || Input.GetKey(KeyCode.LeftControl)))
+            if (GameInput.GetButtonDown(GetButtonForTool(tool.Type)) && (!tool.RequiresModifierHeld || GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier)))
             {
                 tool.OnToolButtonPressed();
             }
@@ -45,43 +45,43 @@ public class ToolManager : MonoBehaviour
     
     public ToolBase GetTool(ToolType type) => (from tool in tools where tool.Type == type select tool).FirstOrDefault();
 
-    public KeyCode GetKeyBindForTool(ToolType tool)
+    public GameInput.Button GetButtonForTool(ToolType tool)
     {
         switch (tool)
         {
             case ToolType.Select:
-                return Plugin.ModConfig.SelectBind;
+                return StructureHelperInput.SelectBind;
             case ToolType.Translate:
-                return Plugin.ModConfig.TranslateBind;
+                return StructureHelperInput.TranslateBind;
             case ToolType.Rotate:
-                return Plugin.ModConfig.RotateBind;
+                return StructureHelperInput.RotateBind;
             case ToolType.Scale:
-                return Plugin.ModConfig.ScaleBind;
+                return StructureHelperInput.ScaleBind;
             case ToolType.DragAndDrop:
-                return Plugin.ModConfig.DragBind;
+                return StructureHelperInput.DragBind;
             case ToolType.BrowseEntities:
-                return Plugin.ModConfig.EntityEditorBind;
+                return StructureHelperInput.EntityEditorBind;
             case ToolType.PaintBrush:
-                return Plugin.ModConfig.PaintBrushBind;
+                return StructureHelperInput.PaintBrushBind;
             case ToolType.GlobalSpace:
-                return Plugin.ModConfig.ToggleGlobalSpaceBind;
+                return StructureHelperInput.ToggleGlobalSpaceBind;
             case ToolType.Snapping:
-                return Plugin.ModConfig.ToggleSnappingBind;
+                return StructureHelperInput.ToggleSnappingBind;
             case ToolType.ObjectPicker:
-                return Plugin.ModConfig.PickObjectBind;
+                return StructureHelperInput.PickObjectBind;
             case ToolType.CableGenerator:
-                return Plugin.ModConfig.CableEditorBind;
+                return StructureHelperInput.CableEditorBind;
             case ToolType.Duplicate:
-                return Plugin.ModConfig.DuplicateBind;
+                return StructureHelperInput.DuplicateBind;
             case ToolType.SelectAll:
-                return Plugin.ModConfig.SelectAllBind;
+                return StructureHelperInput.SelectAllBind;
             case ToolType.Undo:
-                return Plugin.ModConfig.UndoBind;
+                return StructureHelperInput.UndoBind;
             case ToolType.Delete:
-                return Plugin.ModConfig.DeleteBind;
+                return StructureHelperInput.DeleteBind;
             default:
                 Plugin.Logger.LogWarning($"No keybind implemented for tool '{tool}'!");
-                return KeyCode.None;
+                return GameInput.Button.None;
         }
     }
 }

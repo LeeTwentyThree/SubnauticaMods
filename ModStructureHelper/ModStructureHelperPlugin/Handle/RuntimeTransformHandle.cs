@@ -172,17 +172,17 @@ public class RuntimeTransformHandle : MonoBehaviour
 
     public static bool GetPointerDown()
     {
-        return Input.GetMouseButtonDown(0);
+        return GameInput.GetButtonDown(StructureHelperInput.Interact);
     }
 
     public static bool PointerIsDown()
     {
-        return Input.GetMouseButton(0);
+        return GameInput.GetButtonHeld(StructureHelperInput.Interact);
     }
 
     public static bool GetPointerUp()
     {
-        return Input.GetMouseButtonUp(0);
+        return GameInput.GetButtonUp(StructureHelperInput.Interact);
     }
 
     public static Vector3 GetMousePosition()

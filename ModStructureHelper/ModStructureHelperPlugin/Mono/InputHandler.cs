@@ -8,14 +8,14 @@ public class InputHandler : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.GetKeyDown(Plugin.ModConfig.ToggleStructureHelperKeyBind))
+        if (GameInput.GetButtonDown(StructureHelperInput.ToggleStructureHelperKeyBind))
         {
             StructureHelperUI.SetUIEnabled(!StructureHelperUI.IsActive);
         }
 
         if (!StructureHelperUI.main || !StructureHelperUI.main.isActiveAndEnabled) return;
         
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(Plugin.ModConfig.SaveKeyBind))
+        if (GameInput.GetButtonDown(StructureHelperInput.SaveHotkeyModifier) && GameInput.GetButtonDown(StructureHelperInput.SaveKeyBind))
         {
             StructureInstance.TrySave();
         }

@@ -35,7 +35,7 @@ public class DragAndDropTool : ToolBase
 
     public override void UpdateTool()
     {
-        if (Input.GetMouseButtonDown(0) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
+        if (GameInput.GetButtonDown(StructureHelperInput.Interact) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var ray = GetRay();
             if (!Physics.Raycast(ray, out var hit, 5000, -1, QueryTriggerInteraction.Ignore)) return;
@@ -46,17 +46,17 @@ public class DragAndDropTool : ToolBase
             // I'm going to regret this hack surely?
             manager.OnToolStateChangedHandler?.Invoke(this, true);
         }
-        if (Input.GetMouseButtonUp(0))
+        if (GameInput.GetButtonUp(StructureHelperInput.Interact))
         {
             SetCurrentlySelected(null);
             manager.OnToolStateChangedHandler?.Invoke(this, true);
         }
-        if (Input.GetKey(Plugin.ModConfig.BrushRotateLeft))
+        if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateLeft))
         {
             _rotation -= Time.deltaTime / 2f;
             _upDirChanged = true;
         }
-        else if (Input.GetKey(Plugin.ModConfig.BrushRotateRight))
+        else if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateRight))
         {
             _rotation += Time.deltaTime / 2f;
             _upDirChanged = true;
