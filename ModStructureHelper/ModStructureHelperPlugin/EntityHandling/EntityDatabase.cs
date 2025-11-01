@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Nautilus.Handlers;
 using UnityEngine;
-using Newtonsoft.Json;
 
 namespace ModStructureHelperPlugin.EntityHandling;
 

@@ -28,6 +28,7 @@ public class PaintTool : ToolBase
     private const float MaxPrefabLoadingTime = 5;
 
     private float _rotation;
+    private float _scaleOffset;
     private Transform _dummyRotationTransform;
     private UpDirection _upDirection;
 
@@ -65,11 +66,21 @@ public class PaintTool : ToolBase
 
         if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateLeft))
         {
-            _rotation -= Time.deltaTime / 2f;
+            _rotation -= Time.deltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
         }
         else if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateRight))
         {
-            _rotation += Time.deltaTime / 2f;
+            _rotation += Time.deltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
+        }
+        
+        
+        if (GameInput.GetButtonHeld(StructureHelperInput.BrushDecreaseScale))
+        {
+            _scaleOffset = Mathf.Max(Mathf.Epsilon, _scaleOffset - Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
+        }
+        else if (GameInput.GetButtonHeld(StructureHelperInput.BrushIncreaseScale))
+        {
+            _scaleOffset = Mathf.Max(Mathf.Epsilon, _scaleOffset + Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
         }
 
         UpdateBrushPosition();
@@ -77,12 +88,14 @@ public class PaintTool : ToolBase
         _currentPreview.SetActive(_brushLocationValid);
         _currentPreview.transform.position = _brushPosition;
         _currentPreview.transform.rotation = _brushRotation;
+        _currentPreview.transform.localScale = Vector3.one * (1f + _scaleOffset);
 
         if (!_brushLocationValid) return;
         
         if (GameInput.GetButtonDown(StructureHelperInput.Interact) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var placedObject = Instantiate(_selectedPrefab, _brushPosition, _brushRotation);
+            placedObject.transform.localScale = Vector3.one * (1f + _scaleOffset);
             StructureInstance.Main.RegisterNewEntity(placedObject.GetComponent<PrefabIdentifier>(), true);
         }
     }
@@ -108,7 +121,6 @@ public class PaintTool : ToolBase
         Destroy(lwe);
         _currentPreview.GetComponentsInChildren<Renderer>().ForEach(renderer => renderer.SetFadeAmount(0.5f));
         ObjectStripper.StripAllChildren(_currentPreview);
-        _rotation = 0;
     }
 
     private void UpdateBrushPosition()
@@ -152,6 +164,8 @@ public class PaintTool : ToolBase
         _selectedPrefab = null;
         StartCoroutine(LoadEntity(classId));
         _upDirection = PrefabUpDirectionManager.GetUpDirectionForPrefab(classId);
+        _rotation = default;
+        _scaleOffset = default;
     }
 
     private IEnumerator LoadEntity(string classId)

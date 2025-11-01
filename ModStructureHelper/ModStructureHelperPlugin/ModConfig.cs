@@ -11,6 +11,10 @@ public class ModConfig : ConfigFile
     public bool ConsistentHandleScales = true;
     [Slider("Handle scale multiplier", 0.1f, 2f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
     public float HandleScaleMultiplier = 1f;
+    [Slider("Brush rotate speed", 0.1f, 10f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
+    public float BrushRotateSpeed = 1f;
+    [Slider("Brush scale speed", 0.1f, 5f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
+    public float BrushScaleSpeed = 1f;
     [Toggle("Autosave structures on load")]
     public bool AutosaveStructureOnLoad = true;
     [Toggle("Autosave structures periodically")]

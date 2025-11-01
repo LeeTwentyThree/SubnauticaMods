@@ -201,7 +201,7 @@ public static class StructureHelperInput
     public static readonly GameInput.Button SaveHotkeyModifier = EnumHandler
         .AddEntry<GameInput.Button>("SH_SaveHotkeyModifier")
         .CreateInput()
-        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Ctrl)
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.LeftCtrl)
         .AvoidConflicts()
         .WithCategory(ModifiersCategory);
     
@@ -209,7 +209,7 @@ public static class StructureHelperInput
     public static readonly GameInput.Button ToolHotkeyModifier = EnumHandler
         .AddEntry<GameInput.Button>("SH_ToolHotkeyModifier")
         .CreateInput()
-        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Ctrl)
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.LeftCtrl)
         .AvoidConflicts()
         .WithCategory(ModifiersCategory);
     
@@ -217,7 +217,7 @@ public static class StructureHelperInput
     public static readonly GameInput.Button SelectMultipleModifier = EnumHandler
         .AddEntry<GameInput.Button>("SH_SelectMultipleModifier")
         .CreateInput()
-        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Ctrl)
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.LeftCtrl)
         .AvoidConflicts()
         .WithCategory(ModifiersCategory);
 
@@ -238,6 +238,23 @@ public static class StructureHelperInput
         .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.RightBracket, GameInputHandler.Paths.Mouse.ScrollDown)
         .AvoidConflicts()
         .WithCategory(OtherCategory);
+    
+    [EnglishTranslation("Brush: decrease scale")]
+    public static readonly GameInput.Button BrushDecreaseScale = EnumHandler
+        .AddEntry<GameInput.Button>("SH_BrushDecreaseScale")
+        .CreateInput()
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Minus)
+        .AvoidConflicts()
+        .WithCategory(OtherCategory);
+
+    [EnglishTranslation("Brush: increase scale")]
+    public static readonly GameInput.Button BrushIncreaseScale = EnumHandler
+        .AddEntry<GameInput.Button>("SH_BrushIncreaseScale")
+        .CreateInput()
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Equals)
+        .AvoidConflicts()
+        .WithCategory(OtherCategory);
+
     
     [EnglishTranslation("Browser: go back")]
     public static readonly GameInput.Button GoBack = EnumHandler
