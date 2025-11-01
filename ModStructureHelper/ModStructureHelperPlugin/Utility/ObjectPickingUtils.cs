@@ -1,0 +1,36 @@
+﻿using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.Editing.Tools;
+using ModStructureHelperPlugin.UI;
+using UnityEngine;
+
+namespace ModStructureHelperPlugin.Utility;
+
+public static class ObjectPickingUtils
+{
+    public static void PickObjectAtCursor()
+    {
+        var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
+        // extend the ray to ignore the main character's collider
+        var extendedRay = new Ray(ray.origin + MainCamera.camera.transform.forward * 0.5f, ray.direction);
+        if (!Physics.Raycast(extendedRay, out var hit, 5000, -1, QueryTriggerInteraction.Ignore)) return;
+        if (SelectionManager.TryGetObjectRoot(hit.collider.gameObject, out var root,
+                SelectionManager.SelectionFilterMode.NoStructureRequired) == SelectionManager.ObjectRootResult.Success)
+            PickGameObject(root);
+    }
+
+    public static void PickGameObject(GameObject obj)
+    {
+        var prefabIdentifier = obj.GetComponent<PrefabIdentifier>();
+        if (prefabIdentifier == null)
+        {
+            ErrorMessage.AddMessage($"Warning: {obj} has no PrefabIdentifier! Cannot pick this object for brushing.");
+            return;
+        }
+
+        ErrorMessage.AddMessage(
+            $"The object {obj.name} (with Class ID '{prefabIdentifier.ClassId}') has been selected for brushing.");
+
+        var paintTool = StructureHelperUI.main.toolManager.GetTool(ToolType.PaintBrush) as PaintTool;
+        paintTool.SetCurrentBrushEntity(prefabIdentifier.ClassId);
+    }
+}

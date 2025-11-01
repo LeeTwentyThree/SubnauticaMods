@@ -138,6 +138,14 @@ public static class StructureHelperInput
         .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.K)
         .AvoidConflicts()
         .WithCategory(ToolsCategory);
+    
+    [EnglishTranslation("Quick pick entity")]
+    public static readonly GameInput.Button QuickPickEntity = EnumHandler
+        .AddEntry<GameInput.Button>("SH_QuickPickEntityBind")
+        .CreateInput()
+        .WithKeyboardBinding(GameInputHandler.Paths.Mouse.MiddleButton)
+        .AvoidConflicts()
+        .WithCategory(ToolsCategory);
 
     [EnglishTranslation("Toggle cable editor")]
     public static readonly GameInput.Button CableEditorBind = EnumHandler

@@ -27,7 +27,7 @@ public abstract class ToolBase : TooltipTarget
         bindText.text = GetBindString();
     }
     
-    private string GetBindString()
+    protected virtual string GetBindString()
     {
         var inputName = GameInput.FormatButton(manager.GetButtonForTool(Type));
         return RequiresModifierHeld ? $"{GameInput.FormatButton(StructureHelperInput.ToolHotkeyModifier)} + {inputName}" : inputName;
