@@ -29,6 +29,7 @@ public class PaintTool : ToolBase
 
     private float _rotation;
     private float _scaleOffset;
+    private Vector3 _currentEntityDefaultScale;
     private Transform _dummyRotationTransform;
     private UpDirection _upDirection;
 
@@ -76,11 +77,11 @@ public class PaintTool : ToolBase
         
         if (GameInput.GetButtonHeld(StructureHelperInput.BrushDecreaseScale))
         {
-            _scaleOffset = Mathf.Max(Mathf.Epsilon, _scaleOffset - Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
+            _scaleOffset = Mathf.Max(-1f, _scaleOffset - Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
         }
         else if (GameInput.GetButtonHeld(StructureHelperInput.BrushIncreaseScale))
         {
-            _scaleOffset = Mathf.Max(Mathf.Epsilon, _scaleOffset + Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
+            _scaleOffset = Mathf.Max(-1f, _scaleOffset + Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
         }
 
         UpdateBrushPosition();
@@ -88,14 +89,14 @@ public class PaintTool : ToolBase
         _currentPreview.SetActive(_brushLocationValid);
         _currentPreview.transform.position = _brushPosition;
         _currentPreview.transform.rotation = _brushRotation;
-        _currentPreview.transform.localScale = Vector3.one * (1f + _scaleOffset);
+        _currentPreview.transform.localScale = _currentEntityDefaultScale * (1f + _scaleOffset);
 
         if (!_brushLocationValid) return;
         
         if (GameInput.GetButtonDown(StructureHelperInput.Interact) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var placedObject = Instantiate(_selectedPrefab, _brushPosition, _brushRotation);
-            placedObject.transform.localScale = Vector3.one * (1f + _scaleOffset);
+            placedObject.transform.localScale = _currentEntityDefaultScale * (1f + _scaleOffset);
             StructureInstance.Main.RegisterNewEntity(placedObject.GetComponent<PrefabIdentifier>(), true);
         }
     }
@@ -182,6 +183,7 @@ public class PaintTool : ToolBase
         }
 
         _selectedPrefab = prefab;
+        _currentEntityDefaultScale = prefab.transform.localScale;
         _loadingPrefab = false;
 
         if (isActiveAndEnabled)
