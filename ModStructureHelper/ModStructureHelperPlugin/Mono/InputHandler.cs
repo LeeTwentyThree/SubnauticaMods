@@ -15,7 +15,7 @@ public class InputHandler : MonoBehaviour
 
         if (!StructureHelperUI.main || !StructureHelperUI.main.isActiveAndEnabled) return;
         
-        if (GameInput.GetButtonDown(StructureHelperInput.SaveHotkeyModifier) && GameInput.GetButtonDown(StructureHelperInput.SaveKeyBind))
+        if (GameInput.GetButtonHeld(StructureHelperInput.SaveHotkeyModifier) && GameInput.GetButtonDown(StructureHelperInput.SaveKeyBind))
         {
             StructureInstance.TrySave();
         }
