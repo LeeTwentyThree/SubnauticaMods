@@ -23,6 +23,11 @@ public class KelpRoot
         {
             ModifyPrefab = obj =>
             {
+                foreach (var pick in obj.GetComponentsInChildren<PickPrefab>())
+                {
+                    pick.pickTech = TechType.CreepvineSeedCluster;
+                }
+                
                 foreach (var light in obj.GetComponentsInChildren<Light>())
                 {
                     light.color = new Color(0.95f, 0.85f, 0);
@@ -37,7 +42,7 @@ public class KelpRoot
                             var material = renderer.material;
                             material.color = new Color(0.2f, 0.62f, 0.25f);
                             material.SetColor(ShaderPropertyID._SpecColor, new Color(0, 0.71f, 0.38f));
-                            material.SetColor(ShaderPropertyID._GlowColor, new Color(1, 4f, 0f));
+                            material.SetColor(ShaderPropertyID._GlowColor, new Color(0.38f, 2f, 0f));
                             material.SetFloat(ShaderPropertyID._EmissionLM, 0);
                             material.SetFloat("_EmissionLMNight", 0);
                             material.SetFloat("_Shininess", 5);
