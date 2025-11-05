@@ -107,29 +107,29 @@ public class Plugin : BaseUnityPlugin
             new ColoredGrass(kelpGrass2Prefix + "Yellow", kelpGrass2Clone)
                 .WithColor(new Color(3, 1, 1), new Color(3, 1, 1)),
             new ColoredGrass(anemoneGrassPrefix + "Red", anemoneGrassClone)
-                .WithColor(new Color(0.9f, 0.1f, 0.5f)),
+                .WithColor(new Color(0.45f, 0.05f, 0.25f)),
             new ColoredGrass(anemoneGrassPrefix + "DarkBlue", anemoneGrassClone)
                 .WithColor(new Color(0, 0.1f, 1)),
             new ColoredGrass(anemoneGrassPrefix + "Purple", anemoneGrassClone)
-                .WithColor(new Color(0.4f, 0.1f, 1)),
+                .WithColor(new Color(0.2f, 0.05f, 1)),
             new ColoredGrass(anemoneGrassPrefix + "Pink", anemoneGrassClone)
-                .WithColor(new Color(1, 0.1f, 1)),
+                .WithColor(new Color(0.5f, 0.05f, 0.5f)),
             new ColoredGrass(anemoneGrassPrefix + "Salmon", anemoneGrassClone)
-                .WithColor(new Color(1, 0.34f, 1)),
+                .WithColor(new Color(0.5f, 0.17f, 0.5f)),
             new ColoredGrass(anemoneGrassPrefix + "Orange", anemoneGrassClone)
-                .WithColor(new Color(1, 0.62f, 1)),
+                .WithColor(new Color(0.5f, 0.31f, 0.5f)),
             new ColoredGrass(anemoneGrassPrefix + "Realistic", anemoneGrassClone)
-                .WithColor(new Color(0.476f, 0.57f, 0.1f)),
+                .WithColor(new Color(0.23f, 0.28f, 0.05f)),
             new ColoredGrass(anemoneGrassPrefix + "Turquoise", anemoneGrassClone)
-                .WithColor(new Color(0, 1, 2)),
+                .WithColor(new Color(0, 0.5f, 1)),
             new ColoredGrass(anemoneGrassPrefix + "LightBlue", anemoneGrassClone)
-                .WithColor(new Color(0, 0.8f, 3)),
+                .WithColor(new Color(0, 0.4f, 1.5f)),
             new ColoredGrass(anemoneGrassPrefix + "Green", anemoneGrassClone)
-                .WithColor(new Color(0.24f, 0.8f, 1)),
+                .WithColor(new Color(0.12f, 0.4f, 0.5f)),
             new ColoredGrass(anemoneGrassPrefix + "White", anemoneGrassClone)
-                .WithColor(new Color(0.76f, 0.8f, 2.5f)),
+                .WithColor(new Color(0.38f, 0.4f, 1.25f)),
             new ColoredGrass(anemoneGrassPrefix + "Gray", anemoneGrassClone)
-                .WithColor(new Color(0.38f, 0.38f, 1)),
+                .WithColor(new Color(0.19f, 0.19f, 0.5f)),
             new ColoredGrass(bush1Prefix + "Pink", bush1Clone)
                 .WithColor(new Color(1, 1, 1)),
             new ColoredGrass(bush1Prefix + "Lime", bush1Clone)
