@@ -9,7 +9,7 @@ namespace KallieʼsPropPack.Prefabs.Trees;
 
 public static class PurplePineTree
 {
-    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("PurplePineTree");
+    public static PrefabInfo Info { get; } = PrefabInfo.WithTechType("Kallies_PurplePineTree");
 
     public static void Register()
     {
