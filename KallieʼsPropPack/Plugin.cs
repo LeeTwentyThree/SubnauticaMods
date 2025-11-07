@@ -18,6 +18,8 @@ public class Plugin : BaseUnityPlugin
 
     private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
+    private bool _initializedPrefabs;
+
     private void Awake()
     {
         Logger = base.Logger;
@@ -30,6 +32,13 @@ public class Plugin : BaseUnityPlugin
 
     private void InitializePrefabs(WaitScreenHandler.WaitScreenTask task)
     {
+        if (_initializedPrefabs)
+        {
+            return;
+        }
+
+        _initializedPrefabs = true;
+        
         // Register purple pine tree
         PurplePineTree.Register();
 
