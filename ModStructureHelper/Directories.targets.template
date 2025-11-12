@@ -1,0 +1,8 @@
+﻿COPY THIS FILE, REMOVE THIS LINE AND INSERT PROPER VALUES
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<GameDir>C:\Program Files (x86)\Steam\steamapps\common\Subnautica</GameDir>
+		<UnityProjectDir>...\ModStructureHelper\StructureHelperAssets</UnityProjectDir>
+	</PropertyGroup>
+</Project>
