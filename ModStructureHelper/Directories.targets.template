@@ -1,4 +1,4 @@
-﻿COPY THIS FILE, REMOVE THIS LINE AND INSERT PROPER VALUES
+﻿COPY THIS FILE, REMOVE THIS LINE, RENAME TO `Directories.targets` (without the .template) AND INSERT PROPER VALUES
 <?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<PropertyGroup>
