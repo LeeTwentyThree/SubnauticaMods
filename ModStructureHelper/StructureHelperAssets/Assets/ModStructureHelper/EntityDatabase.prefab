@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 1938625192, guid: 9a390e3e093e61340bb6556ddb9cc652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  folderSprite: {fileID: 21300000, guid: 60f32c7fcb17b22468d1de631ff07ece, type: 3}
+  defaultFolderSprite: {fileID: 21300000, guid: 60f32c7fcb17b22468d1de631ff07ece,
+    type: 3}
   defaultEntitySprite: {fileID: 21300000, guid: 83b0e29343bd24449a6ef76316a221a9,
     type: 3}

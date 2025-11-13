@@ -175,6 +175,9 @@ public class UIEntityWindow : MonoBehaviour
         button.rectTransform.SetParent(contentParent);
         button.SetBrowserEntry(entry);
         entry.OnConstructButton(button.gameObject);
+        var tooltip = entry.GetTooltip();
+        button.tooltipTarget.defaultTooltipText = tooltip;
+        button.tooltipTarget.enabled = !string.IsNullOrEmpty(tooltip);
         activeButtons.Add(button);
     }
 
@@ -234,7 +237,7 @@ public class UIEntityWindow : MonoBehaviour
             if (!task.TryGetPrefab(out var prefab)) continue;
             var output = new IconGenerator.IconOutput();
             yield return IconGenerator.GenerateIcon(prefab, classId, output);
-            button.image.sprite = output.Sprite;
+            button.SetIcon(output.Icon);
             // yield return null;
         }
     }

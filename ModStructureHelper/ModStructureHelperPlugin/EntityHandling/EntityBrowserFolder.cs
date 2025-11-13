@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ModStructureHelperPlugin.EntityHandling.Icons;
 using ModStructureHelperPlugin.UI;
 using UnityEngine;
 
@@ -20,7 +21,8 @@ public class EntityBrowserFolder : EntityBrowserEntryBase
 
     public override string Name => _name;
 
-    public override Sprite Sprite => EntityDatabase.main.folderSprite;
+    public override EntityIcon Icon => EntityDatabase.main.FolderIcon;
+    public override string GetTooltip() => null;
 
     public List<EntityBrowserEntryBase> Subentries { get; private set; } = new List<EntityBrowserEntryBase>();
 
@@ -61,7 +63,7 @@ public class EntityBrowserFolder : EntityBrowserEntryBase
 
     public override void OnConstructButton(GameObject button)
     {
-        // disable the paint button. the buttons use object pooling, so it's important that you disable this buttons in case it was enabled at another point.
+        // disable the paint button. the buttons use object pooling, so it's important that you disable this button in case it was enabled at another point.
         button.transform.GetChild(1).gameObject.SetActive(false);
     }
 }

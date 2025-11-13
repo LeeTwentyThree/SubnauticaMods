@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
+using ModStructureHelperPlugin.EntityHandling.Icons;
 using ModStructureHelperPlugin.Utility;
 using UnityEngine;
 
@@ -14,20 +15,32 @@ public class IconGenerator : MonoBehaviour
 
     private static IconGenerator _instance;
 
-    private static Dictionary<string, Sprite> _sprites = new Dictionary<string, Sprite>();
+    private static readonly Dictionary<string, EntityIcon> Icons = new();
 
-    public static bool TryGetIcon(string classId, out Sprite sprite)
+    private static Sprite _lightSprite;
+    private static Sprite _particleSprite;
+    private static Sprite _soundSprite;
+    
+    private static readonly Color SoundColor = new Color(0.99f, 0.75f, 0.03f);
+
     private const string ShaderToIgnore = "UWE/Particles/WBOIT-FakeVolumetricLight";
 
+    public static bool TryGetIcon(string classId, out EntityIcon icon)
     {
-        if (_sprites.TryGetValue(classId, out sprite)) return true;
+        if (Icons.TryGetValue(classId, out icon)) return true;
         return false;
     }
 
-    public static bool HasIcon(string classId) => _sprites.ContainsKey(classId);
+    public static bool HasIcon(string classId) => Icons.ContainsKey(classId);
 
     public static IEnumerator GenerateIcon(GameObject prefab, string classId, IconOutput output)
     {
+        if (Icons.TryGetValue(classId, out var cachedIcon))
+        {
+            output.Icon = cachedIcon;
+            yield break;
+        }
+
         if (_instance == null)
         {
             var obj = new GameObject("Icon Generator");
@@ -47,12 +60,22 @@ public class IconGenerator : MonoBehaviour
             _instance.cam = camera;
             _instance.sceneParent.transform.parent = _instance.transform;
             _instance.transform.localPosition = new Vector3(0, 3000, 0);
+            _lightSprite = Plugin.AssetBundle.LoadAsset<Sprite>("Icon-Light");
+            _soundSprite = Plugin.AssetBundle.LoadAsset<Sprite>("Icon-Audio");
+            _particleSprite = Plugin.AssetBundle.LoadAsset<Sprite>("Icon-ParticleSystem");
         }
 
-        if (_sprites.TryGetValue(classId, out var icon))
+        if (Plugin.ModConfig.UseItemIconsInBrowser &&
+            CraftData.entClassTechTable.TryGetValue(classId, out var techType))
         {
-            output.Sprite = icon;
-            yield break;
+            var itemSprite = SpriteManager.Get(techType, null);
+            if (itemSprite != null)
+            {
+                var itemIcon = new EntityIconBasic(itemSprite);
+                Icons[classId] = itemIcon;
+                output.Icon = itemIcon;
+                yield break;
+            }
         }
 
         _instance.cam.enabled = true;
@@ -60,6 +83,14 @@ public class IconGenerator : MonoBehaviour
         var model = UWE.Utils.InstantiateDeactivated(prefab);
         ComponentStripUtils.StripComponents(model);
         model.SetActive(true);
+        
+        if (TryUseSpecialIcon(model, out var specialIcon))
+        {
+            Icons[classId] = specialIcon;
+            output.Icon = specialIcon;
+            yield break;
+        }
+        
         Destroy(model, 0.5f);
         model.transform.position = _instance.transform.position;
         var bounds = GetObjectBounds(model);
@@ -75,8 +106,50 @@ public class IconGenerator : MonoBehaviour
         Destroy(model);
         var sprite = Sprite.Create(tex, new Rect(0, 0, 256, 256), new Vector2(0.5f, 0.5f));
         _instance.cam.enabled = false;
-        _sprites[classId] = sprite;
-        output.Sprite = sprite;
+        var icon = new EntityIconBasic(sprite);
+        Icons[classId] = icon;
+        output.Icon = icon;
+    }
+
+    private static bool TryUseSpecialIcon(GameObject gameObject, out EntityIcon specialIcon)
+    {
+        specialIcon = null;
+        if (gameObject == null)
+            return false;
+        var renderers = gameObject.GetComponentsInChildren<Renderer>();
+        
+        if (renderers.Length == 0 || gameObject.GetComponent<VFXVolumetricLight>())
+        {
+            var light = gameObject.GetComponentInChildren<Light>();
+            if (light != null)
+            {
+                specialIcon = new EntityIconBasic(_lightSprite, light.color.WithAlpha(1));
+                return true;
+            }
+        }
+
+        if (renderers.Length > 0 && renderers.All(r => r is ParticleSystemRenderer))
+        {
+            var particleSystem = gameObject.GetComponentInChildren<ParticleSystem>();
+            var particleColor = Color.white;
+            if (particleSystem != null)
+            {
+                particleColor = particleSystem.main.startColor.color.WithAlpha(1);
+            }
+            specialIcon = new EntityIconBasic(_particleSprite, particleColor);
+            return true;
+        }
+        
+        if (renderers.Length == 0)
+        {
+            if (gameObject.GetComponentInChildren<FMOD_CustomEmitter>() != null)
+            {
+                specialIcon = new EntityIconBasic(_soundSprite, SoundColor);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static Bounds GetObjectBounds(GameObject obj)
@@ -97,6 +170,6 @@ public class IconGenerator : MonoBehaviour
 
     public class IconOutput
     {
-        public Sprite Sprite { get; set; }
+        public EntityIcon Icon { get; set; }
     }
 }

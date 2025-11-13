@@ -21,7 +21,9 @@ public static class ComponentStripUtils
         // Not sure about this one...
         typeof(Animator),
         typeof(CanvasRenderer),
-        typeof(Canvas)
+        typeof(Canvas),
+        typeof(FMOD_CustomEmitter),
+        typeof(VFXVolumetricLight)
     };
 
     public static void StripComponents(GameObject obj)

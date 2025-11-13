@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ModStructureHelperPlugin.EntityHandling.Icons;
 using ModStructureHelperPlugin.Mono;
 using ModStructureHelperPlugin.StructureHandling;
 using UnityEngine;
@@ -9,9 +10,28 @@ namespace ModStructureHelperPlugin.EntityHandling;
 public class EntityBrowserEntity : EntityBrowserEntryBase
 {
     public EntityData EntityData { get; }
-    public override string Name => EntityData.Name;
+    public override string Name => Plugin.ModConfig.BrowserUsesDebugNames ? EntityData.Name : EntityData.TranslatedName;
 
-    public override Sprite Sprite => IconGenerator.TryGetIcon(EntityData.ClassId, out var sprite) ? sprite : EntityDatabase.main.defaultEntitySprite;
+    public override EntityIcon Icon => IconGenerator.TryGetIcon(EntityData.ClassId, out var sprite)
+        ? sprite
+        : EntityDatabase.main.DefaultEntityIcon;
+
+    public override string GetTooltip()
+    {
+        string str;
+        
+        if (EntityData.ClassId.Equals(EntityData.Name))
+        {
+            str = EntityData.Name;
+        }
+        else
+        {
+            str = $"{EntityData.Name}\n<size=12>{EntityData.ClassId}</size>";
+        }
+
+        str += $"\n({EntityData.SourceName})";
+        return str;
+    }
 
     public EntityBrowserEntity(string path, EntityData entity) : base(path)
     {
@@ -39,16 +59,19 @@ public class EntityBrowserEntity : EntityBrowserEntryBase
             ErrorMessage.AddMessage($"Failed to spawn entity by Class ID '{EntityData.ClassId}' (prefab not found!)");
             yield break;
         }
+
         if (structure == null)
         {
             ErrorMessage.AddMessage("Error: the structure was deselected.");
             yield break;
         }
+
         var spawned = structure.SpawnPrefabIntoStructure(prefab, true);
         var maxRayDist = 10f;
         var spawnPos = MainCamera.camera.transform.position + MainCamera.camera.transform.forward * maxRayDist;
         var spawnUp = Vector3.up;
-        if (Physics.Raycast(MainCamera.camera.transform.position + MainCamera.camera.transform.forward, MainCamera.camera.transform.forward, out var hit, maxRayDist, -1, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(MainCamera.camera.transform.position + MainCamera.camera.transform.forward,
+                MainCamera.camera.transform.forward, out var hit, maxRayDist, -1, QueryTriggerInteraction.Ignore))
         {
             spawnPos = hit.point;
             spawnUp = hit.normal;

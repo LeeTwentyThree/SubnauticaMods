@@ -15,6 +15,10 @@ public class ModConfig : ConfigFile
     public float BrushRotateSpeed = 1f;
     [Slider("Brush scale speed", 0.1f, 5f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
     public float BrushScaleSpeed = 1f;
+    [Toggle("Browser users item icons")]
+    public bool UseItemIconsInBrowser = false;
+    [Toggle("Browser uses debug names")]
+    public bool BrowserUsesDebugNames = false;
     [Toggle("Autosave structures on load")]
     public bool AutosaveStructureOnLoad = true;
     [Toggle("Autosave structures periodically")]

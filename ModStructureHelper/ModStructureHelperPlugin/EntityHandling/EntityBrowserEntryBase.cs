@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ModStructureHelperPlugin.EntityHandling.Icons;
+using UnityEngine;
 
 namespace ModStructureHelperPlugin.EntityHandling;
 
@@ -6,7 +7,8 @@ public abstract class EntityBrowserEntryBase
 {
     public string Path { get; }
     public abstract string Name { get; }
-    public abstract Sprite Sprite { get; }
+    public abstract EntityIcon Icon { get; }
+    public abstract string GetTooltip();
 
     public EntityBrowserEntryBase(string path)
     {

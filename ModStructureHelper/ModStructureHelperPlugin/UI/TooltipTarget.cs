@@ -10,7 +10,8 @@ public class TooltipTarget : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        TooltipManager.Main.AddTarget(this);
+        if (isActiveAndEnabled)
+            TooltipManager.Main.AddTarget(this);
     }
 
     public void OnPointerExit(PointerEventData eventData)

@@ -1,5 +1,6 @@
 ﻿using ModStructureHelperPlugin.Editing.Tools;
 using ModStructureHelperPlugin.EntityHandling;
+using ModStructureHelperPlugin.EntityHandling.Icons;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class EntityBrowserButton : MonoBehaviour
     public Image image;
     public TextMeshProUGUI text;
     public RectTransform rectTransform;
+    public TooltipTarget tooltipTarget;
 
     private EntityBrowserEntryBase browserEntry;
 
@@ -31,13 +33,27 @@ public class EntityBrowserButton : MonoBehaviour
         paintTool.SetCurrentBrushEntity(entityEntry.EntityData.ClassId);
     }
 
-    public void SetBrowserEntry(EntityBrowserEntryBase browserEntry)
+    public void SetBrowserEntry(EntityBrowserEntryBase entry)
     {
-        this.browserEntry = browserEntry;
-        if (browserEntry != null)
+        browserEntry = entry;
+        if (entry != null)
         {
-            if (image) image.sprite = browserEntry.Sprite;
-            text.text = browserEntry.Name;
+            SetIcon(entry.Icon);
+            text.text = entry.Name;
+        }
+    }
+
+    public void SetIcon(EntityIcon icon)
+    {
+        if (image == null) return;
+        if (icon != null)
+        {
+            image.sprite = icon.Sprite;
+            image.color = icon.ColorMultiplier;
+        }
+        else
+        {
+            Plugin.Logger.LogWarning("Failed to find icon for entity: " + browserEntry.Name);
         }
     }
 
