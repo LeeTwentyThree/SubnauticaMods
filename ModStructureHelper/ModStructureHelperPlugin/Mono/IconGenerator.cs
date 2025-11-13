@@ -17,6 +17,8 @@ public class IconGenerator : MonoBehaviour
     private static Dictionary<string, Sprite> _sprites = new Dictionary<string, Sprite>();
 
     public static bool TryGetIcon(string classId, out Sprite sprite)
+    private const string ShaderToIgnore = "UWE/Particles/WBOIT-FakeVolumetricLight";
+
     {
         if (_sprites.TryGetValue(classId, out sprite)) return true;
         return false;
@@ -82,6 +84,11 @@ public class IconGenerator : MonoBehaviour
         Bounds bounds = new Bounds(obj.transform.position, Vector3.one * 1f);
         foreach (var renderer in obj.GetComponentsInChildren<Renderer>())
         {
+            var material = renderer.sharedMaterial;
+            if (material != null && material.shader != null && material.shader.name.Equals(ShaderToIgnore))
+            {
+                continue;
+            }
             bounds.Encapsulate(renderer.bounds);
         }
 
