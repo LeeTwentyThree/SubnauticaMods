@@ -132,16 +132,17 @@ public class PaintTool : ToolBase
         _brushPosition = hitSurface
             ? hit.point
             : MainCamera.camera.transform.position + MainCamera.camera.transform.forward * 10;
+        var surfaceNormal = GameInput.GetButtonHeld(StructureHelperInput.UseGlobalUpNormal) ? Vector3.up : hit.normal;
         if (hitSurface)
         {
             if (_upDirection == UpDirection.Z)
             {
-                _dummyRotationTransform.forward = hit.normal;
+                _dummyRotationTransform.forward = surfaceNormal;
                 _dummyRotationTransform.Rotate(Vector3.forward, _rotation * 360, Space.Self);
             }
             else
             {
-                _dummyRotationTransform.up = hit.normal;
+                _dummyRotationTransform.up = surfaceNormal;
                 _dummyRotationTransform.Rotate(Vector3.up, _rotation * 360, Space.Self);
             }
             _brushRotation = _dummyRotationTransform.rotation;

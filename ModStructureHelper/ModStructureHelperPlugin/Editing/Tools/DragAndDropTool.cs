@@ -120,23 +120,24 @@ public class DragAndDropTool : ToolBase
         if (_currentlySelected == null) return;
         var ray = GetRay();
         if (!Physics.Raycast(ray, out var hit, 80, -1, QueryTriggerInteraction.Ignore)) return;
+        var surfaceNormal = GameInput.GetButtonHeld(StructureHelperInput.UseGlobalUpNormal) ? Vector3.up : hit.normal;
         _currentlySelected.transform.position = hit.point;
         if (!_upDirChanged)
         {
-            _upDirChanged = !Mathf.Approximately(hit.normal.x, _initialUpDir.x) ||
-                                             !Mathf.Approximately(hit.normal.y, _initialUpDir.y) ||
-                                             !Mathf.Approximately(hit.normal.z, _initialUpDir.z);
+            _upDirChanged = !Mathf.Approximately(surfaceNormal.x, _initialUpDir.x) ||
+                                             !Mathf.Approximately(surfaceNormal.y, _initialUpDir.y) ||
+                                             !Mathf.Approximately(surfaceNormal.z, _initialUpDir.z);
         }
         
         if (_upDirChanged)
         {
             if (_upDirection == UpDirection.Z)
             {
-                _currentlySelected.transform.forward = hit.normal;
+                _currentlySelected.transform.forward = surfaceNormal;
             }
             else
             {
-                _currentlySelected.transform.up = hit.normal;
+                _currentlySelected.transform.up = surfaceNormal;
             }
         }
 

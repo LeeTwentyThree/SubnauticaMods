@@ -263,6 +263,13 @@ public static class StructureHelperInput
         .AvoidConflicts()
         .WithCategory(OtherCategory);
 
+    [EnglishTranslation("Brush/drag: use global up normal")]
+    public static readonly GameInput.Button UseGlobalUpNormal = EnumHandler
+        .AddEntry<GameInput.Button>("SH_UseGlobalUpNormal")
+        .CreateInput()
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Semicolon)
+        .AvoidConflicts()
+        .WithCategory(OtherCategory);
     
     [EnglishTranslation("Browser: go back")]
     public static readonly GameInput.Button GoBack = EnumHandler
