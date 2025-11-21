@@ -4,8 +4,10 @@ using BepInEx.Logging;
 using HarmonyLib;
 using KallieʼsPropPack.Prefabs.Grasses;
 using KallieʼsPropPack.Prefabs.Plants;
+using KallieʼsPropPack.Prefabs.SingleCellLandscape;
 using KallieʼsPropPack.Prefabs.Trees;
 using Nautilus.Handlers;
+using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
 namespace KallieʼsPropPack;
@@ -38,7 +40,7 @@ public class Plugin : BaseUnityPlugin
         }
 
         _initializedPrefabs = true;
-        
+
         // Register purple pine tree
         PurplePineTree.Register();
 
@@ -65,7 +67,7 @@ public class Plugin : BaseUnityPlugin
             var kelpRootPrefab = new KelpRoot(kelpRootData.classId, kelpRootData.originalClassId);
             kelpRootPrefab.Register();
         }
-        
+
         // Register grasses
 
         const string coralGrassPrefix = "Kallie_Grass_CoralGrass_";
@@ -150,7 +152,7 @@ public class Plugin : BaseUnityPlugin
             new ColoredGrass(bush1Prefix + "Red", bush1Clone)
                 .WithColor(new Color(1, 0.2f, 0.2f)),
             new ColoredGrass(bush1Prefix + "Orange", bush1Clone)
-                .WithColor(new Color(1, 0.277f,0.2f)),
+                .WithColor(new Color(1, 0.277f, 0.2f)),
             new ColoredGrass(bush1Prefix + "Blue", bush1Clone)
                 .WithColor(new Color(0.14f, 0.57f, 1.4f)),
             new ColoredGrass(bush1Prefix + "Green", bush1Clone)
@@ -187,5 +189,17 @@ public class Plugin : BaseUnityPlugin
         {
             grass.Register();
         }
+
+        // Register single cell landscape entities
+
+        new SingleCellGround("Kallies_SingleCellGround", LargeWorldEntity.CellLevel.Medium, false).Register();
+        new SingleCellGround("Kallies_SingleCellGround_LoadFar", LargeWorldEntity.CellLevel.Far, false).Register();
+        new SingleCellGround("Kallies_SingleCellGround_Rock", LargeWorldEntity.CellLevel.Medium, true).Register();
+        new SingleCellGround("Kallies_SingleCellGround_Rock_LoadFar", LargeWorldEntity.CellLevel.Far, true).Register();
+
+        new SingleCellRib("Kallies_SingleCellRib_01", "4404f4f2-3d65-4338-adb3-a1a2e1f8fac5").Register();
+        new SingleCellRib("Kallies_SingleCellRib_02", "6e37459e-d880-4da8-8dad-0cc10ff07f00").Register();
+        new SingleCellRib("Kallies_SingleCellRib_03", "ee1807bf-6744-4fee-a66f-c71edc9e7fb6").Register();
+        new SingleCellRib("Kallies_SingleCellRib_04", "33c31a89-9d3b-4717-ad26-4cc8106a1f24").Register();
     }
 }
