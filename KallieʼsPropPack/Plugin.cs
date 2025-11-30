@@ -3,10 +3,12 @@ using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using KallieʼsPropPack.Prefabs.Grasses;
+using KallieʼsPropPack.Prefabs.Lab;
 using KallieʼsPropPack.Prefabs.Plants;
 using KallieʼsPropPack.Prefabs.SingleCellLandscape;
 using KallieʼsPropPack.Prefabs.Trees;
 using Nautilus.Handlers;
+using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
 using UnityEngine;
 
@@ -21,6 +23,8 @@ public class Plugin : BaseUnityPlugin
     private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
     private bool _initializedPrefabs;
+    
+    internal static AssetBundle Bundle { get; private set; }
 
     private void Awake()
     {
@@ -40,6 +44,8 @@ public class Plugin : BaseUnityPlugin
         }
 
         _initializedPrefabs = true;
+
+        Bundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "kalliesproppack");
 
         // Register purple pine tree
         PurplePineTree.Register();
@@ -201,5 +207,10 @@ public class Plugin : BaseUnityPlugin
         new SingleCellRib("Kallies_SingleCellRib_02", "6e37459e-d880-4da8-8dad-0cc10ff07f00").Register();
         new SingleCellRib("Kallies_SingleCellRib_03", "ee1807bf-6744-4fee-a66f-c71edc9e7fb6").Register();
         new SingleCellRib("Kallies_SingleCellRib_04", "33c31a89-9d3b-4717-ad26-4cc8106a1f24").Register();
+        
+        // Register lab entities
+
+        new LabFloorPlate("FloorPlate").Register();
+        new LabFloorPlate("FloorPlate_ExposedWiring").Register();
     }
 }
