@@ -212,5 +212,6 @@ public class Plugin : BaseUnityPlugin
 
         new LabFloorPlate("FloorPlate").Register();
         new LabFloorPlate("FloorPlate_ExposedWiring").Register();
+        new LabFlotationDevice("FlotationDevice").Register();
     }
 }
