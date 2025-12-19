@@ -2,14 +2,18 @@
 using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
+using KallieʼsPropPack.PrefabLoading;
 using KallieʼsPropPack.Prefabs.Grasses;
 using KallieʼsPropPack.Prefabs.Lab;
 using KallieʼsPropPack.Prefabs.Plants;
 using KallieʼsPropPack.Prefabs.SingleCellLandscape;
 using KallieʼsPropPack.Prefabs.Trees;
+using Nautilus.Assets;
+using Nautilus.Assets.PrefabTemplates;
 using Nautilus.Handlers;
 using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace KallieʼsPropPack;
@@ -46,6 +50,8 @@ public class Plugin : BaseUnityPlugin
         _initializedPrefabs = true;
 
         Bundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "kalliesproppack");
+        
+        PropPackAudio.RegisterAudio();
 
         // Register purple pine tree
         PurplePineTree.Register();
@@ -208,10 +214,30 @@ public class Plugin : BaseUnityPlugin
         new SingleCellRib("Kallies_SingleCellRib_03", "ee1807bf-6744-4fee-a66f-c71edc9e7fb6").Register();
         new SingleCellRib("Kallies_SingleCellRib_04", "33c31a89-9d3b-4717-ad26-4cc8106a1f24").Register();
         
+        new SingleCellBlob("Kallies_SingleCell_Blob_Round", "SCL_Blob_Round").Register();
+        new SingleCellBlob("Kallies_SingleCell_Blob_Flat", "SLC_Blob_Flat").Register();
+        new SingleCellBlob("Kallies_SingleCell_Blob_Oblong", "SLC_Blob_Oblong").Register();
+        new SingleCellBlob("Kallies_SingleCell_Blob_Tetrahedron", "SLC_Blob_Tetrahedron").Register();
+        
+        new SingleCellTentacle("Kallies_SingleCell_Tentacle_1", "SCL_Tentacle_Prefab_1").Register();
+        new SingleCellTentacle("Kallies_SingleCell_Tentacle_2", "SCL_Tentacle_Prefab_2").Register();
+        
+        var singleCellBiomeSettings = BiomeUtils.CreateBiomeSettings(new Vector3(2.4f, 2.1f, 1.2f), 1f,
+            new Color(0.5f, 1, 1, 1), 1.5f, new Color(0.9f, 0.9f, 0.9f),
+            0.015f, 30, 2, 2f, 16f);
+        BiomeHandler.RegisterBiome("singlecell", singleCellBiomeSettings,
+            new BiomeHandler.SkyReference("SkyMountains"));
+        var sclBiomePrefab = new CustomPrefab(PrefabInfo.WithTechType("SCLVolume"));
+        var sclBiomeTemplate = new AtmosphereVolumeTemplate(sclBiomePrefab.Info,
+            AtmosphereVolumeTemplate.VolumeShape.Cube, "singlecell");
+        BiomeHandler.AddBiomeAmbience("singlecell", AudioUtils.GetFmodAsset("SCL_Ambience"), FMODGameParams.InteriorState.Always);
+        sclBiomePrefab.SetGameObject(sclBiomeTemplate);
+        sclBiomePrefab.Register();
+        
         // Register lab entities
 
-        new LabFloorPlate("FloorPlate").Register();
-        new LabFloorPlate("FloorPlate_ExposedWiring").Register();
-        new LabFlotationDevice("FlotationDevice").Register();
+        var prefabLoader = new EpicPrefabLoader(new[] { Assembly }, Bundle);
+        prefabLoader.LoadPrefabs(JsonConvert.DeserializeObject<LoadedPrefabRegistrationData>(
+            Bundle.LoadAsset<TextAsset>("LabPrefabs").text));
     }
 }

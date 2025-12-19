@@ -50,6 +50,7 @@ public class ColoredGrass
                 foreach (var renderer in renderers)
                 {
                     var material = renderer.material;
+                    if (material == null) continue;
                     material.color = MainColor;
                     material.SetColor(ShaderPropertyID._SpecColor, SpecColor);
                     
