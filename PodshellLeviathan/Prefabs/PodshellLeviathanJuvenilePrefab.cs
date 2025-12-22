@@ -9,6 +9,8 @@ public class PodshellLeviathanJuvenilePrefab : PodshellLeviathanPrefab
     }
 
     protected override float StandardSwimVelocity => 2.8f;
-    protected override string ModelName => "PodshellLeviathanPrefab";
-    protected override float MaxHealth => 5000;
+    protected override string ModelName => "PodshellLeviathanJuvenilePrefab";
+    protected override float MaxHealth => 4000;
+
+    protected override float Mass => 1000;
 }

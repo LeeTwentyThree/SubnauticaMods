@@ -1,0 +1,137 @@
+{
+  "Entities": [
+    {
+      "classId": "PodshellLeviathan",
+      "id": "b6c557da-2f3e-416d-b8f1-77da27385851",
+      "position": {
+        "x": 619.6831,
+        "y": -253.99028,
+        "z": 1583.38672
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 0.9858666,
+        "y": 0.9858666,
+        "z": 0.9858666
+      },
+      "cellLevel": 3,
+      "priority": 0
+    },
+    {
+      "classId": "PodshellLeviathanJuvenile",
+      "id": "178a85f8-abf4-40fd-8672-fa04fc393640",
+      "position": {
+        "x": 763.178345,
+        "y": -241.730576,
+        "z": 1270.34814
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 0.9340807,
+        "y": 0.9340807,
+        "z": 0.9340807
+      },
+      "cellLevel": 3,
+      "priority": 0
+    },
+    {
+      "classId": "PodshellLeviathan",
+      "id": "97aeb2a7-982e-4573-83a1-1ccdc44a2ee8",
+      "position": {
+        "x": 887.6234,
+        "y": -214.663162,
+        "z": 1529.86621
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 0.894308865,
+        "y": 0.894308865,
+        "z": 0.894308865
+      },
+      "cellLevel": 3,
+      "priority": 0
+    },
+    {
+      "classId": "PodshellLeviathan",
+      "id": "fba3c16f-234b-4995-afd6-02fad2c72a65",
+      "position": {
+        "x": -225.942566,
+        "y": -305.774139,
+        "z": -1626.60364
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 0.8507676,
+        "y": 0.8507676,
+        "z": 0.8507676
+      },
+      "cellLevel": 3,
+      "priority": 0
+    },
+    {
+      "classId": "PodshellLeviathanJuvenile",
+      "id": "f976ae14-8fdc-42ea-9a55-88762b7f46c7",
+      "position": {
+        "x": -1257.63782,
+        "y": -250.473419,
+        "z": -1391.24475
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 0.999402344,
+        "y": 0.999402344,
+        "z": 0.999402344
+      },
+      "cellLevel": 3,
+      "priority": 0
+    },
+    {
+      "classId": "PodshellLeviathanJuvenile",
+      "id": "daed58f8-8456-4f94-a244-fad4a95ba752",
+      "position": {
+        "x": -1226.52258,
+        "y": -232.541519,
+        "z": -1064.683
+      },
+      "rotation": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 1.0
+      },
+      "scale": {
+        "x": 0.8944034,
+        "y": 0.8944034,
+        "z": 0.8944034
+      },
+      "cellLevel": 3,
+      "priority": 0
+    }
+  ],
+  "IsSorted": false
+}
