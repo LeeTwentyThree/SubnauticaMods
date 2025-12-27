@@ -80,11 +80,13 @@ public class PodshellLeviathanPrefab : CreatureAsset
         yield break;
     }
 
+    /*
     protected override void PostRegister()
     {
         base.PostRegister();
         ModMessageSystem.Send("TheRedPlague", "SetTechTypeImmune", PrefabInfo.TechType);
     }
+    */
 
     protected override void ApplyMaterials(GameObject prefab)
     {
