@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections;
 using ModStructureHelperPlugin.EntityHandling;
 using ModStructureHelperPlugin.Mono;
@@ -32,6 +33,13 @@ public class UIEntityWindow : MonoBehaviour
     private List<EntityBrowserButton> activeButtons = new List<EntityBrowserButton>();
     private Queue<EntityBrowserButton> pooledButtons = new Queue<EntityBrowserButton>();
 
+    private int _iconGenerationToken;
+
+    public bool GetIsTyping()
+    {
+        return searchBar.isFocused;
+    }
+    
     private void Awake()
     {
         Main = this;
@@ -40,6 +48,12 @@ public class UIEntityWindow : MonoBehaviour
     private void Start()
     {
         RenderFolder(EntityDatabase.main.RootFolder);
+    }
+
+    private void OnEnable()
+    {
+        if (!string.IsNullOrEmpty(activeFolderPath))
+            CoroutineHost.StartCoroutine(GenerateSpritesForPage());
     }
 
     private void ResetWindow()
@@ -107,8 +121,7 @@ public class UIEntityWindow : MonoBehaviour
         showingSearchResults = false;
         searchBar.text = null;
 
-        StopAllCoroutines();
-        StartCoroutine(GenerateSpritesForPage());
+        CoroutineHost.StartCoroutine(GenerateSpritesForPage());
     }
 
     public void OnUpdateFilterInput()
@@ -144,8 +157,7 @@ public class UIEntityWindow : MonoBehaviour
             }
         }
         
-        StopAllCoroutines();
-        StartCoroutine(GenerateSpritesForPage());
+        CoroutineHost.StartCoroutine(GenerateSpritesForPage());
     }
 
     // Does anyone here know regex? On top of cases, we could ignore spaces and underscores too
@@ -221,24 +233,26 @@ public class UIEntityWindow : MonoBehaviour
 
     private IEnumerator GenerateSpritesForPage()
     {
+        // Use a 'token' to stop previously running coroutines
+        int token = ++_iconGenerationToken;
+
         foreach (var button in activeButtons)
         {
             var entry = button.GetBrowserEntry();
             if (entry is not EntityBrowserEntity entity) continue;
             var classId = entity.EntityData.ClassId;
+            
             if (IconGenerator.HasIcon(classId)) continue;
-            var task = PrefabDatabase.GetPrefabAsync(classId);
-            if (task == null)
-            {
-                Plugin.Logger.LogWarning($"Skipping icon generation for prefab '{classId}' because its PrefabFactory is null!");
-                continue;
-            }
-            yield return task;
-            if (!task.TryGetPrefab(out var prefab)) continue;
+
             var output = new IconGenerator.IconOutput();
-            yield return IconGenerator.GenerateIcon(prefab, classId, output);
+            yield return IconGenerator.GetIconForClassId(classId, output);
+            
+            // Exit if generation token has been changed, before setting the icon in case the button has been destroyed
+            if (token != _iconGenerationToken)
+                yield break;
+            
+            // Apply icon
             button.SetIcon(output.Icon);
-            // yield return null;
         }
     }
 }

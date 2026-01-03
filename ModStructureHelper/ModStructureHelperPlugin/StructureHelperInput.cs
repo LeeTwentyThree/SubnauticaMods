@@ -179,6 +179,14 @@ public static class StructureHelperInput
         .AvoidConflicts()
         .WithCategory(ToolsCategory);
 
+    [EnglishTranslation("Select last selected (w/ alt modifier)")]
+    public static readonly GameInput.Button SelectLastSelectedBind = EnumHandler
+        .AddEntry<GameInput.Button>("SH_SelectLastSelectedBind")
+        .CreateInput()
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Z)
+        .AvoidConflicts()
+        .WithCategory(ToolsCategory);
+    
     [EnglishTranslation("Delete")]
     public static readonly GameInput.Button DeleteBind = EnumHandler
         .AddEntry<GameInput.Button>("SH_DeleteBind")
@@ -186,7 +194,7 @@ public static class StructureHelperInput
         .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.Delete)
         .AvoidConflicts()
         .WithCategory(ToolsCategory);
-
+    
     // MODIFIERS
     
     [EnglishTranslation("Prioritize triggers when selecting")]
@@ -213,11 +221,19 @@ public static class StructureHelperInput
         .AvoidConflicts()
         .WithCategory(ModifiersCategory);
     
-    [EnglishTranslation("Alternate tool modifier")]
+    [EnglishTranslation("Control tool modifier")]
     public static readonly GameInput.Button ToolHotkeyModifier = EnumHandler
         .AddEntry<GameInput.Button>("SH_ToolHotkeyModifier")
         .CreateInput()
         .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.LeftCtrl)
+        .AvoidConflicts()
+        .WithCategory(ModifiersCategory);
+    
+    [EnglishTranslation("Alt tool modifier")]
+    public static readonly GameInput.Button AltToolHotkeyModifier = EnumHandler
+        .AddEntry<GameInput.Button>("SH_AltToolHotkeyModifier")
+        .CreateInput()
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.LeftAlt)
         .AvoidConflicts()
         .WithCategory(ModifiersCategory);
     

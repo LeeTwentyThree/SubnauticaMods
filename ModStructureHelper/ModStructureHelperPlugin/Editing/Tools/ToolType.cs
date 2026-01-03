@@ -16,5 +16,6 @@ public enum ToolType
     Duplicate,
     SelectAll,
     Undo,
-    Delete
+    Delete,
+    SelectLastSelected
 }

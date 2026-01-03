@@ -19,6 +19,8 @@ public class ModConfig : ConfigFile
     public bool UseItemIconsInBrowser = false;
     [Toggle("Browser uses debug names")]
     public bool BrowserUsesDebugNames = false;
+    [Toggle("Lock tools while browsing entities")]
+    public bool LockToolsWhileEntityBrowserIsActive = false;
     [Toggle("Autosave structures on load")]
     public bool AutosaveStructureOnLoad = true;
     [Toggle("Autosave structures periodically")]

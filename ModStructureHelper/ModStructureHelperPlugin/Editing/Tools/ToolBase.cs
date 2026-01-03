@@ -16,6 +16,7 @@ public abstract class ToolBase : TooltipTarget
     public abstract ToolType Type { get; }
     public virtual bool MultitaskTool => false;
     public virtual bool RequiresModifierHeld => false;
+    public virtual bool RequiresAlternateModifierHeld => false;
     public virtual bool IncompatibleWithSelectTool => false;
     
     public bool ToolEnabled { get; private set; }

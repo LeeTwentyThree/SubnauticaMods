@@ -13,6 +13,8 @@ public static class SelectionManager
 {
     private static List<GameObject> _targets = new();
 
+    private static readonly Stack<GameObject> SelectionHistory = new();
+
     public static bool IsSelected(GameObject obj) => _targets.Contains(obj);
     
     public static void SetSelectedObject(GameObject obj)
@@ -44,6 +46,31 @@ public static class SelectionManager
         OnUpdateTargetInternal();
     }
 
+    public static void SelectLastSelected()
+    {
+        var lastSelected = GetLastSelectedGameObject();
+        if (lastSelected != null)
+        {
+            AddSelectedObject(lastSelected);
+        }
+        else
+        {
+            ErrorMessage.AddMessage("No last selected object found");
+        }
+    }
+
+    public static GameObject GetLastSelectedGameObject()
+    {
+        while (SelectionHistory.Count > 0)
+        {
+            var selected = SelectionHistory.Pop();
+            if (selected != null)
+                return selected;
+        }
+
+        return null;
+    }
+
     public static int NumberOfSelectedObjects => _targets.Count;
     
     public static IEnumerable<GameObject> SelectedObjects => _targets;
@@ -58,6 +85,7 @@ public static class SelectionManager
         }
         foreach (var selectionListener in newTarget.GetComponents<ISelectionListener>())
             selectionListener.OnObjectSelected();
+        SelectionHistory.Push(newTarget);
     }
     
     private static void OnTargetRemovedInternal(GameObject target)

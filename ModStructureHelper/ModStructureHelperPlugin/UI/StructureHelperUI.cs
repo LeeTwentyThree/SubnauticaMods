@@ -19,6 +19,7 @@ public class StructureHelperUI : MonoBehaviour
     public EditingScreenChecker editingScreenChecker;
 
     public ToolManager toolManager;
+    public CursorOverrideManager cursorManager;
 
     public PromptHandler promptHandler;
 

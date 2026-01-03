@@ -28,19 +28,43 @@ public class ToolManager : MonoBehaviour
 
     private void Update()
     {
-        // Return early if not focused or if the entity browser window is open
-        var entityBrowserOpen = UIEntityWindow.Main != null && UIEntityWindow.Main.isActiveAndEnabled;
         if (!StructureHelperUI.main.IsFocused) return;
+        
+        var entityWindow = UIEntityWindow.Main;
+        var entityBrowserOpen = entityWindow != null &&
+                                (Plugin.ModConfig.LockToolsWhileEntityBrowserIsActive || entityWindow.GetIsTyping()) &&
+                                UIEntityWindow.Main.isActiveAndEnabled;
         
         foreach (var tool in tools)
         {
             if (tool.Type != ToolType.BrowseEntities && entityBrowserOpen) continue;
-            if (GameInput.GetButtonDown(GetButtonForTool(tool.Type)) && (!tool.RequiresModifierHeld || GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier)))
+            if (GameInput.GetButtonDown(GetButtonForTool(tool.Type)) && CheckToolModifiersPressed(tool))
             {
                 tool.OnToolButtonPressed();
             }
             if (tool.ToolEnabled) tool.UpdateTool();
         }
+    }
+
+    private static bool CheckToolModifiersPressed(ToolBase tool)
+    {
+        if (tool.RequiresModifierHeld && tool.RequiresAlternateModifierHeld)
+        {
+            return GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier) &&
+                   GameInput.GetButtonHeld(StructureHelperInput.AltToolHotkeyModifier);
+        }
+        
+        if (tool.RequiresModifierHeld)
+        {
+            return GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier);
+        }
+
+        if (tool.RequiresAlternateModifierHeld)
+        {
+            return GameInput.GetButtonHeld(StructureHelperInput.AltToolHotkeyModifier);
+        }
+
+        return true;
     }
     
     public ToolBase GetTool(ToolType type) => (from tool in tools where tool.Type == type select tool).FirstOrDefault();
@@ -77,6 +101,8 @@ public class ToolManager : MonoBehaviour
                 return StructureHelperInput.SelectAllBind;
             case ToolType.Undo:
                 return StructureHelperInput.UndoBind;
+            case ToolType.SelectLastSelected:
+                return StructureHelperInput.SelectLastSelectedBind;
             case ToolType.Delete:
                 return StructureHelperInput.DeleteBind;
             default:
