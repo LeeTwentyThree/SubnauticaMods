@@ -64,8 +64,7 @@ public class ToolManager : MonoBehaviour
             return GameInput.GetButtonHeld(StructureHelperInput.AltToolHotkeyModifier);
         }
 
-        return !GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier) &&
-               !GameInput.GetButtonHeld(StructureHelperInput.AltToolHotkeyModifier);
+        return !GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier);
     }
     
     public ToolBase GetTool(ToolType type) => (from tool in tools where tool.Type == type select tool).FirstOrDefault();
