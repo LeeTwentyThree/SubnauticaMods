@@ -239,5 +239,9 @@ public class Plugin : BaseUnityPlugin
         var prefabLoader = new EpicPrefabLoader(new[] { Assembly }, Bundle);
         prefabLoader.LoadPrefabs(JsonConvert.DeserializeObject<LoadedPrefabRegistrationData>(
             Bundle.LoadAsset<TextAsset>("LabPrefabs").text));
+        
+        // Register coral entities
+        prefabLoader.LoadPrefabs(JsonConvert.DeserializeObject<LoadedPrefabRegistrationData>(
+            Bundle.LoadAsset<TextAsset>("CoralPrefabs").text));
     }
 }

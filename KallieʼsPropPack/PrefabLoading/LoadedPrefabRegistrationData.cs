@@ -50,5 +50,27 @@ public class LoadedPrefabRegistrationData
     {
         public string parameterName;
         public string parameterValue;
+
+        public T GetValue<T>()
+        {
+            if (string.IsNullOrEmpty(parameterValue))
+                return default;
+
+            var type = typeof(T);
+
+            if (type == typeof(bool))
+                return (T)(object)bool.Parse(parameterValue);
+
+            if (type == typeof(int))
+                return (T)(object)int.Parse(parameterValue);
+
+            if (type == typeof(float))
+                return (T)(object)float.Parse(parameterValue);
+
+            if (type == typeof(string))
+                return (T)(object)parameterValue;
+
+            throw new NotSupportedException($"Type {type} is not supported.");
+        } 
     }
 }

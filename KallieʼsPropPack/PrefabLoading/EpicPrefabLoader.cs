@@ -113,6 +113,7 @@ public class EpicPrefabLoader
             
             var variantParameters = Variant?.parameters ?? Array.Empty<LoadedPrefabRegistrationData.Parameter>();
             yield return Factory.BuildVariant(prefab, variantParameters);
+            yield return null;
             gameObject.Set(prefab);
         }
     }
