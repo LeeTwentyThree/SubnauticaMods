@@ -17,6 +17,8 @@ public class DragAndDropTool : ToolBase
     private bool _upDirChanged;
     
     private float _rotation;
+    private float _scaleOffset;
+    private Vector3 _previousSelectedEntityScale;
     private UpDirection _upDirection;
 
     public bool Dragging => _currentlySelected != null;
@@ -53,13 +55,21 @@ public class DragAndDropTool : ToolBase
         }
         if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateLeft))
         {
-            _rotation -= Time.deltaTime / 2f;
+            _rotation -= Time.deltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
             _upDirChanged = true;
         }
         else if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateRight))
         {
-            _rotation += Time.deltaTime / 2f;
+            _rotation += Time.deltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
             _upDirChanged = true;
+        }
+        if (GameInput.GetButtonHeld(StructureHelperInput.BrushDecreaseScale))
+        {
+            _scaleOffset = Mathf.Max(-1f, _scaleOffset - Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
+        }
+        else if (GameInput.GetButtonHeld(StructureHelperInput.BrushIncreaseScale))
+        {
+            _scaleOffset = Mathf.Max(-1f, _scaleOffset + Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
         }
         HandleDrag();
     }
@@ -101,6 +111,9 @@ public class DragAndDropTool : ToolBase
         }
 
         _rotation = 0;
+        _scaleOffset = 0;
+        _previousSelectedEntityScale = obj.transform.localScale;
+        
         _upDirChanged = false;
         var prefabIdentifier = obj.GetComponent<PrefabIdentifier>();
         _upDirection = prefabIdentifier == null
@@ -143,6 +156,8 @@ public class DragAndDropTool : ToolBase
 
         _currentlySelected.transform.Rotate(_upDirection == UpDirection.Z ? Vector3.forward : Vector3.up,
             _rotation * 360, Space.Self);
+
+        _currentlySelected.transform.localScale = _previousSelectedEntityScale * (1 + _scaleOffset);
     }
 
     private void OnUndo()
