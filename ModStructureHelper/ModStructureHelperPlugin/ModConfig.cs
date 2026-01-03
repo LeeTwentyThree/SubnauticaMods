@@ -21,6 +21,8 @@ public class ModConfig : ConfigFile
     public bool BrowserUsesDebugNames = false;
     [Toggle("Lock tools while browsing entities")]
     public bool LockToolsWhileEntityBrowserIsActive = false;
+    [Toggle("Click off to unselect")]
+    public bool ClickOffToUnselect = true;
     [Toggle("Autosave structures on load")]
     public bool AutosaveStructureOnLoad = true;
     [Toggle("Autosave structures periodically")]

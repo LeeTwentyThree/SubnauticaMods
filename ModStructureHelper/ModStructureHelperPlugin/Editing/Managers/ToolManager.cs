@@ -3,6 +3,7 @@ using ModStructureHelperPlugin.Editing.Tools;
 using ModStructureHelperPlugin.Handle;
 using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
+using ModStructureHelperPlugin.Utility;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Editing.Managers;
@@ -50,21 +51,21 @@ public class ToolManager : MonoBehaviour
     {
         if (tool.RequiresModifierHeld && tool.RequiresAlternateModifierHeld)
         {
-            return GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier) &&
-                   GameInput.GetButtonHeld(StructureHelperInput.AltToolHotkeyModifier);
+            return ModifierFixUtils.GetModifierHeld(StructureHelperInput.ToolHotkeyModifier) &&
+                   ModifierFixUtils.GetModifierHeld(StructureHelperInput.AltToolHotkeyModifier);
         }
         
         if (tool.RequiresModifierHeld)
         {
-            return GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier);
+            return ModifierFixUtils.GetModifierHeld(StructureHelperInput.ToolHotkeyModifier);
         }
 
         if (tool.RequiresAlternateModifierHeld)
         {
-            return GameInput.GetButtonHeld(StructureHelperInput.AltToolHotkeyModifier);
+            return ModifierFixUtils.GetModifierHeld(StructureHelperInput.AltToolHotkeyModifier);
         }
 
-        return !GameInput.GetButtonHeld(StructureHelperInput.ToolHotkeyModifier);
+        return !ModifierFixUtils.GetModifierHeld(StructureHelperInput.ToolHotkeyModifier);
     }
     
     public ToolBase GetTool(ToolType type) => (from tool in tools where tool.Type == type select tool).FirstOrDefault();

@@ -1,6 +1,7 @@
 ﻿using ModStructureHelperPlugin.Editing.Managers;
 using ModStructureHelperPlugin.StructureHandling;
 using ModStructureHelperPlugin.UI;
+using ModStructureHelperPlugin.Utility;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Editing.Tools;
@@ -35,6 +36,8 @@ public class SelectionTool : ToolBase
         if (!GameInput.GetButtonDown(StructureHelperInput.Interact)) return;
         if (StructureHelperUI.main.editingScreenChecker.IsCursorHoveredOverExternalWindows()) return;
         if (manager.handle.GetIsAnyHandleHovered()) return;
+
+        var prioritizeTriggers = ModifierFixUtils.GetModifierHeld(StructureHelperInput.PrioritizeTriggers);
         
         var ray = MainCamera.camera.ScreenPointToRay(Input.mousePosition);
         // extend the ray to ignore the main character's collider
@@ -51,17 +54,22 @@ public class SelectionTool : ToolBase
 
             if (selectionResultNormal == SelectionManager.ObjectRootResult.Failed)
             {
+                if (!prioritizeTriggers && Plugin.ModConfig.ClickOffToUnselect)
+                {
+                    SelectionManager.ClearSelection();
+                }
                 return;
             }
         }
 
-        if (!GameInput.GetButtonHeld(StructureHelperInput.PrioritizeTriggers))
+        if (!prioritizeTriggers && Plugin.ModConfig.ClickOffToUnselect)
         {
+            SelectionManager.ClearSelection();
             return;
         }
         
         var hitTrigger = Physics.Raycast(extendedRay, out hit, 5000, -1, QueryTriggerInteraction.Collide);
-        if (!hitTrigger)
+        if (!hitTrigger && prioritizeTriggers)
         {
             SelectionManager.ClearSelection();
         }
