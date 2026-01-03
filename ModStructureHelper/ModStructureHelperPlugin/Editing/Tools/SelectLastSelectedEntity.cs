@@ -12,6 +12,7 @@ public class SelectLastSelectedEntity : ToolBase
     protected override void OnToolEnabled()
     {
         SelectionManager.SelectLastSelected();
+        DisableTool();
     }
 
     protected override void OnToolDisabled()
