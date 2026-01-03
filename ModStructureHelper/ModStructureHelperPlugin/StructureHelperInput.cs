@@ -167,7 +167,7 @@ public static class StructureHelperInput
     public static readonly GameInput.Button SelectAllBind = EnumHandler
         .AddEntry<GameInput.Button>("SH_SelectAllBind")
         .CreateInput()
-        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.A)
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.H)
         .AvoidConflicts()
         .WithCategory(ToolsCategory);
 
