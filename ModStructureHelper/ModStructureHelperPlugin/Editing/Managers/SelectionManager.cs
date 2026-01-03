@@ -51,7 +51,7 @@ public static class SelectionManager
         var lastSelected = GetLastSelectedGameObject();
         if (lastSelected != null)
         {
-            AddSelectedObject(lastSelected);
+            SetSelectedObject(lastSelected);
         }
         else
         {
