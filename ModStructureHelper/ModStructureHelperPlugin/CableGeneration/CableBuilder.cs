@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using ModStructureHelperPlugin.Editing.Managers;
 using ModStructureHelperPlugin.Editing.Tools;
@@ -23,6 +24,7 @@ public class CableBuilder : MonoBehaviour
     public float Spacing { get; set; }
     
     [SerializeField] Bezier3D _bezierCurve = new Bezier3D();
+    [SerializeField] float previewUpdateRate = 0.1f;
     
     // Key: Class ID, Value: Object list
     private readonly Dictionary<CableLocation, ObjectPool> _objectPools = new()
@@ -36,10 +38,13 @@ public class CableBuilder : MonoBehaviour
 
     private readonly List<Transform> _controlPoints = new();
 
+    private Vector3[] _previousControlPointPositions = Array.Empty<Vector3>();
+
     private bool _cableActive;
 
     private bool _flipStart;
     private bool _flipEnd;
+    private float _timeUpdatePreviewAgain;
     
     public void GenerateNewCable(string endPointA, string[] middlePoints, string endPointB)
     {
@@ -132,6 +137,30 @@ public class CableBuilder : MonoBehaviour
         StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
     }
 
+    private bool ShouldUpdatePreview()
+    {
+        if (Time.time < _timeUpdatePreviewAgain)
+            return false;
+        
+        _timeUpdatePreviewAgain = Time.time + previewUpdateRate;
+        return GetControlPointPositionsChanged();
+    }
+
+    private bool GetControlPointPositionsChanged()
+    {
+        int count = _controlPoints.Count;
+        if (_previousControlPointPositions.Length != count)
+            return true;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (_controlPoints[i].position != _previousControlPointPositions[i])
+                return true;
+        }
+
+        return false;
+    }
+
     private void OnStructureInstanceChanged(StructureInstance instance)
     {
         if (instance == null)
@@ -172,7 +201,8 @@ public class CableBuilder : MonoBehaviour
     private void Update()
     {
         if (!_cableActive) return;
-        Build(false);
+        if (ShouldUpdatePreview())
+            Build(false);
         foreach (var point in _controlPoints)
             point.localScale = Vector3.one * Scale;
     }
