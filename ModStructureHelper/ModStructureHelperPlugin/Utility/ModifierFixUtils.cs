@@ -18,16 +18,14 @@ public static class ModifierFixUtils
                 case "alt":
                 case "leftalt":
                     return Input.GetKey(KeyCode.LeftAlt);
-
                 case "rightalt":
                     return Input.GetKey(KeyCode.RightAlt);
-
                 default:
                     return true;
             }
         }
 
-        return held;
+        return false;
     }
     
     private static string GetKeyToken(string binding)
