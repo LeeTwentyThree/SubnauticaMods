@@ -130,6 +130,14 @@ public static class StructureHelperInput
         .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.P)
         .AvoidConflicts()
         .WithCategory(ToolsCategory);
+    
+    [EnglishTranslation("Enable snapping temporarily")]
+    public static readonly GameInput.Button HoldToSnap = EnumHandler
+        .AddEntry<GameInput.Button>("SH_HoldToSnap")
+        .CreateInput()
+        .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.LeftCtrl)
+        .AvoidConflicts()
+        .WithCategory(ModifiersCategory);
 
     [EnglishTranslation("Pick object for brushing")]
     public static readonly GameInput.Button PickObjectBind = EnumHandler
@@ -244,7 +252,7 @@ public static class StructureHelperInput
         .WithKeyboardBinding(GameInputHandler.Paths.Keyboard.LeftCtrl)
         .AvoidConflicts()
         .WithCategory(ModifiersCategory);
-
+    
     // OTHER
     
     [EnglishTranslation("Brush: rotate left")]
