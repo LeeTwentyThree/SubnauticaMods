@@ -1,4 +1,6 @@
-﻿using Nautilus.Handlers;
+﻿using FMOD;
+using Nautilus.Extensions;
+using Nautilus.Handlers;
 using Nautilus.Utility;
 using UnityEngine;
 
@@ -14,6 +16,9 @@ public static class ModAudio
     public static FMODAsset ShortRoarClose { get; } = AudioUtils.GetFmodAsset("PodshellShortRoarClose");
     public static FMODAsset ShortRoarFar { get; } = AudioUtils.GetFmodAsset("PodshellShortRoarFar");
     public static FMODAsset TeethGrinding { get; } = AudioUtils.GetFmodAsset("PodshellTeethGrinding");
+    
+    // music
+    public static FMODAsset PodshellMusic { get; } = AudioUtils.GetFmodAsset("PodshellMusic");
 
     public static void RegisterAudio()
     {
@@ -25,6 +30,8 @@ public static class ModAudio
         RegisterPodshellSound(ShortRoarClose, "Short roar_ close_ underwater", 400);
         RegisterPodshellSound(ShortRoarFar, "Short roar_ far_ underwater", 400);
         RegisterPodshellSound(TeethGrinding, "Teeth grinding underwater", 320f);
+
+        RegisterMusic(PodshellMusic, "PodshellLeviathanOST", 2);
     }
 
     private static void RegisterPodshellSound(FMODAsset asset, string clipName, float maxDistance)
@@ -32,5 +39,18 @@ public static class ModAudio
         var sound = AudioUtils.CreateSound(Plugin.Assets.LoadAsset<AudioClip>(clipName), AudioUtils.StandardSoundModes_3D);
         sound.set3DMinMaxDistance(10, maxDistance);
         CustomSoundHandler.RegisterCustomSound(asset.path, sound, AudioUtils.BusPaths.UnderwaterCreatures);
+    }
+    
+    private static void RegisterMusic(FMODAsset asset, string clipName, float fadeOutDuration = 10f,
+        bool useSoundEffectsBus = false, bool looping = false)
+    {
+        var mode = AudioUtils.StandardSoundModes_2D;
+        if (looping)
+            mode |= MODE.LOOP_NORMAL;
+        var sound = AudioUtils.CreateSound(Plugin.Assets.LoadAsset<AudioClip>(clipName), mode);
+        if (fadeOutDuration > Mathf.Epsilon)
+            sound.AddFadeOut(fadeOutDuration);
+        CustomSoundHandler.RegisterCustomSound(asset.id, sound,
+            useSoundEffectsBus ? "bus:/master/SFX_for_pause/PDA_pause/all" : AudioUtils.BusPaths.Music);
     }
 }
