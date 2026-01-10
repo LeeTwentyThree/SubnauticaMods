@@ -200,6 +200,11 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
 
     public ManagedEntity RegisterNewEntity(PrefabIdentifier prefabIdentifier, bool makeSnapshot)
     {
+        if (prefabIdentifier == null)
+        {
+            Plugin.Logger.LogError("Registering entity with no PrefabIdentifier. Skipping!");
+            return null;
+        }
         var instance = prefabIdentifier.gameObject.EnsureComponent<EntityInstance>();
         var managedEntity = new ManagedEntity(instance);
         instance.ManagedEntity = managedEntity;
