@@ -17,12 +17,14 @@ public class DraggableElement : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        _draggin = true;
+        if (eventData.button == PointerEventData.InputButton.Left)
+            _draggin = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        _draggin = false;
+        if (eventData.button == PointerEventData.InputButton.Left)
+            _draggin = false;
     }
 
     private void OnEnable()
