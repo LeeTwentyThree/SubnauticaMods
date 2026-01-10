@@ -29,6 +29,8 @@ public class Plugin : BaseUnityPlugin
     internal static PodshellLeviathanJuvenilePrefab PodshellLeviathanJuvenile { get; private set; }
     internal static PodshellLeviathanBabyPrefab PodshellLeviathanBaby { get; private set; }
 
+    private bool _assetsLoaded;
+
 
     private void Awake()
     {
@@ -45,6 +47,11 @@ public class Plugin : BaseUnityPlugin
 
     private IEnumerator LoadModAsync(WaitScreenHandler.WaitScreenTask task)
     {
+        if (_assetsLoaded)
+            yield break;
+
+        _assetsLoaded = true;
+        
         var assetBundleTask = AssetBundle.LoadFromFileAsync(GetAssetBundlePath("podshellleviathan"));
         yield return assetBundleTask;
         Assets = assetBundleTask.assetBundle;
