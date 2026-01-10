@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace PodshellLeviathan.Mono;
 
-public class PodshellVoice : MonoBehaviour
+public class PodshellVoice : MonoBehaviour, IManagedUpdateBehaviour
 {
     private PodshellLeviathanBehavior _behavior;
     
@@ -47,7 +49,7 @@ public class PodshellVoice : MonoBehaviour
         PlaySound(ModAudio.Death, 16.96348f, 4, true);
     }
     
-    private void Update()
+    public void ManagedUpdate()
     {
         if (!_behavior.liveMixin.IsAlive())
             return;
@@ -58,6 +60,16 @@ public class PodshellVoice : MonoBehaviour
             _behavior.GetAnimator().SetTrigger("small_roar");
             ResetIdleSoundDelay();
         }
+    }
+
+    private void OnEnable()
+    {
+        BehaviourUpdateUtils.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        BehaviourUpdateUtils.Deregister(this);
     }
 
     private static void ShakeScreen(float duration, float intensityScale)
@@ -75,4 +87,11 @@ public class PodshellVoice : MonoBehaviour
         else
             return PlaySound(close ? ModAudio.ShortRoarClose : ModAudio.ShortRoarFar, 7, 6);
     }
+
+    public string GetProfileTag()
+    {
+        return "Podshell:PodshellVoice";
+    }
+
+    public int managedUpdateIndex { get; set; }
 }
