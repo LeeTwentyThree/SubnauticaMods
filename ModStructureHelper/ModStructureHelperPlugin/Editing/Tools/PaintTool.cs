@@ -96,6 +96,7 @@ public class PaintTool : ToolBase
         if (GameInput.GetButtonDown(StructureHelperInput.Interact) && !StructureHelperUI.main.IsCursorHoveringOverExternalWindows)
         {
             var placedObject = Instantiate(_selectedPrefab, _brushPosition, _brushRotation);
+            placedObject.SetActive(true);
             placedObject.transform.localScale = _currentEntityDefaultScale * (1f + _scaleOffset);
             StructureInstance.Main.RegisterNewEntity(placedObject.GetComponent<PrefabIdentifier>(), true);
         }
