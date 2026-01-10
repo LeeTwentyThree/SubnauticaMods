@@ -76,6 +76,8 @@ public class PodshellLeviathanPrefab : CreatureAsset
             .Where(r => !r.gameObject.name.StartsWith("polySurface")).ToArray();
 
         components.Rigidbody.angularDrag = 0.5f;
+
+        prefab.AddComponent<PlayPodshellMusic>();
         
         yield break;
     }
