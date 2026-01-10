@@ -5,12 +5,10 @@ using BepInEx.Logging;
 using HarmonyLib;
 using Nautilus.Assets;
 using Nautilus.Handlers;
-using Nautilus.Utility;
 using PodshellLeviathan.Prefabs;
 using System.Reflection;
 using ECCLibrary;
 using Nautilus.Assets.PrefabTemplates;
-using Nautilus.Utility.ModMessages;
 using UnityEngine;
 
 namespace PodshellLeviathan;
@@ -101,5 +99,7 @@ public class Plugin : BaseUnityPlugin
         };
         podshellEggPrefab.SetGameObject(eggTemplate);
         podshellEggPrefab.Register();
+        
+        PodshellNestRock.Register();
     }
 }
