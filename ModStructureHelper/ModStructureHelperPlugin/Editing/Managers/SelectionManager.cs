@@ -64,7 +64,7 @@ public static class SelectionManager
         while (SelectionHistory.Count > 0)
         {
             var selected = SelectionHistory.Pop();
-            if (selected != null)
+            if (selected != null && !_targets.Contains(selected))
                 return selected;
         }
 
