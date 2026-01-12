@@ -42,7 +42,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
         template.CanBeInfected = false;
         template.SizeDistribution = new AnimationCurve(new Keyframe(0f, 0.7f), new Keyframe(1f, 1f));
         template.LocomotionData = new LocomotionData(10f, 0.01f, 0.8f, 0.5f, true);
-        template.AnimateByVelocityData = new AnimateByVelocityData(StandardSwimVelocity + 1f);
+        template.AnimateByVelocityData = new AnimateByVelocityData(StandardSwimVelocity - 1f);
         template.LiveMixinData.broadcastKillOnDeath = true;
         template.SwimBehaviourData = new SwimBehaviourData(0.3f);
 
