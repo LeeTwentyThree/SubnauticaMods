@@ -44,9 +44,9 @@ public class PodshellVoice : MonoBehaviour, IManagedUpdateBehaviour
         return true;
     }
 
-    private void OnKill()
+    public void OnKill()
     {
-        PlaySound(ModAudio.Death, 16.96348f, 4, true);
+        FMODUWE.PlayOneShot(ModAudio.Death, transform.position);
     }
     
     public void ManagedUpdate()
