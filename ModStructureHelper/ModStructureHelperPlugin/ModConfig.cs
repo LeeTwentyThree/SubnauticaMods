@@ -9,8 +9,8 @@ public class ModConfig : ConfigFile
 {
     [Toggle("Use consistent handle scale")]
     public bool ConsistentHandleScales = true;
-    [Slider("Handle scale multiplier", 0.1f, 2f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
-    public float HandleScaleMultiplier = 1f;
+    [Slider("Handle scale multiplier", 0.1f, 5f, DefaultValue = 2f, Step = 0.1f, Format = "{0:F1}x")]
+    public float HandleScaleMultiplier = 2f;
     [Slider("Brush rotate speed", 0.1f, 10f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
     public float BrushRotateSpeed = 1f;
     [Slider("Brush scale speed", 0.1f, 5f, DefaultValue = 1f, Step = 0.1f, Format = "{0:F1}x")]
