@@ -81,7 +81,7 @@ public class PodshellVoice : MonoBehaviour, IManagedUpdateBehaviour
     public bool PlayRoarSound(bool longRoar)
     {
         var distToCamera = Vector3.Distance(transform.position, MainCamera.camera.transform.position);
-        var close = distToCamera < 80;
+        var close = distToCamera < 80 && Player.main.GetCurrentSub() == null;
         if (longRoar)
             return PlaySound(close ? ModAudio.LongRoarClose : ModAudio.LongRoarFar, 8, 7);
         else
