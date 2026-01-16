@@ -15,6 +15,7 @@ namespace ModStructureHelperPlugin.Handle.Handles.Position
         protected Plane _plane;
         protected Vector3 _interactionOffset;
         protected GameObject _handle;
+
         
         public PositionPlane Initialize(RuntimeTransformHandle p_runtimeHandle, Vector3 p_axis1, Vector3 p_axis2, Vector3 p_perp, Color p_color)
         {
@@ -53,23 +54,8 @@ namespace ModStructureHelperPlugin.Handle.Handles.Position
             Vector3 offset = hitPoint + _interactionOffset - _startPosition;
 
             Vector3 axis = _axis1 + _axis2;
-            Vector3 snapping = _parentTransformHandle.positionSnap;
-            float snap = Vector3.Scale(snapping, axis).magnitude;
-            if (snap != 0 && _parentTransformHandle.snappingType == HandleSnappingType.RELATIVE)
-            {
-                if (snapping.x != 0) offset.x = Mathf.Round(offset.x / snapping.x) * snapping.x;
-                if (snapping.y != 0) offset.y = Mathf.Round(offset.y / snapping.y) * snapping.y;
-                if (snapping.z != 0) offset.z = Mathf.Round(offset.z / snapping.z) * snapping.z;
-            }
 
-            Vector3 position = _startPosition + offset;
-            
-            if (snap != 0 && _parentTransformHandle.snappingType == HandleSnappingType.ABSOLUTE)
-            {
-                if (snapping.x != 0) position.x = Mathf.Round(position.x / snapping.x) * snapping.x;
-                if (snapping.y != 0) position.y = Mathf.Round(position.y / snapping.y) * snapping.y;
-                if (snapping.x != 0) position.z = Mathf.Round(position.z / snapping.z) * snapping.z;
-            }
+            var position = _parentTransformHandle.snappingManager.SnapPositionPlane(_startPosition, offset, axis);
 
             _parentTransformHandle.Target.position = position;
 

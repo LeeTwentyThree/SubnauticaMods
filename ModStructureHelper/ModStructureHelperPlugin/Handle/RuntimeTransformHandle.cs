@@ -1,4 +1,5 @@
-﻿using ModStructureHelperPlugin.Editing.Tools;
+﻿using ModStructureHelperPlugin.Editing.Managers;
+using ModStructureHelperPlugin.Editing.Tools;
 using ModStructureHelperPlugin.Handle.Handles;
 using ModStructureHelperPlugin.Handle.Handles.Position;
 using ModStructureHelperPlugin.Handle.Handles.Rotation;
@@ -16,16 +17,13 @@ namespace ModStructureHelperPlugin.Handle;
 public class RuntimeTransformHandle : MonoBehaviour
 {
     public static RuntimeTransformHandle main;
+
+    public SnappingManager snappingManager;
         
     public HandleAxes axes = HandleAxes.XYZ;
     public HandleSpace space = HandleSpace.LOCAL;
     public HandleType type = HandleType.POSITION;
-    public HandleSnappingType snappingType = HandleSnappingType.RELATIVE;
-
-    public Vector3 positionSnap = Vector3.zero;
-    public float rotationSnap = 0;
-    public Vector3 scaleSnap = Vector3.zero;
-
+    
     public bool autoScale = false;
     public float autoScaleFactor = 1;
     public Camera handleCamera;

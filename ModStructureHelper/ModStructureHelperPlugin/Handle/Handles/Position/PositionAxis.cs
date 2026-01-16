@@ -55,24 +55,9 @@ namespace ModStructureHelperPlugin.Handle.Handles.Position
             Vector3 hitPoint = _raxisRay.GetPoint(closestT);
             
             Vector3 offset = hitPoint + _interactionOffset - _startPosition;
-            
-            Vector3 snapping = _parentTransformHandle.positionSnap;
-            float   snap     = Vector3.Scale(snapping, _axis).magnitude;
-            if (snap != 0 && _parentTransformHandle.snappingType == HandleSnappingType.RELATIVE)
-            {
-                offset = (Mathf.Round(offset.magnitude / snap) * snap) * offset.normalized; 
-            }
 
-            Vector3 position = _startPosition + offset;
-            
-            if (snap != 0 && _parentTransformHandle.snappingType == HandleSnappingType.ABSOLUTE)
-            {
-                if (snapping.x != 0) position.x = Mathf.Round(position.x / snapping.x) * snapping.x;
-                if (snapping.y != 0) position.y = Mathf.Round(position.y / snapping.y) * snapping.y;
-                if (snapping.x != 0) position.z = Mathf.Round(position.z / snapping.z) * snapping.z;
-            }
-            
-            _parentTransformHandle.Target.position = position;
+            _parentTransformHandle.Target.position =
+                _parentTransformHandle.snappingManager.SnapPositionAxis(_startPosition, offset, _axis);
 
             base.Interact(p_previousPosition);
         }

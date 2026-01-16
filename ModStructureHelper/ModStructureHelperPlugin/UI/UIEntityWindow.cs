@@ -185,6 +185,7 @@ public class UIEntityWindow : MonoBehaviour
             button = Instantiate(buttonPrefab).GetComponent<EntityBrowserButton>();
         }
         button.rectTransform.SetParent(contentParent);
+        button.rectTransform.localScale = Vector3.one;
         button.SetBrowserEntry(entry);
         entry.OnConstructButton(button.gameObject);
         var tooltip = entry.GetTooltip();

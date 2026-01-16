@@ -14,6 +14,7 @@ public class ToolManager : MonoBehaviour
 
     public RuntimeTransformHandle handle;
     public UndoHistory undoHistory;
+    public SnappingManager snappingManager;
     
     public Sprite inactiveBackground;
     public Sprite activeBackground;

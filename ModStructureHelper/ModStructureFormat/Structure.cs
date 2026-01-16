@@ -13,6 +13,8 @@ public class Structure
     
     public bool IsSorted { get; private set; }
     
+    public SavedVariable[]? Variables { get; }
+    
     /// <summary>
     /// Creates a new Entity Group with the given entities.
     /// </summary>
@@ -33,5 +35,15 @@ public class Structure
     {
         Entities = Entities.OrderBy(entity => entity.priority).ToArray();
         IsSorted = true;
+    }
+
+    public void SaveVariable<T>(string variableName, T value)
+    {
+        throw new NotImplementedException();
+    }
+    
+    public bool TryGetVariable<T>(string variableName, out T value)
+    {
+        throw new NotImplementedException();
     }
 }

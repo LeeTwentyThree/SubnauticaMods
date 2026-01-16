@@ -65,20 +65,7 @@ namespace ModStructureHelperPlugin.Handle.Handles.Scale
             float distance = Vector3.Distance(_parentTransformHandle.Target.position, hitPoint);
             float axisScaleDelta    = distance / _interactionDistance - 1f;
 
-            Vector3 snapping = _parentTransformHandle.scaleSnap;
-            float   snap     = Mathf.Abs(Vector3.Dot(snapping, _axis));
-            if (snap != 0)
-            {
-                if (_parentTransformHandle.snappingType == HandleSnappingType.RELATIVE)
-                {
-                    axisScaleDelta = Mathf.Round(axisScaleDelta / snap) * snap;
-                }
-                else
-                {
-                    float axisStartScale = Mathf.Abs(Vector3.Dot(_startScale, _axis));
-                    axisScaleDelta = Mathf.Round((axisScaleDelta + axisStartScale) / snap) * snap - axisStartScale;
-                }
-            }
+            axisScaleDelta = _parentTransformHandle.snappingManager.SnapScale(axisScaleDelta, _startScale, _axis);
 
             delta = axisScaleDelta;
             Vector3 scale = Vector3.Scale(_startScale, _axis * axisScaleDelta + Vector3.one);

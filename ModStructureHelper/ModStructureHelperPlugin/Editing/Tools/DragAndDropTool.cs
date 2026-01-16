@@ -134,7 +134,7 @@ public class DragAndDropTool : ToolBase
         var ray = GetRay();
         if (!Physics.Raycast(ray, out var hit, 80, -1, QueryTriggerInteraction.Ignore)) return;
         var surfaceNormal = GameInput.GetButtonHeld(StructureHelperInput.UseGlobalUpNormal) ? Vector3.up : hit.normal;
-        _currentlySelected.transform.position = hit.point;
+        _currentlySelected.transform.position = manager.snappingManager.SnapPlacementPosition(hit.point);
         if (!_upDirChanged)
         {
             _upDirChanged = !Mathf.Approximately(surfaceNormal.x, _initialUpDir.x) ||
@@ -156,6 +156,8 @@ public class DragAndDropTool : ToolBase
 
         _currentlySelected.transform.Rotate(_upDirection == UpDirection.Z ? Vector3.forward : Vector3.up,
             _rotation * 360, Space.Self);
+        
+        _currentlySelected.transform.rotation = manager.snappingManager.SnapPlacementRotation(_currentlySelected.transform.rotation);
 
         _currentlySelected.transform.localScale = _previousSelectedEntityScale * (1 + _scaleOffset);
     }

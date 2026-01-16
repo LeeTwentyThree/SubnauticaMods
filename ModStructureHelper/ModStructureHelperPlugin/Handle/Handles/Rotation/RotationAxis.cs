@@ -17,7 +17,7 @@ namespace ModStructureHelperPlugin.Handle.Handles.Rotation
         private Vector3  _biTangent;
         
         private Quaternion _startRotation;
-
+        
         public RotationAxis Initialize(RuntimeTransformHandle p_runtimeHandle, Vector3 p_axis, Color p_color)
         {
             _parentTransformHandle = p_runtimeHandle;
@@ -69,14 +69,17 @@ namespace ModStructureHelperPlugin.Handle.Handles.Rotation
             float   x            = Vector3.Dot(hitDirection, _tangent);
             float   y            = Vector3.Dot(hitDirection, _biTangent);
             float   angleRadians = Mathf.Atan2(y, x);
-            float   angleDegrees = angleRadians * Mathf.Rad2Deg;
 
-            if (_parentTransformHandle.rotationSnap != 0)
+            float angleDegrees;
+            if (!_parentTransformHandle.snappingManager.SnappingEnabled || _parentTransformHandle.snappingManager.UseGlobalGrid)
             {
-                angleDegrees = Mathf.Round(angleDegrees / _parentTransformHandle.rotationSnap) * _parentTransformHandle.rotationSnap;
-                angleRadians = angleDegrees                                                    * Mathf.Deg2Rad;
+                angleDegrees = angleRadians * Mathf.Rad2Deg;
             }
-
+            else
+            {
+                angleDegrees = _parentTransformHandle.snappingManager.SnapRotationAngleRadians(angleRadians) * Mathf.Rad2Deg;
+            }
+            
             if (_parentTransformHandle.space == HandleSpace.LOCAL)
             {
                 _parentTransformHandle.Target.localRotation = _startRotation * Quaternion.AngleAxis(angleDegrees, _axis);
@@ -85,6 +88,14 @@ namespace ModStructureHelperPlugin.Handle.Handles.Rotation
             {
                 Vector3 invertedRotatedAxis = Quaternion.Inverse(_startRotation) * _axis;
                 _parentTransformHandle.Target.rotation = _startRotation * Quaternion.AngleAxis(angleDegrees, invertedRotatedAxis);
+            }
+
+            if (_parentTransformHandle.snappingManager.SnappingEnabled &&
+                _parentTransformHandle.snappingManager.UseGlobalGrid)
+            {
+                _parentTransformHandle.Target.rotation =
+                    _parentTransformHandle.snappingManager.SnapPlacementRotation(_parentTransformHandle.Target
+                        .rotation);
             }
 
             _arcMesh = MeshUtils.CreateArc(transform.position, _hitPoint, _rotatedAxis, 2, angleRadians, Mathf.Abs(Mathf.CeilToInt(angleDegrees)) + 1);

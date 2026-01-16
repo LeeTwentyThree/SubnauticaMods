@@ -2,6 +2,7 @@
 using ModStructureHelperPlugin.EntityHandling.Icons;
 using ModStructureHelperPlugin.Mono;
 using ModStructureHelperPlugin.StructureHandling;
+using ModStructureHelperPlugin.UI;
 using UnityEngine;
 using UWE;
 
@@ -77,8 +78,21 @@ public class EntityBrowserEntity : EntityBrowserEntryBase
             spawnUp = hit.normal;
         }
 
+        var ui = StructureHelperUI.main;
+        bool useSnapping = ui != null;
+        if (useSnapping)
+        {
+            spawnPos = ui.toolManager.snappingManager.SnapPlacementPosition(spawnPos);
+        }
+        
         spawned.transform.position = spawnPos;
         spawned.transform.up = spawnUp;
+
+        if (useSnapping)
+        {
+            spawned.transform.rotation =
+                ui.toolManager.snappingManager.SnapPlacementRotation(spawned.transform.rotation);
+        }
     }
 
     public override void OnConstructButton(GameObject button)

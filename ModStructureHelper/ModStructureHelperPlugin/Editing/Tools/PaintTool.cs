@@ -133,6 +133,7 @@ public class PaintTool : ToolBase
         _brushPosition = hitSurface
             ? hit.point
             : MainCamera.camera.transform.position + MainCamera.camera.transform.forward * 10;
+        _brushPosition = manager.snappingManager.SnapPlacementPosition(_brushPosition);
         var surfaceNormal = GameInput.GetButtonHeld(StructureHelperInput.UseGlobalUpNormal) ? Vector3.up : hit.normal;
         if (hitSurface)
         {
@@ -152,6 +153,7 @@ public class PaintTool : ToolBase
         {
             _brushRotation = Quaternion.identity;
         }
+        _brushRotation = manager.snappingManager.SnapPlacementRotation(_brushRotation);
         _brushLocationValid = hitSurface;
     }
 
