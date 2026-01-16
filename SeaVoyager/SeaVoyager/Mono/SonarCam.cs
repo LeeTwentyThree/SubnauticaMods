@@ -1,0 +1,33 @@
+﻿using UnityEngine;
+
+namespace SeaVoyager.Mono
+{
+    public class SonarCam : MonoBehaviour
+    {
+        private Camera _cam;
+        private SonarScreenFX _screenFx;
+        private float _pingInterval = 5f;
+        private float _timeLastPing;
+
+        private void Start()
+        {
+            _cam = gameObject.GetComponent<Camera>();
+            _screenFx = gameObject.EnsureComponent<SonarScreenFX>();
+            _screenFx._shader = MainCamera.camera.GetComponent<SonarScreenFX>()._shader;
+            Plugin.Logger.LogDebug($"{_screenFx._shader}");
+        }
+
+        private void Update()
+        {
+            if (!_cam.enabled)
+            {
+                return;
+            }
+            if (Time.time > _timeLastPing)
+            {
+                _screenFx.Ping();
+                _timeLastPing = Time.time + _pingInterval;
+            }
+        }
+    }
+}

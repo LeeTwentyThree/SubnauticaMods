@@ -1,0 +1,84 @@
+{
+    // Items
+    "SeaVoyagerFragment": "Sea Voyager fragment",
+    "Tooltip_SeaVoyagerFragment": "A fragment of a destroyed Sea Voyager.",
+
+    "SeaVoyager": "Sea Voyager",
+    "Tooltip_SeaVoyager": "A large, solar-powered ship that specializes in quick transportation across the surface.",
+    
+    // Encyclopedia
+    "Ency_SeaVoyager": "Alterra Sea Voyager Piloting Manual",
+    "EncyDesc_SeaVoyager": "A shallow-water alternative to the Cyclops submarine that provides extensive mobility and a large building space.
+    
+    To control this vehicle, the pilot should select a speed and a movement direction. The ship will continue moving in the set direction. Pressing the off button will immediately decelerate the vessel to a halt. If you fall off of the deck of the Sea Voyager for any reason, the ship will automatically come to a stop.
+    
+    Additional features:
+    - Two above-water docks for small submersibles.
+    - Front-facing camera to assist piloting through shallow waters.
+    - Sonar map to examine the local environment.
+    - Global positioning system that shows the vessel's location within the region.
+    - Underwater window display in the Pilot's Cab to alleviate stress levels.
+    
+    Please keep in mind this vehicle was not fully approved by any safety departments. As always, save often.",
+
+    // Voice lines
+    "SeaVoyagerAheadFlank": "Sea Voyager: Ahead flank. Emergency speed!<delay=0><duration=3300>",
+    "SeaVoyagerAheadSlow": "Sea Voyager: Ahead slow.<delay=0><duration=1700>",
+    "SeaVoyagerAheadStandard": "Sea Voyager: Ahead standard.<delay=0><duration=1500>",
+    "SeaVoyagerShallowWater": "Sea Voyager: Attention! Approaching shallow water. Proceed with caution.<delay=1000><duration=4500>",
+    "SeaVoyagerPoweringDown": "Sea Voyager: Engine powering down.<delay=0><duration=5000>",
+    "SeaVoyagerPoweringUp": "Sea Voyager: Engine powering up...<delay=0><duration=5000>",
+    "SeaVoyagerFirstUse": "Sea Voyager MK. II operational and ready for service.<delay=0><duration=4500>",
+    "SeaVoyagerNoPower": "Sea Voyager: Warning: Reserve power depleted.<delay=0><duration=3000>",
+    "SeaVoyagerSonarMap": "Sea Voyager: Sonar map activated.<delay=0><duration=2000>",
+    "SeaVoyagerRegionMap": "Sea Voyager: Updating regional map.<delay=0><duration=1500>",
+    "SeaVoyagerVehicleAttached": "Sea Voyager: Vehicle attached.<delay=0><duration=1500>",
+    "SeaVoyagerDockVehicle": "Sea Voyager: Vehicle docked successfully.<delay=2800><duration=2000>",
+    "SeaVoyagerVehicleReleased": "Sea Voyager: Vehicle released.<delay=0><duration=1400>",
+    "SeaVoyagerWelcomeAboard": "Sea Voyager: Welcome aboard captain. All systems operational.<delay=0><duration=4300>",
+    
+    // Dock
+    "SuspendedDock": "Suspended dock",
+    "Tooltip_SuspendedDock": "Holds vehicles above water by cable for safekeeping. Cannot be placed underwater. Vehicles function similarly to diving bells while docked.",
+    "SuspendedDockReturnToSurface": "Return to surface: {0}",
+    "SuspendedDockDescend": "Descend: {0}",
+    "SuspendedDockDetachCable": "Detach cable: {0}",
+    "SuspendedDockMoveArm": "Move arm",
+    "SuspendedDockReleaseVehicle": "Release vehicle",
+    "SuspendedDockRetractCable": "Retract cable",
+    "SuspendedDockExtendCable": "Extend cable",
+    "SuspendedDockNoVehicleDocked": "No vehicle docked",
+    "SuspendedDockVehicleCannotReleaseOnDock": "Cannot release vehicles onto the dock",
+    "SuspendedDockReleaseVehicleName": "Release {0}",
+    "SuspendedDockReturnDockingArm": "Return docking arm",
+    "SuspendedDockExtendDockingArm": "Extend docking arm",
+    "SuspendedDockCannotMoveArm": "Cannot move arm with {0} attached",
+    "SuspendedDockCableNotFullyRetracted": "Cable not fully retracted",
+    "SuspendedDockStopCable": "Stop cable",
+    "SuspendedDockOnVehicleAttach": "{0} attached.",
+    "SuspendedDockCableHitSeaFloor": "Cable hit seafloor at depth of {0}m.",
+    "SuspendedDockMaxDivingBellLength": "Cable reached maximum diving bell length ({0} meters).",
+    "SuspendedDockMaxRecommendedLength": "Cable reached maximum recommended length ({0} meters).",
+
+    // Hand text
+    "SeaVoyager_Enter": "Enter",
+    "SeaVoyager_Exit": "Exit",
+    "SvSlidingDoorOpen": "Open door",
+    "SvSlidingDoorClose": "Close door",
+    
+    // HUD
+    "SeaVoyagerForward": "Forward",
+    "SeaVoyagerReverse": "Reverse",
+    "SeaVoyagerTurnLeft": "Turn left",
+    "SeaVoyagerTurnRight": "Turn right",
+    "SeaVoyagerDisableEngine": "Disable engine",
+    "SeaVoyagerViewSonarMap": "View sonar map",
+    "SeaVoyagerViewForwardCamera": "View forward-facing camera",
+    "SeaVoyagerViewRegionMap": "View region map",
+    "SeaVoyagerSlowSpeed": "Slow speed",
+    "SeaVoyagerStandardSpeed": "Standard speed",
+    "SeaVoyagerEmergencySpeed": "Emergency speed",
+    "SeaVoyagerMapIcon": "Sea Voyager",
+    "SeaVoyagerMapZoomIn": "Zoom in",
+    "SeaVoyagerMapZoomOut": "Zoom out"
+}
