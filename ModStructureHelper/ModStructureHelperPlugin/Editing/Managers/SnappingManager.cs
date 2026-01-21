@@ -1,4 +1,5 @@
 ﻿using ModStructureHelperPlugin.Handle.Handles;
+using ModStructureHelperPlugin.Mono;
 using UnityEngine;
 
 namespace ModStructureHelperPlugin.Editing.Managers;
@@ -13,6 +14,19 @@ public class SnappingManager : MonoBehaviour
     private Vector3 GlobalGridPosition { get; set; }
     private Vector3 GlobalGridRotation { get; set; }
     public bool SnappingEnabled { get; set; }
+
+    private bool GetUseSnapping()
+    {
+        if (SnappingEnabled == false)
+            return false;
+        
+        foreach (var selected in SelectionManager.SelectedObjects)
+        {
+            return selected != null && selected.GetComponent<TransformableGridPlane>() == null;
+        }
+
+        return SnappingEnabled;
+    }
 
     public void SetUseGlobalGrid(bool useGlobalGrid)
     {
@@ -56,20 +70,31 @@ public class SnappingManager : MonoBehaviour
 
     public Vector3 SnapPlacementPosition(Vector3 position)
     {
-        if (!SnappingEnabled || !UseGlobalGrid)
-        {
+        if (!GetUseSnapping() || !UseGlobalGrid)
             return position;
-        }
-        
-        return new Vector3(
-            Mathf.Round((position.x - GlobalGridPosition.x) / PositionSnap.x) * PositionSnap.x + GlobalGridPosition.x,
-            Mathf.Round((position.y - GlobalGridPosition.y) / PositionSnap.y) * PositionSnap.y + GlobalGridPosition.y,
-            Mathf.Round((position.z - GlobalGridPosition.z) / PositionSnap.z) * PositionSnap.z + GlobalGridPosition.z);
+
+        // Global grid space
+        var gridRotation = Quaternion.Euler(GlobalGridRotation);
+        var invGridRotation = Quaternion.Inverse(gridRotation);
+
+        var localPos = invGridRotation * (position - GlobalGridPosition);
+
+        if (PositionSnap.x != 0)
+            localPos.x = Mathf.Round(localPos.x / PositionSnap.x) * PositionSnap.x;
+
+        if (PositionSnap.y != 0)
+            localPos.y = Mathf.Round(localPos.y / PositionSnap.y) * PositionSnap.y;
+
+        if (PositionSnap.z != 0)
+            localPos.z = Mathf.Round(localPos.z / PositionSnap.z) * PositionSnap.z;
+
+        // World space
+        return gridRotation * localPos + GlobalGridPosition;
     }
     
     public Quaternion SnapPlacementRotation(Quaternion rotation)
     {
-        if (!SnappingEnabled || RotationSnap <= 0f)
+        if (!GetUseSnapping() || RotationSnap <= 0f)
             return rotation;
 
         var gridRotation = Quaternion.Euler(GlobalGridRotation);
@@ -137,9 +162,11 @@ public class SnappingManager : MonoBehaviour
         return position;
     }
 
+
+
     public float SnapRotationAngleRadians(float angleRadians)
     {
-        if (!SnappingEnabled || RotationSnap == 0)
+        if (!GetUseSnapping() || RotationSnap == 0)
         {
             return angleRadians;
         }
@@ -150,7 +177,7 @@ public class SnappingManager : MonoBehaviour
 
     public float SnapScale(float axisScaleDelta, Vector3 startScale, Vector3 axis)
     {
-        if (!SnappingEnabled)
+        if (!GetUseSnapping())
             return axisScaleDelta;
         
         var snap = Mathf.Abs(Vector3.Dot(ScalingSnap, axis));
@@ -168,5 +195,15 @@ public class SnappingManager : MonoBehaviour
         }
 
         return axisScaleDelta;
+    }
+    
+    private Vector3 ToGridSpace(Vector3 world)
+    {
+        return Quaternion.Inverse(Quaternion.Euler(GlobalGridRotation)) * (world - GlobalGridPosition);
+    }
+
+    private Vector3 FromGridSpace(Vector3 grid)
+    {
+        return Quaternion.Euler(GlobalGridRotation) * grid + GlobalGridPosition;
     }
 }

@@ -26,7 +26,15 @@ public class Vector3InputField : MonoBehaviour
         xField.text = value.x.ToString("0.#");
         yField.text = value.y.ToString("0.#");
         zField.text = value.z.ToString("0.#");
+        Value = value;
         onValueChanged.Invoke();
+    }
+
+    public void SetInteractable(bool interactable)
+    {
+        xField.interactable = interactable;
+        yField.interactable = interactable;
+        zField.interactable = interactable;
     }
 
     private Vector3 GetValueFromFields()
