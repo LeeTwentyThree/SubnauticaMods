@@ -15,7 +15,7 @@ public class SnappingManager : MonoBehaviour
     private Vector3 GlobalGridRotation { get; set; }
     public bool SnappingEnabled { get; set; }
 
-    private bool GetUseSnapping()
+    public bool GetUseSnapping()
     {
         if (SnappingEnabled == false)
             return false;
@@ -127,9 +127,7 @@ public class SnappingManager : MonoBehaviour
 
         if (snap != 0 && UseGlobalGrid)
         {
-            if (PositionSnap.x != 0) position.x = Mathf.Round(position.x / PositionSnap.x) * PositionSnap.x;
-            if (PositionSnap.y != 0) position.y = Mathf.Round(position.y / PositionSnap.y) * PositionSnap.y;
-            if (PositionSnap.x != 0) position.z = Mathf.Round(position.z / PositionSnap.z) * PositionSnap.z;
+            return SnapPlacementPosition(position);
         }
 
         return position;
@@ -154,9 +152,7 @@ public class SnappingManager : MonoBehaviour
 
         if (snap != 0 && UseGlobalGrid)
         {
-            if (PositionSnap.x != 0) position.x = Mathf.Round(position.x / PositionSnap.x) * PositionSnap.x;
-            if (PositionSnap.y != 0) position.y = Mathf.Round(position.y / PositionSnap.y) * PositionSnap.y;
-            if (PositionSnap.x != 0) position.z = Mathf.Round(position.z / PositionSnap.z) * PositionSnap.z;
+            return SnapPlacementPosition(position);
         }
 
         return position;

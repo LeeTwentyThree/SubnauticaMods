@@ -33,7 +33,7 @@ public class ToggleSnappingTool : ToolBase
     private void Start()
     {
         CreateSnapGridPreview();
-        SetDefaultValues();
+        // SetDefaultValues();
         
         if (StructureInstance.Main != null)
         {
@@ -41,6 +41,8 @@ public class ToggleSnappingTool : ToolBase
         }
 
         StructureInstance.OnStructureInstanceChanged += OnStructureInstanceChanged;
+        
+        OnUpdateSnapping();
     }
 
     private void OnDestroy()
@@ -51,7 +53,6 @@ public class ToggleSnappingTool : ToolBase
 
     private void SetDefaultValues()
     {
-        ErrorMessage.AddMessage("setting defaults");
         positionSnapping.text = "1.0";
         angleSnapping.text = "45";
         useGlobalGridToggle.isOn = false;
@@ -60,25 +61,29 @@ public class ToggleSnappingTool : ToolBase
         gridRotationField.SetValue(Vector3.zero);
 
         UpdateInteractability(false);
-        
-        OnUpdateSnapping();
     }
 
     private void LoadValuesFromStructureMetadata(StructureInstance instance)
     {
-        ErrorMessage.AddMessage("loading");
         if (instance.TryGetMetadata<float>(StructureMetadataKeys.GridSnappingDistanceFloat, out var snappingDistance))
         {
             positionSnapping.text = snappingDistance.ToString("0.#");
+        }
+        else
+        {
+            positionSnapping.text = "1.0";
         }
         if (instance.TryGetMetadata<float>(StructureMetadataKeys.GridRotationSnappingFloat, out var rotationSnapping))
         {
             angleSnapping.text = rotationSnapping.ToString("#");
         }
+        else
+        {
+            angleSnapping.text = "45";
+        }
         if (instance.TryGetMetadata<Vector3>(StructureMetadataKeys.GridCenterVector, out var gridCenter))
         {
             gridCenterField.SetValue(gridCenter);
-            ErrorMessage.AddMessage("loaded center");
         }
         if (instance.TryGetMetadata<Vector3>(StructureMetadataKeys.GridRotationVector, out var gridRotation))
         {
