@@ -125,16 +125,22 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
 
     public IEnumerable<ManagedEntity> GetAllManagedEntities() => _managedEntities;
 
-    public Vector3 GetStructureCenterPosition()
+    public bool TryGetStructureCenterPosition(out Vector3 position)
     {
+        var count = _managedEntities.Count;
+        if (count == 0)
+        {
+            position = default;
+            return false;
+        }
         var sumOfPositions = Vector3.zero;
         foreach (var entity in _managedEntities)
         {
             sumOfPositions += entity.Position;
         }
-
-        var count = _managedEntities.Count;
-        return new Vector3(sumOfPositions.x / count, sumOfPositions.y / count, sumOfPositions.z / count);
+        
+        position = new Vector3(sumOfPositions.x / count, sumOfPositions.y / count, sumOfPositions.z / count);
+        return true;
     }
     
     private void Awake()

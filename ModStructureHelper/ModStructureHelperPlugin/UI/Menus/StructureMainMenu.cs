@@ -85,6 +85,14 @@ public class StructureMainMenu : StructureHelperMenuBase
             ui.promptHandler.Ask("There is no structure being edited currently!");
             return;
         }
-        Player.main.SetPosition(StructureInstance.Main.GetStructureCenterPosition());
+
+        if (StructureInstance.Main.TryGetStructureCenterPosition(out var centerPosition))
+        {
+            Player.main.SetPosition(centerPosition);
+        }
+        else
+        {
+            ErrorMessage.AddMessage("Cannot teleport to the center of an empty structure!");
+        }
     }
 }
