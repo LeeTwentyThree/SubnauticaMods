@@ -55,21 +55,21 @@ public class DragAndDropTool : ToolBase
         }
         if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateLeft))
         {
-            _rotation -= Time.deltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
+            _rotation -= Time.unscaledDeltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
             _upDirChanged = true;
         }
         else if (GameInput.GetButtonHeld(StructureHelperInput.BrushRotateRight))
         {
-            _rotation += Time.deltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
+            _rotation += Time.unscaledDeltaTime / 2f * Plugin.ModConfig.BrushRotateSpeed;
             _upDirChanged = true;
         }
         if (GameInput.GetButtonHeld(StructureHelperInput.BrushDecreaseScale))
         {
-            _scaleOffset = Mathf.Max(-1f, _scaleOffset - Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
+            _scaleOffset = Mathf.Max(-1f, _scaleOffset - Time.unscaledDeltaTime * Plugin.ModConfig.BrushScaleSpeed);
         }
         else if (GameInput.GetButtonHeld(StructureHelperInput.BrushIncreaseScale))
         {
-            _scaleOffset = Mathf.Max(-1f, _scaleOffset + Time.deltaTime * Plugin.ModConfig.BrushScaleSpeed);
+            _scaleOffset = Mathf.Max(-1f, _scaleOffset + Time.unscaledDeltaTime * Plugin.ModConfig.BrushScaleSpeed);
         }
         HandleDrag();
     }

@@ -35,7 +35,7 @@ namespace ModStructureHelperPlugin.Handle.Handles.Scale
         public override void Interact(Vector3 p_previousPosition)
         {
             Vector3 mouseVector = (RuntimeTransformHandle.GetMousePosition() - p_previousPosition);
-            float d = (mouseVector.x + mouseVector.y) * Time.deltaTime * 2;
+            float d = (mouseVector.x + mouseVector.y) * Time.unscaledDeltaTime * 2;
             delta += d;
             var newScale = _startScale + Vector3.Scale(_startScale,_axis) * delta;
             if (GameInput.GetButtonHeld(StructureHelperInput.ScaleUniform))
