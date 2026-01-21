@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using ModStructureFormat;
+using ModStructureFormatV2;
 using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
 using UnityEngine;

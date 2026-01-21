@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using ModStructureFormat;
+using ModStructureFormatV2;
 using ModStructureHelperPlugin.UI.Buttons;
 using ModStructureHelperPlugin.Utility;
 using TMPro;

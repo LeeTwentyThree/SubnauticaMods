@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using ModStructureFormat;
+using ModStructureFormatV2;
 using ModStructureHelperPlugin.Editing.Managers;
 using ModStructureHelperPlugin.UI;
 using ModStructureHelperPlugin.UndoSystem;
@@ -19,7 +19,7 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
     public Structure data;
     public string path;
     public string structureName;
-
+    
     private List<ManagedEntity> _managedEntities = new List<ManagedEntity>();
 
     public delegate void OnStructureInstanceChangedHandler(StructureInstance newInstance);
@@ -39,7 +39,7 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
         instance.data = data;
         instance.path = path;
         instance.structureName = Path.GetFileNameWithoutExtension(path);
-
+        
         instance._managedEntities = new List<ManagedEntity>(data.Entities.Select(e => new ManagedEntity(e)));
         
         instance.TryGrabManagedEntities();
@@ -115,7 +115,7 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
                 savedEntities[i] = _managedEntities[i].EntityData;
             }
         }
-        return new Structure(savedEntities);
+        return new Structure(savedEntities, data.Metadata ?? new Dictionary<string, string>());
     }
 
     public bool IsEntityPartOfStructure(string id)
@@ -299,6 +299,9 @@ public class StructureInstance : MonoBehaviour, IScheduledUpdateBehaviour
         ErrorMessage.AddMessage($"A total of {count} entities are unloaded!");
         Plugin.Logger.LogMessage($"{count} entities are currently unloaded:\n" + sb);
     }
+    
+    public void SaveMetadata<T>(string key, T value) => data.SaveMetadata(key, value);
+    public bool TryGetMetadata<T>(string key, out T value) => data.TryGetMetadata(key, out value);
 
     public int GetTotalEntityCount() => _managedEntities.Count;
 

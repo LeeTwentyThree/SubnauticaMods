@@ -32,7 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ModStructureFormat\ModStructureFormat.csproj" />
+      <ProjectReference Include="..\ModStructureFormatV2\ModStructureFormatV2.csproj" />
     </ItemGroup>
 
     <Import Project="..\Directories.targets" />

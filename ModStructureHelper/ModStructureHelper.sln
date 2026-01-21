@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModStructureHelperPlugin", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModStructureFormat", "ModStructureFormat\ModStructureFormat.csproj", "{817C165D-3E22-4689-A722-116A5B8B2AED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModStructureFormatV2", "ModStructureFormatV2\ModStructureFormatV2.csproj", "{82321182-6619-477B-A157-FD1EA010FE80}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{817C165D-3E22-4689-A722-116A5B8B2AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{817C165D-3E22-4689-A722-116A5B8B2AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{817C165D-3E22-4689-A722-116A5B8B2AED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82321182-6619-477B-A157-FD1EA010FE80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82321182-6619-477B-A157-FD1EA010FE80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82321182-6619-477B-A157-FD1EA010FE80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82321182-6619-477B-A157-FD1EA010FE80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

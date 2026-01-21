@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using ModStructureFormat;
+using ModStructureFormatV2;
 using ModStructureHelperPlugin.StructureHandling;
 using UnityEngine;
 
@@ -10,8 +10,6 @@ public static class EntityUtility
 {
     public static IEnumerator SpawnEntitiesFromStructure(Structure structure)
     {
-        if (!structure.IsSorted)
-            structure.SortByPriority();
         var loadedPrefabs = new Dictionary<string, GameObject>();
         foreach (var data in structure.Entities)
         {

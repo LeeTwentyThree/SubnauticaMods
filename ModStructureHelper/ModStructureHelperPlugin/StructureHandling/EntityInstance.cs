@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using ModStructureFormat;
+using ModStructureFormatV2;
 using ModStructureHelperPlugin.Mono;
 using UnityEngine;
 

@@ -1,4 +1,4 @@
-﻿using ModStructureFormat;
+﻿using ModStructureFormatV2;
 using ModStructureHelperPlugin.StructureHandling;
 using TMPro;
 using UnityEngine;

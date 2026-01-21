@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using ModStructureFormat;
+using ModStructureFormatV2;
 using ModStructureHelperPlugin.StructureHandling;
 using TMPro;
 

@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="UnityEngine.Modules" Version="2019.4.36" IncludeAssets="compile"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Newtonsoft.Json">
+            <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Subnautica\Subnautica_Data\Managed\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <Import Project="..\Directories.targets" />
+
+    <PropertyGroup>
+        <SubnauticaPackagesDir>Packages/Subnautica</SubnauticaPackagesDir>
+        <PluginsDir>$(GameDir)\BepInEx\plugins</PluginsDir>
+    </PropertyGroup>
+
+    <Target Name="CopyToGameFolder" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginsDir)\ModStructureHelperPlugin" />
+    </Target>
+
+    <Target Name="CopyToThunderKitFolder" AfterTargets="Build">
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(UnityProjectDir)\$(SubnauticaPackagesDir)"/>
+    </Target>
+</Project>
