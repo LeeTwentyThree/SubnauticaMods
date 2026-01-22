@@ -20,6 +20,8 @@ public class ToggleSnappingTool : ToolBase
     [SerializeField] private Vector3InputField gridCenterField;
     [SerializeField] private Vector3InputField gridRotationField;
     [SerializeField] private Button teleportToGridCenterButton;
+    [SerializeField] private Button alignButton;
+    [SerializeField] private GameObject previewDoesNotMatchValuesWarning;
     
     public override ToolType Type => ToolType.Snapping;
 
@@ -33,6 +35,7 @@ public class ToggleSnappingTool : ToolBase
     private void Start()
     {
         CreateSnapGridPreview();
+        previewDoesNotMatchValuesWarning.SetActive(false);
         // SetDefaultValues();
         
         if (StructureInstance.Main != null)
@@ -104,6 +107,7 @@ public class ToggleSnappingTool : ToolBase
         gridCenterField.SetInteractable(hasGlobalGrid);
         gridRotationField.SetInteractable(hasGlobalGrid);
         teleportToGridCenterButton.interactable = hasGlobalGrid;
+        alignButton.interactable = hasGlobalGrid;
     }
     
     private void Update()
@@ -117,6 +121,20 @@ public class ToggleSnappingTool : ToolBase
         {
             DisableSnapping();
         }
+
+        if (manager.snappingManager.SnappingEnabled)
+        {
+            previewDoesNotMatchValuesWarning.SetActive(_snapGridPreview.activeSelf && !GetPreviewMatchesSavedValues());
+        }
+    }
+
+    private bool GetPreviewMatchesSavedValues()
+    {
+        if (Vector3.SqrMagnitude(_snapGridPreview.transform.position - gridCenterField.Value) > 0.001f)
+            return false;
+        if (Quaternion.Angle(_snapGridPreview.transform.rotation, Quaternion.Euler(gridRotationField.Value)) > 0.1f)
+            return false;
+        return true;
     }
 
     protected override void OnToolEnabled()
@@ -197,6 +215,14 @@ public class ToggleSnappingTool : ToolBase
     public void TeleportToGlobalGridCenter()
     {
         Player.main.SetPosition(gridCenterField.Value);
+    }
+
+    public void AlignToPhysicalPreview()
+    {
+        var pos = _snapGridPreview.transform.position;
+        var rotation = _snapGridPreview.transform.eulerAngles;
+        gridCenterField.SetValue(pos);
+        gridRotationField.SetValue(rotation);
     }
     
     private void UpdateSnappingGridPreview()
