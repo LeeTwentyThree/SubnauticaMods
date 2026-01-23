@@ -47,7 +47,11 @@ public class EpicPrefabLoader
                     var prefix = data.prefix + family.prefix;
                     var postfix = family.postfix + data.postfix;
                     var classId = prefix + prefabName + variant?.postfix + postfix;
-                    var info = PrefabInfo.WithTechType(classId);
+                    var techType = EnumHandler.AddEntry<TechType>(classId);
+                    var prefabFileName = string.IsNullOrEmpty(data.customFolderPath)
+                        ? classId + "Prefab"
+                        : data.customFolderPath + "/" + classId;
+                    var info = new PrefabInfo(classId, prefabFileName, techType);
                     var prefab = new CustomPrefab(info);
                     WorldEntityDatabaseHandler.AddCustomInfo(info.ClassID, info.TechType, Vector3.one, family.zUp, family.cellLevel);
                     prefab.SetGameObject(new EpicPrefabTemplate(info, Bundle, prefabName, family, variant, factory));
