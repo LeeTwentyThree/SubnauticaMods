@@ -3,11 +3,15 @@
     <Import Condition="Exists('TargetDirectories.targets')" Project="TargetDirectories.targets"/>
 
     <ItemGroup>
+	<LocalizationFiles Include="Localization/*.json"/>
         <AssetFiles Include="$(AssetsDir)/kalliesproppack"/>
     </ItemGroup>
     <Target Condition="Exists('.\TargetDirectories.targets')" Name="CopyToBepInEx" AfterTargets="Build">
         <MakeDir Directories="$(ModDir)"/>
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModDir)"/>
+
+	<MakeDir Directories="$(ModDir)\Localization"/>
+        <Copy SourceFiles="@(LocalizationFiles)" DestinationFolder="$(ModDir)\Localization"/>
         
     </Target>
     <Target Condition="Exists('.\TargetDirectories.targets')" Name="CopyAssets" AfterTargets="Build">
