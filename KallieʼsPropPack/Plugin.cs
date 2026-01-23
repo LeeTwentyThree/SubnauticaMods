@@ -34,6 +34,8 @@ public class Plugin : BaseUnityPlugin
     {
         Logger = base.Logger;
 
+        LanguageHandler.RegisterLocalizationFolder();
+        
         WaitScreenHandler.RegisterEarlyLoadTask(PluginInfo.PLUGIN_NAME, InitializePrefabs);
 
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
