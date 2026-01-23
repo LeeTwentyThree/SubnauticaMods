@@ -20,6 +20,53 @@ public class StaticLabProp : IEpicPrefabFactory
     public IEnumerator BuildVariant(GameObject prefab, LoadedPrefabRegistrationData.Parameter[] parameters)
     {
         if (parameters == null) yield break;
+        yield return ApplyBaseGameMaterials(prefab);
+        yield return SetUpLights(prefab, parameters);
+    }
+
+    private IEnumerator ApplyBaseGameMaterials(GameObject prefab)
+    {
+        var name = prefab.name.ToLower();
+        if (name.Contains("wall"))
+        {
+            if (name.Contains("door") && name.Contains("withframe"))
+            {
+                var doorFrameTask = PrefabDatabase.GetPrefabAsync("055b3160-f57b-46ba-80f5-b708d0c8180e");
+                yield return doorFrameTask;
+                if (!doorFrameTask.TryGetPrefab(out var doorFrame))
+                {
+                    Plugin.Logger.LogError("Failed to find door frame prefab!");
+                    yield break;
+                }
+                var renderer = prefab.GetComponentInChildren<Renderer>();
+                var materials = renderer.sharedMaterials;
+                materials[1] = doorFrame.GetComponentInChildren<Renderer>().sharedMaterials[0];
+                renderer.sharedMaterials = materials;
+            }
+            else if (name.Contains("vent"))
+            {
+                var ventTask = PrefabDatabase.GetPrefabAsync("23a63afb-dbdd-4b34-b2f8-b423eb8d6f45");
+                yield return ventTask;
+                if (!ventTask.TryGetPrefab(out var wreckRoom01))
+                {
+                    Plugin.Logger.LogError("Failed to find ExplorableWreckRoom01 prefab!");
+                    yield break;
+                }
+
+                var interiorRenderer = wreckRoom01.transform
+                    .Find("explorable_wreckage_modular_room_01/room_01_interior").GetComponent<Renderer>();
+                var renderer = prefab.GetComponentInChildren<Renderer>();
+                var materials = renderer.sharedMaterials;
+                materials[1] = interiorRenderer.sharedMaterials[3]; // horizontal vent
+                materials[2] = interiorRenderer.sharedMaterials[5]; // exterior
+                materials[3] = interiorRenderer.sharedMaterials[4]; // alpha
+                renderer.sharedMaterials = materials;
+            }
+        }
+    }
+
+    private IEnumerator SetUpLights(GameObject prefab, LoadedPrefabRegistrationData.Parameter[] parameters)
+    {
         bool hasFlicker = false;
         bool isVolumetric = true;
         bool isOff = false;
