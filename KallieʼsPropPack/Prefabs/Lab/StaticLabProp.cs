@@ -39,9 +39,9 @@ public class StaticLabProp : IEpicPrefabFactory
                     yield break;
                 }
                 var renderer = prefab.GetComponentInChildren<Renderer>();
-                var materials = renderer.sharedMaterials;
-                materials[1] = doorFrame.GetComponentInChildren<Renderer>().sharedMaterials[0];
-                renderer.sharedMaterials = materials;
+                var materials = renderer.materials;
+                materials[1] = doorFrame.GetComponentInChildren<Renderer>().materials[0];
+                renderer.materials = materials;
             }
             else if (name.Contains("vent"))
             {
@@ -56,11 +56,11 @@ public class StaticLabProp : IEpicPrefabFactory
                 var interiorRenderer = wreckRoom01.transform
                     .Find("explorable_wreckage_modular_room_01/room_01_interior").GetComponent<Renderer>();
                 var renderer = prefab.GetComponentInChildren<Renderer>();
-                var materials = renderer.sharedMaterials;
-                materials[1] = interiorRenderer.sharedMaterials[3]; // horizontal vent
-                materials[2] = interiorRenderer.sharedMaterials[5]; // exterior
-                materials[3] = interiorRenderer.sharedMaterials[4]; // alpha
-                renderer.sharedMaterials = materials;
+                var materials = renderer.materials;
+                materials[1] = interiorRenderer.materials[3]; // horizontal vent
+                materials[2] = interiorRenderer.materials[5]; // exterior
+                materials[3] = interiorRenderer.materials[4]; // alpha
+                renderer.materials = materials;
             }
         }
     }

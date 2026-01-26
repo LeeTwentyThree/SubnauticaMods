@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using KallieʼsPropPack.MaterialModifiers;
+using KallieʼsPropPack.MonoBehaviours;
 using Nautilus.Assets;
 using Nautilus.Utility;
 using Nautilus.Utility.MaterialModifiers;
@@ -45,6 +46,16 @@ public class SingleCellBlob
         {
             collider.gameObject.layer = LayerID.TerrainCollider;
             collider.gameObject.AddComponent<VFXSurface>().surfaceType = VFXSurfaceTypes.vegetation;
+        }
+        
+        // emergency fix
+        if (Info.ClassID.Equals("Kallies_SingleCell_Blob_Flat"))
+        {
+            prefab.AddComponent<DestroyIfIdMatches>().ids = new[]
+            {
+                "2ee22d3b-9c2c-4b20-81be-735b2c2251e5",
+                "50143ef9-c0a2-4dee-bc80-0066d60c03e3"
+            };
         }
         
         yield return null;

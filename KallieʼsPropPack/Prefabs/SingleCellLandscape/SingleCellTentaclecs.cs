@@ -40,6 +40,9 @@ public class SingleCellTentacle
         var tentacleBehaviour = prefab.AddComponent<SclTentacleBehaviour>();
         tentacleBehaviour.animator = prefab.GetComponentInChildren<Animator>();
         tentacleBehaviour.lightDetectionTransform = prefab.transform.Find("LightDetectionPosition");
+        var trigger = prefab.transform.Find("AttackTrigger").gameObject.AddComponent<TentacleTrigger>();
+        trigger.tentacle = tentacleBehaviour;
+        tentacleBehaviour.attackCenter = trigger.transform;
 
         prefab.AddComponent<ConstructionObstacle>();
         
