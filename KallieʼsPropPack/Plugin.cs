@@ -6,6 +6,7 @@ using KallieʼsPropPack.PrefabLoading;
 using KallieʼsPropPack.Prefabs.Grasses;
 using KallieʼsPropPack.Prefabs.Lab;
 using KallieʼsPropPack.Prefabs.Plants;
+using KallieʼsPropPack.Prefabs.Precursor;
 using KallieʼsPropPack.Prefabs.SingleCellLandscape;
 using KallieʼsPropPack.Prefabs.Trees;
 using Nautilus.Assets;
@@ -27,7 +28,7 @@ public class Plugin : BaseUnityPlugin
     private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
     private bool _initializedPrefabs;
-    
+
     internal static AssetBundle Bundle { get; private set; }
 
     private void Awake()
@@ -35,7 +36,7 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
 
         LanguageHandler.RegisterLocalizationFolder();
-        
+
         WaitScreenHandler.RegisterEarlyLoadTask(PluginInfo.PLUGIN_NAME, InitializePrefabs);
 
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
@@ -52,7 +53,7 @@ public class Plugin : BaseUnityPlugin
         _initializedPrefabs = true;
 
         Bundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "kalliesproppack");
-        
+
         PropPackAudio.RegisterAudio();
 
         // Register purple pine tree
@@ -215,15 +216,15 @@ public class Plugin : BaseUnityPlugin
         new SingleCellRib("Kallies_SingleCellRib_02", "6e37459e-d880-4da8-8dad-0cc10ff07f00").Register();
         new SingleCellRib("Kallies_SingleCellRib_03", "ee1807bf-6744-4fee-a66f-c71edc9e7fb6").Register();
         new SingleCellRib("Kallies_SingleCellRib_04", "33c31a89-9d3b-4717-ad26-4cc8106a1f24").Register();
-        
+
         new SingleCellBlob("Kallies_SingleCell_Blob_Round", "SCL_Blob_Round").Register();
         new SingleCellBlob("Kallies_SingleCell_Blob_Flat", "SLC_Blob_Flat").Register();
         new SingleCellBlob("Kallies_SingleCell_Blob_Oblong", "SLC_Blob_Oblong").Register();
         new SingleCellBlob("Kallies_SingleCell_Blob_Tetrahedron", "SLC_Blob_Tetrahedron").Register();
-        
+
         new SingleCellTentacle("Kallies_SingleCell_Tentacle_1", "SCL_Tentacle_Prefab_1").Register();
         new SingleCellTentacle("Kallies_SingleCell_Tentacle_2", "SCL_Tentacle_Prefab_2").Register();
-        
+
         var singleCellBiomeSettings = BiomeUtils.CreateBiomeSettings(new Vector3(2.4f, 2.1f, 1.2f), 1f,
             new Color(0.5f, 1, 1, 1), 1.5f, new Color(0.9f, 0.9f, 0.9f),
             0.015f, 30, 2, 2f, 16f);
@@ -232,16 +233,79 @@ public class Plugin : BaseUnityPlugin
         var sclBiomePrefab = new CustomPrefab(PrefabInfo.WithTechType("SCLVolume"));
         var sclBiomeTemplate = new AtmosphereVolumeTemplate(sclBiomePrefab.Info,
             AtmosphereVolumeTemplate.VolumeShape.Cube, "singlecell");
-        BiomeHandler.AddBiomeAmbience("singlecell", AudioUtils.GetFmodAsset("SCL_Ambience"), FMODGameParams.InteriorState.Always);
+        BiomeHandler.AddBiomeAmbience("singlecell", AudioUtils.GetFmodAsset("SCL_Ambience"),
+            FMODGameParams.InteriorState.Always);
         sclBiomePrefab.SetGameObject(sclBiomeTemplate);
         sclBiomePrefab.Register();
+
+        // Register precursor entities
+
+        var drfLabClassId = "258d971e-48b1-4cef-955c-a0222586d0c5";
+        var drfObservationRoomClassId = "1607277c-65f8-4c82-b739-2c6fd937e0ee";
+        var alienThermalPlantHallwayClassId = "a84f22af-9802-49c2-92ff-5c58335593a1";
+        var alienThermalPlantHallwayRampsClassId = "a19a9a9c-25db-4e90-aed4-643d62aa0a5b";
+        var warperMachineClassId = "5ed66f98-b6fa-4c30-bd99-88638bad9442";
+
+        // DRF
+        new StrippedPrecursorProp("PrecursorGirder", drfLabClassId,
+            "Precursor_LostRiverBase_Warperlab/Precursor_LostRiverBase_Warperlab_ceiling_02 (2)/ProductionLineScan",
+            StrippedPrecursorProp.CollisionsMode.None, false)
+        {
+            ModifyPrefab = obj =>
+            {
+                obj.transform.GetChild(0).localPosition += new Vector3(8.5f, -2, 0);
+            }
+        }.Register();
+
+        new StrippedPrecursorProp("PrecursorCeilingMolding1", drfLabClassId,
+            "Precursor_LostRiverBase_Warperlab/Precursor_LostRiverBase_Warperlab_ceiling_02 (7)/Precursor_LostRiverBase_Warperlab_ceiling_02_LOD1",
+            StrippedPrecursorProp.CollisionsMode.None).Register();
+        new StrippedPrecursorProp("PrecursorCeilingTile1", drfLabClassId,
+            "Precursor_LostRiverBase_Warperlab/Precursor_LostRiverBase_Warperlab_ceiling_03 (3)/Precursor_LostRiverBase_Warperlab_ceiling_03_LOD1",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+        new StrippedPrecursorProp("PrecursorLongCeilingTile1", drfLabClassId,
+            "Precursor_LostRiverBase_Warperlab/Precursor_LostRiverBase_Warperlab_ceiling_03 (3)/Precursor_LostRiverBase_Warperlab_ceiling_05_LOD1",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+
+        // DRF Observation Room
+        new StrippedPrecursorProp("PrecursorCeilingTile2", drfObservationRoomClassId,
+            "Precursor_LostRiverBase_ObservationRoom_instances/Precursor_LostRiverBase_ObservationRoom/Precursor_LostRiverBase_ObservationRoom_ceiling_08",
+            StrippedPrecursorProp.CollisionsMode.None).Register();
+        new StrippedPrecursorProp("PrecursorWallMod1", drfObservationRoomClassId,
+            "Precursor_LostRiverBase_ObservationRoom_instances/Precursor_LostRiverBase_ObservationRoom/Precursor_LostRiverBase_ObservationRoom_wall_02/Precursor_LostRiverBase_ObservationRoom_wall_02",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+        new StrippedPrecursorProp("PrecursorWallMod2", drfObservationRoomClassId,
+            "Precursor_LostRiverBase_ObservationRoom_instances/Precursor_LostRiverBase_ObservationRoom/Precursor_LostRiverBase_ObservationRoom_wall_02/Precursor_LostRiverBase_ObservationRoom_wall_06",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+
+        // Thermal plant
+        new StrippedPrecursorProp("PrecursorCeilingMolding2", alienThermalPlantHallwayClassId,
+            "Precursor_LavaBase_Hallway_instances/Precursor_LavaBase_Hallway/Precursor_LavaBase_Hallway_wall_pattern_01 (2)/Precursor_LavaBase_Hallway_ceiling_pattern_02_LOD1",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+        new StrippedPrecursorProp("PrecursorCeilingTile3", alienThermalPlantHallwayClassId,
+            "Precursor_LavaBase_Hallway_instances/Precursor_LavaBase_Hallway/Precursor_LavaBase_Hallway_ceiling_05 (4)/Precursor_LavaBase_Hallway_ceiling_05_LOD1",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+        new StrippedPrecursorProp("PrecursorFloorTile1", alienThermalPlantHallwayRampsClassId,
+            "Precursor_LavaBase_Hallway_instances/Precursor_LavaBase_Hallway_Ramps_Instances/Precursor_LavaBase_Hallway_floor_03/Precursor_LavaBase_Hallway_floor_03",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
         
+        // Warpers
+        new StrippedPrecursorProp("PrecursorWarperFactoryBase", warperMachineClassId,
+            "mesh/Precursor_Lab_Warper_base",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+        new StrippedPrecursorProp("PrecursorWarperFactoryTop", warperMachineClassId,
+            "mesh/Precursor_Lab_Warper_top",
+            StrippedPrecursorProp.CollisionsMode.BoundingBox).Register();
+        new StrippedPrecursorProp("PrecursorWarperFactorySupport", warperMachineClassId,
+            "mesh/Precursor_Lab_Warper_Support",
+            StrippedPrecursorProp.CollisionsMode.None).Register();
+
         // Register lab entities
 
         var prefabLoader = new EpicPrefabLoader(new[] { Assembly }, Bundle);
         prefabLoader.LoadPrefabs(JsonConvert.DeserializeObject<LoadedPrefabRegistrationData>(
             Bundle.LoadAsset<TextAsset>("LabPrefabs").text));
-        
+
         // Register coral entities
         prefabLoader.LoadPrefabs(JsonConvert.DeserializeObject<LoadedPrefabRegistrationData>(
             Bundle.LoadAsset<TextAsset>("CoralPrefabs").text));
