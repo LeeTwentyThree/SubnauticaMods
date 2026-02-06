@@ -6,5 +6,7 @@
     "PodshellLeviathanBaby": "Podshell leviathan baby",
     "Tooltip_PodshellLeviathanBaby": "A young podshell leviathan.",
     "PodshellLeviathanEgg": "Podshell leviathan egg",
-    "Tooltip_PodshellLeviathanEgg": "Podshell leviathans hatch from these."
+    "Tooltip_PodshellLeviathanEgg": "Podshell leviathans hatch from these.",
+    "PodshellFragment": "Podshell shell fragment",
+    "Tooltip_PodshellFragment": "A tough, keratinous shell shed from a Podshell Leviathan."
 }
