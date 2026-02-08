@@ -1,17 +1,17 @@
 # DebugHelper v1.2.0
 
 ## Table of contents
-- [Commands](https://github.com/LeeTwentyThree/SubnauticaMods/blob/main/Pages/DebugHelperInfo.md#commands)
-- [REPL Console Tools](https://github.com/LeeTwentyThree/SubnauticaMods/blob/main/Pages/DebugHelperInfo.md#repl-console-tools-)
+- [Commands](https://github.com/32Kallies/SubnauticaMods/blob/main/Pages/DebugHelperInfo.md#commands)
+- [REPL Console Tools](https://github.com/32Kallies/SubnauticaMods/blob/main/Pages/DebugHelperInfo.md#repl-console-tools-)
 
 ## Comprehensive list of features
 ### Mod options
 There are several options added into the Mod Options menu to help modders, playtesters, and even the average player to discover things about the Subnautica world that were once hidden behind obscure code. Several options related to visualization of once abstract concepts are available. Most of them activate commands that are explained in the list below.
 ### Commands
 #### Prefab commands 📦
-- `spawnc [classId]` - Spawns a prefab by its ClassID. These are 36 character GUID strings, found in [this file](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/blob/main/Resources/SN1-PrefabPaths.json).
+- `spawnc [classId]` - Spawns a prefab by its ClassID. These are 36 character GUID strings, found in [this file](https://github.com/32Kallies/Lee23-SubnauticaMods/blob/main/Resources/SN1-PrefabPaths.json).
 
-- `spawnp [path]` - Spawns a prefab by its path in resources folder. These can be found on the right side of each entry in [this file](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/blob/main/Resources/SN1-PrefabPaths.json). May become obsolete with Modpocalypse.
+- `spawnp [path]` - Spawns a prefab by its path in resources folder. These can be found on the right side of each entry in [this file](https://github.com/32Kallies/Lee23-SubnauticaMods/blob/main/Resources/SN1-PrefabPaths.json). May become obsolete with Modpocalypse.
 
 - `search [distance]` - Searches for all PrefabIdentifiers within `distance` meters (based around pivot). Outputs name and TechType. This is especially useful for finding objects with RuntimeEditor.
 
@@ -26,7 +26,7 @@ There are several options added into the Mod Options menu to help modders, playt
 - `hidespawninfo` - Hides all SpawnInfo Debug Icons.
 
 #### Audio commands 🔊
-- `playsound [path] (maxDuration = 10)` - Plays an FMOD event by its path. [Here](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/blob/main/Resources/SN1-FMODEvents.txt) is a comprehensive list of all sound events in the game.
+- `playsound [path] (maxDuration = 10)` - Plays an FMOD event by its path. [Here](https://github.com/32Kallies/Lee23-SubnauticaMods/blob/main/Resources/SN1-FMODEvents.txt) is a comprehensive list of all sound events in the game.
 
 - `ps [path] (maxDuration = 10)` - Shorthand for `playsound`.
 
@@ -95,7 +95,7 @@ There are several options added into the Mod Options menu to help modders, playt
 - `drawstar [duration] (radius = 1)` - Draws a star shape with Debug.DrawLine at the player's camera. Useful for testing the Debug Overlay system.
 
 ### REPL Console Tools 👨‍💻
-This mod adds the [DB](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/blob/main/DebugHelper/DebugHelper/DB.cs) class (in the global namespace) to assist with debugging and patching at Runtime. Call these methods in the REPL console (RuntimeEditor).
+This mod adds the [DB](https://github.com/32Kallies/Lee23-SubnauticaMods/blob/main/DebugHelper/DebugHelper/DB.cs) class (in the global namespace) to assist with debugging and patching at Runtime. Call these methods in the REPL console (RuntimeEditor).
 
 `DB.Help` - Call this in a REPL console if you forget how something is done.
 
@@ -110,12 +110,12 @@ This mod adds the [DB](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/bl
   - `typeof(Peeper), "Start"`
   - `"Peeper", "Start"`
 
-All of the methods in this class have various overloads which can be viewed [here](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/blob/main/DebugHelper/DebugHelper/DB.cs).
+All of the methods in this class have various overloads which can be viewed [here](https://github.com/32Kallies/Lee23-SubnauticaMods/blob/main/DebugHelper/DebugHelper/DB.cs).
 
 ---
 
 ### Credits 👍
 
-Programming done by Lee23. Thanks to EldritchCarMaker for testing & feedback.
-- Credit to [Polybroo](https://github.com/Polybroo) for a [collider debugging overhaul](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/pull/1)
-- Credit to [EldritchCarMaker](https://github.com/EldritchCarMaker) for [vastly improving the Listen command and other REPL tools](https://github.com/LeeTwentyThree/Lee23-SubnauticaMods/pull/2)
+Programming done by Kallie23. Thanks to EldritchCarMaker for testing & feedback.
+- Credit to [Polybroo](https://github.com/Polybroo) for a [collider debugging overhaul](https://github.com/32Kallies/Lee23-SubnauticaMods/pull/1)
+- Credit to [EldritchCarMaker](https://github.com/EldritchCarMaker) for [vastly improving the Listen command and other REPL tools](https://github.com/32Kallies/Lee23-SubnauticaMods/pull/2)
