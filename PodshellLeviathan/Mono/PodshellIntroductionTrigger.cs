@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace PodshellLeviathan.Mono;
 
-public class PlayPodshellMusic : MonoBehaviour, IScheduledUpdateBehaviour, IStoryGoalListener
+public class PodshellIntroductionTrigger : MonoBehaviour, IScheduledUpdateBehaviour, IStoryGoalListener
 {
-    public string goalKey = "PodshellIntroductionMusic";
-    public float maxDistance = 40;
+    public StoryGoal goal;
+    public float maxDistance = 100;
     
     private void Start()
     {
-        if (!StoryGoalManager.main.IsGoalComplete(goalKey))
+        if (!StoryGoalManager.main.IsGoalComplete(goal.key))
         {
             StoryGoalManager.main.AddListener(this);
             UpdateSchedulerUtils.Register(this);
@@ -33,9 +33,10 @@ public class PlayPodshellMusic : MonoBehaviour, IScheduledUpdateBehaviour, IStor
     {
         if (Vector3.SqrMagnitude(transform.position - Player.main.transform.position) < maxDistance * maxDistance)
         {
-            if (StoryGoalManager.main.OnGoalComplete(goalKey))
+            if (!StoryGoalManager.main.IsGoalComplete(goal.key))
             {
                 FMODUWE.PlayOneShot(ModAudio.PodshellMusic, Player.main.transform.position);
+                goal.Trigger();
             }
             UpdateSchedulerUtils.Deregister(this);
         }
@@ -45,7 +46,7 @@ public class PlayPodshellMusic : MonoBehaviour, IScheduledUpdateBehaviour, IStor
     
     public void NotifyGoalComplete(string key)
     {
-        if (key.Equals(goalKey, StringComparison.OrdinalIgnoreCase))
+        if (key.Equals(goal.key, StringComparison.OrdinalIgnoreCase))
         {
             UpdateSchedulerUtils.Deregister(this);
         }

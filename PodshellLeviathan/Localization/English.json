@@ -8,5 +8,6 @@
     "PodshellLeviathanEgg": "Podshell leviathan egg",
     "Tooltip_PodshellLeviathanEgg": "Podshell leviathans hatch from these.",
     "PodshellFragment": "Podshell shell fragment",
-    "Tooltip_PodshellFragment": "A tough, keratinous shell shed from a Podshell Leviathan."
+    "Tooltip_PodshellFragment": "A tough, keratinous shell shed from a Podshell Leviathan.",
+    "PodshellIntroduction": "Sensors indicate a slow, deep-frequency heartbeat nearby.<delay=0><duration=4600>\nBiomass readings suggest it is a leviathan-class lifeform. Stay alert.<delay=4700><duration=5300>"
 }
