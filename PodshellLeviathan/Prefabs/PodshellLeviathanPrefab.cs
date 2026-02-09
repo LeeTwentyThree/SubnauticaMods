@@ -4,6 +4,7 @@ using Nautilus.Assets;
 using Nautilus.Utility;
 using System.Collections;
 using System.Linq;
+using Nautilus.Utility.MaterialModifiers;
 using Nautilus.Utility.ModMessages;
 using PodshellLeviathan.Mono;
 using UnityEngine;
@@ -25,6 +26,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
     protected virtual float MaxHealth => 6000;
     protected virtual float Mass => 3000f;
     protected virtual bool UseScreenShake => true;
+    protected virtual MaterialModifier[] MaterialModifiers => new MaterialModifier[] { new PodshellMaterialModifier(false ) };
 
     protected override CreatureTemplate CreateTemplate()
     {
@@ -92,6 +94,6 @@ public class PodshellLeviathanPrefab : CreatureAsset
 
     protected override void ApplyMaterials(GameObject prefab)
     {
-        MaterialUtils.ApplySNShaders(prefab, 6, 1, 1, new PodshellMaterialModifier());
+        MaterialUtils.ApplySNShaders(prefab, 6, 1, 1, MaterialModifiers);
     }
 }

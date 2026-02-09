@@ -14,6 +14,13 @@ internal class PodshellMaterialModifier : MaterialModifier
     private static readonly int SpecInt = Shader.PropertyToID("_SpecInt");
     private static readonly int MyCullVariable = Shader.PropertyToID("_MyCullVariable");
 
+    private readonly bool isBaby;
+    
+    public PodshellMaterialModifier(bool isBaby)
+    {
+        this.isBaby = isBaby;
+    }
+
     public override void EditMaterial(Material material, Renderer renderer, int materialIndex, MaterialUtils.MaterialType materialType)
     {
         /*
@@ -60,5 +67,10 @@ internal class PodshellMaterialModifier : MaterialModifier
         material.SetFloat("_InfectionHeightStrength", 0);
         material.SetVector("_InfectionScale", new Vector4(2, 2, 2, 2));
         material.SetVector("_InfectionOffset", new Vector4(0.2f, 0.2f, 0.2f, 0.2f));
+
+        if (isBaby)
+        {
+            material.SetFloat("_IBLreductionAtNight", 0.95f);
+        }
     }
 }

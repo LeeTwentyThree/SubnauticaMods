@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using ECCLibrary.Data;
 using Nautilus.Assets;
+using Nautilus.Utility.MaterialModifiers;
 using PodshellLeviathan.Mono;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class PodshellLeviathanBabyPrefab : PodshellLeviathanPrefab
     protected override float MaxHealth => 500;
     protected override float Mass => 200;
     protected override bool UseScreenShake => false;
+    protected override MaterialModifier[] MaterialModifiers =>  new MaterialModifier[] { new PodshellMaterialModifier(true ) };
+
 
     protected override CreatureTemplate CreateTemplate()
     {
