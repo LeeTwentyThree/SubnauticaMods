@@ -74,7 +74,7 @@ public class PodshellVoice : MonoBehaviour, IManagedUpdateBehaviour
 
     private static void ShakeScreen(float duration, float intensityScale)
     {
-        MainCameraControl.main.ShakeCamera(4 * intensityScale, duration, shakeFrequency: 0.5f,
+        MainCameraControl.main.ShakeCamera(2 * intensityScale, duration, shakeFrequency: 0.5f,
             mode: MainCameraControl.ShakeMode.Quadratic);
     }
 
