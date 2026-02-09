@@ -4,9 +4,12 @@ using Nautilus.Assets;
 using Nautilus.Utility;
 using System.Collections;
 using System.Linq;
+using Nautilus.Extensions;
+using Nautilus.Handlers;
 using Nautilus.Utility.MaterialModifiers;
 using Nautilus.Utility.ModMessages;
 using PodshellLeviathan.Mono;
+using Story;
 using UnityEngine;
 
 namespace PodshellLeviathan.Prefabs;
@@ -26,6 +29,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
     protected virtual float MaxHealth => 6000;
     protected virtual float Mass => 3000f;
     protected virtual bool UseScreenShake => true;
+    protected virtual ShellFragmentSettings FragmentSettings => new(true, 1);
     protected virtual MaterialModifier[] MaterialModifiers => new MaterialModifier[] { new PodshellMaterialModifier(false ) };
 
     private StoryGoal _introductionGoal;
@@ -88,6 +92,21 @@ public class PodshellLeviathanPrefab : CreatureAsset
         components.Rigidbody.angularDrag = 0.5f;
 
         prefab.AddComponent<PodshellIntroductionTrigger>().goal = _introductionGoal;
+
+        if (FragmentSettings.CanSpawn)
+        {
+            var spawns = prefab.AddComponent<ShellFragmentSpawns>();
+            var spawnPointsParent = prefab.transform.SearchChild("ShellFragmentSpawnPoints");
+            var spawnPoints = new Transform[spawnPointsParent.childCount];
+            
+            for (var i = 0; i < spawnPoints.Length; i++)
+            {
+                spawnPoints[i] = spawnPointsParent.GetChild(i);
+            }
+
+            spawns.spawnPositions = spawnPoints;
+            spawns.spawnScale = Vector3.one * FragmentSettings.ScaleMultiplier;
+        }
         
         yield break;
     }
@@ -104,4 +123,6 @@ public class PodshellLeviathanPrefab : CreatureAsset
     {
         MaterialUtils.ApplySNShaders(prefab, 6, 1, 1, MaterialModifiers);
     }
+
+    protected record ShellFragmentSettings(bool CanSpawn, float ScaleMultiplier);
 }

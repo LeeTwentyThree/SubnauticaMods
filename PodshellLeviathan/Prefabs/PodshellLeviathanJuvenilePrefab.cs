@@ -13,4 +13,6 @@ public class PodshellLeviathanJuvenilePrefab : PodshellLeviathanPrefab
     protected override float MaxHealth => 4000;
 
     protected override float Mass => 1000;
+
+    protected override ShellFragmentSettings FragmentSettings => new(true, 0.5f);
 }
