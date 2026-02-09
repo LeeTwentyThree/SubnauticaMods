@@ -26,7 +26,8 @@ public static class ShellFragmentPrefab
         obj.SetActive(false);
         PrefabUtils.AddBasicComponents(obj, Info.ClassID, Info.TechType, LargeWorldEntity.CellLevel.Near);
         MaterialUtils.ApplySNShaders(obj, 8);
-        PrefabUtils.AddWorldForces(obj, 10, 0.8f, 1.4f);
+        PrefabUtils.AddWorldForces(obj, 10, 2f, 1.4f);
+        PrefabUtils.AddResourceTracker(obj, Info.TechType);
         obj.AddComponent<Pickupable>();
         yield return null;
         result.Set(obj);
