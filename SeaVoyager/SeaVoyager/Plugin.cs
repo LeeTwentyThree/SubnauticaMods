@@ -21,11 +21,14 @@ public class Plugin : BaseUnityPlugin
     private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
     public static AssetBundle assetBundle;
+    public static AssetBundle seaLionBundle;
 
     public static readonly SeaVoyagerConfig config = OptionsPanelHandler.RegisterModOptions<SeaVoyagerConfig>();
 
     public static SeaVoyagerPrefab SeaVoyager { get; private set; }
+    public static SeaLionPrefab SeaLion { get; private set; }
     public static PingType SeaVoyagerPingType { get; private set; }
+    public static PingType SeaLionPingType { get; private set; }
     public static DockSaveData SavedDocks { get; private set; }
     public static PrefabPlaceholdersGroupSafe.SaveData PrefabPlaceholdersSaveData { get; private set; }
     
@@ -35,6 +38,7 @@ public class Plugin : BaseUnityPlugin
         Logger = base.Logger;
 
         assetBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "seavoyagerassets");
+        seaLionBundle = AssetBundleLoadingUtils.LoadFromAssetsFolder(Assembly, "sealionassets");
 
         // Initialize custom prefabs
         InitializePrefabs();
@@ -48,6 +52,9 @@ public class Plugin : BaseUnityPlugin
         
         SeaVoyagerPingType = EnumHandler.AddEntry<PingType>("SeaVoyager")
             .WithIcon(assetBundle.LoadAsset<Sprite>("ShipPing"));
+
+        SeaLionPingType = EnumHandler.AddEntry<PingType>("SeaLion")
+            .WithIcon(seaLionBundle.LoadAsset<Sprite>("SeaLionPing"));
         
         AudioRegistry.RegisterAudio();
 
@@ -58,6 +65,7 @@ public class Plugin : BaseUnityPlugin
     private void InitializePrefabs()
     {
         SeaVoyager = new SeaVoyagerPrefab().Register();
+        SeaLion = new SeaLionPrefab().Register();
 
         var seaVoyagerDockFragment = new SeaVoyagerFragment("SeaVoyagerFragment1", "SeaVoyagerFragment1", 90).Register();
         var seaVoyagerPoleFragment = new SeaVoyagerFragment("SeaVoyagerFragment2", "SeaVoyagerFragment2", 150).Register();

@@ -5,7 +5,10 @@
 
     "SeaVoyager": "Sea Voyager",
     "Tooltip_SeaVoyager": "A large, solar-powered ship that specializes in quick transportation across the surface.",
-    
+
+    "SeaLion": "Sea Lion",
+    "Tooltip_SeaLion": "A massive, industrial ship designed for an extensive crew.",
+
     // Encyclopedia
     "Ency_SeaVoyager": "Alterra Sea Voyager Piloting Manual",
     "EncyDesc_SeaVoyager": "A shallow-water alternative to the Cyclops submarine that provides extensive mobility and a large building space.
@@ -36,7 +39,22 @@
     "SeaVoyagerDockVehicle": "Sea Voyager: Vehicle docked successfully.<delay=2800><duration=2000>",
     "SeaVoyagerVehicleReleased": "Sea Voyager: Vehicle released.<delay=0><duration=1400>",
     "SeaVoyagerWelcomeAboard": "Sea Voyager: Welcome aboard captain. All systems operational.<delay=0><duration=4300>",
-    
+
+    "SeaLionAheadFlank": "Sea Lion: Ahead flank. Emergency speed!<delay=0><duration=3300>",
+    "SeaLionAheadSlow": "Sea Lion: Ahead slow.<delay=0><duration=1700>",
+    "SeaLionAheadStandard": "Sea Lion: Ahead standard.<delay=0><duration=1500>",
+    "SeaLionShallowWater": "Sea Lion: Attention! Approaching shallow water. Proceed with caution.<delay=1000><duration=4500>",
+    "SeaLionPoweringDown": "Sea Lion: Engine powering down.<delay=0><duration=5000>",
+    "SeaLionPoweringUp": "Sea Lion: Engine powering up...<delay=0><duration=5000>",
+    "SeaLionFirstUse": "Sea Lion MK. II operational and ready for service.<delay=0><duration=4500>",
+    "SeaLionNoPower": "Sea Lion: Warning: Reserve power depleted.<delay=0><duration=3000>",
+    "SeaLionSonarMap": "Sea Lion: Sonar map activated.<delay=0><duration=2000>",
+    "SeaLionRegionMap": "Sea Lion: Updating regional map.<delay=0><duration=1500>",
+    "SeaLionVehicleAttached": "Sea Lion: Vehicle attached.<delay=0><duration=1500>",
+    "SeaLionDockVehicle": "Sea Lion: Vehicle docked successfully.<delay=2800><duration=2000>",
+    "SeaLionVehicleReleased": "Sea Lion: Vehicle released.<delay=0><duration=1400>",
+    "SeaLionWelcomeAboard": "Sea Lion: Welcome aboard captain. All systems operational.<delay=0><duration=4300>",
+
     // Dock
     "SuspendedDock": "Suspended dock",
     "Tooltip_SuspendedDock": "Holds vehicles above water by cable for safekeeping. Cannot be placed underwater. Vehicles function similarly to diving bells while docked.",
@@ -80,5 +98,6 @@
     "SeaVoyagerEmergencySpeed": "Emergency speed",
     "SeaVoyagerMapIcon": "Sea Voyager",
     "SeaVoyagerMapZoomIn": "Zoom in",
-    "SeaVoyagerMapZoomOut": "Zoom out"
+    "SeaVoyagerMapZoomOut": "Zoom out",
+    "SeaLionMapIcon": "Sea Lion"
 }

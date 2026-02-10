@@ -6,6 +6,7 @@ namespace SeaVoyager.Mono
 {
     public class ShipHUD : MonoBehaviour
     {
+        public bool isSeaVoyager = true; 
         private SeaVoyager _ship;
 
         // UI images
@@ -113,7 +114,8 @@ namespace SeaVoyager.Mono
             _speed1Img.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerSlowSpeed"));
             _speed2Img.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerStandardSpeed"));
             _speed3Img.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerEmergencySpeed"));
-            _mapShipMarker.gameObject.AddComponent<ShipUITooltip>().Init(Language.main.Get("SeaVoyagerMapIcon"), false);
+            _mapShipMarker.gameObject.AddComponent<ShipUITooltip>().Init(
+                Language.main.Get(isSeaVoyager ? "SeaVoyagerMapIcon" : "SeaLionMapIcon"), false);
             _zoomButtonTooltip = zoomButton.AddComponent<ShipUITooltip>();
             _zoomButtonTooltip.Init(Language.main.Get("SeaVoyagerMapZoomIn"));
 
@@ -480,7 +482,9 @@ namespace SeaVoyager.Mono
                     _mapTransform.localPosition = new Vector2(-_ship.transform.position.x / 7.8f, -_ship.transform.position.z / 7.8f);
                     _mapShipMarker.localPosition = Vector2.zero;
                 }
-                _mapShipMarker.localEulerAngles = new Vector3(0f, 0f, -_ship.transform.eulerAngles.y);
+                _mapShipMarker.localEulerAngles = isSeaVoyager
+                    ? new Vector3(0f, 0f, -_ship.transform.eulerAngles.y)
+                    : new Vector3(0f, 0f, _ship.transform.eulerAngles.y);
 
                 /*if (Input.GetKeyDown(KeyCode.UpArrow)) These controls cause too many accidents...
                 {

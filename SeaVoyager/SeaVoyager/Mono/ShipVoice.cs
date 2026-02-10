@@ -6,6 +6,7 @@ namespace SeaVoyager.Mono
 {
     public class ShipVoice : MonoBehaviour
     {
+        public string subtitleKeyPrefix = "SeaVoyager";
         public FMOD_CustomEmitter emitter;
 
         private readonly Dictionary<VoiceLine, float> _timeLinesCanPlayAgain = new();
@@ -48,20 +49,20 @@ namespace SeaVoyager.Mono
 
         private readonly Dictionary<VoiceLine, string> _voiceLineSubtitleKey = new()
         {
-            {VoiceLine.AheadFlank, "SeaVoyagerAheadFlank"},
-            {VoiceLine.AheadSlow, "SeaVoyagerAheadSlow"},
-            {VoiceLine.AheadStandard, "SeaVoyagerAheadStandard"},
-            {VoiceLine.ApproachingShallowWater, "SeaVoyagerShallowWater"},
-            {VoiceLine.EnginePoweringDown, "SeaVoyagerPoweringDown"},
-            {VoiceLine.EnginePoweringUp, "SeaVoyagerPoweringUp"},
-            {VoiceLine.FirstUse, "SeaVoyagerFirstUse"},
-            {VoiceLine.PowerDepleted, "SeaVoyagerNoPower"},
-            {VoiceLine.SonarMap, "SeaVoyagerSonarMap"},
-            {VoiceLine.RegionMap, "SeaVoyagerRegionMap"},
-            {VoiceLine.VehicleAttached, "SeaVoyagerVehicleAttached"},
-            {VoiceLine.VehicleDock, "SeaVoyagerDockVehicle"},
-            {VoiceLine.VehicleReleased, "SeaVoyagerVehicleReleased"},
-            {VoiceLine.WelcomeAboard, "SeaVoyagerWelcomeAboard"},
+            {VoiceLine.AheadFlank, "AheadFlank"},
+            {VoiceLine.AheadSlow, "AheadSlow"},
+            {VoiceLine.AheadStandard, "AheadStandard"},
+            {VoiceLine.ApproachingShallowWater, "ShallowWater"},
+            {VoiceLine.EnginePoweringDown, "PoweringDown"},
+            {VoiceLine.EnginePoweringUp, "PoweringUp"},
+            {VoiceLine.FirstUse, "FirstUse"},
+            {VoiceLine.PowerDepleted, "NoPower"},
+            {VoiceLine.SonarMap, "SonarMap"},
+            {VoiceLine.RegionMap, "RegionMap"},
+            {VoiceLine.VehicleAttached, "VehicleAttached"},
+            {VoiceLine.VehicleDock, "DockVehicle"},
+            {VoiceLine.VehicleReleased, "VehicleReleased"},
+            {VoiceLine.WelcomeAboard, "WelcomeAboard"},
         };
 
         private float _currentLineEndTime;
@@ -148,7 +149,7 @@ namespace SeaVoyager.Mono
             SetTimeCanPlayAgain(line);
             if (_voiceLineSubtitleKey.TryGetValue(line, out var subtitleKey))
             {
-                Subtitles.Add(subtitleKey);
+                Subtitles.Add(subtitleKeyPrefix + subtitleKey);
             }
             return true;
         }

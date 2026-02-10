@@ -7,6 +7,7 @@
         public ShipPropeller propeller;
         public ShipMotor shipMotor;
         public ShipVoice voice;
+        public string pdaToUnlock;
         
         private float _lastHealthPercent;
 
@@ -74,7 +75,8 @@
 
         public override void Awake()
         {
-            PDAEncyclopedia.Add("SeaVoyager", true);
+            if (!string.IsNullOrEmpty(pdaToUnlock))
+                PDAEncyclopedia.Add(pdaToUnlock, true);
         }
 
         public override void OnTakeDamage(DamageInfo damageInfo)

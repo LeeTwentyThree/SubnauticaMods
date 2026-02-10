@@ -5,6 +5,7 @@ namespace SeaVoyager.Mono
     public class ShipMotor : MonoBehaviour
     {
         public SeaVoyager ship;
+        public bool reverseForward = true;
         private float _timeCanMoveAgain;
 
         private void FixedUpdate()
@@ -22,17 +23,29 @@ namespace SeaVoyager.Mono
             {
                 switch (ship.currentState)
                 {
-                    default:
-                        break;
                     case ShipState.Moving:
-                        ship.rb.AddForce(-ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
+                        if (reverseForward)
+                        {
+                            ship.rb.AddForce(-ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
+                        }
+                        else
+                        {
+                            ship.rb.AddForce(ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
+                        }
                         Decelerotate();
                         break;
                     case ShipState.Rotating:
                         ship.rb.AddTorque(Vector3.up * (ship.RotateAmount * ship.rb.mass), ForceMode.Force);
                         break;
                     case ShipState.MovingAndRotating:
-                        ship.rb.AddForce(-ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
+                        if (reverseForward)
+                        {
+                            ship.rb.AddForce(-ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
+                        }
+                        else
+                        {
+                            ship.rb.AddForce(ship.transform.forward * (ship.MoveAmount * ship.rb.mass), ForceMode.Force);
+                        }
                         ship.rb.AddTorque(Vector3.up * (ship.RotateAmount * ship.rb.mass), ForceMode.Force);
                         break;
                 }
