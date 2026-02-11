@@ -120,7 +120,7 @@ public class Plugin : BaseUnityPlugin
         podshellEggPrefab.SetGameObject(eggTemplate);
         podshellEggPrefab.Register();
 
-        PodshellNestRock.Register();
+        NestPrefabs.Register();
         ShellFragmentPrefab.Register();
     }
 }
