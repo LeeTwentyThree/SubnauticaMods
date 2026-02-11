@@ -99,6 +99,21 @@ public class PodshellLeviathanPrefab : CreatureAsset
             spawns.spawnPositions = spawnPoints;
             spawns.spawnScale = Vector3.one * FragmentSettings.ScaleMultiplier;
         }
+
+        var eyeAnimation = prefab.AddComponent<PodshellEyeAnimations>();
+        eyeAnimation.maxDistance = 43;
+        eyeAnimation.degreesPerSecond = 180;
+        eyeAnimation.dotLimit = 0f;
+        var head = prefab.transform.SearchChild("head");
+        eyeAnimation.eyes = new[]
+        {
+            head.Find("l_eye1.L"),
+            head.Find("l_eye1.R"),
+            head.Find("l_eye2.L"),
+            head.Find("l_eye2.R"),
+            head.Find("l_eye3.L"),
+            head.Find("l_eye3.R")
+        };
         
         yield break;
     }
