@@ -32,14 +32,6 @@ public class PodshellLeviathanPrefab : CreatureAsset
     protected virtual ShellFragmentSettings FragmentSettings => new(true, 1);
     protected virtual MaterialModifier[] MaterialModifiers => new MaterialModifier[] { new PodshellMaterialModifier(false ) };
 
-    private StoryGoal _introductionGoal;
-
-    protected override void PostRegister()
-    {
-        _introductionGoal = new StoryGoal("PodshellIntroduction", Story.GoalType.PDA, 0);
-        PDAHandler.AddLogEntry(_introductionGoal.key, _introductionGoal.key, Plugin.Assets.LoadAsset<AudioClip>("PodshellDiscoveryPDA"));
-    }
-
     protected override CreatureTemplate CreateTemplate()
     {
         var template = new CreatureTemplate(
@@ -91,7 +83,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
 
         components.Rigidbody.angularDrag = 0.5f;
 
-        prefab.AddComponent<PodshellIntroductionTrigger>().goal = _introductionGoal;
+        prefab.AddComponent<PodshellIntroductionTrigger>().goal = Plugin.IntroductionGoal;
 
         if (FragmentSettings.CanSpawn)
         {

@@ -9,6 +9,7 @@ using PodshellLeviathan.Prefabs;
 using System.Reflection;
 using ECCLibrary;
 using Nautilus.Assets.PrefabTemplates;
+using Story;
 using UnityEngine;
 
 namespace PodshellLeviathan;
@@ -30,6 +31,8 @@ public class Plugin : BaseUnityPlugin
     internal static PodshellLeviathanBabyPrefab PodshellLeviathanBaby { get; private set; }
 
     private bool _assetsLoaded;
+    
+    internal static StoryGoal IntroductionGoal { get; private set; }
 
 
     private void Awake()
@@ -55,7 +58,8 @@ public class Plugin : BaseUnityPlugin
         var assetBundleTask = AssetBundle.LoadFromFileAsync(GetAssetBundlePath("podshellleviathan"));
         yield return assetBundleTask;
         Assets = assetBundleTask.assetBundle;
-        
+
+        RegisterStory();
         InitializePrefabs();
         ModAudio.RegisterAudio();
         StructureLoading.RegisterStructures(StructureLoading.GetStructuresFolderPath(Assembly));
@@ -64,6 +68,12 @@ public class Plugin : BaseUnityPlugin
     private static string GetAssetBundlePath(string assetBundleFileName)
     {
         return Path.Combine(Path.GetDirectoryName(Assembly.Location), "Assets", assetBundleFileName);
+    }
+
+    private void RegisterStory()
+    {
+        IntroductionGoal = new StoryGoal("PodshellIntroduction", Story.GoalType.PDA, 0);
+        PDAHandler.AddLogEntry(IntroductionGoal.key, IntroductionGoal.key, Plugin.Assets.LoadAsset<AudioClip>("PodshellDiscoveryPDA"));
     }
 
     private void InitializePrefabs()
