@@ -13,6 +13,7 @@ using Story;
 using UnityEngine;
 
 namespace PodshellLeviathan;
+
 [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
 [BepInDependency("com.snmodding.nautilus", "1.0.0.47")]
 [BepInDependency("com.lee23.ecclibrary", "2.2.0")]
@@ -23,15 +24,15 @@ public class Plugin : BaseUnityPlugin
 
     private static Assembly Assembly { get; } = Assembly.GetExecutingAssembly();
 
-    internal static AssetBundle Assets { get; private set;}
+    internal static AssetBundle Assets { get; private set; }
 
     internal static PodshellLeviathanPrefab PodshellLeviathan { get; private set; }
-    
+
     internal static PodshellLeviathanJuvenilePrefab PodshellLeviathanJuvenile { get; private set; }
     internal static PodshellLeviathanBabyPrefab PodshellLeviathanBaby { get; private set; }
 
     private bool _assetsLoaded;
-    
+
     internal static StoryGoal IntroductionGoal { get; private set; }
 
 
@@ -42,7 +43,7 @@ public class Plugin : BaseUnityPlugin
 
         LanguageHandler.RegisterLocalizationFolder();
         WaitScreenHandler.RegisterEarlyAsyncLoadTask(PluginInfo.PLUGIN_NAME, LoadModAsync);
-        
+
         // register harmony patches, if there are any
         Harmony.CreateAndPatchAll(Assembly, $"{PluginInfo.PLUGIN_GUID}");
         Logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
@@ -54,7 +55,7 @@ public class Plugin : BaseUnityPlugin
             yield break;
 
         _assetsLoaded = true;
-        
+
         var assetBundleTask = AssetBundle.LoadFromFileAsync(GetAssetBundlePath("podshellleviathan"));
         yield return assetBundleTask;
         Assets = assetBundleTask.assetBundle;
@@ -64,7 +65,7 @@ public class Plugin : BaseUnityPlugin
         ModAudio.RegisterAudio();
         StructureLoading.RegisterStructures(StructureLoading.GetStructuresFolderPath(Assembly));
     }
-    
+
     private static string GetAssetBundlePath(string assetBundleFileName)
     {
         return Path.Combine(Path.GetDirectoryName(Assembly.Location), "Assets", assetBundleFileName);
@@ -73,7 +74,8 @@ public class Plugin : BaseUnityPlugin
     private void RegisterStory()
     {
         IntroductionGoal = new StoryGoal("PodshellIntroduction", Story.GoalType.PDA, 0);
-        PDAHandler.AddLogEntry(IntroductionGoal.key, IntroductionGoal.key, Plugin.Assets.LoadAsset<AudioClip>("PodshellDiscoveryPDA"));
+        PDAHandler.AddLogEntry(IntroductionGoal.key, IntroductionGoal.key,
+            Assets.LoadAsset<AudioClip>("PodshellDiscoveryPDA"), Assets.LoadAsset<Sprite>("PdaLogIcon"));
     }
 
     private void InitializePrefabs()
@@ -85,11 +87,11 @@ public class Plugin : BaseUnityPlugin
             null, null, 8,
             Assets.LoadAsset<Texture2D>("PodshellEntryImage"),
             Assets.LoadAsset<Sprite>("PodshellPopup"));
-        
+
         PodshellLeviathanJuvenile = new PodshellLeviathanJuvenilePrefab(
             PrefabInfo.WithTechType("PodshellLeviathanJuvenile", null, null));
         PodshellLeviathanJuvenile.Register();
-        
+
         PodshellLeviathanBaby = new PodshellLeviathanBabyPrefab(
             PrefabInfo.WithTechType("PodshellLeviathanBaby", null, null)
                 .WithSizeInInventory(new Vector2int(4, 3))
@@ -117,7 +119,7 @@ public class Plugin : BaseUnityPlugin
         };
         podshellEggPrefab.SetGameObject(eggTemplate);
         podshellEggPrefab.Register();
-        
+
         PodshellNestRock.Register();
         ShellFragmentPrefab.Register();
     }
