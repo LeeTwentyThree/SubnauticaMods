@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace PodshellLeviathan.Mono;
@@ -9,22 +8,27 @@ public class PodshellVoice : MonoBehaviour, IManagedUpdateBehaviour
     private PodshellLeviathanBehavior _behavior;
     
     public FMOD_CustomEmitter emitter;
+    public FMODAsset shortRoarClose;
+    public FMODAsset shortRoarFar;
+    public FMODAsset longRoarClose;
+    public FMODAsset longRoarFar;
+    public FMODAsset idle;
     public bool useScreenShake;
     public float maxScreenShakeDistance = 120;
     
     private float _timeNextSound;
     
     private float _timeIdleSoundAgain;
-    private float _minIdleSoundDelay = 45;
-    private float _maxIdleSoundDelay = 90;
-
+    public float minIdleSoundDelay = 45;
+    public float maxIdleSoundDelay = 90;
+    
     private void Awake()
     {
         _behavior = GetComponent<PodshellLeviathanBehavior>();
         ResetIdleSoundDelay();
     }
     
-    private void ResetIdleSoundDelay() => _timeIdleSoundAgain = Time.time + Random.Range(_minIdleSoundDelay, _maxIdleSoundDelay);
+    private void ResetIdleSoundDelay() => _timeIdleSoundAgain = Time.time + Random.Range(minIdleSoundDelay, maxIdleSoundDelay);
 
     private bool CanPlaySound() => Time.time > _timeNextSound;
     
@@ -56,8 +60,10 @@ public class PodshellVoice : MonoBehaviour, IManagedUpdateBehaviour
 
         if (Time.time > _timeIdleSoundAgain)
         {
-            PlaySound(ModAudio.Idle, 6);
-            _behavior.GetAnimator().SetTrigger("small_roar");
+            if (PlaySound(idle, 6))
+            {
+                _behavior.GetAnimator().SetTrigger("small_roar");
+            }
             ResetIdleSoundDelay();
         }
     }
@@ -83,9 +89,9 @@ public class PodshellVoice : MonoBehaviour, IManagedUpdateBehaviour
         var distToCamera = Vector3.Distance(transform.position, MainCamera.camera.transform.position);
         var close = distToCamera < 80 && Player.main.GetCurrentSub() == null;
         if (longRoar)
-            return PlaySound(close ? ModAudio.LongRoarClose : ModAudio.LongRoarFar, 8, 7);
+            return PlaySound(close ? longRoarClose : longRoarFar, 8, 7);
         else
-            return PlaySound(close ? ModAudio.ShortRoarClose : ModAudio.ShortRoarFar, 7, 6);
+            return PlaySound(close ? shortRoarClose : shortRoarFar, 7, 6);
     }
 
     public string GetProfileTag()

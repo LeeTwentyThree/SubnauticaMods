@@ -23,7 +23,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
     public PodshellLeviathanPrefab(PrefabInfo prefabInfo) : base(prefabInfo)
     {
     }
-    
+
     protected virtual float StandardSwimVelocity => 3;
     protected virtual string ModelName => "PodshellLeviathanPrefab";
     protected virtual float MaxHealth => 6000;
@@ -31,7 +31,15 @@ public class PodshellLeviathanPrefab : CreatureAsset
     protected virtual bool UseScreenShake => true;
     protected virtual bool TriggerIntroductionGoal => true;
     protected virtual ShellFragmentSettings FragmentSettings => new(true, 1);
-    protected virtual MaterialModifier[] MaterialModifiers => new MaterialModifier[] { new PodshellMaterialModifier(false ) };
+
+    protected virtual MaterialModifier[] MaterialModifiers =>
+        new MaterialModifier[] { new PodshellMaterialModifier(false) };
+
+    protected virtual FMODAsset ShortRoarClose => ModAudio.ShortRoarClose;
+    protected virtual FMODAsset ShortRoarFar => ModAudio.ShortRoarFar;
+    protected virtual FMODAsset LongRoarClose => ModAudio.LongRoarClose;
+    protected virtual FMODAsset LongRoarFar => ModAudio.LongRoarFar;
+    protected virtual bool UseBabySounds => false;
 
     protected override CreatureTemplate CreateTemplate()
     {
@@ -41,8 +49,10 @@ public class PodshellLeviathanPrefab : CreatureAsset
             EcoTargetType.Leviathan,
             MaxHealth);
 
-        CreatureTemplateUtils.SetCreatureDataEssentials(template, LargeWorldEntity.CellLevel.VeryFar, Mass, 0, new BehaviourLODData(150, 250, 300), 10000);
-        template.SwimRandomData = new SwimRandomData(SwimSpeedPriority, StandardSwimVelocity, new Vector3(100, 4, 100), 5f, 1f, true);
+        CreatureTemplateUtils.SetCreatureDataEssentials(template, LargeWorldEntity.CellLevel.VeryFar, Mass, 0,
+            new BehaviourLODData(150, 250, 300), 10000);
+        template.SwimRandomData = new SwimRandomData(SwimSpeedPriority, StandardSwimVelocity, new Vector3(100, 4, 100),
+            5f, 1f, true);
         template.AvoidObstaclesData =
             new AvoidObstaclesData(AvoidTerrainPriority, StandardSwimVelocity, true, 30, 30);
         template.StayAtLeashData = new StayAtLeashData(StayAtLeashPriority, StandardSwimVelocity, 140f);
@@ -70,13 +80,26 @@ public class PodshellLeviathanPrefab : CreatureAsset
         var emitter = prefab.AddComponent<FMOD_CustomEmitter>();
         emitter.followParent = true;
         voice.emitter = emitter;
+        voice.shortRoarClose = ShortRoarClose;
+        voice.shortRoarFar = ShortRoarFar;
+        voice.longRoarClose = LongRoarClose;
+        voice.longRoarFar = LongRoarFar;
 
-        var randomActions = prefab.AddComponent<PodshellRandomAnimations>();
-        
-        var behavior = (PodshellLeviathanBehavior) components.Creature;
-        
+        var behavior = (PodshellLeviathanBehavior)components.Creature;
+
+        if (UseBabySounds)
+        {
+            voice.minIdleSoundDelay = 12;
+            voice.maxIdleSoundDelay = 18;
+            voice.idle = ModAudio.PodshellBabyRoar;
+        }
+        else
+        {
+            prefab.AddComponent<PodshellRandomAnimations>();
+            voice.idle = ModAudio.Idle;
+        }
+
         behavior.voice = voice;
-        behavior.randomAnimations = randomActions;
 
         var infectedMixin = prefab.AddComponent<InfectedMixin>();
         infectedMixin.renderers = prefab.GetComponentsInChildren<Renderer>(true)
@@ -94,7 +117,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
             var spawns = prefab.AddComponent<ShellFragmentSpawns>();
             var spawnPointsParent = prefab.transform.SearchChild("ShellFragmentSpawnPoints");
             var spawnPoints = new Transform[spawnPointsParent.childCount];
-            
+
             for (var i = 0; i < spawnPoints.Length; i++)
             {
                 spawnPoints[i] = spawnPointsParent.GetChild(i);
@@ -118,7 +141,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
             head.Find("l_eye3.L"),
             head.Find("l_eye3.R")
         };
-        
+
         yield break;
     }
 
