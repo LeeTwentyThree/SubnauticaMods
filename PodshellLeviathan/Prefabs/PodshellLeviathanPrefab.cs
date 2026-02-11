@@ -29,6 +29,7 @@ public class PodshellLeviathanPrefab : CreatureAsset
     protected virtual float MaxHealth => 6000;
     protected virtual float Mass => 3000f;
     protected virtual bool UseScreenShake => true;
+    protected virtual bool TriggerIntroductionGoal => true;
     protected virtual ShellFragmentSettings FragmentSettings => new(true, 1);
     protected virtual MaterialModifier[] MaterialModifiers => new MaterialModifier[] { new PodshellMaterialModifier(false ) };
 
@@ -83,7 +84,10 @@ public class PodshellLeviathanPrefab : CreatureAsset
 
         components.Rigidbody.angularDrag = 0.5f;
 
-        prefab.AddComponent<PodshellIntroductionTrigger>().goal = Plugin.IntroductionGoal;
+        if (TriggerIntroductionGoal)
+        {
+            prefab.AddComponent<PodshellIntroductionTrigger>().goal = Plugin.IntroductionGoal;
+        }
 
         if (FragmentSettings.CanSpawn)
         {

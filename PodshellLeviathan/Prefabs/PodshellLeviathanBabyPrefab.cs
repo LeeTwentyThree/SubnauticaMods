@@ -19,6 +19,7 @@ public class PodshellLeviathanBabyPrefab : PodshellLeviathanPrefab
     protected override float Mass => 200;
     protected override bool UseScreenShake => false;
     protected override MaterialModifier[] MaterialModifiers =>  new MaterialModifier[] { new PodshellMaterialModifier(true ) };
+    protected override bool TriggerIntroductionGoal => false;
 
     protected override ShellFragmentSettings FragmentSettings => new(false, 0.3f);
 
