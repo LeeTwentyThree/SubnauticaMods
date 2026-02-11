@@ -31,6 +31,7 @@ public class PodshellLeviathanBabyPrefab : PodshellLeviathanPrefab
             new CustomGameObjectReference(PrefabInfo.ClassID)));
         template.AvoidObstaclesData =
             new AvoidObstaclesData(AvoidTerrainPriority, StandardSwimVelocity, false, 7, 8);
+        template.LocomotionData.forwardRotationSpeed = 0.2f;
         return template;
     }
 
