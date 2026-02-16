@@ -15,7 +15,7 @@ public class PodshellLeviathanBabyPrefab : PodshellLeviathanPrefab
 
     protected override float StandardSwimVelocity => 1.8f;
     protected override string ModelName => "PodshellLeviathanBabyPrefab";
-    protected override float MaxHealth => 500;
+    protected override float MaxHealth => 5000;
     protected override float Mass => 200;
     protected override bool UseScreenShake => false;
     protected override MaterialModifier[] MaterialModifiers =>  new MaterialModifier[] { new PodshellMaterialModifier(true ) };
