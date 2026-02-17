@@ -101,9 +101,12 @@ public class PodshellLeviathanPrefab : CreatureAsset
 
         behavior.voice = voice;
 
-        var infectedMixin = prefab.AddComponent<InfectedMixin>();
-        infectedMixin.renderers = prefab.GetComponentsInChildren<Renderer>(true)
-            .Where(r => !r.gameObject.name.StartsWith("polySurface")).ToArray();
+        if (BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey("com.lee23.theredplague"))
+        {
+            var infectedMixin = prefab.AddComponent<InfectedMixin>();
+            infectedMixin.renderers = prefab.GetComponentsInChildren<Renderer>(true)
+                .Where(r => !r.gameObject.name.StartsWith("polySurface")).ToArray();
+        }
 
         components.Rigidbody.angularDrag = 0.5f;
 
