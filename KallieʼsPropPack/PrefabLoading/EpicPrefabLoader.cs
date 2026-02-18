@@ -99,8 +99,11 @@ public class EpicPrefabLoader
                 collider.gameObject.EnsureComponent<VFXSurface>().surfaceType = Family.surfaceType;
             }
 
-            MaterialUtils.ApplySNShaders(prefab, Family.materialSettings.shininess,
-                Family.materialSettings.specularIntensity, Family.materialSettings.glowStrength, Factory.MaterialModifiers);
+            if (!Family.materialSettings.ignore)
+            {
+                MaterialUtils.ApplySNShaders(prefab, Family.materialSettings.shininess,
+                    Family.materialSettings.specularIntensity, Family.materialSettings.glowStrength, Factory.MaterialModifiers);   
+            }
 
             if (Family.constructionObstacle)
             {

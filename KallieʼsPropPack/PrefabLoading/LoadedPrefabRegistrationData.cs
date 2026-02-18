@@ -44,6 +44,7 @@ public class LoadedPrefabRegistrationData
         public float shininess;
         public float specularIntensity;
         public float glowStrength;
+        public bool ignore;
     }
 
     [Serializable]

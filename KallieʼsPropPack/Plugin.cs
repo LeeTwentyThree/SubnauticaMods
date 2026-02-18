@@ -307,7 +307,13 @@ public class Plugin : BaseUnityPlugin
             Bundle.LoadAsset<TextAsset>("LabPrefabs").text));
 
         // Register coral entities
+        
         prefabLoader.LoadPrefabs(JsonConvert.DeserializeObject<LoadedPrefabRegistrationData>(
             Bundle.LoadAsset<TextAsset>("CoralPrefabs").text));
+        
+        // Register ice entities
+        
+        prefabLoader.LoadPrefabs(JsonConvert.DeserializeObject<LoadedPrefabRegistrationData>(
+            Bundle.LoadAsset<TextAsset>("IcePrefabs").text));
     }
 }
